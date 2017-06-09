@@ -1,9 +1,9 @@
 <?php
 
-namespace pronap\Http\Controllers\Auth;
+namespace lotecweb\Http\Controllers\Auth;
 
-use pronap\User;
-use pronap\Http\Controllers\Controller;
+use lotecweb\User;
+use lotecweb\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 

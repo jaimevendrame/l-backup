@@ -1,65 +1,63 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ env('URL_ADMIN_LOGIN') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+        <div class="col s12 m6 l6  offset-m3  offset-l3">
+            <div class="card z-depth-5">
+                <div class="card-content">
+                    <div class="row center-align">
+                        <i class="large material-icons red-text lighten-2">cloud</i>
+                        <p><h5 class="red-text">LOTECWEB</h5></p>
+                    </div>
+                    {{--<span class="card-title center-align">LOTECWeb</span>--}}
+                    <div class="row">
+                        <form class="col s12" role="form" method="POST" action="{{ env('URL_ADMIN_LOGIN') }}">
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">perm_identity</i>
+                                        <input id="email" type="email" name="email" class="validate {{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <label for="email">Email</label>
+                                        @if ($errors->has('email'))
+                                            <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">lock</i>
+                                        <input id="password" type="password" name="password" class="validate {{ $errors->has('password') ? ' has-error' : '' }}">
+                                        <label for="password">Senha</label>
+                                        @if ($errors->has('password'))
+                                            <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : ''}}> Remember Me
-                                    </label>
+                                        @endif
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="input-field col s12 ">
+                                        <input type="checkbox" id="remember" {{ old('remember') ? 'checked' : ''}}/>
+                                        <label for="remember">Lembre-me?</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 center">
+                                        <button class="btn waves-effect waves-light col s12 z-depth-4 red lighten-2" type="submit" name="action">
+                                            Entrar
+                                        </button>
+                                    </div>
+                                    </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-action right-align">
+                    <a href="{{ url('/password/reset') }}">Esqueceu a senha?</a>
                 </div>
             </div>
         </div>

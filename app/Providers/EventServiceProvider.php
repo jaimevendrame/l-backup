@@ -1,6 +1,6 @@
 <?php
 
-namespace pronap\Providers;
+namespace lotecweb\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'pronap\Events\SomeEvent' => [
-            'pronap\Listeners\EventListener',
+        'lotecweb\Events\SomeEvent' => [
+            'lotecweb\Listeners\EventListener',
         ],
     ];
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace pronap\Http\Middleware;
+namespace lotecweb\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

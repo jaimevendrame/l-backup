@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(pronap\User::class, function (Faker\Generator $faker) {
+$factory->define(lotecweb\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -24,8 +24,8 @@ $factory->define(pronap\User::class, function (Faker\Generator $faker) {
 });
 
 
-$factory->state(\pronap\User::class, 'admin', function (Faker\Generator $faker){
+$factory->state(\lotecweb\User::class, 'admin', function (Faker\Generator $faker){
     return [
-        'role' => \pronap\User::ROLE_ADMIN
+        'role' => \lotecweb\User::ROLE_ADMIN
     ];
 });

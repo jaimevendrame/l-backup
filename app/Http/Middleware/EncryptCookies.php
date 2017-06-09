@@ -1,6 +1,6 @@
 <?php
 
-namespace pronap\Http\Middleware;
+namespace lotecweb\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as BaseEncrypter;
 

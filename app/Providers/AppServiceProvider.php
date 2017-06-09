@@ -1,6 +1,6 @@
 <?php
 
-namespace pronap\Providers;
+namespace lotecweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

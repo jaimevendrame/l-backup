@@ -1,6 +1,6 @@
 const elixir = require('laravel-elixir');
-
-require('laravel-elixir-vue-2');
+require('laravel-elixir-materialize-css');
+require('laravel-elixir-vue');
 
 /*
  |--------------------------------------------------------------------------
@@ -14,6 +14,8 @@ require('laravel-elixir-vue-2');
  */
 
 elixir((mix) => {
-    mix.sass('app.scss')
+    mix.sass('./resources/assets/sass/app.scss')
+        .copy('./node_modules/materialize-css/fonts/roboto', './public/fonts/roboto')
+        .materialize()
        .webpack('app.js');
 });

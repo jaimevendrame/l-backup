@@ -11,14 +11,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\pronap\User::class,1)
+        factory(\lotecweb\User::class,1)
             ->states('admin')
             ->create([
                 'name' => 'Jaime Filho',
                 'email' => 'admin@user.com',
+                'idusu' => 1032,
             ]);
 
-        factory(\pronap\User::class,1)
+        factory(\lotecweb\User::class,1)
             ->create([
                 'name' => 'Client Filho',
                 'email' => 'client@user.com',

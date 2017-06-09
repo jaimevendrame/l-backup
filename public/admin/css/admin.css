@@ -1,0 +1,12 @@
+img.circle.avatar {
+    width: 32px;
+    height: 32px;
+}
+avatar-user{
+    position: absolute;
+    padding: 5px;
+}
+nav.brand-title{
+    position: relative;
+    padding-left: 40px;
+}

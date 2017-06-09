@@ -28,17 +28,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    pronap\Http\Kernel::class
+    lotecweb\Http\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    pronap\Console\Kernel::class
+    lotecweb\Console\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    pronap\Exceptions\Handler::class
+    lotecweb\Exceptions\Handler::class
 );
 
 /*

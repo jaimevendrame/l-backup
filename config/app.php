@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'PRONAP',
+    'name' => 'LOTECWEB',
 
     /*
     |--------------------------------------------------------------------------
@@ -172,11 +172,16 @@ return [
         /*
          * Application Service Providers...
          */
-        pronap\Providers\AppServiceProvider::class,
-        pronap\Providers\AuthServiceProvider::class,
-        // pronap\Providers\BroadcastServiceProvider::class,
-        pronap\Providers\EventServiceProvider::class,
-        pronap\Providers\RouteServiceProvider::class,
+        lotecweb\Providers\AppServiceProvider::class,
+        lotecweb\Providers\AuthServiceProvider::class,
+        // lotecweb\Providers\BroadcastServiceProvider::class,
+        lotecweb\Providers\EventServiceProvider::class,
+        lotecweb\Providers\RouteServiceProvider::class,
+        /*
+         * Provider Yajra-Oracle...
+        */
+        Yajra\Oci8\Oci8ServiceProvider::class,
+
 
     ],
 

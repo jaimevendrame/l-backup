@@ -1,11 +1,11 @@
 <?php
 
-namespace pronap\Http\Controllers;
+namespace lotecweb\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use pronap\Http\Requests;
-use pronap\Aluno;
+use lotecweb\Http\Requests;
+use lotecweb\Aluno;
 
 class AlunoController extends Controller
 {

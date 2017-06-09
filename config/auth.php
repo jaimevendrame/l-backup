@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => pronap\User::class,
+            'model' => lotecweb\User::class,
         ],
 
         // 'users' => [

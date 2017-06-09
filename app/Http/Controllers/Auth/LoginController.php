@@ -1,11 +1,11 @@
 <?php
 
-namespace pronap\Http\Controllers\Auth;
+namespace lotecweb\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use pronap\Http\Controllers\Controller;
+use lotecweb\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use pronap\User;
+use lotecweb\User;
 
 class LoginController extends Controller
 {

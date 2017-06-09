@@ -1,6 +1,6 @@
 <?php
 
-namespace pronap\Exceptions;
+namespace lotecweb\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;

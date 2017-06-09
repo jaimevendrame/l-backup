@@ -1,8 +1,8 @@
 <?php
 
-namespace pronap\Http\Controllers\Auth;
+namespace lotecweb\Http\Controllers\Auth;
 
-use pronap\Http\Controllers\Controller;
+use lotecweb\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller

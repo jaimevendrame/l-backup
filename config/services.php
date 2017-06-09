@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => pronap\User::class,
+        'model' => lotecweb\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
