@@ -162,19 +162,12 @@ class HomeController extends Controller
     public function retornaMenu($idUsu){
       $menus = DB::table('MENU_ACTION')
           ->join('USUARIO_MENU_ACTION', 'MENU_ACTION.IDACT', '=', 'USUARIO_MENU_ACTION.IDACT')
-          ->where('USUARIO_MENU_ACTION.IDUSU', '=', $idUsu)
+          ->where([
+              ['USUARIO_MENU_ACTION.IDUSU', '=', $idUsu],
+              ['USUARIO_MENU_ACTION.INLIB', '=', 'SIM'],
+          ])
           ->orderBy('MENU_ACTION.CATACT', 'asc')
           ->get();
-
-
-
-
-
-
-
-
-//
-
 
 
     return $menus;
