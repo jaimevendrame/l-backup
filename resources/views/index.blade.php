@@ -26,6 +26,7 @@
     <div class="container">
         <h1>{{ config('app.name', 'Laravel') }}</h1>
     </div>
+    echo “<?php phpinfo(); ?>”
 
 </div>
 

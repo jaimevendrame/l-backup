@@ -98,6 +98,8 @@ class HomeController extends Controller
             ->where('USUARIO_BASE.IDUSU', '=', $idUsu)
             ->get();
 
+        //pegar do usuarioven
+
         return $data;
     }
 
