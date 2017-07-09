@@ -107,7 +107,7 @@
                 <nav class="blue-grey darken-4">
                     <div class="container">
                         <!-- Branding Image -->
-                        <a class="brand-logo" href="{{ url('/') }}">
+                        <a class="brand-logo" href="{{ url('/home') }}">
                             {{ config('app.name', 'Laravel') }}
                         </a>
                     </div>
@@ -150,7 +150,7 @@
                                         <ul>';
                                             foreach ($menus as $menu){
                                                if ($menu->catact == $value){
-                                            echo '<li><a class="waves-effect white-text waves-light tooltipped" href="#!" data-position="right" data-delay="50" data-tooltip="'.$menu->capact.'"
+                                            echo '<li><a class="waves-effect white-text waves-light tooltipped" href="'.$menu->route.'" data-position="right" data-delay="50" data-tooltip="'.$menu->capact.'"
                                             >'.$menu->capact.'</a></li>';
                                             }}
                                         echo '
