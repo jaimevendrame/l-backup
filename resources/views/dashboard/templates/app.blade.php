@@ -14,6 +14,9 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="{{ asset('materialize/css/materialize.min.css') }}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/admin.css') }}"  media="screen,projection"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.material.min.css" rel="stylesheet">
+
 
 
     <!--Let browser know website is optimized for mobile-->
@@ -68,7 +71,10 @@
 
                             <div class="col s6 m6 l6">
 
-                                <a href="#!" class="breadcrumb">Dashboard</a>
+                                <a href="#!" class="breadcrumb">
+                                    @if( isset($title) )
+                                        {{$title}}
+                                    @endif</a>
                                 {{--<a href="#!" class="breadcrumb">Second</a>--}}
                                 {{--<a href="#!" class="breadcrumb">Third</a>--}}
                             </div>
@@ -205,6 +211,50 @@
             $('select').material_select();
         });
     });
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+
+</script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.material.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable( {
+
+            scrollY:        400 ,
+            scrollX: true,
+            paging:         false,
+
+            language: {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            }
+
+        } );
+    } );
 
 </script>
 </html>

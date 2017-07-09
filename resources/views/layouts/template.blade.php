@@ -12,6 +12,8 @@
 
     {{--<!-- Styles -->--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -34,6 +36,17 @@
 <! -  Material JavaScripts  ->
 <script src = " {{asset ('js/bin/materialize.js')}} " > </script >
 {{--<script type="text/javascript" src="{{url('assets/js/bootstrap.min.js')}}"></script>--}}
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            "scrollY": 200,
+            "scrollX": true
+        } );
+    } );
+
+</script>
 
 
 </body>

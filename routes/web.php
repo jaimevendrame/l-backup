@@ -51,11 +51,14 @@ Route::group([
 
     Route::group(['middleware' => 'can:access-admin'], function (){
 
-        Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('/home', 'Home2Controller@index')->name('home');
         Route::get('/delete/{idAluno}', 'HomeController@delete')->name('delete');
 //        Route::get('/show/{idAluno}', 'AlunoController@show')->name('show');
 //        Route::get('/sms/{idAluno}', 'AlunoController@sms')->name('sms');
         Route::get('/gerarusers/', 'HomeController@gerarUser')->name('gerarusers');
+        Route::get('/resumocaixa/', 'ResumoCaixaController@index')->name('retornaresumo');
+        Route::get('/resumorevendedor/', 'ResumoCaixaController@retornaRevendedor')->name('retornarevendedor');
+
 
 
     });
