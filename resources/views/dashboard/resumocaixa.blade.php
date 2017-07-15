@@ -86,18 +86,18 @@
                             @forelse($data as $resumo)
                                 <tr>
                                     <td>{{ $resumo->nomreven }}</td>
-                                    <td>{{ $resumo->vlrdevant }}</td>
-                                    <td>{{ $resumo->vlrven }}</td>
-                                    <td>{{ $resumo->vlrcom }}</td>
-                                    <td>{{ $resumo->vlrliqbru }}</td>
-                                    <td>{{ $resumo->vlrpremio }}</td>
-                                    <td>{{ $resumo->despesas }}</td>
+                                    <td>{{ number_format($resumo->vlrdevant, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->despesas, 2, ',', '.') }}</td>
                                     <td>{{ $resumo->idbase }}</td>
-                                    <td>{{ $resumo->vlrpagou }}</td>
-                                    <td>{{ $resumo->vlrreceb }}</td>
-                                    <td>{{ $resumo->vlrdevatu }}</td>
-                                    <td>{{ $resumo->vlrtransr }}</td>
-                                    <td>{{ $resumo->vlrtransp }}</td>
+                                    <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrtransr, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrtransp, 2, ',', '.') }}</td>
                                     <td>{{ $resumo->dataultven }}</td>
 
                                 </tr>
