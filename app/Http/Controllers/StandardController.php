@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use lotecweb\Http\Requests;
-use lotecweb\User;
-use lotecweb\Models\Usuario;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -23,29 +21,18 @@ class StandardController extends BaseController
     protected $request;
     protected $totalPorPagina = 15;
 
-    protected $user, $usuario, $usuario_ven, $base;
-
-    public function __construct(
-        User $user,
-        Usuario $usuario,
-        Request $request)
+    public function __construct(Request $request)
     {
-        $this->user = $user;
-        $this->request = $request;
-        $this->usuario = $usuario;
 
+        $this->request = $request;
 
     }
 
     public function index()
     {
 
-//        dd($this->data);
-
 
         $idusu = Auth::user()->idusu;
-
-
 
         $user_base = $this->retornaBase($idusu);
 
@@ -59,10 +46,9 @@ class StandardController extends BaseController
 
         $categorias = $this->retornaCategorias($menus);
 
-        $data = $this->model;
+//        $data = $this->model;
 
         $title = $this->title;
-
 
 
 
@@ -206,6 +192,10 @@ class StandardController extends BaseController
 
 
         return $categorias;
+    }
+
+    public function loadData(){
+
     }
 
 }

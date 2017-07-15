@@ -14,7 +14,7 @@
 
 Route::get('/', function () {
 //    \Illuminate\Support\Facades\Auth::LoginUsingId(2);
-    return view('index');
+    return redirect()->route('admin.home');
 });
 
 //Route::get('/aluno', 'AlunoController@aluno');
@@ -51,13 +51,22 @@ Route::group([
 
     Route::group(['middleware' => 'can:access-admin'], function (){
 
+
+
         Route::get('/home', 'Home2Controller@index')->name('home');
         Route::get('/delete/{idAluno}', 'HomeController@delete')->name('delete');
 //        Route::get('/show/{idAluno}', 'AlunoController@show')->name('show');
 //        Route::get('/sms/{idAluno}', 'AlunoController@sms')->name('sms');
         Route::get('/gerarusers/', 'HomeController@gerarUser')->name('gerarusers');
         Route::get('/resumocaixa/', 'ResumoCaixaController@index')->name('retornaresumo');
+        Route::post('/resumocaixa/', 'ResumoCaixaController@indexGo')->name('retornaresumoGo');
+
+
+        Route::get('/resumocaixa2/', 'ResumoCaixaController@retornaResumoCaixa')->name('caixa');
+        Route::post('/resumocaixa2/', 'ResumoCaixaController@retornaResumoCaixa')->name('caixa');
+
         Route::get('/resumorevendedor/', 'ResumoCaixaController@retornaRevendedor')->name('retornarevendedor');
+        Route::get('/test/', 'TestController@test')->name('test');
 
 
 

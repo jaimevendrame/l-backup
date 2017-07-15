@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -150,9 +150,11 @@
                                         <ul>';
                                             foreach ($menus as $menu){
                                                if ($menu->catact == $value){
-                                            echo '<li><a class="waves-effect white-text waves-light tooltipped" href="'.$menu->route.'" data-position="right" data-delay="50" data-tooltip="'.$menu->capact.'"
+                                            echo '<li><a class="waves-effect white-text waves-light tooltipped"  href="'.$menu->route.'"
+                                            data-position="right" data-delay="50" data-tooltip="'.$menu->capact.'"
                                             >'.$menu->capact.'</a></li>';
                                             }}
+
                                         echo '
                                         </ul>
                                     </span>
@@ -184,13 +186,31 @@
         </div>
     </div>
 </footer>
+
+
+        {{--modal padrão--}}
+    <!-- Modal Trigger -->
+        {{--<a class="waves-effect waves-light btn" href="#modal1">Modal</a>--}}
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+        {{--fim modal padrão--}}
     <!-- Page Layout here -->
 
     <!-- Scripts -->
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="{{ asset('materialize/js/jquery-2.1.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('materialize/js/materialize.min.js') }}"></script></body>
-<script>
+    <script type="text/javascript" src="{{ asset('materialize/js/materialize.min.js') }}"></script>
+        <script src="{{ asset('materialize/lib/pt_BR.js') }}"></script>
+<script type="application/javascript">
     $(document).ready(function(){
         // Show sideNav
 
@@ -207,9 +227,10 @@
                 stopPropagation: false // Stops event propagation
             }
         );
-        $(document).ready(function() {
-            $('select').material_select();
-        });
+        $('.modal').modal();
+
+        $('select').material_select();
+
     });
 
     $('.datepicker').pickadate({
@@ -217,17 +238,30 @@
         selectYears: 15 // Creates a dropdown of 15 years to control year
     });
 
+
 </script>
+{{--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.material.min.js"></script>
+
 
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable( {
 
-            scrollY:        400 ,
+        $('#example').DataTable( {
+            fixedColumns: {
+                leftColumns: 2
+            },
+
+            scrollY: 380,
             scrollX: true,
-            paging:         false,
+            paging:  false,
+
+            columnDefs: [
+                {
+                    targets: [ 0, 1, 2 ],
+                    className: 'mdl-data-table__cell--non-numeric'
+                }
+            ],
+
 
             language: {
                 "sEmptyTable": "Nenhum registro encontrado",
@@ -254,7 +288,7 @@
             }
 
         } );
-    } );
 
 </script>
+</body>
 </html>
