@@ -37,10 +37,12 @@
                                     {{--</div>--}}
                                 {{--</div>--}}
                                 <div class="input-field col s4">
-                                    <select multiple>
-                                        <option value="" disabled selected>Bases</option>
+                                    <select multiple id="sel_vendedor" name="sel_vendedor[]">
+                                        <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
-                                        <option value="1">{{$bases->idbase}}</option>
+                                        <option value="{{$bases->ideven}}"
+                                                {{ $bases->inpadrao == 'SIM'  ? 'selected' : '' }}>
+                                            {{$bases->ideven}} - {{$bases->nomven}} - {{$bases->cidven}}-{{$bases->sigufs}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhuma base</option>
 

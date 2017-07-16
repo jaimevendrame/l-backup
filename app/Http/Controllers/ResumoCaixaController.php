@@ -6,6 +6,7 @@ use DateInterval;
 use DateTime;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use lotecweb\Http\Requests;
@@ -249,6 +250,14 @@ class ResumoCaixaController extends StandardController
 
     public function retornaResumoCaixaParameter(){
 
+        //referente aos IDEVEN ??verificar com Douglas??
+        $valor = $this->request->get('sel_vendedor');
+
+        //Construi a string com base no array do select via form
+        $p = implode(",", $valor);
+
+
+
         $datIni = $this->request->get('datIni');
         $datFim = $this->request->get('datFim');
 
@@ -275,13 +284,12 @@ class ResumoCaixaController extends StandardController
             $data_termino->sub(new DateInterval('P' . $parcelas . 'D'));
             $datAnt = $data_termino->format('Y/m/d');
 
-//        dd($datAnt);
 
 
 
         $codigo = Auth::user()->idusu;
 
-        $cod_idbase =  $this->retornaBasesPadrao($codigo);
+        $cod_idven =  $this->retornaBasesPadrao($codigo);
 
         $data = DB::select (
 
@@ -397,7 +405,7 @@ class ResumoCaixaController extends StandardController
     WHERE
      REVENDEDOR.IDREVEN <> 99999999
      
-     AND REVENDEDOR.IDBASE = $cod_idbase "
+     AND VENDEDOR.IDEVEN in ($p)"
 
         );
 
@@ -418,7 +426,7 @@ class ResumoCaixaController extends StandardController
             ->first();
 
 
-        return $data->idbase;
+        return $data->idven;
     }
 
 
@@ -427,11 +435,15 @@ class ResumoCaixaController extends StandardController
 
         $data = $this->usuario_ven
 
-            ->select('*')
-
+//            ->select('USUARIO_VEN.*')
+            ->join('VENDEDOR', [
+                ['USUARIO_VEN.IDVEN','=','VENDEDOR.IDVEN'],
+                ['USUARIO_VEN.IDBASE', '=', 'VENDEDOR.IDBASE']])
+            ->join('BASE', 'USUARIO_VEN.IDBASE', '=', 'BASE.IDBASE')
             ->where([
-                ['idusu', '=', $id]
+                ['USUARIO_VEN.idusu', '=', $id]
             ])
+            ->orderby('INPADRAO', 'DESC')
             ->get();
 
 
