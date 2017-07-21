@@ -416,7 +416,7 @@ class ResumoCaixaController extends StandardController
             RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
             RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS DESPESAS,
 
-        (SELECT MAX(TO_CHAR( RESUMO_CAIXA.DATMOV , 'DD/MM/YYYY' ))
+        (SELECT MAX(RESUMO_CAIXA.DATMOV)
            FROM RESUMO_CAIXA
             WHERE
               RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND

@@ -71,8 +71,8 @@
                                 <th>Lucro</th>
                                 <th>Pagamento</th>
                                 <th>Recebimento</th>
-                                <th>Vlr.Trans.Rec</th>
-                                <th>Vlr.Trans.Pag</th>
+                                {{--<th>Vlr.Trans.Rec</th>--}}
+                                {{--<th>Vlr.Trans.Pag</th>--}}
                                 <th>Última Venda</th>
                                 <th>Saldo Atual</th>
 
@@ -92,8 +92,8 @@
                                     <td>{{ $resumo->idbase }}</td>
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrtransr, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrtransp, 2, ',', '.') }}</td>
+{{--                                    <td>{{ number_format($resumo->vlrtransr, 2, ',', '.') }}</td>--}}
+{{--                                    <td>{{ number_format($resumo->vlrtransp, 2, ',', '.') }}</td>--}}
                                     <td>{{ $resumo->dataultven }}</td>
                                     <td>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
 
