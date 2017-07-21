@@ -11,7 +11,8 @@ nav.brand-title{
     padding-left: 40px;
 }
 
-/*div.dataTables_wrapper {*/
-    /*width: 800px;*/
-    /*!*margin: 0 auto;*!*/
-/*}*/
+th, td { white-space: nowrap; }
+div.dataTables_wrapper {
+    width: 100%;
+    margin: 0 auto;
+}

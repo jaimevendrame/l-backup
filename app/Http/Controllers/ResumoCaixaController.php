@@ -225,7 +225,7 @@ class ResumoCaixaController extends StandardController
             RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
             RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS DESPESAS,
 
-        (SELECT MAX(RESUMO_CAIXA.DATMOV)
+        (SELECT MAX(TO_CHAR( RESUMO_CAIXA.DATMOV , 'DD/MM/YYYY' ))
            FROM RESUMO_CAIXA
             WHERE
               RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
@@ -240,7 +240,14 @@ class ResumoCaixaController extends StandardController
     WHERE
      REVENDEDOR.IDREVEN <> 99999999
      
-     AND REVENDEDOR.IDBASE = $cod_idbase "
+     AND VENDEDOR.IDEVEN = $cod_idbase 
+     
+     AND REVENDEDOR.SITREVEN = 'ATIVO'
+     
+     
+     ORDER BY REVENDEDOR.NOMREVEN DESC
+     
+     "
 
         );
 
@@ -250,11 +257,17 @@ class ResumoCaixaController extends StandardController
 
     public function retornaResumoCaixaParameter(){
 
-        //referente aos IDEVEN ??verificar com Douglas??
-        $valor = $this->request->get('sel_vendedor');
 
-        //Construi a string com base no array do select via form
-        $p = implode(",", $valor);
+        $despesas = $this->request->get('despesas');
+        $in_ativos = $this->request->get('in_ativos');
+
+        if ($in_ativos == 'SIM'){
+            $p_in_ativo = '';
+        } else {
+            $p_in_ativo = "AND REVENDEDOR.SITREVEN = 'ATIVO'";
+        }
+
+
 
 
 
@@ -289,7 +302,20 @@ class ResumoCaixaController extends StandardController
 
         $codigo = Auth::user()->idusu;
 
-        $cod_idven =  $this->retornaBasesPadrao($codigo);
+        //referente aos IDEVEN ??verificar com Douglas??
+        $valor = $this->request->get('sel_vendedor');
+        if ($valor == NULL){
+            $valor = $this->retornaBasesPadrao($codigo);
+//            dd($valor);
+            $p = $valor;
+        } else {
+
+            //Construi a string com base no array do select via form
+            $p = implode(",", $valor);
+        }
+
+//        dd($valor);
+
 
         $data = DB::select (
 
@@ -390,7 +416,7 @@ class ResumoCaixaController extends StandardController
             RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
             RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS DESPESAS,
 
-        (SELECT MAX(RESUMO_CAIXA.DATMOV)
+        (SELECT MAX(TO_CHAR( RESUMO_CAIXA.DATMOV , 'DD/MM/YYYY' ))
            FROM RESUMO_CAIXA
             WHERE
               RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
@@ -405,7 +431,15 @@ class ResumoCaixaController extends StandardController
     WHERE
      REVENDEDOR.IDREVEN <> 99999999
      
-     AND VENDEDOR.IDEVEN in ($p)"
+     AND VENDEDOR.IDEVEN in ($p)
+     
+     
+    $p_in_ativo
+     
+     
+     ORDER BY REVENDEDOR.NOMREVEN DESC
+     
+     "
 
         );
 
@@ -426,7 +460,7 @@ class ResumoCaixaController extends StandardController
             ->first();
 
 
-        return $data->idven;
+        return $data->ideven;
     }
 
 
@@ -451,6 +485,7 @@ class ResumoCaixaController extends StandardController
 
         return $data;
     }
+
 
 
 }

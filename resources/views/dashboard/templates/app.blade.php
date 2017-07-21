@@ -231,6 +231,7 @@
 
         $('select').material_select();
 
+
     });
 
     $('.datepicker').pickadate({
@@ -242,26 +243,41 @@
 </script>
 {{--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.15/api/sum().js"></script>
 
 
 <script>
 
         $('#example').DataTable( {
             fixedColumns: {
-                leftColumns: 2
+                leftColumns: 1,
+                rightColumns: 1
+
+            },
+
+            drawCallback: function () {
+                var api = this.api();
+                $( api.table().footer() ).html(
+                    api.column( 1, {page:'current'} ).data().sum()
+                );
             },
 
             scrollY: 380,
-            scrollX: true,
-            paging:  false,
+            scrollX:        true,
+            scrollCollapse: true,
+            paging:         false,
+            "aaSorting": [[0, "desc"]],
+
 
             columnDefs: [
                 {
                     targets: [ 0, 1, 2 ],
                     className: 'mdl-data-table__cell--non-numeric'
                 }
-            ],
 
+
+            ],
 
             language: {
                 "sEmptyTable": "Nenhum registro encontrado",
@@ -288,7 +304,6 @@
             }
 
         } );
-
 </script>
 </body>
 </html>

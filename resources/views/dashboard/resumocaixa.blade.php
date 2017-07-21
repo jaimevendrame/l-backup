@@ -13,30 +13,16 @@
 
 
                             <div class="row">
-                                <div class="input-field col s2">
-                                   Período: <input id="datIni" name="datIni" type="date" class="datepicker"
-                                                   placeholder = @php echo date("d/m/Y") @endphp >
+                                <div class="input-field col s3">
+                                   <input id="datIni" name="datIni" type="date" class="datepicker"
+                                                   placeholder =@php  echo "De:".'&nbsp;'.date("d/m/Y") @endphp >
                                 </div>
-                                <div class="input-field col s2">
-                                    à <input id="datFim" name="datFim" type="date" class="datepicker"
-                                             placeholder = @php echo date("d/m/Y") @endphp>
-                                </div>
-                                <div class="input-field col s2">
-                                    <input type="checkbox" id="test5" />
-                                    <label for="test5">Despesas</label>
+                                <div class="input-field col s3">
+                                     <input id="datFim" name="datFim" type="date" class="datepicker"
+                                             placeholder = @php echo "à:".'&nbsp;'.date("d/m/Y") @endphp>
                                 </div>
 
-                                {{--<div class="input-field col s2">--}}
-                                    {{--<div class="switch ">--}}
-                                        {{--<label>--}}
-                                            {{--Off--}}
-                                            {{--<input type="checkbox">--}}
-                                            {{--<span class="lever"></span>--}}
-                                            {{--On--}}
-                                        {{--</label>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                <div class="input-field col s4">
+                                <div class="input-field col s6">
                                     <select multiple id="sel_vendedor" name="sel_vendedor[]">
                                         <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
@@ -57,6 +43,14 @@
                                 {{--</div>--}}
                             </div>
                             <div class="row">
+                                <div class="input-field col s2">
+                                    <input type="checkbox" id="despesas"  name="despesas" value="SIM"/>
+                                    <label for="despesas">Com Despesas</label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <input type="checkbox" id="in_ativos" name="in_ativos" value="SIM"/>
+                                    <label for="in_ativos">Mostrar Inativos</label>
+                                </div>
                                 <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                                     <i class="material-icons right">send</i>
                                 </button>
@@ -77,10 +71,11 @@
                                 <th>Lucro</th>
                                 <th>Pagamento</th>
                                 <th>Recebimento</th>
-                                <th>Saldo Atual</th>
                                 <th>Vlr.Trans.Rec</th>
                                 <th>Vlr.Trans.Pag</th>
                                 <th>Última Venda</th>
+                                <th>Saldo Atual</th>
+
                             </tr>
                             </thead>
 
@@ -97,10 +92,11 @@
                                     <td>{{ $resumo->idbase }}</td>
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrtransr, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrtransp, 2, ',', '.') }}</td>
                                     <td>{{ $resumo->dataultven }}</td>
+                                    <td>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
+
 
                                 </tr>
                             @empty
@@ -109,7 +105,25 @@
                                 </tr>
                             @endforelse
 
-                            </tbody>
+                            {{--</tbody>--}}
+                            {{--<tfoot>--}}
+                            {{--<tr>--}}
+                                {{--<th>Revendedor</th>--}}
+                                {{--<th>Saldo Anterior</th>--}}
+                                {{--<th>Vendido</th>--}}
+                                {{--<th>Comissão</th>--}}
+                                {{--<th>Liquido</th>--}}
+                                {{--<th>Prêmio</th>--}}
+                                {{--<th>Despesas</th>--}}
+                                {{--<th>Lucro</th>--}}
+                                {{--<th>Pagamento</th>--}}
+                                {{--<th>Recebimento</th>--}}
+                                {{--<th>Vlr.Trans.Rec</th>--}}
+                                {{--<th>Vlr.Trans.Pag</th>--}}
+                                {{--<th>Última Venda</th>--}}
+                                {{--<th>Saldo Atual</th>--}}
+                            {{--</tr>--}}
+                            {{--</tfoot>--}}
                         </table>
                     </div>
 
