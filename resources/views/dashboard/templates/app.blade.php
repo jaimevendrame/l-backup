@@ -255,12 +255,105 @@
                 rightColumns: 1
 
             },
+//
+//
+//            "footerCallback": function ( row, data, start, end, display ) {
+//                var api = this.api(), data;
+//
+//                // Remove the formatting to get integer data for summation
+//                var intVal = function ( i ) {
+//                    return typeof i === 'string' ?
+//                        i.replace(/[\$,.]/g, '')*1 :
+//                        typeof i === 'number' ?
+//                            i : 0;
+//                };
+//
+//                // Total over all pages
+//                total = api
+//                    .column( 1 )
+//                    .data()
+//                    .reduce( function (a, b) {
+//                        return intVal(a) + intVal(b);
+//                    }, 0 );
+//
+//                // Total over this page
+//                pageTotal = api
+//                    .column( 1, { page: 'current'} )
+//                    .data()
+//                    .reduce( function (a, b) {
+//                        return intVal(a) + intVal(b);
+//                    }, 0 );
+//
+////                // Total over this page
+////                saldo_atualTotal = api
+////                    .column( 12, { page: 'current'} )
+////                    .data()
+////                    .reduce( function (a, b) {
+////                        return intVal(a) + intVal(b);
+////                    }, 0 );
+//
+//
+//                // Update footer
+////                $( api.column( 1 ).footer() ).html(
+////                    '$'+pageTotal +' ( $'+ total +' total)'
+////                );
+//
+//
+//
+//                // Update footer
+//                var numFormat = $.fn.dataTable.render.number( '.', ',', 2).display;
+//                $( api.column( 1 ).footer() ).html(
+//                    numFormat(parseInt(pageTotal)/100)
+//                );
+//
+////                // Update footer
+////                $( api.column( 12 ).footer() ).html(
+////                    numFormat(parseInt(saldo_atualTotal)/100)
+////                );
+//            },
 
-            drawCallback: function () {
+
+            columns: [
+                { data: "Revendedor" },
+                { data: "Saldo Anterior", className: "sum" },
+                { data: "Vendido", className: "sum" },
+                { data: "Comissão", className: "sum" },
+                { data: "Liquido", className: "sum" },
+                { data: "Prêmio", className: "sum" },
+                { data: "Despesas", className: "sum" },
+                { data: "Lucro", className: "sum" },
+                { data: "Pagamento", className: "sum" },
+                { data: "Recebimento", className: "sum" },
+                { data: "Última Venda" },
+                { data: "Saldo Atual", className: "sum" }
+
+            ],
+            "footerCallback": function(row, data, start, end, display) {
                 var api = this.api();
-                $( api.table().footer() ).html(
-                    api.column( 1, {page:'current'} ).data().sum()
-                );
+
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,.]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+
+                var numFormat = $.fn.dataTable.render.number( '.', ',', 2).display;
+
+
+                api.columns('.sum', { page: 'current' }).every(function () {
+                    var sum = api
+                        .cells( null, this.index(), { page: 'current'} )
+                        .render('display')
+                        .reduce(function (a, b) {
+                            var x = intVal(a) || 0;
+                            var y = intVal(b) || 0;
+                            return x + y;
+                        }, 0);
+                    console.log(this.index() +' '+ sum); //alert(sum);
+                    $(this.footer()).html((numFormat(parseInt(sum)/100)));
+                    $( api.columns( 11 ).footer() ).html( (numFormat(parseInt(sum)/100)));
+                });
             },
 
             scrollY: 380,
@@ -272,7 +365,7 @@
 
             columnDefs: [
                 {
-                    targets: [ 0, 1, 2 ],
+                    targets: [ 0, 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11],
                     className: 'mdl-data-table__cell--non-numeric'
                 }
 
@@ -280,6 +373,8 @@
             ],
 
             language: {
+                "decimal":        ",",
+                "thousands":      ".",
                 "sEmptyTable": "Nenhum registro encontrado",
                 "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
                 "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",

@@ -71,31 +71,49 @@
                                 <th>Lucro</th>
                                 <th>Pagamento</th>
                                 <th>Recebimento</th>
-                                {{--<th>Vlr.Trans.Rec</th>--}}
-                                {{--<th>Vlr.Trans.Pag</th>--}}
                                 <th>Última Venda</th>
                                 <th>Saldo Atual</th>
 
                             </tr>
                             </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Revendedor</th>
+                                <th>Saldo Anterior</th>
+                                <th>Vendido</th>
+                                <th>Comissão</th>
+                                <th>Liquido</th>
+                                <th>Prêmio</th>
+                                <th>Despesas</th>
+                                <th>Lucro</th>
+                                <th>Pagamento</th>
+                                <th>Recebimento</th>
+                                <th>Última Venda</th>
+                                <th>Saldo Atual</th>
 
+                            </tr>
+                            </tfoot>
                             <tbody>
                             @forelse($data as $resumo)
                                 <tr>
                                     <td>{{ $resumo->nomreven }}</td>
-                                    <td>{{ number_format($resumo->vlrdevant, 2, ',', '.') }}</td>
+                                    <td
+                                    @if ($resumo->vlrdevant < 0)
+                                    bgcolor='RED' @elseif ($resumo->vlrdevant > 0) bgcolor='GREEN'
+                                    @else @endif >
+                                    {{ number_format($resumo->vlrdevant, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</td>
+                                    <td><a href="#!">{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</a></td>
                                     <td>{{ number_format($resumo->despesas, 2, ',', '.') }}</td>
-                                    <td>{{ $resumo->idbase }}</td>
+                                    <td>{{ number_format(($resumo->vlrliqbru - $resumo->vlrliqbru - $resumo->despesas), 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
-{{--                                    <td>{{ number_format($resumo->vlrtransr, 2, ',', '.') }}</td>--}}
-{{--                                    <td>{{ number_format($resumo->vlrtransp, 2, ',', '.') }}</td>--}}
-                                    <td>{{ $resumo->dataultven }}</td>
-                                    <td>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
+                                    <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
+                                    <td @if ($resumo->vlrdevatu < 0)
+                                        bgcolor='RED' @elseif ($resumo->vlrdevant > 0) bgcolor='GREEN'
+                                    @else @endif>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
 
 
                                 </tr>
@@ -105,25 +123,7 @@
                                 </tr>
                             @endforelse
 
-                            {{--</tbody>--}}
-                            {{--<tfoot>--}}
-                            {{--<tr>--}}
-                                {{--<th>Revendedor</th>--}}
-                                {{--<th>Saldo Anterior</th>--}}
-                                {{--<th>Vendido</th>--}}
-                                {{--<th>Comissão</th>--}}
-                                {{--<th>Liquido</th>--}}
-                                {{--<th>Prêmio</th>--}}
-                                {{--<th>Despesas</th>--}}
-                                {{--<th>Lucro</th>--}}
-                                {{--<th>Pagamento</th>--}}
-                                {{--<th>Recebimento</th>--}}
-                                {{--<th>Vlr.Trans.Rec</th>--}}
-                                {{--<th>Vlr.Trans.Pag</th>--}}
-                                {{--<th>Última Venda</th>--}}
-                                {{--<th>Saldo Atual</th>--}}
-                            {{--</tr>--}}
-                            {{--</tfoot>--}}
+
                         </table>
                     </div>
 
