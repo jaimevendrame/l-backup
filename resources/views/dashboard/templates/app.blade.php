@@ -277,9 +277,24 @@
 
 
             dom: 'Brtip',
-//            buttons: [
-//                'copy', 'excel', 'pdf', 'print'
-//            ],
+            buttons: [
+
+                {
+                    extend: 'copy',
+                    text: 'Copiar',
+                },
+
+                'excel',
+
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                    orientation: 'landscape',
+                },
+
+                'pdf'
+
+            ],
             columns: [
                 { data: "Revendedor" },
                 { data: "Saldo Anterior", className: "sum" },
@@ -323,12 +338,12 @@
                 });
             },
 
-            scrollY: 380,
+            scrollY: 400,
             scrollX:        true,
             scrollCollapse: true,
             paging:         false,
             Bfilter:        false,
-            "aaSorting": [[0, "desc"]],
+//            "aaSorting": [[0, "desc"]],
 
 
             columnDefs: [
@@ -374,15 +389,15 @@
         } );
 
 
-        new $.fn.dataTable.Buttons( table, {
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ]
-        } );
-
-
-        table.buttons().container()
-            .appendTo( $('.botao', table.table().container() ) );
+//        new $.fn.dataTable.Buttons( table, {
+//            buttons: [
+//                'copy', 'excel', 'pdf'
+//            ]
+//        } );
+//
+//
+//        table.buttons().container()
+//            .appendTo( $('.botao', table.table().container() ) );
     });
 
 

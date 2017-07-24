@@ -22,6 +22,8 @@ class ResumoCaixaController extends StandardController
     protected $redirectCad = '/admin/contatos/cadastrar';
     protected $redirectEdit = '/admin/contatos/editar';
     protected $route = '/admin/contatos';
+    public $data_inicial;
+    public $data_fim;
 
     public function __construct(
         Usuario $usuario,
@@ -109,6 +111,9 @@ class ResumoCaixaController extends StandardController
 
         $datIni = date ("Y/m/d");
         $datFim = date ("Y/m/d");
+
+        $this->data_inicial = $datIni;
+        $this->data_fim = $datFim;
 
         //data atual menos um dia
 //        $inicio = date ("Y/m/d"); // data atual menos um dia

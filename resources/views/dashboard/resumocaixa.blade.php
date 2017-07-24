@@ -13,21 +13,20 @@
 
 
                             <div class="row">
-                                <div class="input-field col s2">
+                                <div class="input-field col s6 m2">
                                    <input id="datIni" name="datIni" type="date" class="datepicker"
                                                    placeholder =@php  echo "De:".'&nbsp;'.date("d/m/Y") @endphp >
                                 </div>
-                                <div class="input-field col s2">
+                                <div class="input-field col s6 m2">
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
                                              placeholder = @php echo "à:".'&nbsp;'.date("d/m/Y") @endphp>
                                 </div>
 
-                                <div class="input-field col s6">
-                                    <select multiple id="sel_vendedor" name="sel_vendedor[]">
+                                <div class="input-field col s12 m4">
+                                    <select multiple name="sel_vendedor[]">
                                         <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
-                                        <option value="{{$bases->ideven}}"{{ $bases->inpadrao == 'SIM'  ? 'selected' : '' }}>
-                                            {{$bases->ideven}}-{{$bases->nomven}}-{{$bases->cidven}}-{{$bases->sigufs}}</option>
+                                        <option value="{{$bases->ideven}}"{{ $bases->inpadrao == 'SIM'  ? 'selected' : '' }}>{{$bases->ideven}}-{{$bases->nomven}}{{--{{$bases->ideven}}-{{$bases->nomven}}-{{$bases->cidven}}-{{$bases->sigufs}}--}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhuma base</option>
                                         @endforelse
@@ -35,34 +34,38 @@
                                     </select>
                                     <label>Bases selecionadas</label>
                                 </div>
-                                <div class="input-field col s2">
+                                <div class="input-field col s12 m2">
                                     <select multiple>
-                                        <option value="" disabled selected>Escolha as opções</option>
+                                        <option value="" disabled selected>Opções</option>
                                         <option value="1">Com Despesas</option>
                                         <option value="2">Mostrar Inativos</option>
                                     </select>
                                     <label>Opções</label>
                                 </div>
+                                <div class="input-field col s12 m2">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+
 
                                 {{--<div class="input-field col s2">--}}
                                     {{--<a class="waves-effect waves-light btn blue-grey"><i class="material-icons left">print</i></a>--}}
                                 {{--</div>--}}
                             </div>
-                            <div class="row">
-                                <div class="input-field col s2">
-                                    <input type="checkbox" id="despesas"  name="despesas" value="SIM"/>
-                                    <label for="despesas">Com Despesas</label>
-                                </div>
-                                <div class="input-field col s2">
-                                    <input type="checkbox" id="in_ativos" name="in_ativos" value="SIM"/>
-                                    <label for="in_ativos">Mostrar Inativos</label>
-                                </div>
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
-                                    <i class="material-icons right">send</i>
-                                </button>
-                                <a class="waves-effect waves-light btn botao" id="botao" name="botao">button</a>
 
-                            </div>
+                            {{--<div class="row">--}}
+                                {{--<div class="input-field col s2">--}}
+                                    {{--<input type="checkbox" id="despesas"  name="despesas" value="SIM"/>--}}
+                                    {{--<label for="despesas">Com Despesas</label>--}}
+                                {{--</div>--}}
+                                {{--<div class="input-field col s2">--}}
+                                    {{--<input type="checkbox" id="in_ativos" name="in_ativos" value="SIM"/>--}}
+                                    {{--<label for="in_ativos">Mostrar Inativos</label>--}}
+                                {{--</div>--}}
+
+                            {{--</div>--}}
+
                         </form>
 
 
