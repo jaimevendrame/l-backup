@@ -16,6 +16,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/admin.css') }}"  media="screen,projection"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.15/css/dataTables.material.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
 
 
 
@@ -77,7 +78,9 @@
                                     @endif</a>
                                 {{--<a href="#!" class="breadcrumb">Second</a>--}}
                                 {{--<a href="#!" class="breadcrumb">Third</a>--}}
+
                             </div>
+
                             <div class="col s4 m6 l6">
 
                                 <div class="navbar-header">
@@ -138,6 +141,15 @@
                         @endif
 
                     </div>
+                </li>
+                <li>
+                    <form>
+                        <div class="input-field">
+                            <input id="myInput" name="myInput" type="search" required>
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
                 </li>
                 <ul class="collapsible" data-collapsible="accordion">
 
@@ -246,73 +258,28 @@
 <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.15/api/sum().js"></script>
 
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js"></script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
+
 
 <script>
-
-        $('#example').DataTable( {
+    $(document).ready(function() {
+        var table = $('#example').DataTable( {
             fixedColumns: {
                 leftColumns: 1,
                 rightColumns: 1
 
             },
-//
-//
-//            "footerCallback": function ( row, data, start, end, display ) {
-//                var api = this.api(), data;
-//
-//                // Remove the formatting to get integer data for summation
-//                var intVal = function ( i ) {
-//                    return typeof i === 'string' ?
-//                        i.replace(/[\$,.]/g, '')*1 :
-//                        typeof i === 'number' ?
-//                            i : 0;
-//                };
-//
-//                // Total over all pages
-//                total = api
-//                    .column( 1 )
-//                    .data()
-//                    .reduce( function (a, b) {
-//                        return intVal(a) + intVal(b);
-//                    }, 0 );
-//
-//                // Total over this page
-//                pageTotal = api
-//                    .column( 1, { page: 'current'} )
-//                    .data()
-//                    .reduce( function (a, b) {
-//                        return intVal(a) + intVal(b);
-//                    }, 0 );
-//
-////                // Total over this page
-////                saldo_atualTotal = api
-////                    .column( 12, { page: 'current'} )
-////                    .data()
-////                    .reduce( function (a, b) {
-////                        return intVal(a) + intVal(b);
-////                    }, 0 );
-//
-//
-//                // Update footer
-////                $( api.column( 1 ).footer() ).html(
-////                    '$'+pageTotal +' ( $'+ total +' total)'
-////                );
-//
-//
-//
-//                // Update footer
-//                var numFormat = $.fn.dataTable.render.number( '.', ',', 2).display;
-//                $( api.column( 1 ).footer() ).html(
-//                    numFormat(parseInt(pageTotal)/100)
-//                );
-//
-////                // Update footer
-////                $( api.column( 12 ).footer() ).html(
-////                    numFormat(parseInt(saldo_atualTotal)/100)
-////                );
-//            },
 
 
+            dom: 'Brtip',
+//            buttons: [
+//                'copy', 'excel', 'pdf', 'print'
+//            ],
             columns: [
                 { data: "Revendedor" },
                 { data: "Saldo Anterior", className: "sum" },
@@ -360,6 +327,7 @@
             scrollX:        true,
             scrollCollapse: true,
             paging:         false,
+            Bfilter:        false,
             "aaSorting": [[0, "desc"]],
 
 
@@ -399,6 +367,30 @@
             }
 
         } );
+
+        // #myInput is a <input type="text"> element
+        $('#myInput').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
+
+
+        new $.fn.dataTable.Buttons( table, {
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ]
+        } );
+
+
+        table.buttons().container()
+            .appendTo( $('.botao', table.table().container() ) );
+    });
+
+
+
+
+
+
+
 </script>
 </body>
 </html>

@@ -13,11 +13,11 @@
 
 
                             <div class="row">
-                                <div class="input-field col s3">
+                                <div class="input-field col s2">
                                    <input id="datIni" name="datIni" type="date" class="datepicker"
                                                    placeholder =@php  echo "De:".'&nbsp;'.date("d/m/Y") @endphp >
                                 </div>
-                                <div class="input-field col s3">
+                                <div class="input-field col s2">
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
                                              placeholder = @php echo "à:".'&nbsp;'.date("d/m/Y") @endphp>
                                 </div>
@@ -26,16 +26,22 @@
                                     <select multiple id="sel_vendedor" name="sel_vendedor[]">
                                         <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
-                                        <option value="{{$bases->ideven}}"
-                                                {{ $bases->inpadrao == 'SIM'  ? 'selected' : '' }}>
-                                            {{$bases->ideven}} - {{$bases->nomven}} - {{$bases->cidven}}-{{$bases->sigufs}}</option>
+                                        <option value="{{$bases->ideven}}"{{ $bases->inpadrao == 'SIM'  ? 'selected' : '' }}>
+                                            {{$bases->ideven}}-{{$bases->nomven}}-{{$bases->cidven}}-{{$bases->sigufs}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhuma base</option>
-
                                         @endforelse
 
                                     </select>
                                     <label>Bases selecionadas</label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <select multiple>
+                                        <option value="" disabled selected>Escolha as opções</option>
+                                        <option value="1">Com Despesas</option>
+                                        <option value="2">Mostrar Inativos</option>
+                                    </select>
+                                    <label>Opções</label>
                                 </div>
 
                                 {{--<div class="input-field col s2">--}}
@@ -54,6 +60,8 @@
                                 <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                                     <i class="material-icons right">send</i>
                                 </button>
+                                <a class="waves-effect waves-light btn botao" id="botao" name="botao">button</a>
+
                             </div>
                         </form>
 
@@ -111,6 +119,7 @@
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
                                     <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
+{{--                                    <td> {{$resumo->dataultven}}</td>--}}
                                     <td @if ($resumo->vlrdevatu < 0)
                                         bgcolor='RED' @elseif ($resumo->vlrdevant > 0) bgcolor='GREEN'
                                     @else @endif>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
