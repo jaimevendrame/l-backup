@@ -116,7 +116,7 @@
                                     <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
-                                    <td><a href="#!">{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</a></td>
+                                    <td><a href="#modal1">{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</a></td>
                                     <td>{{ number_format($resumo->despesas, 2, ',', '.') }}</td>
                                     <td>{{ number_format(($resumo->vlrliqbru - $resumo->vlrliqbru - $resumo->despesas), 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
@@ -145,7 +145,17 @@
 
     </div>
 
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
 
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Aposta Premiada</h4>
+            <p>A bunch of text</p>
+        </div>
+
+    </div>
 
 @endsection
 

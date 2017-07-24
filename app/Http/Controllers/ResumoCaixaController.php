@@ -491,6 +491,11 @@ class ResumoCaixaController extends StandardController
         return $data;
     }
 
+    public function retornaApostaPremios(){
+//        $datainicila = $this->data_inicial;
+        $datafinal = $this->data_fim;
 
+        return $datafinal;
+    }
 
 }
