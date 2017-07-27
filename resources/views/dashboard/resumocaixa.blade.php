@@ -110,10 +110,10 @@
                                 <tr>
                                     <td>{{ $resumo->nomreven }}</td>
                                     <td
-                                    @if ($resumo->vlrdevant < 0)
-                                    bgcolor='RED' @elseif ($resumo->vlrdevant > 0) bgcolor='GREEN'
+                                    @if ($resumo->vlrdevant < 0)class='white-text' bgcolor='#e53935'
+                                    @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
                                     @else @endif >
-                                    {{ number_format($resumo->vlrdevant, 2, ',', '.') }}</td>
+                                        <b>{{ number_format($resumo->vlrdevant, 2, ',', '.') }}</b></td>
                                     <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
@@ -141,9 +141,9 @@
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
                                     <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
 {{--                                    <td> {{$resumo->dataultve n}}</td>--}}
-                                    <td @if ($resumo->vlrdevatu < 0)
-                                        bgcolor='RED' @elseif ($resumo->vlrdevant > 0) bgcolor='GREEN'
-                                    @else @endif>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
+                                    <td @if ($resumo->vlrdevatu < 0) class='white-text' bgcolor='#e53935'
+                                         @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
+                                    @else @endif><b>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</b></td>
 
 
                                 </tr>
