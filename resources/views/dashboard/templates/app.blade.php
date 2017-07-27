@@ -14,6 +14,7 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="{{ asset('materialize/css/materialize.min.css') }}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/admin.css') }}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('modallink/jquery.modalLink.css') }}"  media="screen,projection"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.15/css/dataTables.material.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
@@ -198,7 +199,7 @@
         </div>
     </div>
 </footer>
-        
+
     <!-- Page Layout here -->
 
     <!-- Scripts -->
@@ -223,10 +224,10 @@
                 stopPropagation: false // Stops event propagation
             }
         );
-        $('.modal').modal();
 
         $('select').material_select();
 
+        $('.modal').modal();
 
     });
 
@@ -236,9 +237,14 @@
     });
 
 
+
+
 </script>
 {{--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="{{ asset('modallink/jquery.modalLink.js') }}"></script>
+
 <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.15/api/sum().js"></script>
 
@@ -252,6 +258,8 @@
 
 <script>
     $(document).ready(function() {
+
+
         var table = $('#example').DataTable( {
             fixedColumns: {
                 leftColumns: 1,
@@ -391,5 +399,6 @@
 
 
 </script>
+
 </body>
 </html>

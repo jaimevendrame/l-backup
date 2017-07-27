@@ -60,7 +60,8 @@ Route::group([
         Route::get('/gerarusers/', 'HomeController@gerarUser')->name('gerarusers');
         Route::get('/resumocaixa/', 'ResumoCaixaController@index')->name('retornaresumo');
         Route::post('/resumocaixa/', 'ResumoCaixaController@indexGo')->name('retornaresumoGo');
-        Route::post('/resumocaixa/aposta_premiada', 'ResumoCaixaController@retornaApostaPremios')->name('apostapremiada');
+        Route::get('/resumocaixa/aposta_premiada/{idven}/{idbase}/{idreven}/{datini}/{datfim}',
+            'ResumoCaixaController@retornaApostaPremios')->name('apostapremiada');
 
 
         Route::get('/resumocaixa2/', 'ResumoCaixaController@retornaResumoCaixa')->name('caixa');

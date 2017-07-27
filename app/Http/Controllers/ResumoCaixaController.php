@@ -101,7 +101,6 @@ class ResumoCaixaController extends StandardController
 
 
 
-
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll'));
     }
@@ -133,7 +132,7 @@ class ResumoCaixaController extends StandardController
 
         $data = DB::select (
 
-            "SELECT REVENDEDOR.NOMREVEN, REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN,
+            "SELECT REVENDEDOR.NOMREVEN, REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, '$datIni' AS DATAINI, '$datFim' AS DATAFIM,
         (SELECT SUM(RESUMO_CAIXA.VLRVEN)
           FROM RESUMO_CAIXA
            WHERE
@@ -260,6 +259,9 @@ class ResumoCaixaController extends StandardController
         return $data;
     }
 
+    /**
+     * @return mixed
+     */
     public function retornaResumoCaixaParameter(){
 
 
@@ -324,7 +326,7 @@ class ResumoCaixaController extends StandardController
 
         $data = DB::select (
 
-            "SELECT REVENDEDOR.NOMREVEN, REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN,
+            "SELECT REVENDEDOR.NOMREVEN, REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, '$datIni' AS DATAINI, '$datFim' AS DATAFIM,
         (SELECT SUM(RESUMO_CAIXA.VLRVEN)
           FROM RESUMO_CAIXA
            WHERE
@@ -449,6 +451,10 @@ class ResumoCaixaController extends StandardController
         );
 
 
+
+
+//        dd($data);
+
         return $data;
     }
 
@@ -491,11 +497,58 @@ class ResumoCaixaController extends StandardController
         return $data;
     }
 
-    public function retornaApostaPremios(){
-//        $datainicila = $this->data_inicial;
-        $datafinal = $this->data_fim;
+    public function retornaApostaPremios($idven, $idbase, $idreven, $datini, $datfim){
 
-        return $datafinal;
+//        $datini = date ("Y/m/d");
+//        $datfim = date ("Y/m/d");
+
+        $data = DB::select (" 
+            SELECT APOSTA_PALPITES.IDBASE, APOSTA_PALPITES.IDVEN, APOSTA_PALPITES.IDREVEN, 
+           APOSTA_PALPITES.IDTER, APOSTA_PALPITES.IDAPO, APOSTA_PALPITES.NUMPULE,
+           APOSTA_PALPITES.SEQPALP, APOSTA_PALPITES.DATAPO,APOSTA_PALPITES.IDMENU,
+           APOSTA_PALPITES.IDTIPOAPO,APOSTA_PALPITES.IDLOT,APOSTA_PALPITES.IDHOR,
+           APOSTA_PALPITES.IDCOL,APOSTA_PALPITES.VLRPALP,APOSTA_PALPITES.PALP1,
+           APOSTA_PALPITES.PALP2,APOSTA_PALPITES.PALP3,APOSTA_PALPITES.PALP4,
+           APOSTA_PALPITES.PALP5,APOSTA_PALPITES.PALP6,APOSTA_PALPITES.PALP7,
+           APOSTA_PALPITES.PALP8,APOSTA_PALPITES.PALP9,APOSTA_PALPITES.PALP10,
+           APOSTA_PALPITES.PALP11,APOSTA_PALPITES.PALP12,APOSTA_PALPITES.PALP13,
+           APOSTA_PALPITES.PALP14,APOSTA_PALPITES.PALP15,APOSTA_PALPITES.SITAPO,
+           APOSTA_PALPITES.VLRCOM,APOSTA_PALPITES.VLRPRESEC,APOSTA_PALPITES.VLRPREMOL,
+           APOSTA_PALPITES.VLRPRE,APOSTA_PALPITES.COLMOTDES,APOSTA_PALPITES.VLRPRESMJ,
+           APOSTA_PALPITES.VLRPALPF,APOSTA_PALPITES.VLRPALPD,APOSTA_PALPITES.VLRPREPAG,
+           APOSTA_PALPITES.DATENV, APOSTA_PALPITES.HORENV,APOSTA_PALPITES.INCOMB,
+           APOSTA_PALPITES.VLRCOTACAO,APOSTA_PALPITES.DATCAN,APOSTA_PALPITES.HORCAN,
+           APOSTA_PALPITES.SITPRE,APOSTA_PALPITES.DATLIBPRE,APOSTA_PALPITES.HORLIBPRE,
+           APOSTA_PALPITES.DATLIMPRE, APOSTA_PALPITES.INATRASADO, APOSTA_PALPITES.INSORPRO, 
+           APOSTA_PALPITES.INFODESC, APOSTA_PALPITES.PALP16,APOSTA_PALPITES.PALP17,
+           APOSTA_PALPITES.PALP18,APOSTA_PALPITES.PALP19,APOSTA_PALPITES.PALP20,
+           APOSTA_PALPITES.PALP21,APOSTA_PALPITES.PALP22,APOSTA_PALPITES.PALP23,
+           APOSTA_PALPITES.PALP24,APOSTA_PALPITES.PALP25,APOSTA_PALPITES.PRELIBMANUAL,
+           APOSTA_PALPITES.NUMAUT,APOSTA_PALPITES.VLR_AUX,
+           REVENDEDOR.NOMREVEN,
+           HOR_APOSTA.DESHOR,
+           TIPO_APOSTA.DESTIPOAPO,
+           COLOCACOES.DESCOL, ' ' as inSel
+      FROM APOSTA_PALPITES
+      INNER JOIN REVENDEDOR ON REVENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
+                               REVENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN AND
+                               REVENDEDOR.IDREVEN = APOSTA_PALPITES.IDREVEN
+      INNER JOIN HOR_APOSTA ON HOR_APOSTA.IDLOT = APOSTA_PALPITES.IDLOT AND
+                               HOR_APOSTA.IDHOR = APOSTA_PALPITES.IDHOR
+      INNER JOIN TIPO_APOSTA ON TIPO_APOSTA.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO
+      INNER JOIN COLOCACOES ON COLOCACOES.IDCOL = APOSTA_PALPITES.IDCOL
+      WHERE
+          APOSTA_PALPITES.SITAPO = 'PRE'
+      AND APOSTA_PALPITES.DATLIBPRE BETWEEN '$datini' AND '$datfim'
+      AND APOSTA_PALPITES.IDBASE = $idbase
+      AND APOSTA_PALPITES.IDVEN = $idven
+      AND APOSTA_PALPITES.IDREVEN = $idreven
+        ");
+
+
+//        dd($data);
+
+        return view('dashboard.apostapremiada', compact('data'));
     }
 
 }

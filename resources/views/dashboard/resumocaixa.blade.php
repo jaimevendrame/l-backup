@@ -16,6 +16,7 @@
                                 <div class="input-field col s6 m2">
                                    <input id="datIni" name="datIni" type="date" class="datepicker"
                                                    placeholder =@php  echo "De:".'&nbsp;'.date("d/m/Y") @endphp >
+
                                 </div>
                                 <div class="input-field col s6 m2">
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
@@ -116,13 +117,30 @@
                                     <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
-                                    <td><a href="#modal1">{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</a></td>
+                                    <td>@if($resumo->vlrpremio > 0)<a href="#{{$resumo->vlrdevant}}" class="btn">@endif{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</a></td>
+                                    @if($resumo->vlrpremio > 0)
+                                    <!-- Modal Structure -->
+                                    <div id="{{$resumo->vlrdevant}}" class="modal">
+                                        <div class="modal-content">
+                                            <div class="modal-footer">
+                                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
+                                            </div>
+                                            <h4>Aposta Premiada</h4>
+                                            <p>
+                                            <div class="video-container">
+                                                <iframe width="700" height="315" src="http://192.168.10.10:8000/admin/resumocaixa/aposta_premiada/{{$resumo->idven}}/{{$resumo->idbase}}/{{$resumo->idreven}}/{{Carbon\Carbon::parse($resumo->dataini)->format('Y-m-d')}}/{{Carbon\Carbon::parse($resumo->datafim)->format('Y-m-d')}}" frameborder="0" allowfullscreen></iframe></div>
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+                                    @endif
                                     <td>{{ number_format($resumo->despesas, 2, ',', '.') }}</td>
                                     <td>{{ number_format(($resumo->vlrliqbru - $resumo->vlrliqbru - $resumo->despesas), 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
                                     <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
-{{--                                    <td> {{$resumo->dataultven}}</td>--}}
+{{--                                    <td> {{$resumo->dataultve n}}</td>--}}
                                     <td @if ($resumo->vlrdevatu < 0)
                                         bgcolor='RED' @elseif ($resumo->vlrdevant > 0) bgcolor='GREEN'
                                     @else @endif>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</td>
@@ -145,17 +163,7 @@
 
     </div>
 
-    <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
 
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <h4>Aposta Premiada</h4>
-            <p>A bunch of text</p>
-        </div>
-
-    </div>
 
 @endsection
 
