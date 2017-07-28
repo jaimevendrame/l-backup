@@ -36,7 +36,7 @@
                                     <label>Bases selecionadas</label>
                                 </div>
                                 <div class="input-field col s12 m2">
-                                    <select multiple>
+                                    <select multiple name="sel_options[]">
                                         <option value="" disabled selected>Opções</option>
                                         <option value="1">Com Despesas</option>
                                         <option value="2">Mostrar Inativos</option>
@@ -121,7 +121,7 @@
                                         </div>
                                     @endif
                                     <td>{{ number_format($resumo->despesas, 2, ',', '.') }}</td>
-                                    <td>{{ number_format(($resumo->vlrliqbru - $resumo->vlrliqbru - $resumo->despesas), 2, ',', '.') }}</td>
+                                    <td>{{ number_format(($resumo->vlrliqbru - $resumo->vlrpremio - $resumo->despesas), 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
                                     <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
@@ -213,7 +213,7 @@
                             <div class="col s2">Com vendas: @php echo count($data) - $semvendas @endphp</div>
                             <div class="col s2"></div>
                             <div class="col s2"></div>
-                            <div class="col s2 right-align">Caixa: @php echo $recb - $pagto @endphp</div>
+                            <div class="col s2 right-align">Caixa: @php echo number_format($recb - $pagto, 2, ',', '.');  @endphp</div>
                         </div>
 
                     </div>

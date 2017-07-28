@@ -264,9 +264,25 @@ class ResumoCaixaController extends StandardController
      */
     public function retornaResumoCaixaParameter(){
 
+        $dados = $this->request->get('sel_options');
+        $in_ativos = '';
 
-        $despesas = $this->request->get('despesas');
-        $in_ativos = $this->request->get('in_ativos');
+        if (isset($dados)){
+            if (in_array(1, $dados)) {
+                $despesas = 'SIM';
+            }
+
+            if (in_array(2, $dados)) {
+                $in_ativos = 'SIM';
+            } else
+                $in_ativos = 'NAO';
+        }
+
+
+
+
+
+
 
         if ($in_ativos == 'SIM'){
             $p_in_ativo = '';

@@ -230,7 +230,7 @@
                 },
 
             "paging":   false,
-            "scrollY": 600,
+            "scrollY": 400,
             "scrollX":        true,
             "scrollCollapse": true,
             "search": true,
