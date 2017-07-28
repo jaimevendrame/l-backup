@@ -41,6 +41,8 @@
         main {
             margin: 0px 10px 0px 10px;
         }
+
+        .modal { width: 95% !important ; height: 95% !important ; }
     </style>
 </head>
 <body>
