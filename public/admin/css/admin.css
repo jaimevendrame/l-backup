@@ -17,8 +17,17 @@ div.dataTables_wrapper {
     margin: 0 auto;
 }
 
- vermelho{
-     background: #ff8a80;
-     color: white;
+.mdl-data-table tbody tr {
+    height: 20px;
+!important;
+}
 
- }
+.mdl-data-table tbody tr {
+    height: 30px; !important;
+}
+
+.mdl-data-table th {
+    line-height: 25px; !important;
+}
+
+.modal { width: 95% !important ; height: 95% !important ; }

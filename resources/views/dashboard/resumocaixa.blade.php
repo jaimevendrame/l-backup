@@ -88,61 +88,46 @@
 
                             </tr>
                             </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Revendedor</th>
-                                <th>Saldo Anterior</th>
-                                <th>Vendido</th>
-                                <th>Comissão</th>
-                                <th>Liquido</th>
-                                <th>Prêmio</th>
-                                <th>Despesas</th>
-                                <th>Lucro</th>
-                                <th>Pagamento</th>
-                                <th>Recebimento</th>
-                                <th>Última Venda</th>
-                                <th>Saldo Atual</th>
-
-                            </tr>
-                            </tfoot>
                             <tbody>
+
                             @forelse($data as $resumo)
+
                                 <tr>
                                     <td>{{ $resumo->nomreven }}</td>
                                     <td
-                                    @if ($resumo->vlrdevant < 0)class='white-text' bgcolor='#e53935'
-                                    @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
+                                            @if ($resumo->vlrdevant < 0)class='white-text' bgcolor='#e53935'
+                                            @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
                                     @else @endif >
                                         <b>{{ number_format($resumo->vlrdevant, 2, ',', '.') }}</b></td>
                                     <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
                                     <td>@if($resumo->vlrpremio > 0)<a href="#{{$resumo->vlrdevant}}" class="btn">@endif{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</a></td>
-                                    @if($resumo->vlrpremio > 0)
+                                @if($resumo->vlrpremio > 0)
                                     <!-- Modal Structure -->
-                                    <div id="{{$resumo->vlrdevant}}" class="modal">
-                                        <div class="modal-content">
-                                            <div class="modal-footer">
-                                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
+                                        <div id="{{$resumo->vlrdevant}}" class="modal">
+                                            <div class="modal-content">
+                                                <div class="modal-footer">
+                                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
+                                                </div>
+                                                <h4>Aposta Premiada</h4>
+                                                <p>
+                                                <div class="video-container">
+                                                    <iframe width="700" height="315" src="../admin/resumocaixa/aposta_premiada/{{$resumo->idven}}/{{$resumo->idbase}}/{{$resumo->idreven}}/{{Carbon\Carbon::parse($resumo->dataini)->format('Y-m-d')}}/{{Carbon\Carbon::parse($resumo->datafim)->format('Y-m-d')}}" frameborder="0" allowfullscreen></iframe></div>
+                                                </p>
+
                                             </div>
-                                            <h4>Aposta Premiada</h4>
-                                            <p>
-                                            <div class="video-container">
-                                                <iframe width="700" height="315" src="../admin/resumocaixa/aposta_premiada/{{$resumo->idven}}/{{$resumo->idbase}}/{{$resumo->idreven}}/{{Carbon\Carbon::parse($resumo->dataini)->format('Y-m-d')}}/{{Carbon\Carbon::parse($resumo->datafim)->format('Y-m-d')}}" frameborder="0" allowfullscreen></iframe></div>
-                                            </p>
 
                                         </div>
-
-                                    </div>
                                     @endif
                                     <td>{{ number_format($resumo->despesas, 2, ',', '.') }}</td>
                                     <td>{{ number_format(($resumo->vlrliqbru - $resumo->vlrliqbru - $resumo->despesas), 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
                                     <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
-{{--                                    <td> {{$resumo->dataultve n}}</td>--}}
+                                    {{--                                    <td> {{$resumo->dataultve n}}</td>--}}
                                     <td @if ($resumo->vlrdevatu < 0) class='white-text' bgcolor='#e53935'
-                                         @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
+                                        @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
                                     @else @endif><b>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</b></td>
 
 
@@ -153,8 +138,84 @@
                                 </tr>
                             @endforelse
 
+                            <tfoot>
+                            @php
+                                $saldoanterior = 0;
+
+                                $venda = 0;
+
+                                $comissao = 0;
+
+                                $liquido = 0;
+
+                                $premio = 0;
+
+                                $despesas = 0;
+
+
+                                $pagto = 0;
+
+                                $recb = 0;
+
+                                $saldoatual = 0;
+                                $semvendas = 0;
+
+                                foreach($data as $key) {
+
+                                        if ($key->vlrven <= 0){
+                                        $semvendas += 1;
+                                        }
+
+                                         $saldoanterior += $key->vlrdevant;
+
+                                         $venda += $key->vlrven;
+
+                                         $comissao += $key->vlrcom;
+
+                                         $liquido += $key->vlrliqbru;
+
+                                         $premio+= $key->vlrpremio;
+
+                                         $despesas += $key->despesas;
+
+
+                                         $pagto+= $key->vlrpagou;
+
+                                         $recb+= $key->vlrreceb;
+
+                                         $saldoatual+= $key->vlrdevatu;
+
+                                            }
+                            @endphp
+                            <tr>
+
+                                <th>Revendedor</th>
+                                <th>@php echo number_format($saldoanterior, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($venda, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($comissao, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($liquido, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($premio, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($despesas, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($liquido - $premio - $despesas, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($pagto, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($recb, 2, ',', '.'); @endphp</th>
+                                <th>Última Venda</th>
+                                <th>@php echo number_format($saldoatual, 2, ',', '.'); @endphp</th>
+
+                            </tr>
+                            </tfoot>
+
 
                         </table>
+                        <div class="row">
+                            <div class="col s2">Revendedor: @php echo count($data)@endphp</div>
+                            <div class="col s2">Sem vendas: @php echo $semvendas @endphp</div>
+                            <div class="col s2">Com vendas: @php echo count($data) - $semvendas @endphp</div>
+                            <div class="col s2"></div>
+                            <div class="col s2"></div>
+                            <div class="col s2 right-align">Caixa: @php echo $recb - $pagto @endphp</div>
+                        </div>
+
                     </div>
 
                 </div>

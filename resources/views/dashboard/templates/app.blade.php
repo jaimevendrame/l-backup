@@ -14,7 +14,6 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="{{ asset('materialize/css/materialize.min.css') }}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/admin.css') }}"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="{{ asset('modallink/jquery.modalLink.css') }}"  media="screen,projection"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.15/css/dataTables.material.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
@@ -200,6 +199,22 @@
     </div>
 </footer>
 
+
+        {{--modal padrão--}}
+    <!-- Modal Trigger -->
+        {{--<a class="waves-effect waves-light btn" href="#modal1">Modal</a>--}}
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+        {{--fim modal padrão--}}
     <!-- Page Layout here -->
 
     <!-- Scripts -->
@@ -224,10 +239,10 @@
                 stopPropagation: false // Stops event propagation
             }
         );
+        $('.modal').modal();
 
         $('select').material_select();
 
-        $('.modal').modal();
 
     });
 
@@ -237,14 +252,9 @@
     });
 
 
-
-
 </script>
 {{--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-
-<script type="text/javascript" src="{{ asset('modallink/jquery.modalLink.js') }}"></script>
-
 <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.15/api/sum().js"></script>
 
@@ -258,8 +268,6 @@
 
 <script>
     $(document).ready(function() {
-
-
         var table = $('#example').DataTable( {
             fixedColumns: {
                 leftColumns: 1,
@@ -270,72 +278,58 @@
 
             dom: 'Brtip',
             buttons: [
-
-                {
-                    extend: 'copy',
-                    text: 'Copiar',
-                },
-
-                'excel',
-
-                {
-                    extend: 'print',
-                    text: 'Imprimir',
-                    orientation: 'landscape',
-                },
-
-                'pdf'
-
+                'copy', 'excel', 'pdf', 'print'
             ],
-            columns: [
-                { data: "Revendedor" },
-                { data: "Saldo Anterior", className: "sum" },
-                { data: "Vendido", className: "sum" },
-                { data: "Comissão", className: "sum" },
-                { data: "Liquido", className: "sum" },
-                { data: "Prêmio", className: "sum" },
-                { data: "Despesas", className: "sum" },
-                { data: "Lucro", className: "sum" },
-                { data: "Pagamento", className: "sum" },
-                { data: "Recebimento", className: "sum" },
-                { data: "Última Venda" },
-                { data: "Saldo Atual", className: "sum" }
+//            columns: [
+//                { data: "Revendedor" },
+//                { data: "Saldo Anterior", className: "sum" },
+//                { data: "Vendido", className: "sum" },
+//                { data: "Comissão", className: "sum" },
+//                { data: "Liquido", className: "sum" },
+//                { data: "Prêmio", className: "sum" },
+//                { data: "Despesas", className: "sum" },
+//                { data: "Lucro", className: "sum" },
+//                { data: "Pagamento", className: "sum" },
+//                { data: "Recebimento", className: "sum" },
+//                { data: "Última Venda" },
+//                { data: "Saldo Atual", className: "sum" }
+//
+//            ],
+//            "footerCallback": function(row, data, start, end, display) {
+//                var api = this.api();
+//
+//                var intVal = function ( i ) {
+//                    return typeof i === 'string' ?
+//                        i.replace(/[\$,.]/g, '')*1 :
+//                        typeof i === 'number' ?
+//                            i : 0;
+//                };
+//
+//                var numFormat = $.fn.dataTable.render.number( '.', ',', 2).display;
+//
+//
+//                api.columns('.sum', { page: 'current' }).every(function () {
+//                    var sum = api
+//                        .cells( null, this.index(), { page: 'current'} )
+//                        .render('display')
+//                        .reduce(function (a, b) {
+//                            var x = intVal(a) || 0;
+//                            var y = intVal(b) || 0;
+//                            return x + y;
+//                        }, 0);
+//                    console.log(this.index() +' '+ sum);
+////                    alert(sum);
+//                    $(this.footer()).html((numFormat(parseInt(sum)/100)));
+//                    $( api.columns( 1 ).footer() ).html( (numFormat(parseInt(sum)/100)));
+//                });
+//            },
 
-            ],
-            "footerCallback": function(row, data, start, end, display) {
-                var api = this.api();
-
-                var intVal = function ( i ) {
-                    return typeof i === 'string' ?
-                        i.replace(/[\$,.]/g, '')*1 :
-                        typeof i === 'number' ?
-                            i : 0;
-                };
-
-                var numFormat = $.fn.dataTable.render.number( '.', ',', 2).display;
-
-
-                api.columns('.sum', { page: 'current' }).every(function () {
-                    var sum = api
-                        .cells( null, this.index(), { page: 'current'} )
-                        .render('display')
-                        .reduce(function (a, b) {
-                            var x = intVal(a) || 0;
-                            var y = intVal(b) || 0;
-                            return x + y;
-                        }, 0);
-                    console.log(this.index() +' '+ sum); //alert(sum);
-                    $(this.footer()).html((numFormat(parseInt(sum)/100)));
-                    $( api.columns( 11 ).footer() ).html( (numFormat(parseInt(sum)/100)));
-                });
-            },
-
-            scrollY: 400,
+            scrollY: 380,
             scrollX:        true,
             scrollCollapse: true,
             paging:         false,
             Bfilter:        false,
-//            "aaSorting": [[0, "desc"]],
+            "aaSorting": [[0, "desc"]],
 
 
             columnDefs: [
@@ -399,6 +393,5 @@
 
 
 </script>
-
 </body>
 </html>

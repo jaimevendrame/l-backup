@@ -45,6 +45,13 @@
     </style>
 </head>
 <body>
+<form>
+    <div class="input-field">
+        <input id="myInput" name="myInput" type="search" required>
+        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+        <i class="material-icons">close</i>
+    </div>
+</form>
     <table id="aposta" class="mdl-data-table" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -172,8 +179,12 @@
 <script>
 
     $(document).ready(function() {
-        $('#aposta').DataTable( {
 
+
+
+        var table2 = $('#aposta').DataTable( {
+
+            dom: 'rtip',
 
                 columns: [
                     { data: "Aposta n°" },
@@ -214,14 +225,16 @@
                         console.log(this.index() +' '+ sum);
 //                        alert(sum);
                         $(this.footer()).html((numFormat(parseInt(sum)/100)));
-                        $( api.columns( 11 ).footer() ).html( (numFormat(parseInt(sum)/100)));
+//                        $( api.columns( 11 ).footer() ).html( (numFormat(parseInt(sum)/100)));
                     });
                 },
 
             "paging":   false,
-            "scrollY": 400,
+            "scrollY": 600,
             "scrollX":        true,
             "scrollCollapse": true,
+            "search": true,
+
             "language": {
                 "decimal": ",",
                 "thousands": ".",
@@ -250,6 +263,13 @@
 
 
             }});
+
+        // #myInput is a <input type="text"> element
+        $('#myInput').on( 'keyup', function () {
+            table2.search( this.value ).draw();
+        } );
+
+
     } );
 
 
