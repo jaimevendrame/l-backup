@@ -31,3 +31,13 @@ div.dataTables_wrapper {
 }
 
 .modal { width: 95% !important ; height: 95% !important ; }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}

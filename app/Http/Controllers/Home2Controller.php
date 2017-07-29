@@ -9,6 +9,7 @@ use lotecweb\Http\Requests;
 use lotecweb\Models\Revendedor;
 use lotecweb\Models\Usuario;
 use lotecweb\Models\ResumoCaixa;
+use lotecweb\Models\Usuario_ven;
 use lotecweb\User;
 
 class Home2Controller extends StandardController
@@ -26,6 +27,8 @@ class Home2Controller extends StandardController
         Usuario $usuario,
         Revendedor $revendedor,
         ResumoCaixa $resumocaixa,
+        Usuario_ven $usuario_ven,
+
         Request $request)
     {
         $this->user = $user;
@@ -34,6 +37,9 @@ class Home2Controller extends StandardController
         $this->revendedor = $revendedor;
         $this->resumocaixa = $resumocaixa;
         $this->model = $this->retornaResumoCaixa();
+        $this->usuario_ven = $usuario_ven;
+
+
 
 
     }

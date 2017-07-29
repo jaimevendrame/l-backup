@@ -4,7 +4,7 @@
 
     <div class="section">
         <div class="row">
-            <div class="col s6">
+            <div class="col s8">
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">
                         <span class="card-title">Info</span>
@@ -23,7 +23,7 @@
                                             {{ $vendedor->idven  }}"
 {{--                                                    {{ $selectedRole == $vendedor->idven ? 'selected="selected"' : '' }}--}}
                                             >
-                                                {{ $vendedor->idven  }} - {{ $vendedor->nomven }}</option>
+                                                Base: {{ $vendedor->idbase}} Vendedor: {{ $vendedor->idven  }} - {{ $vendedor->nomven }} Cidade: {{ $vendedor->cidbas }}</option>
 
                                     @endforeach
                                            @endif
@@ -34,52 +34,52 @@
                     </div>
                 </div>
             </div>
-            <div class="col s6">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Bases</span>
-                        <table class="bordered highlight">
-                            <thead>
-                            <tr>
-                                <th>Id Base</th>
-                                <th>Nome Pro</th>
-                                <th>Nome Base</th>
-                                <th>Cidade/UF</th>
-                            </tr>
-                            </thead>
+            <div class="col s4">
+                {{--<div class="card blue-grey darken-1">--}}
+                    {{--<div class="card-content white-text">--}}
+                        {{--<span class="card-title">Bases</span>--}}
+                        {{--<table class="bordered highlight">--}}
+                            {{--<thead>--}}
+                            {{--<tr>--}}
+                                {{--<th>Id Base</th>--}}
+                                {{--<th>Nome Pro</th>--}}
+                                {{--<th>Nome Base</th>--}}
+                                {{--<th>Cidade/UF</th>--}}
+                            {{--</tr>--}}
+                            {{--</thead>--}}
 
-                            <tbody>
-                            @forelse($user_bases as $base)
-                            <tr>
-                                <td>{{ $base->idbase }}</td>
-                                <td>{{ $base->nompro }}</td>
-                                <td>{{ $base->nombas }}</td>
-                                <td>{{ $base->cidbas .'/'. $base->sigufs }}</td>
-                            </tr>
-                                @empty
-                            <tr>
-                                nenhum registro encontrado!
-                            </tr>
-                                @endforelse
+                            {{--<tbody>--}}
+                            {{--@forelse($user_bases as $base)--}}
+                            {{--<tr>--}}
+                                {{--<td>{{ $base->idbase }}</td>--}}
+                                {{--<td>{{ $base->nompro }}</td>--}}
+                                {{--<td>{{ $base->nombas }}</td>--}}
+                                {{--<td>{{ $base->cidbas .'/'. $base->sigufs }}</td>--}}
+                            {{--</tr>--}}
+                                {{--@empty--}}
+                            {{--<tr>--}}
+                                {{--nenhum registro encontrado!--}}
+                            {{--</tr>--}}
+                                {{--@endforelse--}}
 
-                            </tbody>
-                        </table>
-                    </div>
+                            {{--</tbody>--}}
+                        {{--</table>--}}
+                    {{--</div>--}}
 
-                </div>
+                {{--</div>--}}
             </div>
         </div>
 
         <div class="row">
-            <div class="col s6">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Bases</span>
+            {{--<div class="col s6">--}}
+                {{--<div class="card blue-grey darken-1">--}}
+                    {{--<div class="card-content white-text">--}}
+                        {{--<span class="card-title">Bases</span>--}}
 
-                    </div>
+                    {{--</div>--}}
 
-                </div>
-            </div>
+                {{--</div>--}}
+            {{--</div>--}}
 
         </div>
 

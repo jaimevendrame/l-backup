@@ -21,10 +21,16 @@ class StandardController extends BaseController
     protected $request;
     protected $totalPorPagina = 15;
 
-    public function __construct(Request $request)
+    public function __construct(
+
+
+        Request $request
+
+    )
     {
 
         $this->request = $request;
+
 
     }
 
@@ -40,7 +46,9 @@ class StandardController extends BaseController
 
         $usuario_lotec = $this->retornaUserLotec($idusu);
 
-        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
+//        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
+
+        $vendedores = $this->retornaBasesAll($idusu);
 
         $menus = $this->retornaMenu($idusu);
 
@@ -196,6 +204,28 @@ class StandardController extends BaseController
 
     public function loadData(){
 
+    }
+
+    public function retornaBasesAll($id){
+
+
+        $data = $this->usuario_ven
+
+//            ->select('USUARIO_VEN.*')
+            ->join('VENDEDOR', [
+                ['USUARIO_VEN.IDVEN','=','VENDEDOR.IDVEN'],
+                ['USUARIO_VEN.IDBASE', '=', 'VENDEDOR.IDBASE']])
+            ->join('BASE', 'USUARIO_VEN.IDBASE', '=', 'BASE.IDBASE')
+            ->where([
+                ['USUARIO_VEN.idusu', '=', $id]
+            ])
+            ->orderby('INPADRAO', 'DESC')
+            ->get();
+
+
+//        dd($data);
+
+        return $data;
     }
 
 }
