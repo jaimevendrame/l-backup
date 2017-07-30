@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use lotecweb\Http\Requests;
 use lotecweb\Models\Usuario;
 use lotecweb\Models\Usuario_ven;
+use lotecweb\Models\Vendedor;
 
 class ResumoCaixaController extends StandardController
 {
@@ -28,11 +29,13 @@ class ResumoCaixaController extends StandardController
     public function __construct(
         Usuario $usuario,
         Usuario_ven $usuario_ven,
+        Vendedor $vendedor,
         Request $request)
     {
         $this->request = $request;
         $this->usuario = $usuario;
         $this->usuario_ven = $usuario_ven;
+        $this->vendedor = $vendedor;
 
 
     }
@@ -40,7 +43,38 @@ class ResumoCaixaController extends StandardController
     public function index2($ideven)
     {
 
-        $ideven = $ideven;
+
+
+        if (Auth::user()->idusu == 1000){
+
+            $data = $this->vendedor
+                ->select('ideven')
+                ->get();
+
+            $palavra = "";
+
+
+            $c = 0;
+            foreach ($data as $key){
+
+//                echo  $key['ideven'].'\n';
+//                echo $c.'\n';
+                $palavra = $palavra.$key['ideven'];
+                if ($c < count($data)-1){
+                    $palavra = $palavra.",";
+                }
+                $c++;
+
+
+            }
+            $ideven = $palavra;
+
+
+
+        } else{
+            $ideven = $ideven;
+        }
+
 
         $idusu = Auth::user()->idusu;
 
@@ -110,12 +144,32 @@ class ResumoCaixaController extends StandardController
         } else{$ideven2 = 0;}
 
 
+        $dados = $this->request->get('sel_options');
+        $in_ativos = '';
 
-        return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2'));
+
+
+        if (isset($dados)){
+            if (in_array(1, $dados)) {
+                $despesas = 'SIM';
+            }else {
+                $despesas = 'NAO';}
+
+            if (in_array(2, $dados)) {
+                $in_ativos = 'SIM';
+            } else
+                $in_ativos = 'NAO';
+        }
+
+
+
+                return view("{$this->nameView}",compact('idusu',
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'despesas','in_ativos'));
     }
 
     public function retornaResumoCaixa($ideven){
+
+
 
 
         $datIni = date ("Y/m/d");
@@ -247,7 +301,7 @@ class ResumoCaixaController extends StandardController
     WHERE
      REVENDEDOR.IDREVEN <> 99999999
      
-     AND VENDEDOR.IDEVEN = $ideven
+     AND VENDEDOR.IDEVEN in ($ideven)
      
      AND REVENDEDOR.SITREVEN = 'ATIVO'
      
@@ -280,11 +334,6 @@ class ResumoCaixaController extends StandardController
             } else
                 $in_ativos = 'NAO';
         }
-
-
-
-
-
 
 
         if ($in_ativos == 'SIM'){
