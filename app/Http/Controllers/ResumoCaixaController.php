@@ -50,7 +50,7 @@ class ResumoCaixaController extends StandardController
 
         $usuario_lotec = $this->retornaUserLotec($idusu);
 
-
+//dd($idusu);
 
 //        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
 
@@ -498,18 +498,9 @@ class ResumoCaixaController extends StandardController
     public function retornaBasesAll($id){
 
         if ($id == 1000){
-            $data = $this->usuario_ven
-
-
-//            ->select('USUARIO_VEN.*')
-                ->join('VENDEDOR', [
-                    ['USUARIO_VEN.IDVEN','=','VENDEDOR.IDVEN'],
-                    ['USUARIO_VEN.IDBASE', '=', 'VENDEDOR.IDBASE']])
-                ->join('BASE', 'USUARIO_VEN.IDBASE', '=', 'BASE.IDBASE')
-                ->orderby('USUARIO_VEN.IDEVEN', 'ASC')
-                ->distinct('USUARIO_VEN.IDEVEN')
+            $data = DB::table('VENDEDOR')
+                ->orderBy('NOMVEN', 'asc')
                 ->get();
-
             return $data;
 
         } else{
