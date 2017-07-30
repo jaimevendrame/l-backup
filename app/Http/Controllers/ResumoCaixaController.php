@@ -37,9 +37,10 @@ class ResumoCaixaController extends StandardController
 
     }
 
-    public function index()
+    public function index2($ideven)
     {
 
+        $ideven = $ideven;
 
         $idusu = Auth::user()->idusu;
 
@@ -49,27 +50,29 @@ class ResumoCaixaController extends StandardController
 
         $usuario_lotec = $this->retornaUserLotec($idusu);
 
-        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
+
+
+//        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
+
+        $vendedores = $this->retornaBasesUser($idusu);
+
 
         $menus = $this->retornaMenu($idusu);
 
         $categorias = $this->retornaCategorias($menus);
 
-        $data = $this->retornaResumoCaixa();
-
-//        dd($data);
+        $data = $this->retornaResumoCaixa($ideven);
 
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-//        dd($baseAll);
 
 
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
     }
 
     public function indexGo()
@@ -84,7 +87,7 @@ class ResumoCaixaController extends StandardController
 
         $usuario_lotec = $this->retornaUserLotec($idusu);
 
-        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
+        $vendedores = $this->retornaBasesUser($idusu);
 
         $menus = $this->retornaMenu($idusu);
 
@@ -92,20 +95,27 @@ class ResumoCaixaController extends StandardController
 
         $data = $this->retornaResumoCaixaParameter();
 
-//        dd($data);
 
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
 
 
+        //referente aos IDEVEN
+        $valor = $this->request->get('sel_vendedor');
+
+        if (isset($valor)){
+//            $ideven2 = implode(",", $valor);
+            $ideven2 = $valor;
+        } else{$ideven2 = 0;}
+
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2'));
     }
 
-    public function retornaResumoCaixa(){
+    public function retornaResumoCaixa($ideven){
 
 
         $datIni = date ("Y/m/d");
@@ -115,20 +125,13 @@ class ResumoCaixaController extends StandardController
         $this->data_fim = $datFim;
 
         //data atual menos um dia
-//        $inicio = date ("Y/m/d"); // data atual menos um dia
         $inicio = $datIni; // data inicio menos um dia
         $parcelas = 1;
         $data_termino = new DateTime($inicio);
         $data_termino->sub(new DateInterval('P'.$parcelas.'D'));
         $datAnt = $data_termino->format('Y/m/d');
 
-//        dd($datAnt);
 
-
-
-        $codigo = Auth::user()->idusu;
-
-        $cod_idbase =  $this->retornaBasesPadrao($codigo);
 
         $data = DB::select (
 
@@ -244,7 +247,7 @@ class ResumoCaixaController extends StandardController
     WHERE
      REVENDEDOR.IDREVEN <> 99999999
      
-     AND VENDEDOR.IDEVEN = $cod_idbase 
+     AND VENDEDOR.IDEVEN = $ideven
      
      AND REVENDEDOR.SITREVEN = 'ATIVO'
      
@@ -325,7 +328,7 @@ class ResumoCaixaController extends StandardController
 
         $codigo = Auth::user()->idusu;
 
-        //referente aos IDEVEN ??verificar com Douglas??
+        //referente aos IDEVEN
         $valor = $this->request->get('sel_vendedor');
         if ($valor == NULL){
             $valor = $this->retornaBasesPadrao($codigo);
@@ -491,7 +494,47 @@ class ResumoCaixaController extends StandardController
     }
 
 
+
     public function retornaBasesAll($id){
+
+        if ($id == 1000){
+            $data = $this->usuario_ven
+
+
+//            ->select('USUARIO_VEN.*')
+                ->join('VENDEDOR', [
+                    ['USUARIO_VEN.IDVEN','=','VENDEDOR.IDVEN'],
+                    ['USUARIO_VEN.IDBASE', '=', 'VENDEDOR.IDBASE']])
+                ->join('BASE', 'USUARIO_VEN.IDBASE', '=', 'BASE.IDBASE')
+                ->orderby('USUARIO_VEN.IDEVEN', 'ASC')
+                ->distinct('USUARIO_VEN.IDEVEN')
+                ->get();
+
+            return $data;
+
+        } else{
+
+            $data = $this->usuario_ven
+
+
+//            ->select('USUARIO_VEN.*')
+                ->join('VENDEDOR', [
+                    ['USUARIO_VEN.IDVEN','=','VENDEDOR.IDVEN'],
+                    ['USUARIO_VEN.IDBASE', '=', 'VENDEDOR.IDBASE']])
+                ->join('BASE', 'USUARIO_VEN.IDBASE', '=', 'BASE.IDBASE')
+                ->where([
+                    ['USUARIO_VEN.idusu', '=', $id]
+                ])
+                ->orderby('INPADRAO', 'DESC')
+                ->get();
+
+            return $data;
+        }
+
+    }
+
+
+    public function retornaBasesUser($id){
 
 
         $data = $this->usuario_ven

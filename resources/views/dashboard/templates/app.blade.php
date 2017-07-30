@@ -25,6 +25,15 @@
 
     <!-- Scripts -->
     <script>
+        function test(el) {
+            var $lnk = document.getElementById("lnk-ideven");
+            alert($lnk.href);
+            $lnk.href = $lnk.href.replace(/(.*)/, '/admin/resumocaixa/') + el.value;
+            alert($lnk.href);
+
+        }
+    </script>
+    <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
@@ -120,16 +129,15 @@
                 <li>
                     <div class="userView">
                         <div class="background">
-                            <img src="images/office.jpg">
+                            <img src="{{ asset('admin/images/office.jpg') }}">
                         </div>
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <a href="#!user"><img class="circle" src="images/user_default.jpg"></a>
                             <a href="#!name"><span class="white-text name">Anonimo</span></a>li>
                         @else
                             <div class="row">
                                 <div class="col col s4 m4 l4">
-                                    <img class="circle avatar" src="images/user_default.jpg">
+                                    <img class="circle avatar" src="{{ asset('admin/images/user_default.jpg') }}">
                                 </div>
                                 <div class="col col s8 m8 l8">
                                     <a class="dropdown-button" href="#!" data-activates="dropdown1">
@@ -153,7 +161,16 @@
                         </div>
                     </form>
                 </li>
+
+                </li>
                 <ul class="collapsible" data-collapsible="accordion">
+                    @php $m = 0;
+                    foreach ($vendedores as $item){
+                            if ($item->inpadrao == 'SIM'){
+                                $m = $item->ideven;
+                            }
+                        }
+                    @endphp
 
                    @php
                         foreach($categorias as $key => $value){
@@ -164,7 +181,7 @@
                                         <ul>';
                                             foreach ($menus as $menu){
                                                if ($menu->catact == $value){
-                                            echo '<li><a class="waves-effect white-text waves-light tooltipped"  href="'.$menu->route.'"
+                                            echo '<li><a class="waves-effect white-text waves-light tooltipped"  href="'.$menu->route.'/'.$m.'" id="'.$menu->idref.'"
                                             data-position="right" data-delay="50" data-tooltip="'.$menu->capact.'"
                                             >'.$menu->capact.'</a></li>';
                                             }}
@@ -271,9 +288,19 @@
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15 // Creates a dropdown of 15 years to control year
+
+
     });
 
+    @if(empty($data))
+        $("#datIni").val('{{date("d/m/Y")}}');
+    $("#datFim").val('{{date("d/m/Y")}}');
 
+
+    @else
+    $("#datIni").val('{{Carbon\Carbon::parse($data[0]->dataini)->format('d/m/Y')}}');
+    $("#datFim").val('{{Carbon\Carbon::parse($data[0]->datafim)->format('d/m/Y')}}');
+    @endif
 </script>
 {{--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>

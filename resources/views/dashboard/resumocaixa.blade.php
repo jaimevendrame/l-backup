@@ -1,6 +1,10 @@
 @extends('dashboard.templates.app')
 
 @section('content')
+    {{--@forelse($ideven2 as $p)--}}
+        {{--{{$p}}--}}
+        {{--@empty--}}
+        {{--@endforelse--}}
 
     <div class="section">
         <div class="row">
@@ -10,24 +14,29 @@
                         <form class="form-group" id="form-cad-edit" method="post" action="/admin/resumocaixa" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-
-
                             <div class="row">
                                 <div class="input-field col s6 m2">
-                                   <input id="datIni" name="datIni" type="date" class="datepicker"
-                                                   placeholder =@php  echo "De:".'&nbsp;'.date("d/m/Y") @endphp >
+                                    <input id="datIni" name="datIni" type="date" class="datepicker"
+                                           placeholder ="Data inicial">
 
                                 </div>
                                 <div class="input-field col s6 m2">
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
-                                             placeholder = @php echo "à:".'&nbsp;'.date("d/m/Y") @endphp>
+                                             placeholder ="Data final">
                                 </div>
 
                                 <div class="input-field col s12 m4">
                                     <select multiple name="sel_vendedor[]">
                                         <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
-                                        <option value="{{$bases->ideven}}"{{ $bases->inpadrao == 'SIM'  ? 'selected' : '' }}>{{$bases->ideven}}-{{$bases->nomven}}{{--{{$bases->ideven}}-{{$bases->nomven}}-{{$bases->cidven}}-{{$bases->sigufs}}--}}</option>
+                                            @if( isset($ideven))
+                                            <option value="{{$bases->ideven}}" {{ $bases->ideven == $ideven  ? 'selected' : '' }} >{{$bases->ideven}}-{{$bases->nomven}}</option>
+                                            @endif
+                                            @if( isset($ideven2))
+
+                                                <option value="{{$bases->ideven}}" @forelse($ideven2 as $select) {{ $bases->ideven == $select  ? 'selected' : '' }} @ @empty @endforelse>{{$bases->ideven}}-{{$bases->nomven}}</option>
+
+                                            @endif
                                         @empty
                                             <option value="" disabled selected>Nenhuma base</option>
                                         @endforelse

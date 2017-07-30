@@ -120,6 +120,7 @@ class StandardController extends BaseController
     }
     public function retornaUsuarioVen($idUsu, $idBase){
         //retorna o vendedor viculado ao usuario e a base
+        dd($idBase);
 
         if ((!empty($idUsu)) && (!empty($idBase))){
             $data = DB::table('USUARIO_VEN')

@@ -2,6 +2,12 @@
 
 @section('content')
 
+
+
+    @php
+    $ideven = 0;
+    @endphp
+
     <div class="section">
         <div class="row">
             <div class="col s8">
@@ -16,14 +22,12 @@
                             <div class="input-field col s12">
                                 <label class="active">Vendedor:</label>
                                 <br>
-                                <select class="browser-default blue-grey darken-1">
+                                <select class="browser-default blue-grey darken-1" onchange="test(this)">
                                     @if ($vendedores->count())
                                         @foreach($vendedores as $vendedor)
-                                            <option value="
-                                            {{ $vendedor->idven  }}"
-{{--                                                    {{ $selectedRole == $vendedor->idven ? 'selected="selected"' : '' }}--}}
-                                            >
-                                                Base: {{ $vendedor->idbase}} Vendedor: {{ $vendedor->idven  }} - {{ $vendedor->nomven }} Cidade: {{ $vendedor->cidbas }}</option>
+                                            <option value="{{ $vendedor->ideven  }}" {{ $vendedor->inpadrao == 'SIM'  ? 'selected' : '' }}>
+                                                Base: {{ $vendedor->idbase}} Vendedor: {{ $vendedor->idven  }} - {{ $vendedor->nomven }} Cidade: {{ $vendedor->cidbas }}
+                                            </option>
 
                                     @endforeach
                                            @endif
