@@ -263,6 +263,9 @@
         <script src="{{ asset('materialize/lib/pt_BR.js') }}"></script>
 <script type="application/javascript">
     $(document).ready(function(){
+
+        $('.collapsible').collapsible('open', 0);
+
         // Show sideNav
 
         $(".button-collapse").sideNav();

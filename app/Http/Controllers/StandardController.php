@@ -12,6 +12,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Illuminate\Routing\Controller as BaseController;
+use lotecweb\Models\Usuario;
+use lotecweb\User;
 
 
 class StandardController extends BaseController
@@ -23,6 +25,8 @@ class StandardController extends BaseController
 
     public function __construct(
 
+        Usuario $usuario,
+        User $user,
 
         Request $request
 
@@ -30,6 +34,9 @@ class StandardController extends BaseController
     {
 
         $this->request = $request;
+        $this->usuario = $usuario;
+        $this->user = $user;
+
 
 
     }
@@ -151,8 +158,8 @@ class StandardController extends BaseController
 //            dd($ul->idusu);
 
             $insert =  $this->user->create([
-                'name' => $ul->nomusu,
-                'email' => strtolower(str_replace(" ","",$ul->nomusu)).'@lotec.com',
+                'name' => $ul->logusu,
+                'email' => strtolower(str_replace(" ","",$ul->logusu)).'@lotec.com',
                 'password' => bcrypt($ul->senusu),
                 'idusu' => $ul->idusu,
                 'role' => \lotecweb\User::ROLE_ADMIN,
@@ -161,10 +168,10 @@ class StandardController extends BaseController
 
             if ($insert)
 
-                echo strtolower(trim($ul->nomusu))."@lotec.com - OK! <br>";
+                echo strtolower(trim($ul->logusu))."@lotec.com - OK! <br>";
 
             else
-                return strtolower(trim($ul->nomusu))."@lotec.com - Falha! <br>";
+                return strtolower(trim($ul->logusu))."@lotec.com - Falha! <br>";
         }
 
 
@@ -227,6 +234,12 @@ class StandardController extends BaseController
 //        dd($data);
 
         return $data;
+    }
+
+    public function addUserWeb(){
+        $usuario_lotec = $this->usuario->get();
+
+        return view('dashboard.admin.index', compact('usuario_lotec'));
     }
 
 }

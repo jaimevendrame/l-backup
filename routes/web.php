@@ -57,7 +57,7 @@ Route::group([
         Route::get('/delete/{idAluno}', 'HomeController@delete')->name('delete');
 //        Route::get('/show/{idAluno}', 'AlunoController@show')->name('show');
 //        Route::get('/sms/{idAluno}', 'AlunoController@sms')->name('sms');
-        Route::get('/gerarusers/', 'HomeController@gerarUser')->name('gerarusers');
+        Route::get('/gerarusers/', 'StandardController@gerarUser')->name('gerarusers');
         Route::get('/resumocaixa/{idven}', 'ResumoCaixaController@index2')->name('retornaresumo');
         Route::post('/resumocaixa/', 'ResumoCaixaController@indexGo')->name('retornaresumo');
         Route::get('/resumocaixa/aposta_premiada/{idven}/{idbase}/{idreven}/{datini}/{datfim}',
@@ -69,6 +69,7 @@ Route::group([
 
         Route::get('/resumorevendedor/', 'ResumoCaixaController@retornaRevendedor')->name('retornarevendedor');
         Route::get('/test/', 'TestController@test')->name('test');
+        Route::get('/adduserweb/', 'StandardController@addUserWeb')->name('adduser');
 
 
 
