@@ -334,8 +334,8 @@
                     extend: 'copy',
                     text: 'Copiar',
                 },
-                'excel',
                 'pdf',
+                'excel',
                 {
                     extend: 'print',
                     text: 'Imprimir',
