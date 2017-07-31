@@ -27,9 +27,9 @@
     <script>
         function test(el) {
             var $lnk = document.getElementById("lnk-ideven");
-            alert($lnk.href);
+//            alert($lnk.href);
             $lnk.href = $lnk.href.replace(/(.*)/, '/admin/resumocaixa/') + el.value;
-            alert($lnk.href);
+//            alert($lnk.href);
 
         }
     </script>
@@ -330,7 +330,16 @@
 
             dom: 'Brtip',
             buttons: [
-                'copy', 'excel', 'pdf', 'print'
+                {
+                    extend: 'copy',
+                    text: 'Copiar',
+                },
+                'excel',
+                'pdf',
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                }
             ],
 //            columns: [
 //                { data: "Revendedor" },
