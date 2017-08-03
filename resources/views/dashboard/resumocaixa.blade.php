@@ -29,12 +29,11 @@
                                     <select multiple name="sel_vendedor[]">
                                         <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
-                                            @if( isset($ideven))
+                                            @if( isset($ideven) && !empty($ideven))
                                             <option value="{{$bases->ideven}}" {{ $bases->ideven == $ideven  ? 'selected' : '' }} >{{$bases->ideven}}-{{$bases->nomven}}</option>
-                                            @endif
-                                            @if( (isset($ideven2)) && (is_array($ideven2))) <option value="{{$bases->ideven}}" @forelse($ideven2 as $select) {{ $bases->ideven == $select  ? 'selected' : '' }} @ @empty @endforelse >{{$bases->ideven}}-{{$bases->nomven}}</option>
-                                             @elseif(empty($idven2))
-                                                    <option value="{{$bases->ideven}}">{{$bases->ideven}}-{{$bases->nomven}}</option>
+                                                @elseif(isset($ideven2) && (is_array($ideven2))) <option value="{{$bases->ideven}}" @forelse($ideven2 as $select) {{ $bases->ideven == $select  ? 'selected' : '' }} @ @empty @endforelse >{{$bases->ideven}}-{{$bases->nomven}}</option>
+                                             @else
+                                                <option value="{{$bases->ideven}}">{{$bases->ideven}}-{{$bases->nomven}}</option>
                                             @endif
                                         @empty
                                             <option value="" disabled selected>Nenhuma base</option>
