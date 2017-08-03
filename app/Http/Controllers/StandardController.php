@@ -12,7 +12,10 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Illuminate\Routing\Controller as BaseController;
+use lotecweb\Models\Cobrador;
+use lotecweb\Models\Revendedor;
 use lotecweb\Models\Usuario;
+use lotecweb\Models\Vendedor;
 use lotecweb\User;
 
 
@@ -27,7 +30,9 @@ class StandardController extends BaseController
 
         Usuario $usuario,
         User $user,
-
+        Revendedor $revendedor,
+        Vendedor $vendedor,
+        Cobrador $cobrador,
         Request $request
 
     )
@@ -36,6 +41,9 @@ class StandardController extends BaseController
         $this->request = $request;
         $this->usuario = $usuario;
         $this->user = $user;
+        $this->revendedor = $revendedor;
+        $this->vendedor = $vendedor;
+        $this->cobrador = $cobrador;
 
 
 
@@ -240,6 +248,48 @@ class StandardController extends BaseController
         $usuario_lotec = $this->usuario->get();
 
         return view('dashboard.admin.index', compact('usuario_lotec'));
+    }
+
+
+    public function retornaRevendedor($id){
+
+
+        $idbase = $this->retornaBasepeloIdeven($id);
+
+//        dd($idbase->idbase);
+
+        $data = $this->revendedor
+            ->where('idbase','=',$idbase->idbase)
+            ->orderby('nomreven')
+            ->get();
+
+        return $data;
+
+    }
+
+    public function retornaBasepeloIdeven($ideven){
+        $data = $this->vendedor
+            ->where('ideven','=', $ideven)
+            ->first();
+
+        return $data;
+    }
+
+    public function retornaCobrador($id){
+
+        $id = $this->retornaBasepeloIdeven($id);
+
+        $data = $this->cobrador
+            ->select('idbase', 'idven', 'idcobra', 'nomcobra')
+            ->where([
+                ['sitcobra', '=', 'ATIVO'],
+                ['idbase', '=', $id->idbase],
+                ['idven', '=', $id->idven]
+            ])
+            ->orderby('nomcobra')
+        ->get();
+
+        return $data;
     }
 
 }

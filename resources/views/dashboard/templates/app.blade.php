@@ -31,6 +31,11 @@
             $lnk.href = $lnk.href.replace(/(.*)/, '/admin/resumocaixa/') + el.value;
 //            alert($lnk.href);
 
+            var $lnkcaixa = document.getElementById("lnk-ideven");
+//            alert($lnk.href);
+            $lnkcaixa.href = $lnk.href.replace(/(.*)/, '/admin/movimentoscaixa/') + el.value;
+//            alert($lnk.href);
+
         }
     </script>
     <script>
@@ -318,136 +323,7 @@
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
 
 
-<script>
-    $(document).ready(function() {
-        $(document).ready(function() {
-            $('#movcaixa').DataTable();
-        } );
+@stack('scripts')
 
-
-        var table = $('#example').DataTable( {
-            fixedColumns: {
-                leftColumns: 1,
-                rightColumns: 1
-
-            },
-
-
-            dom: 'Brtip',
-            buttons: [
-                {
-                    extend: 'copy',
-                    text: 'Copiar',
-                },
-                'pdf',
-                'excel',
-                {
-                    extend: 'print',
-                    text: 'Imprimir',
-                }
-            ],
-//            columns: [
-//                { data: "Revendedor" },
-//                { data: "Saldo Anterior", className: "sum" },
-//                { data: "Vendido", className: "sum" },
-//                { data: "Comissão", className: "sum" },
-//                { data: "Liquido", className: "sum" },
-//                { data: "Prêmio", className: "sum" },
-//                { data: "Despesas", className: "sum" },
-//                { data: "Lucro", className: "sum" },
-//                { data: "Pagamento", className: "sum" },
-//                { data: "Recebimento", className: "sum" },
-//                { data: "Última Venda" },
-//                { data: "Saldo Atual", className: "sum" }
-//
-//            ],
-//            "footerCallback": function(row, data, start, end, display) {
-//                var api = this.api();
-//
-//                var intVal = function ( i ) {
-//                    return typeof i === 'string' ?
-//                        i.replace(/[\$,.]/g, '')*1 :
-//                        typeof i === 'number' ?
-//                            i : 0;
-//                };
-//
-//                var numFormat = $.fn.dataTable.render.number( '.', ',', 2).display;
-//
-//
-//                api.columns('.sum', { page: 'current' }).every(function () {
-//                    var sum = api
-//                        .cells( null, this.index(), { page: 'current'} )
-//                        .render('display')
-//                        .reduce(function (a, b) {
-//                            var x = intVal(a) || 0;
-//                            var y = intVal(b) || 0;
-//                            return x + y;
-//                        }, 0);
-//                    console.log(this.index() +' '+ sum);
-////                    alert(sum);
-//                    $(this.footer()).html((numFormat(parseInt(sum)/100)));
-//                    $( api.columns( 1 ).footer() ).html( (numFormat(parseInt(sum)/100)));
-//                });
-//            },
-
-            scrollY: 380,
-            scrollX:        true,
-            scrollCollapse: true,
-            paging:         false,
-            Bfilter:        false,
-            "aaSorting": [[0, "desc"]],
-
-
-            columnDefs: [
-                {
-                    targets: [ 0, 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11],
-                    className: 'mdl-data-table__cell--non-numeric'
-                }
-
-
-            ],
-
-            language: {
-                "decimal":        ",",
-                "thousands":      ".",
-                "sEmptyTable": "Nenhum registro encontrado",
-                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sInfoThousands": ".",
-                "sLengthMenu": "_MENU_ resultados por página",
-                "sLoadingRecords": "Carregando...",
-                "sProcessing": "Processando...",
-                "sZeroRecords": "Nenhum registro encontrado",
-                "sSearch": "Pesquisar",
-                "oPaginate": {
-                    "sNext": "Próximo",
-                    "sPrevious": "Anterior",
-                    "sFirst": "Primeiro",
-                    "sLast": "Último"
-                },
-                "oAria": {
-                    "sSortAscending": ": Ordenar colunas de forma ascendente",
-                    "sSortDescending": ": Ordenar colunas de forma descendente"
-                }
-            }
-
-        } );
-
-        // #myInput is a <input type="text"> element
-        $('#myInput').on( 'keyup', function () {
-            table.search( this.value ).draw();
-        } );
-
-    });
-
-
-
-
-
-
-
-</script>
 </body>
 </html>

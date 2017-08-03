@@ -1,10 +1,6 @@
 @extends('dashboard.templates.app')
 
 @section('content')
-    {{--@forelse($ideven2 as $p)--}}
-        {{--{{$p}}--}}
-        {{--@empty--}}
-        {{--@endforelse--}}
 
     <div class="section">
         <div class="row">
@@ -25,39 +21,35 @@
                                              placeholder ="Data final">
                                 </div>
 
-                                <div class="input-field col s12 m4">
-                                    <select multiple name="sel_vendedor[]">
-                                        <option value="" disabled selected>Selecionar Vendedores</option>
-                                        @forelse($baseAll as $bases)
-                                            @if( isset($ideven))
-                                            <option value="{{$bases->ideven}}" {{ $bases->ideven == $ideven  ? 'selected' : '' }} >{{$bases->ideven}}-{{$bases->nomven}}</option>
-                                            @endif
-                                            @if( isset($ideven2))
-
-                                                <option value="{{$bases->ideven}}" @forelse($ideven2 as $select) {{ $bases->ideven == $select  ? 'selected' : '' }} @ @empty @endforelse>{{$bases->ideven}}-{{$bases->nomven}}</option>
-
-                                            @endif
+                                <div class="input-field col s12 m2">
+                                    <select name="sel_revendedor">
+                                        <option value="" disabled selected>Selecionar Revendedor</option>
+                                        @forelse($reven as $r)
+                                            <option value="{{$r->idreven}}">{{$r->idreven}} - {{$r->nomreven}}</option>
                                         @empty
-                                            <option value="" disabled selected>Nenhuma base</option>
+                                            <option value="" disabled selected>Nenhuma Revendedor</option>
                                         @endforelse
 
                                     </select>
-                                    <label>Bases selecionadas</label>
+                                    <label>Revendedor</label>
                                 </div>
                                 <div class="input-field col s12 m2">
-                                    <select multiple name="sel_options[]">
-                                        <option value="" disabled selected>Opções</option>
-                                        <option value="1" @if(isset($despesas)){{ $despesas == 'SIM'  ? 'selected' : '' }} @endif>Com Despesas</option>
-                                        <option value="2" @if(isset($in_ativos)){{ $in_ativos == 'SIM'  ? 'selected' : '' }} @endif>Mostrar Inativos</option>
+                                    <select name="sel_cobrador">
+                                        <option value="" disabled selected>Cobrador</option>
+{{--                                        <option value="1" @if(isset($despesas)){{ $despesas == 'SIM'  ? 'selected' : '' }} @endif>Com Despesas</option>--}}
+                                        @forelse($cobrador as $cob)
+                                            <option value="{{$cob->idcobra}}">{{$cob->nomcobra}}</option>
+                                        @empty
+                                            <option value="" disabled selected>Nenhuma Cobrador</option>
+                                        @endforelse
                                     </select>
-                                    <label>Opções</label>
+                                    <label>Cobradores</label>
                                 </div>
                                 <div class="input-field col s12 m2">
                                     <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
-
 
                                 {{--<div class="input-field col s2">--}}
                                     {{--<a class="waves-effect waves-light btn blue-grey"><i class="material-icons left">print</i></a>--}}
@@ -77,7 +69,6 @@
                             {{--</div>--}}
 
                         </form>
-
 
                         <table class="mdl-data-table " id="movcaixa"  cellspacing="0" width="100%">
                             <thead>
@@ -104,7 +95,7 @@
                                     <td>{{ number_format($movi->vlrmov, 2, ',', '.') }}</td>
                                     <td>{{ number_format($movi->saldoatu, 2, ',', '.') }}</td>
                                     <td> {{ Carbon\Carbon::parse($movi->datmov)->format('d/m/Y') }}</td>
-                                    <td>{{ $movi->hormov }}</td>
+                                    <td>{{ Carbon\Carbon::parse($movi->hormov)->format('H:m:s') }}</td>
                                     <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
                                     @else class='white-text' bgcolor='#e53935'@endif>
                                         <b>{{ $movi->tipomov }}</b>
@@ -193,10 +184,92 @@
 
     </div>
 
-
-
 @endsection
 
+@push('scripts')
+
+<script>
+
+        $(document).ready(function() {
+
+            var table = $('#movcaixa').DataTable(
+                {
+                    fixedColumns: {
+                        leftColumns: 1
+
+                    },
+
+                    dom: 'Brtip',
+                    buttons: [
+                        {
+                            extend: 'copy',
+                            text: 'Copiar',
+                        },
+                        'pdf',
+                        'excel',
+                        {
+                            extend: 'print',
+                            text: 'Imprimir',
+                        }
+                    ],
+
+
+                    scrollY: 380,
+                    scrollX:        true,
+                    scrollCollapse: true,
+                    paging:         false,
+                    Bfilter:        false,
+
+                    columnDefs: [
+                        {
+                            className: 'mdl-data-table__cell--non-numeric'
+                        }
+
+                    ],
+
+                    language: {
+                        "decimal":        ",",
+                        "thousands":      ".",
+                        "sEmptyTable": "Nenhum registro encontrado",
+                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ".",
+                        "sLengthMenu": "_MENU_ resultados por página",
+                        "sLoadingRecords": "Carregando...",
+                        "sProcessing": "Processando...",
+                        "sZeroRecords": "Nenhum registro encontrado",
+                        "sSearch": "Pesquisar",
+                        "oPaginate": {
+                            "sNext": "Próximo",
+                            "sPrevious": "Anterior",
+                            "sFirst": "Primeiro",
+                            "sLast": "Último"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Ordenar colunas de forma ascendente",
+                            "sSortDescending": ": Ordenar colunas de forma descendente"
+                        }
+                    }
+
+                }
+
+            );
+
+
+            // #myInput is a <input type="text"> element
+            $('#myInput').on( 'keyup', function () {
+                table.search( this.value ).draw();
+            } );
+
+
+        } );
+
+
+</script>
+
+@endpush
 
 
 

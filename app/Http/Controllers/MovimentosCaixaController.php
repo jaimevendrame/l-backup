@@ -10,6 +10,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use lotecweb\Http\Requests;
+use lotecweb\Models\Cobrador;
+use lotecweb\Models\Revendedor;
 use lotecweb\Models\Usuario;
 use lotecweb\Models\Usuario_ven;
 use lotecweb\Models\Vendedor;
@@ -30,12 +32,16 @@ class MovimentosCaixaController extends StandardController
         Usuario $usuario,
         Usuario_ven $usuario_ven,
         Vendedor $vendedor,
+        Revendedor $revendedor,
+        Cobrador $cobrador,
         Request $request)
     {
         $this->request = $request;
         $this->usuario = $usuario;
         $this->usuario_ven = $usuario_ven;
         $this->vendedor = $vendedor;
+        $this->revendedor = $revendedor;
+        $this->cobrador = $cobrador;
 
 
     }
@@ -43,38 +49,9 @@ class MovimentosCaixaController extends StandardController
     public function index2($ideven)
     {
 
+        $reven = $this->retornaRevendedor($ideven);
 
-
-        if (Auth::user()->idusu == 1000){
-
-            $data = $this->vendedor
-                ->select('ideven')
-                ->get();
-
-            $palavra = "";
-
-
-            $c = 0;
-            foreach ($data as $key){
-
-//                echo  $key['ideven'].'\n';
-//                echo $c.'\n';
-                $palavra = $palavra.$key['ideven'];
-                if ($c < count($data)-1){
-                    $palavra = $palavra.",";
-                }
-                $c++;
-
-
-            }
-            $ideven = $palavra;
-
-
-
-        } else{
-            $ideven = $ideven;
-        }
-
+        $cobrador = $this->retornaCobrador($ideven);
 
         $idusu = Auth::user()->idusu;
 
@@ -106,7 +83,7 @@ class MovimentosCaixaController extends StandardController
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador'));
     }
 
     public function indexGo()
@@ -218,7 +195,22 @@ class MovimentosCaixaController extends StandardController
     /**
      * @return mixed
      */
-    public function retornaResumoCaixaParameter(){
+    public function retornaResumoCaixaParameter($ideven){
+
+        $str_idbase = '';
+        $str_idven = '';
+
+        if (Auth::user()->idusu == 1000){
+            $idbase = $this->vendedor
+                ->select('idbase')
+                ->where('ideven', '=', $ideven);
+
+            //retornar o idven
+
+            $str_idbase = "AND MOVIMENTOS_CAIXA.IDBASE = ".$idbase;
+            $str_idven = "AND MOVIMENTOS_CAIXA.IDEVEN = ".$ideven ;
+
+        }
 
         $dados = $this->request->get('sel_options');
         $in_ativos = '';
@@ -265,11 +257,7 @@ class MovimentosCaixaController extends StandardController
             $datFim = $newDateFinal->format('Y/m/d');
 
         }
-            $inicio = $datIni; // data inicio menos um dia
-            $parcelas = 1;
-            $data_termino = new DateTime($inicio);
-            $data_termino->sub(new DateInterval('P' . $parcelas . 'D'));
-            $datAnt = $data_termino->format('Y/m/d');
+
 
 
 
@@ -291,132 +279,26 @@ class MovimentosCaixaController extends StandardController
 //        dd($valor);
 
 
-        $data = DB::select (
 
-            "SELECT REVENDEDOR.NOMREVEN, REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, '$datIni' AS DATAINI, '$datFim' AS DATAFIM,
-        (SELECT SUM(RESUMO_CAIXA.VLRVEN)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS VLRVEN,
-        (SELECT SUM(RESUMO_CAIXA.VLRCOM)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS VLRCOM,
-        (SELECT SUM(RESUMO_CAIXA.VLRLIQBRU)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS VLRLIQBRU,
-        (SELECT SUM(RESUMO_CAIXA.VLRPREMIO)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS VLRPREMIO,
-        (SELECT SUM(RESUMO_CAIXA.VLRRECEB)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS VLRRECEB,
-
-        (SELECT SUM(RESUMO_CAIXA.VLRPAGOU)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS VLRPAGOU,
-
-        (SELECT SUM(RESUMO_CAIXA.VLRTRANSR)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS VLRTRANSR,
-
-        (SELECT SUM(RESUMO_CAIXA.VLRTRANSP)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS VLRTRANSP,
-
-        (SELECT RESUMO_CAIXA.VLRDEVATU
-            FROM RESUMO_CAIXA
-             WHERE
-               RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-               RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-               RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-               RESUMO_CAIXA.DATMOV  = (SELECT MAX(RC.DATMOV)
-                                        FROM RESUMO_CAIXA RC
-                                         WHERE
-                                          RC.IDBASE = RESUMO_CAIXA.IDBASE AND
-                                          RC.IDVEN = RESUMO_CAIXA.IDVEN AND
-                                          RC.IDREVEN = RESUMO_CAIXA.IDREVEN AND
-                                          RC.DATMOV <= '$datAnt' )) AS VLRDEVANT,
-
-        (SELECT RESUMO_CAIXA.VLRDEVATU
-           FROM RESUMO_CAIXA
-            WHERE
-             RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-             RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-             RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-             RESUMO_CAIXA.DATMOV  = (SELECT MAX(RC.DATMOV)
-                                        FROM RESUMO_CAIXA RC
-                                         WHERE
-                                          RC.IDBASE = RESUMO_CAIXA.IDBASE AND
-                                          RC.IDVEN = RESUMO_CAIXA.IDVEN AND
-                                          RC.IDREVEN = RESUMO_CAIXA.IDREVEN AND
-                                          RC.DATMOV <= '$datFim' )) AS VLRDEVATU,
-
-        (SELECT SUM(RESUMO_CAIXA.DESPESA)
-          FROM RESUMO_CAIXA
-           WHERE
-            RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-            RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-            RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-            RESUMO_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim') AS DESPESAS,
-
-        (SELECT MAX(RESUMO_CAIXA.DATMOV)
-           FROM RESUMO_CAIXA
-            WHERE
-              RESUMO_CAIXA.IDBASE  = REVENDEDOR.IDBASE AND
-              RESUMO_CAIXA.IDVEN   = REVENDEDOR.IDVEN AND
-              RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
-              RESUMO_CAIXA.VLRVEN > 0 AND
-              RESUMO_CAIXA.DATMOV <= '$datFim' ) AS DATAULTVEN
-   FROM
-     REVENDEDOR
-   INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = REVENDEDOR.IDBASE AND
-        VENDEDOR.IDVEN = REVENDEDOR.IDVEN
-    WHERE
-     REVENDEDOR.IDREVEN <> 99999999
-     
-     AND VENDEDOR.IDEVEN in ($p)
-     
-     
-    $p_in_ativo
-     
-     
-     ORDER BY REVENDEDOR.NOMREVEN DESC
-     
-     "
+        $data = DB::select ("
+        SELECT MOVIMENTOS_CAIXA.*, REVENDEDOR.NOMREVEN, COBRADOR.NOMCOBRA, '$datIni' AS DATAINI, '$datFim' AS DATAFIM
+        FROM MOVIMENTOS_CAIXA
+        INNER JOIN REVENDEDOR ON
+                  REVENDEDOR.IDBASE = MOVIMENTOS_CAIXA.IDBASE AND
+                  REVENDEDOR.IDVEN = MOVIMENTOS_CAIXA.IDVEN AND
+                  REVENDEDOR.IDREVEN = MOVIMENTOS_CAIXA.IDREVEN
+        LEFT JOIN COBRADOR ON
+                  COBRADOR.IDBASE = MOVIMENTOS_CAIXA.IDBASE AND
+                  COBRADOR.IDVEN = MOVIMENTOS_CAIXA.IDBASE AND
+                  COBRADOR.IDCOBRA = MOVIMENTOS_CAIXA.IDCOBRA
+        WHERE 
+            MOVIMENTOS_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim'
+            
+            $str_idbase
+            $str_idven
+        "
 
         );
-
 
 
 
