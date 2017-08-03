@@ -58,12 +58,18 @@ Route::group([
 //        Route::get('/show/{idAluno}', 'AlunoController@show')->name('show');
 //        Route::get('/sms/{idAluno}', 'AlunoController@sms')->name('sms');
         Route::get('/gerarusers/', 'StandardController@gerarUser')->name('gerarusers');
+
+        //resumo caixa
         Route::get('/resumocaixa/{idven}', 'ResumoCaixaController@index2')->name('retornaresumo');
         Route::post('/resumocaixa/', 'ResumoCaixaController@indexGo')->name('retornaresumo');
         Route::get('/resumocaixa/aposta_premiada/{idven}/{idbase}/{idreven}/{datini}/{datfim}',
             'ResumoCaixaController@retornaApostaPremios')->name('apostapremiada');
 
+        //movimentos de caixa
+        Route::get('/movimentoscaixa/{idven}', 'MovimentosCaixaController@index2')->name('movimentocaixa');
 
+
+        //rotas de testes da aplicação
         Route::get('/resumocaixa2/', 'ResumoCaixaController@retornaResumoCaixa')->name('caixa');
         Route::post('/resumocaixa2/', 'ResumoCaixaController@retornaResumoCaixa')->name('caixa');
 

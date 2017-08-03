@@ -320,6 +320,11 @@
 
 <script>
     $(document).ready(function() {
+        $(document).ready(function() {
+            $('#movcaixa').DataTable();
+        } );
+
+
         var table = $('#example').DataTable( {
             fixedColumns: {
                 leftColumns: 1,
@@ -435,16 +440,6 @@
             table.search( this.value ).draw();
         } );
 
-
-//        new $.fn.dataTable.Buttons( table, {
-//            buttons: [
-//                'copy', 'excel', 'pdf'
-//            ]
-//        } );
-//
-//
-//        table.buttons().container()
-//            .appendTo( $('.botao', table.table().container() ) );
     });
 
 
