@@ -185,7 +185,7 @@
                             text: 'Copiar',
                         },
                         'pdf',
-                        'excel',
+                        'excelHtml5',
                         {
                             extend: 'print',
                             text: 'Imprimir',
