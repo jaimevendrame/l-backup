@@ -164,7 +164,7 @@
 
                             </div>
                             <div class="col s3">
-                                <div class="col s10 z-depth-2 orange hoverable">
+                                <div class="col s10 z-depth-2 red hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
                                             Total Pagamento:
@@ -177,7 +177,7 @@
 
                             </div>
                             <div class="col s3">
-                                <div class="col s10 z-depth-2 red hoverable">
+                                <div class="col s10 z-depth-2 orange hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
                                             Despesas:
