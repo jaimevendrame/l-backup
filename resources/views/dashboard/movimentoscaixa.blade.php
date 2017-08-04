@@ -21,11 +21,11 @@
                                              placeholder ="Data final">
                                 </div>
 
-                                <div class="input-field col s12 m4">
+                                <div class="input-field col s12 m3">
                                     <select name="sel_revendedor">
                                         <option value="" >Nenhum</option>
                                         @forelse($reven as $r)
-                                            <option value="{{$r->idreven}}" @if( isset($sel_revendedor)) {{ $r->idreven == $sel_revendedor  ? 'selected' : '' }} @endif>{{$r->idreven}} - {{$r->nomreven}}</option>
+                                            <option value="{{$r->idereven}}" @if( isset($sel_revendedor)) {{ $r->idereven == $sel_revendedor  ? 'selected' : '' }} @endif>{{$r->nomreven}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhuma Revendedor</option>
                                         @endforelse
@@ -33,7 +33,7 @@
                                     </select>
                                     <label>Revendedor</label>
                                 </div>
-                                <div class="input-field col s12 m2">
+                                <div class="input-field col s12 m3">
                                     <select name="sel_cobrador">
                                         <option value="" >Nenhum</option>
 {{--                                        <option value="1" @if(isset($despesas)){{ $despesas == 'SIM'  ? 'selected' : '' }} @endif>Com Despesas</option>--}}
@@ -146,13 +146,62 @@
 
 
                         </table>
+                        <div class="row"></div>
+
                         <div class="row">
-                            <div class="col s2">Total Recebimento: @php echo number_format($recebimento, 2, ',', '.'); @endphp</div>
-                            <div class="col s2">Total Pagamento: @php echo number_format($pagamento, 2, ',', '.'); @endphp</div>
-                            <div class="col s2"> Despesas: @php echo number_format($despesas, 2, ',', '.'); @endphp</div>
-                            <div class="col s2"></div>
-                            <div class="col s2"></div>
-                            <div class="col s2 right-align">Saldo Caixa: @php echo number_format($recebimento - $pagamento, 2, ',', '.');  @endphp</div>
+
+                            <div class="col s3 ">
+                                <div class="col s10 z-depth-2 teal hoverable">
+                                    <div class="row left-align">
+                                        <h5 class="white-text">
+                                            Total Recebimento:
+                                        </h5>
+                                    </div>
+                                    <div class="row right-align">
+                                        <h5 class="white-text">@php echo number_format($recebimento, 2, ',', '.'); @endphp</h5>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col s3">
+                                <div class="col s10 z-depth-2 orange hoverable">
+                                    <div class="row white-text left-align">
+                                        <h5>
+                                            Total Pagamento:
+                                        </h5>
+                                    </div>
+                                    <div class="row white-text right-align">
+                                        <h5>@php echo number_format($pagamento, 2, ',', '.'); @endphp</h5>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col s3">
+                                <div class="col s10 z-depth-2 red hoverable">
+                                    <div class="row white-text left-align">
+                                        <h5>
+                                            Despesas:
+                                        </h5>
+                                    </div>
+                                    <div class="row white-text right-align red">
+                                        <h5>@php echo number_format($despesas, 2, ',', '.'); @endphp</h5>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col s3">
+                                <div class="col s12 z-depth-2 teal hoverable">
+                                    <div class="row white-text left-align">
+                                        <h5>
+                                            Saldo Caixa:
+                                        </h5>
+                                    </div>
+                                    <div class="row white-text right-align">
+                                        <h5>@php echo number_format($recebimento - $pagamento, 2, ',', '.');  @endphp</h5>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
