@@ -67,6 +67,7 @@ Route::group([
 
         //movimentos de caixa
         Route::get('/movimentoscaixa/{idven}', 'MovimentosCaixaController@index2')->name('movimentocaixa');
+        Route::post('/movimentoscaixa/{idven}', 'MovimentosCaixaController@indexGo')->name('movimentocaixa');
 
 
         //rotas de testes da aplicação

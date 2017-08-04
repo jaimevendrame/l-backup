@@ -7,7 +7,7 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <form class="form-group" id="form-cad-edit" method="post" action="/admin/resumocaixa" enctype="multipart/form-data">
+                        <form class="form-group" id="form-cad-edit" method="post" action="/admin/movimentoscaixa/{{$p_ideven}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="row">
@@ -21,11 +21,11 @@
                                              placeholder ="Data final">
                                 </div>
 
-                                <div class="input-field col s12 m2">
+                                <div class="input-field col s12 m4">
                                     <select name="sel_revendedor">
-                                        <option value="" disabled selected>Selecionar Revendedor</option>
+                                        <option value="" >Nenhum</option>
                                         @forelse($reven as $r)
-                                            <option value="{{$r->idreven}}">{{$r->idreven}} - {{$r->nomreven}}</option>
+                                            <option value="{{$r->idreven}}" @if( isset($sel_revendedor)) {{ $r->idreven == $sel_revendedor  ? 'selected' : '' }} @endif>{{$r->idreven}} - {{$r->nomreven}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhuma Revendedor</option>
                                         @endforelse
@@ -35,10 +35,10 @@
                                 </div>
                                 <div class="input-field col s12 m2">
                                     <select name="sel_cobrador">
-                                        <option value="" disabled selected>Cobrador</option>
+                                        <option value="" >Nenhum</option>
 {{--                                        <option value="1" @if(isset($despesas)){{ $despesas == 'SIM'  ? 'selected' : '' }} @endif>Com Despesas</option>--}}
                                         @forelse($cobrador as $cob)
-                                            <option value="{{$cob->idcobra}}">{{$cob->nomcobra}}</option>
+                                            <option value="{{$cob->idcobra}}"  @if(isset($sel_cobrador)) {{ $cob->idcobra == $sel_cobrador  ? 'selected' : '' }} @endif>{{$cob->nomcobra}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhuma Cobrador</option>
                                         @endforelse
@@ -51,22 +51,8 @@
                                     </button>
                                 </div>
 
-                                {{--<div class="input-field col s2">--}}
-                                    {{--<a class="waves-effect waves-light btn blue-grey"><i class="material-icons left">print</i></a>--}}
-                                {{--</div>--}}
                             </div>
 
-                            {{--<div class="row">--}}
-                                {{--<div class="input-field col s2">--}}
-                                    {{--<input type="checkbox" id="despesas"  name="despesas" value="SIM"/>--}}
-                                    {{--<label for="despesas">Com Despesas</label>--}}
-                                {{--</div>--}}
-                                {{--<div class="input-field col s2">--}}
-                                    {{--<input type="checkbox" id="in_ativos" name="in_ativos" value="SIM"/>--}}
-                                    {{--<label for="in_ativos">Mostrar Inativos</label>--}}
-                                {{--</div>--}}
-
-                            {{--</div>--}}
 
                         </form>
 
@@ -120,31 +106,24 @@
 
                                 $despesas = 0;
 
-                                $str_recebimento = array("RECEBIMENTO", "ESTORNO REC.", "DEBITO REC.", "CREDITO REC.");
-                                $str_pagamento = array("PAGAMENTO", "ESTORNO PAG.", "DEBITO PAG.", "CREDITO PAG.");
-                                $str_despesa = array("DESPESA");
-
-
 
                                 foreach($data as $key) {
 
-                                    if (array_key_exists($key->tipomov,$str_recebimento)){
-                                    @dd($key->tipomov);
 
-                                     $recebimento += $key->vlrmov;
 
+                                    if ( ($key->tipomov == 'RECEBIMENTO') || ($key->tipomov == 'ESTORNO REC.') || ($key->tipomov == 'DEBITO REC.') || ($key->tipomov == 'CREDITO REC.')){
+
+                                        $recebimento += $key->vlrmov;
                                     }
 
-                                    if (array_key_exists($key->tipomov,$str_pagamento)){
+                                    if ( ($key->tipomov == 'PAGAMENTO') || ($key->tipomov == 'ESTORNO PAG.') || ($key->tipomov == 'DEBITO PAG.') || ($key->tipomov == 'CREDITO PAG.')){
 
-                                     $pagamento += $key->vlrmov;
-
+                                        $pagamento += $key->vlrmov;
                                     }
 
-                                    if (array_key_exists($key->tipomov,$str_despesa)){
+                                    if ( ($key->tipomov == 'DESPESA') ){
 
-                                     $despesas += $key->vlrmov;
-
+                                        $despesas += $key->vlrmov;
                                     }
 
 
@@ -214,7 +193,7 @@
                     ],
 
 
-                    scrollY: 380,
+                    scrollY: 480,
                     scrollX:        true,
                     scrollCollapse: true,
                     paging:         false,

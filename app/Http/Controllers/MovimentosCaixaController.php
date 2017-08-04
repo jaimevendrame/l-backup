@@ -61,12 +61,7 @@ class MovimentosCaixaController extends StandardController
 
         $usuario_lotec = $this->retornaUserLotec($idusu);
 
-//dd($idusu);
-
-//        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
-
         $vendedores = $this->retornaBasesUser($idusu);
-
 
         $menus = $this->retornaMenu($idusu);
 
@@ -78,17 +73,27 @@ class MovimentosCaixaController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
+        $p_ideven = $ideven;
+
 
 
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven'));
     }
 
-    public function indexGo()
+    public function indexGo($ideven)
     {
 
+
+        $reven = $this->retornaRevendedor($ideven);
+
+        $cobrador = $this->retornaCobrador($ideven);
+
+        $sel_revendedor = $this->request->get('sel_revendedor');
+
+        $sel_cobrador = $this->request->get('sel_cobrador');
 
         $idusu = Auth::user()->idusu;
 
@@ -104,44 +109,23 @@ class MovimentosCaixaController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-        $data = $this->retornaResumoCaixaParameter();
-
+        $data = $this->retornaMovimentosCaixaParameter($ideven, $sel_revendedor, $sel_cobrador);
 
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-
-        //referente aos IDEVEN
-        $valor = $this->request->get('sel_vendedor');
-
-        if (isset($valor)){
-//            $ideven2 = implode(",", $valor);
-            $ideven2 = $valor;
-        } else{$ideven2 = 0;}
-
-
-        $dados = $this->request->get('sel_options');
-        $in_ativos = '';
+        $p_ideven = $ideven;
 
 
 
-        if (isset($dados)){
-            if (in_array(1, $dados)) {
-                $despesas = 'SIM';
-            }else {
-                $despesas = 'NAO';}
-
-            if (in_array(2, $dados)) {
-                $in_ativos = 'SIM';
-            } else
-                $in_ativos = 'NAO';
-        }
 
 
 
-                return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'despesas','in_ativos'));
+
+
+        return view("{$this->nameView}",compact('idusu',
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven','sel_revendedor', 'sel_cobrador'));
     }
 
     public function retornaMovimentosCaixa($ideven){
@@ -149,15 +133,13 @@ class MovimentosCaixaController extends StandardController
         $str_idbase = '';
         $str_idven = '';
 
-        if (Auth::user()->idusu == 1000){
-            $idbase = $this->vendedor
-                ->select('idbase')
-                ->where('ideven', '=', $ideven);
+        if (Auth::user()->idusu <> 1000){
+            $p = $this->retornaBasepeloIdeven($ideven);
 
             //retornar o idven
 
-            $str_idbase = "AND MOVIMENTOS_CAIXA.IDBASE = ".$idbase;
-            $str_idven = "AND MOVIMENTOS_CAIXA.IDEVEN = ".$ideven ;
+            $str_idbase = "AND MOVIMENTOS_CAIXA.IDBASE = ".$p->idbase;
+            $str_idven = "AND MOVIMENTOS_CAIXA.IDVEN = ".$p->idven ;
 
         }
 
@@ -195,44 +177,36 @@ class MovimentosCaixaController extends StandardController
     /**
      * @return mixed
      */
-    public function retornaResumoCaixaParameter($ideven){
+    public function retornaMovimentosCaixaParameter($ideven, $sel_revendedor, $sel_cobrador){
 
         $str_idbase = '';
         $str_idven = '';
 
-        if (Auth::user()->idusu == 1000){
-            $idbase = $this->vendedor
-                ->select('idbase')
-                ->where('ideven', '=', $ideven);
+        if (Auth::user()->idusu <> 1000){
+            $p = $this->retornaBasepeloIdeven($ideven);
 
             //retornar o idven
 
-            $str_idbase = "AND MOVIMENTOS_CAIXA.IDBASE = ".$idbase;
-            $str_idven = "AND MOVIMENTOS_CAIXA.IDEVEN = ".$ideven ;
+            $str_idbase = "AND MOVIMENTOS_CAIXA.IDBASE = ".$p->idbase;
+            $str_idven = "AND MOVIMENTOS_CAIXA.IDVEN = ".$p->idven ;
 
         }
 
-        $dados = $this->request->get('sel_options');
-        $in_ativos = '';
+        $str_idreven = "";
 
-        if (isset($dados)){
-            if (in_array(1, $dados)) {
-                $despesas = 'SIM';
-            }
 
-            if (in_array(2, $dados)) {
-                $in_ativos = 'SIM';
-            } else
-                $in_ativos = 'NAO';
+        if ($sel_revendedor != NULL){
+
+            $str_idreven = " AND MOVIMENTOS_CAIXA.IDREVEN = ".$sel_revendedor;
         }
 
+        $str_idcobra = "";
 
-        if ($in_ativos == 'SIM'){
-            $p_in_ativo = '';
-        } else {
-            $p_in_ativo = "AND REVENDEDOR.SITREVEN = 'ATIVO'";
+
+        if ($sel_cobrador != NULL){
+
+            $str_idcobra = " AND MOVIMENTOS_CAIXA.IDCOBRA = ".$sel_cobrador;
         }
-
 
 
 
@@ -296,6 +270,8 @@ class MovimentosCaixaController extends StandardController
             
             $str_idbase
             $str_idven
+            $str_idreven
+            $str_idcobra
         "
 
         );

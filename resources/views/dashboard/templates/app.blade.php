@@ -27,11 +27,11 @@
     <script>
         function test(el) {
             var $lnk = document.getElementById("lnk-ideven");
-//            alert($lnk.href);
+            alert($lnk.href);
             $lnk.href = $lnk.href.replace(/(.*)/, '/admin/resumocaixa/') + el.value;
-//            alert($lnk.href);
+            alert($lnk.href);
 
-            var $lnkcaixa = document.getElementById("lnk-ideven");
+            var $lnkcaixa = document.getElementById("lnk");
 //            alert($lnk.href);
             $lnkcaixa.href = $lnk.href.replace(/(.*)/, '/admin/movimentoscaixa/') + el.value;
 //            alert($lnk.href);
