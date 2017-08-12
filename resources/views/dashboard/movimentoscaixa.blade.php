@@ -231,11 +231,11 @@
         <div class="modal-content">
 
             <h4>Movimentar Caixa de Revendedor</h4>
-            {{--<form class="form-group" id="form-add-movcaixa" enctype="multipart/form-data">--}}
+            <form id="myform">
                 <div class="row">
                     <div class="input-field col s12 m4 l2">
                         <select name="movcaixa_sel_revendedor" id="movcaixa_sel_revendedor">
-                            <option value="" >Nenhum</option>
+                            <option value="0" selected>Nenhum</option>
                             @forelse($data_movcax as $r)
                                 <option value="{{$r->idreven}}" data-saldo="{{$r->vlrdevatu }}" >{{$r->nomreven}}</option>
                             @empty
@@ -264,18 +264,25 @@
                         <input placeholder="Valor" id="vlrmov" type="text" class="validate">
                         <label for="first_name">Valor</label>
                     </div>
-                    <div class="input-field col s6 m4 l2 right-align">
-                        <button class="btn waves-effect waves-light" onclick="AddTableRow()">Recebendo
-                        </button>
+                    <div class="input-field col s12 m12 l3">
+                        <button type="reset" class="reset btn waves-effect waves-light tooltipped" onclick="addMov('R')" data-position="top" data-delay="50" data-tooltip="Recebimento">R</button>
+                        <button type="reset"  class="reset btn waves-effect red waves-light tooltipped" onclick="addMov('P')" data-position="top" data-delay="50" data-tooltip="Pagamento">P</button>
+                        <button type="reset" class="reset btn waves-effect orange waves-light tooltipped" onclick="addMov('D')" data-position="top" data-delay="50" data-tooltip="Despesa">D</button>
                     </div>
-                    <div class="input-field col s6 m4 l2 right-align">
-                        <button class="btn waves-effect waves-light red" type="submit" name="action">Pagando
-                        </button>
-                    </div>
-
 
                 </div>
 
+            </form>
+
+            {{--<form id="myform">--}}
+                {{--<select name="myselect" id="myselect" value="">--}}
+                    {{--<option selected="selected">Default</option>--}}
+                    {{--<option value="1">Option 1</option>--}}
+                    {{--<option value="2" selected>Option 2</option>--}}
+                    {{--<option value="3">Option 3</option>--}}
+                {{--</select>--}}
+                {{--<input type="submit" value="Go">--}}
+                {{--<input type="reset" class="reset" value="Reset form">--}}
             {{--</form>--}}
 
             <div id="scroll">
@@ -323,16 +330,24 @@
 @endsection
 
 @push('scripts')
+<script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
+
 
 <script>
-
+//$("#myform .reset").click(function() {
+//    $('#myselect').prop('selectedIndex', 0);
+//});
 
         $(document).ready(function() {
+
+            $('#saldoatu').mask('000.000,00');
+//            $('#vlrmov').mask('000.000.000.000.000,00', {reverse: true});
+
 
             $('#movcaixa_sel_revendedor').change(function(){
                 $('#saldoatu').val($(this).find(':selected').data('saldo'));
 
-                alert($(this).find(':selected').data('saldo'));
+//                alert($(this).find(':selected').data('saldo'));
             });
 
 
@@ -408,25 +423,31 @@
                 table.search( this.value ).draw();
             } );
 
-
-
         } );
+
 
         (function($) {
             AddTableRow = function() {
 
+                if ($("#movcaixa_sel_revendedor :selected").val() == 0){
+//                    alert('Selecione um Revendedor!')
+                    Materialize.toast('Selecione um Revendedor!', 4000)
+                    return false;
+                }
+
                 var newRow = $("<tr>");
                 var cols = "";
 
-                var saldo = $("#saldoatu").val().replace(',','.');
+                var saldo = $("#saldoatu").val();
                 var vlrmov = $("#vlrmov").val();
+
                 var saldoresul = saldo - vlrmov;
 
                 cols += "<td>"+ $("#movcaixa_sel_revendedor :selected").text() +"</td>"
                 cols += "<td>"+ saldo +"</td>"
                 cols += "<td>"+ vlrmov + "</td>"
                 cols += "<td>"+ saldoresul  +"</td>"
-                cols += '<td>Recebendo</td>';
+                cols += '<td><a href="#!" class="btn">Recebimento</a></td>';
                 cols += "<td>"+ $("#movcaixa_sel_cobrador :selected").text() +"</td>"
                 cols += '<td>';
                 cols += '<button class="btn waves-effect waves-light red" onclick="remove(this)" type="button"><i class="material-icons">delete</i></button>';
@@ -450,6 +471,74 @@
                 return false;
             }
         })(jQuery);
+
+        function addMov(el) {
+
+//            alert(el);
+
+            if ($("#movcaixa_sel_revendedor :selected").val() == 0){
+                Materialize.toast('Selecione um Revendedor!', 3000)
+                return false;
+            }
+
+            if ($("#vlrmov").val() == ''){
+                Materialize.toast('Digite um valor de movimento!', 3000)
+                return false;
+            }
+
+            var newRow = $("<tr>");
+            var cols = "";
+
+            var saldo = $("#saldoatu").val();
+            var vlrmov = $("#vlrmov").val();
+
+            if (el == 'P'){
+                var saldoresul = parseFloat(saldo) + parseFloat(vlrmov);
+                var tipomov = '<a href="#!" class="btn red ">Pagamento</a>';
+            }
+            if(el == 'R'){
+                var saldoresul = saldo - vlrmov;
+                var tipomov = '<a href="#!" class="btn ">Recebimento</a>';
+
+            }
+            if(el == 'D'){
+                var saldoresul = parseFloat(saldo) + parseFloat(vlrmov);
+                var tipomov = '<a href="#!" class="btn orange">Despesa</a>';
+
+            }
+
+            var elements = document.getElementsByTagName('movcaixa_sel_revendedor');
+            for (var i = 0; i < elements.length; i++)
+            {
+                elements[i].selectedIndex = 0;
+            }
+
+            cols += "<td>"+ $("#movcaixa_sel_revendedor :selected").text() +"</td>"
+            cols += "<td>"+ saldo +"</td>"
+            cols += "<td>"+ vlrmov + "</td>"
+            cols += "<td>"+ saldoresul  +"</td>"
+            cols += '<td>' + tipomov + '</td>';
+            cols += "<td>"+ $("#movcaixa_sel_cobrador :selected").text() +"</td>"
+            cols += '<td>';
+            cols += '<button class="btn waves-effect waves-light red" onclick="remove(this)" type="button"><i class="material-icons">delete</i></button>';
+            cols += '</td>';
+
+            newRow.append(cols);
+            $("#products-table").append(newRow);
+
+
+
+
+
+//            document.getElementById('movcaixa_sel_revendedor').value = ("Nenhum");
+
+//            $('movcaixa_sel_revendedor').val( $('movcaixa_sel_revendedor').find("option[selected]").val() );
+//            document.getElementById('saldoatu').value = ("");
+//            document.getElementById('vlrmov').value = ("");
+
+
+            return false;
+        }
 
 </script>
 
