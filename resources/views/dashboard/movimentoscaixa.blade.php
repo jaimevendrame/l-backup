@@ -323,7 +323,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+            <a href="#!" class=" btn modal-action modal-close waves-effect waves-green  ">Salvar Movimento</a>
         </div>
     </div>
 
