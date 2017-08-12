@@ -194,7 +194,7 @@
                                             Despesas:
                                         </h5>
                                     </div>
-                                    <div class="row white-text right-align red">
+                                    <div class="row white-text right-align">
                                         <h5>@php echo number_format($despesas, 2, ',', '.'); @endphp</h5>
                                     </div>
                                 </div>
@@ -228,6 +228,9 @@
 
     <!-- Modal Structure -->
     <div id="modal_movcaixa" class="modal modal-fixed-footer">
+        <div class="right-align">
+            <a href="#!" class=" btn modal-action modal-close waves-effect waves-light red "><i class=" Tiny material-icons">close</i></a>
+        </div>
         <div class="modal-content">
 
             <h4>Movimentar Caixa de Revendedor</h4>
@@ -237,7 +240,7 @@
                         <select name="movcaixa_sel_revendedor" id="movcaixa_sel_revendedor">
                             <option value="0" selected>Nenhum</option>
                             @forelse($data_movcax as $r)
-                                <option value="{{$r->idreven}}" data-saldo="{{$r->vlrdevatu }}" >{{$r->nomreven}}</option>
+                                <option value="{{$r->idreven}}" data-saldo="{{number_format($r->vlrdevatu, 2, ',', '.') }}" >{{$r->nomreven}}</option>
                             @empty
                                 <option value="" disabled selected>Nenhuma Revendedor</option>
                             @endforelse
@@ -273,17 +276,6 @@
                 </div>
 
             </form>
-
-            {{--<form id="myform">--}}
-                {{--<select name="myselect" id="myselect" value="">--}}
-                    {{--<option selected="selected">Default</option>--}}
-                    {{--<option value="1">Option 1</option>--}}
-                    {{--<option value="2" selected>Option 2</option>--}}
-                    {{--<option value="3">Option 3</option>--}}
-                {{--</select>--}}
-                {{--<input type="submit" value="Go">--}}
-                {{--<input type="reset" class="reset" value="Reset form">--}}
-            {{--</form>--}}
 
             <div id="scroll">
                 <table id="products-table">
@@ -331,17 +323,15 @@
 
 @push('scripts')
 <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
 
 <script>
-//$("#myform .reset").click(function() {
-//    $('#myselect').prop('selectedIndex', 0);
-//});
 
         $(document).ready(function() {
 
             $('#saldoatu').mask('000.000,00');
-//            $('#vlrmov').mask('000.000.000.000.000,00', {reverse: true});
+            $('#vlrmov').mask('000.000.000.000.000,00', {reverse: true});
 
 
             $('#movcaixa_sel_revendedor').change(function(){
@@ -426,40 +416,8 @@
         } );
 
 
-        (function($) {
-            AddTableRow = function() {
 
-                if ($("#movcaixa_sel_revendedor :selected").val() == 0){
-//                    alert('Selecione um Revendedor!')
-                    Materialize.toast('Selecione um Revendedor!', 4000)
-                    return false;
-                }
-
-                var newRow = $("<tr>");
-                var cols = "";
-
-                var saldo = $("#saldoatu").val();
-                var vlrmov = $("#vlrmov").val();
-
-                var saldoresul = saldo - vlrmov;
-
-                cols += "<td>"+ $("#movcaixa_sel_revendedor :selected").text() +"</td>"
-                cols += "<td>"+ saldo +"</td>"
-                cols += "<td>"+ vlrmov + "</td>"
-                cols += "<td>"+ saldoresul  +"</td>"
-                cols += '<td><a href="#!" class="btn">Recebimento</a></td>';
-                cols += "<td>"+ $("#movcaixa_sel_cobrador :selected").text() +"</td>"
-                cols += '<td>';
-                cols += '<button class="btn waves-effect waves-light red" onclick="remove(this)" type="button"><i class="material-icons">delete</i></button>';
-                cols += '</td>';
-
-                newRow.append(cols);
-                $("#products-table").append(newRow);
-
-                return false;
-            };
-        })(jQuery);
-
+        // remover linha
         (function($) {
             remove = function(item) {
                 var tr = $(item).closest('tr');
@@ -472,9 +430,9 @@
             }
         })(jQuery);
 
-        function addMov(el) {
+        //adicionar linha
 
-//            alert(el);
+        function addMov(el) {
 
             if ($("#movcaixa_sel_revendedor :selected").val() == 0){
                 Materialize.toast('Selecione um Revendedor!', 3000)
@@ -489,8 +447,8 @@
             var newRow = $("<tr>");
             var cols = "";
 
-            var saldo = $("#saldoatu").val();
-            var vlrmov = $("#vlrmov").val();
+            var saldo = $("#saldoatu").val().replace(/\./g, "").replace(",", ".");
+            var vlrmov = $("#vlrmov").val().replace(/\./g, "").replace(",", ".");
 
             if (el == 'P'){
                 var saldoresul = parseFloat(saldo) + parseFloat(vlrmov);
@@ -502,21 +460,16 @@
 
             }
             if(el == 'D'){
-                var saldoresul = parseFloat(saldo) + parseFloat(vlrmov);
+                var saldoresul = parseFloat(saldo) - parseFloat(vlrmov);
                 var tipomov = '<a href="#!" class="btn orange">Despesa</a>';
 
             }
 
-            var elements = document.getElementsByTagName('movcaixa_sel_revendedor');
-            for (var i = 0; i < elements.length; i++)
-            {
-                elements[i].selectedIndex = 0;
-            }
 
             cols += "<td>"+ $("#movcaixa_sel_revendedor :selected").text() +"</td>"
-            cols += "<td>"+ saldo +"</td>"
-            cols += "<td>"+ vlrmov + "</td>"
-            cols += "<td>"+ saldoresul  +"</td>"
+            cols += "<td>"+ $("#saldoatu").val()  +"</td>"
+            cols += "<td>"+ $("#vlrmov").val() + "</td>"
+            cols += "<td>"+ saldoresul.toLocaleString('pt-BR') +"</td>"
             cols += '<td>' + tipomov + '</td>';
             cols += "<td>"+ $("#movcaixa_sel_cobrador :selected").text() +"</td>"
             cols += '<td>';
@@ -525,16 +478,6 @@
 
             newRow.append(cols);
             $("#products-table").append(newRow);
-
-
-
-
-
-//            document.getElementById('movcaixa_sel_revendedor').value = ("Nenhum");
-
-//            $('movcaixa_sel_revendedor').val( $('movcaixa_sel_revendedor').find("option[selected]").val() );
-//            document.getElementById('saldoatu').value = ("");
-//            document.getElementById('vlrmov').value = ("");
 
 
             return false;
