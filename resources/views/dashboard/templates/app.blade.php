@@ -23,6 +23,7 @@
 
 
 
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -30,9 +31,9 @@
     <script>
         function test(el) {
             var $lnk = document.getElementById("lnk-ideven");
-            alert($lnk.href);
+//            alert($lnk.href);
             $lnk.href = $lnk.href.replace(/(.*)/, '/admin/resumocaixa/') + el.value;
-            alert($lnk.href);
+//            alert($lnk.href);
 
             var $lnkcaixa = document.getElementById("lnk");
 //            alert($lnk.href);
@@ -40,6 +41,8 @@
 //            alert($lnk.href);
 
         }
+
+
     </script>
     <script>
         window.Laravel = <?php echo json_encode([

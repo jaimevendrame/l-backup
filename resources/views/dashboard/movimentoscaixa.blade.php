@@ -1,6 +1,10 @@
 @extends('dashboard.templates.app')
 
 @section('content')
+    <script>
+
+
+    </script>
 
     <div class="section">
         <div class="row">
@@ -33,7 +37,7 @@
                                     </select>
                                     <label>Revendedor</label>
                                 </div>
-                                <div class="input-field col s12 m3">
+                                <div class="input-field col s12 m2">
                                     <select name="sel_cobrador">
                                         <option value="" >Nenhum</option>
 {{--                                        <option value="1" @if(isset($despesas)){{ $despesas == 'SIM'  ? 'selected' : '' }} @endif>Com Despesas</option>--}}
@@ -46,10 +50,17 @@
                                     <label>Cobradores</label>
                                 </div>
                                 <div class="input-field col s12 m2">
-                                    <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Mostrar
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
+                                <div class="input-field col s12 m1">
+                                    <!-- Modal Trigger -->
+                                    <a class="waves-effect waves-light  btn-floating red modal-trigger" href="#modal_movcaixa"><i class="material-icons">add</i></a>
+                                </div>
+
+
+
 
                             </div>
 
@@ -212,13 +223,119 @@
 
     </div>
 
+
+
+
+    <!-- Modal Structure -->
+    <div id="modal_movcaixa" class="modal modal-fixed-footer">
+        <div class="modal-content">
+
+            <h4>Movimentar Caixa de Revendedor</h4>
+            {{--<form class="form-group" id="form-add-movcaixa" enctype="multipart/form-data">--}}
+                <div class="row">
+                    <div class="input-field col s12 m4 l2">
+                        <select name="movcaixa_sel_revendedor" id="movcaixa_sel_revendedor">
+                            <option value="" >Nenhum</option>
+                            @forelse($data_movcax as $r)
+                                <option value="{{$r->idreven}}" data-saldo="{{$r->vlrdevatu }}" >{{$r->nomreven}}</option>
+                            @empty
+                                <option value="" disabled selected>Nenhuma Revendedor</option>
+                            @endforelse
+
+                        </select>
+                        <label>Revendedor</label>
+                    </div>
+                    <div class="input-field col s12 m4 l2">
+                        <input readonly id="saldoatu" placeholder="0,00" type="text" class="validate">
+                        <label class="active" for="saldoatu">Saldo Atual</label>
+                    </div>
+                    <div class="input-field col s12 m4 l2">
+                        <select name="movcaixa_sel_cobrador" id="movcaixa_sel_cobrador">
+                            <option value="" >Nenhum</option>
+                            @forelse($cobrador as $cob)
+                                <option value="{{$cob->idcobra}}"  @if(isset($sel_cobrador)) {{ $cob->idcobra == $sel_cobrador  ? 'selected' : '' }} @endif>{{$cob->nomcobra}}</option>
+                            @empty
+                                <option value="" disabled selected>Nenhuma Cobrador</option>
+                            @endforelse
+                        </select>
+                        <label>Cobradores</label>
+                    </div>
+                    <div class="input-field col s12 m4 l2">
+                        <input placeholder="Valor" id="vlrmov" type="text" class="validate">
+                        <label for="first_name">Valor</label>
+                    </div>
+                    <div class="input-field col s6 m4 l2 right-align">
+                        <button class="btn waves-effect waves-light" onclick="AddTableRow()">Recebendo
+                        </button>
+                    </div>
+                    <div class="input-field col s6 m4 l2 right-align">
+                        <button class="btn waves-effect waves-light red" type="submit" name="action">Pagando
+                        </button>
+                    </div>
+
+
+                </div>
+
+            {{--</form>--}}
+
+            <div id="scroll">
+                <table id="products-table">
+                    <thead >
+                    <tr>
+                        <th>Revendedor</th>
+                        <th>Saldo Atual</th>
+                        <th>Valor Movimento</th>
+                        <th>Saldo Resultado</th>
+                        <th>Tipo Movimento</th>
+                        <th>Cobrador</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+
+                    </tr>
+
+                    </tbody>
+
+                    <tfoot>
+                    <tr>
+                        <th>Revendedor</th>
+                        <th>Saldo Atual</th>
+                        <th>Valor Movimento</th>
+                        <th>Saldo Resultado</th>
+                        <th>Tipo Movimento</th>
+                        <th>Cobrador</th>
+                        <th>Ações</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')
 
 <script>
 
+
         $(document).ready(function() {
+
+            $('#movcaixa_sel_revendedor').change(function(){
+                $('#saldoatu').val($(this).find(':selected').data('saldo'));
+
+                alert($(this).find(':selected').data('saldo'));
+            });
+
+
 
             var table = $('#movcaixa').DataTable(
                 {
@@ -292,8 +409,47 @@
             } );
 
 
+
         } );
 
+        (function($) {
+            AddTableRow = function() {
+
+                var newRow = $("<tr>");
+                var cols = "";
+
+                var saldo = $("#saldoatu").val().replace(',','.');
+                var vlrmov = $("#vlrmov").val();
+                var saldoresul = saldo - vlrmov;
+
+                cols += "<td>"+ $("#movcaixa_sel_revendedor :selected").text() +"</td>"
+                cols += "<td>"+ saldo +"</td>"
+                cols += "<td>"+ vlrmov + "</td>"
+                cols += "<td>"+ saldoresul  +"</td>"
+                cols += '<td>Recebendo</td>';
+                cols += "<td>"+ $("#movcaixa_sel_cobrador :selected").text() +"</td>"
+                cols += '<td>';
+                cols += '<button class="btn waves-effect waves-light red" onclick="remove(this)" type="button"><i class="material-icons">delete</i></button>';
+                cols += '</td>';
+
+                newRow.append(cols);
+                $("#products-table").append(newRow);
+
+                return false;
+            };
+        })(jQuery);
+
+        (function($) {
+            remove = function(item) {
+                var tr = $(item).closest('tr');
+
+                tr.fadeOut(400, function() {
+                    tr.remove();
+                });
+
+                return false;
+            }
+        })(jQuery);
 
 </script>
 

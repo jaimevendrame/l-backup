@@ -69,6 +69,8 @@ class MovimentosCaixaController extends StandardController
 
         $data = $this->retornaMovimentosCaixa($ideven);
 
+        $data_movcax = $this->retornaRevendedorMovCx($ideven);
+
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
@@ -80,7 +82,7 @@ class MovimentosCaixaController extends StandardController
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven', 'data_movcax'));
     }
 
     public function indexGo($ideven)
@@ -111,6 +113,8 @@ class MovimentosCaixaController extends StandardController
 
         $data = $this->retornaMovimentosCaixaParameter($ideven, $sel_revendedor, $sel_cobrador);
 
+        $data_movcax = $this->retornaRevendedorMovCx($ideven);
+
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
@@ -125,7 +129,7 @@ class MovimentosCaixaController extends StandardController
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven','sel_revendedor', 'sel_cobrador'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven','sel_revendedor', 'sel_cobrador','data_movcax'));
     }
 
     public function retornaMovimentosCaixa($ideven){
@@ -405,6 +409,34 @@ class MovimentosCaixaController extends StandardController
 //        dd($data);
 
         return view('dashboard.apostapremiada', compact('data'));
+    }
+
+    public function retornaRevendedorMovCx($ideven){
+
+        $p = $this->retornaBasepeloIdeven($ideven);
+
+        $data = DB::select (" 
+        SELECT REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, REVENDEDOR.NOMREVEN,
+               (SELECT RESUMO_CAIXA.VLRDEVATU
+                    FROM RESUMO_CAIXA
+                   WHERE
+                     RESUMO_CAIXA.IDBASE = REVENDEDOR.IDBASE AND
+                     RESUMO_CAIXA.IDVEN = REVENDEDOR.IDVEN AND
+                     RESUMO_CAIXA.IDREVEN = REVENDEDOR.IDREVEN AND
+                     RESUMO_CAIXA.DATMOV = (SELECT MAX(RC.DATMOV) 
+                                               FROM RESUMO_CAIXA RC
+                                                WHERE 
+                                                 RC.IDBASE = RESUMO_CAIXA.IDBASE AND
+                                                 RC.IDVEN = RESUMO_CAIXA.IDVEN AND
+                                                 RC.IDREVEN = RESUMO_CAIXA.IDREVEN)) AS VLRDEVATU
+          FROM REVENDEDOR
+          WHERE
+            REVENDEDOR.IDBASE = '$p->idbase' AND
+            REVENDEDOR.IDVEN = '$p->idven' AND
+            REVENDEDOR.SITREVEN = 'ATIVO'
+            ORDER BY REVENDEDOR.NOMREVEN
+        ");
+        return $data;
     }
 
 }
