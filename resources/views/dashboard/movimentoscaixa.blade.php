@@ -140,19 +140,7 @@
 
                                             }
                             @endphp
-                            <tr>
 
-                                <th>Revendedor</th>
-                                <th>Saldo Anterior</th>
-                                <th>Valor Movimento</th>
-                                <th>Saldo Após Mov.</th>
-                                <th>Data Mov.</th>
-                                <th>Horário</th>
-                                <th>Tipo Mov.</th>
-                                <th>Cobrador</th>
-                                <th>Usuário Mov.</th>
-
-                            </tr>
                             </tfoot>
 
 
@@ -268,7 +256,7 @@
                         <label for="first_name">Valor</label>
                     </div>
                     <div class="input-field col s12 m12 l3">
-                        <button type="reset" class="reset btn waves-effect waves-light tooltipped" onclick="addMov('R')" data-position="top" data-delay="50" data-tooltip="Recebimento">R</button>
+                        <button type="reset" class="reset btn waves-effect green waves-light tooltipped" onclick="addMov('R')" data-position="top" data-delay="50" data-tooltip="Recebimento">R</button>
                         <button type="reset"  class="reset btn waves-effect red waves-light tooltipped" onclick="addMov('P')" data-position="top" data-delay="50" data-tooltip="Pagamento">P</button>
                         <button type="reset" class="reset btn waves-effect orange waves-light tooltipped" onclick="addMov('D')" data-position="top" data-delay="50" data-tooltip="Despesa">D</button>
                     </div>
@@ -299,8 +287,8 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" btn modal-action modal-close waves-effect waves-green" onclick="enviarDados()">Salvar Movimento</a>
-            <input type="button" value="Enviar dados" onclick="enviarDados()"/>
+            <a href="#!" class=" btn modal-action  waves-effect waves-green" onclick="enviarDados()">Salvar Movimento</a>
+            {{--<input type="button" value="Enviar dados" onclick="enviarDados()"/>--}}
         </div>
     </div>
 
