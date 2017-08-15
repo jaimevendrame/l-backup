@@ -68,7 +68,13 @@ Route::group([
         //movimentos de caixa
         Route::get('/movimentoscaixa/{idven}', 'MovimentosCaixaController@index2')->name('movimentocaixa');
         Route::post('/movimentoscaixa/{idven}', 'MovimentosCaixaController@indexGo')->name('movimentocaixa');
-
+        Route::get('/movimentoscaixa2/', 'MovimentosCaixaController@addCaixa')->name('addcaixa');
+        Route::post('/movimentoscaixa2/', 'MovimentosCaixaController@addCaixaGo')->name('addcaixa');
+//
+//        Route::post('/movimentoscaixa2/', function()
+//        {
+//            return 'Success! ajax in laravel 5';
+//        });
 
         //rotas de testes da aplicação
         Route::get('/resumocaixa2/', 'ResumoCaixaController@retornaResumoCaixa')->name('caixa');

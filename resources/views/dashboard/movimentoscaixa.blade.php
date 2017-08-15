@@ -162,7 +162,7 @@
                         <div class="row">
 
                             <div class="col s3 ">
-                                <div class="col s10 z-depth-2 teal hoverable">
+                                <div class="col s10 z-depth-2 green hoverable">
                                     <div class="row left-align">
                                         <h5 class="white-text">
                                             Total Recebimento:
@@ -175,7 +175,7 @@
 
                             </div>
                             <div class="col s3">
-                                <div class="col s10 z-depth-2 red hoverable">
+                                <div class="col s10 z-depth-2 red darken-1 hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
                                             Total Pagamento:
@@ -292,30 +292,15 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-
-                    </tr>
-
                     </tbody>
-
-                    <tfoot>
-                    <tr>
-                        <th>Revendedor</th>
-                        <th>Saldo Atual</th>
-                        <th>Valor Movimento</th>
-                        <th>Saldo Resultado</th>
-                        <th>Tipo Movimento</th>
-                        <th>Cobrador</th>
-                        <th>Ações</th>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
 
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" btn modal-action modal-close waves-effect waves-green  ">Salvar Movimento</a>
+            <a href="#!" class=" btn modal-action modal-close waves-effect waves-green" onclick="enviarDados()">Salvar Movimento</a>
+            <input type="button" value="Enviar dados" onclick="enviarDados()"/>
         </div>
     </div>
 
@@ -330,12 +315,22 @@
 
         $(document).ready(function() {
 
+
             $('#saldoatu').mask('000.000,00');
             $('#vlrmov').mask('000.000.000.000.000,00', {reverse: true});
 
 
             $('#movcaixa_sel_revendedor').change(function(){
                 $('#saldoatu').val($(this).find(':selected').data('saldo'));
+                var valor = $("#saldoatu").val().replace(/\./g, "").replace(",", ".");
+                alert(valor);
+                if (parseFloat(valor) < 0){
+                $('#saldoatu').css('color', '#FF0000')}
+                if (parseFloat(valor) > 0){
+                    $('#saldoatu').css('color', 'green')
+                } else {
+                    $('#saldoatu').css('color', 'black')
+                }
 
 //                alert($(this).find(':selected').data('saldo'));
             });
@@ -456,7 +451,7 @@
             }
             if(el == 'R'){
                 var saldoresul = saldo - vlrmov;
-                var tipomov = '<a href="#!" class="btn ">Recebimento</a>';
+                var tipomov = '<a href="#!" class="btn green ">Recebimento</a>';
 
             }
             if(el == 'D'){
@@ -466,14 +461,16 @@
             }
 
 
-            cols += "<td>"+ $("#movcaixa_sel_revendedor :selected").text() +"</td>"
+
+
+            cols += '<td data-idreven="'+$("#movcaixa_sel_revendedor :selected").val()+'">'+ $("#movcaixa_sel_revendedor :selected").text() +'</td>'
             cols += "<td>"+ $("#saldoatu").val()  +"</td>"
             cols += "<td>"+ $("#vlrmov").val() + "</td>"
-            cols += "<td>"+ saldoresul.toLocaleString('pt-BR') +"</td>"
+            cols += "<td>"+ saldoresul +"</td>"
             cols += '<td>' + tipomov + '</td>';
-            cols += "<td>"+ $("#movcaixa_sel_cobrador :selected").text() +"</td>"
+            cols += '<td data-idcobra="'+ $("#movcaixa_sel_cobrador :selected").val() +'">'+ $("#movcaixa_sel_cobrador :selected").text() +'</td>'
             cols += '<td>';
-            cols += '<button class="btn waves-effect waves-light red" onclick="remove(this)" type="button"><i class="material-icons">delete</i></button>';
+            cols += '<button class="btn waves-effect waves-light grey" onclick="remove(this)" type="button"><i class="material-icons">delete</i></button>';
             cols += '</td>';
 
             newRow.append(cols);
@@ -481,6 +478,66 @@
 
 
             return false;
+        }
+
+        function enviarDados(){
+
+
+            var pedidos = [];
+
+            $('#products-table tbody tr').each(function () {
+                // Recuperar todas as colunas da linha percorida
+                var colunas = $(this).children();
+                ;
+                // Criar objeto para armazenar os dados
+                var pedido = {
+                    'idreven': $(colunas[0]).data('idreven'), // valor da coluna Produto
+                    'revendedor': $(colunas[0]).text(), // valor da coluna Produto
+                    'saldo_atual': $(colunas[1]).text(), // Valor da coluna Quantidade
+                    'vlr_movimento': $(colunas[2]).text(), // Valor da coluna Quantidade
+                    'saldo_resul': $(colunas[3]).text(), // Valor da coluna Quantidade
+                    'tp_movi': $(colunas[4]).text(), // Valor da coluna Quantidade
+                    'idcobra': $(colunas[5]).data('idcobra'), // Valor da coluna Quantidade
+                    'cobrador': $(colunas[5]).text(), // Valor da coluna Quantidade
+                };
+
+                // Adicionar o objeto pedido no array
+                console.log(pedido);
+
+
+                $.ajax({
+
+                    url: '/admin/movimentoscaixa2',
+                    type: 'POST',
+
+                    beforeSend: function (xhr) {
+                        var token = '{{csrf_token()}}';
+
+                        if (token) {
+                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
+
+                    data: pedido,
+                    dataType: 'JSON',
+                    success:function(data){
+                        alert(data);
+                    },error:function(){
+                        alert("error!!!!");
+                    }
+                });
+
+
+
+                pedidos.push(pedido);
+//                alert(pedidos);
+            });
+
+
+
+            // listando os pedidos função teste
+            alert("esta funcionando");
+
         }
 
 </script>

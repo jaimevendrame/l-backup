@@ -436,7 +436,31 @@ class MovimentosCaixaController extends StandardController
             REVENDEDOR.SITREVEN = 'ATIVO'
             ORDER BY REVENDEDOR.NOMREVEN
         ");
+
         return $data;
+    }
+
+    public function addCaixa()
+    {
+        $dadosForm = 'OK';
+
+        return $dadosForm;
+
+    }
+    public function addCaixaGo()
+    {
+        $itens = $this->request->all();
+
+
+//        foreach ($itens as $item){
+//            echo $item->idreven;
+//        }
+
+//        dd($itens);
+
+//        return response()->json($itens);
+        return "aqui deu certo!!";
+
     }
 
 }
