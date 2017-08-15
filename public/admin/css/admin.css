@@ -30,7 +30,7 @@ div.dataTables_wrapper {
     line-height: 25px; !important;
 }
 
-.modal { width: 95% !important ; height: 95% !important ; }
+.modal { width: 90% !important ; max-height: 85% !important ; }
 
 body {
     display: flex;

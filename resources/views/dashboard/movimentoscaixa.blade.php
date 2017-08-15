@@ -323,16 +323,15 @@
             $('#movcaixa_sel_revendedor').change(function(){
                 $('#saldoatu').val($(this).find(':selected').data('saldo'));
                 var valor = $("#saldoatu").val().replace(/\./g, "").replace(",", ".");
-                alert(valor);
+
                 if (parseFloat(valor) < 0){
                 $('#saldoatu').css('color', '#FF0000')}
-                if (parseFloat(valor) > 0){
+                else if (parseFloat(valor) > 0){
                     $('#saldoatu').css('color', 'green')
                 } else {
                     $('#saldoatu').css('color', 'black')
                 }
 
-//                alert($(this).find(':selected').data('saldo'));
             });
 
 
@@ -460,13 +459,15 @@
 
             }
 
+            var vlrresul = numeral(saldoresul).format('0,0[.]00');
+
 
 
 
             cols += '<td data-idreven="'+$("#movcaixa_sel_revendedor :selected").val()+'">'+ $("#movcaixa_sel_revendedor :selected").text() +'</td>'
             cols += "<td>"+ $("#saldoatu").val()  +"</td>"
             cols += "<td>"+ $("#vlrmov").val() + "</td>"
-            cols += "<td>"+ saldoresul +"</td>"
+            cols += "<td>"+ vlrresul +"</td>"
             cols += '<td>' + tipomov + '</td>';
             cols += '<td data-idcobra="'+ $("#movcaixa_sel_cobrador :selected").val() +'">'+ $("#movcaixa_sel_cobrador :selected").text() +'</td>'
             cols += '<td>';
