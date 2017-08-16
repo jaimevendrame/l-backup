@@ -453,12 +453,74 @@ class MovimentosCaixaController extends StandardController
     }
     public function addCaixaGo()
     {
-        $itens = $this->request->all();
 
-        dd($itens);
+        //Dados retorno request view
+        $idbase = $this->request->input('idbase');
+        $idven =  $this->request->input('idven');
+        $idreven =  $this->request->input('idreven');
+        $tipomov =  $this->request->input('tipomov');
+        $vlrmov =  $this->request->input('vlrmov');
+        $saldoant =  $this->request->input('saldoatu');
+        $saldoatu =  $this->request->input('saldoresul');
+        $idusu =  $this->request->input('idusu');
+        $idcobra =  $this->request->input('idcobra');
 
-        return $itens ;
+
+
+
+        $l = count($idbase);
+
+        $dados = array();
+
+        for ($i =0; $i < $l; $i++){
+
+            $linha =  [
+                "idbase"    => $idbase[$i],
+                "idven"     => $idven[$i],
+                "idreven"   => $idreven[$i],
+                "seqmov"    => $this->seqMov($idbase[$i], $idven[$i], $idreven[$i]),
+                "datmov"    => date ("Y/m/d"),
+                "hormov"    => date ("Y/m/d H:i:s"),
+                "tipomov"   => $tipomov[$i],
+                "vlrmov"    => $saldoant[$i],
+                "saldoant"  => $saldoant[$i],
+                "saldoatu"  => $saldoatu[$i],
+                "idusumov"  => $idusu[$i],
+                "idcobra"   => $idcobra[$i],
+                "nomeusumov"=> $this->retornaUserLotec($idusu[$i])->nomusu,
+
+            ];
+
+            array_push($dados, $linha);
+
+
+        }
+
+        dd($dados);
+
+        return $dados ;
 
     }
 
+    function seqMov($idbase, $idven, $idreven)
+    {
+        $data = DB::select (" 
+        SELECT MAX(MOVIMENTOS_CAIXA.SEQMOV) AS SEQMOV
+                  FROM MOVIMENTOS_CAIXA
+                  WHERE
+                  MOVIMENTOS_CAIXA.IDBASE = '$idbase' AND
+                  MOVIMENTOS_CAIXA.IDVEN = '$idven' AND
+                  MOVIMENTOS_CAIXA.IDREVEN = '$idreven'
+
+        ");
+
+        $p = $data[0]->seqmov;
+
+        if ($p == null){
+            return 1;
+        } else {
+            return $p + 1;
+        }
+
+    }
 }
