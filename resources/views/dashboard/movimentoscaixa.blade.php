@@ -264,32 +264,39 @@
                 </div>
 
             </form>
+            <form class="form-group" id="form-mov" method="post" action="/admin/movimentoscaixa2" enctype="multipart/form-data">
+                {{ csrf_field() }}
 
             <div id="scroll">
-                <table id="products-table">
-                    <thead >
-                    <tr>
-                        <th>Revendedor</th>
-                        <th>Saldo Atual</th>
-                        <th>Valor Movimento</th>
-                        <th>Saldo Resultado</th>
-                        <th>Tipo Movimento</th>
-                        <th>Cobrador</th>
-                        <th>Ações</th>
-                    </tr>
-                    </thead>
+                    <table id="products-table">
+                        <thead >
+                        <tr>
+                            <th>Revendedor</th>
+                            <th>Saldo Atual</th>
+                            <th>Valor Movimento</th>
+                            <th>Saldo Resultado</th>
+                            <th>Tipo Movimento</th>
+                            <th>Cobrador</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
 
-                    <tbody>
-                    </tbody>
-                </table>
+                        <tbody>
+                        </tbody>
+                    </table>
+
             </div>
 
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" btn modal-action  waves-effect waves-green" onclick="enviarDados()">Salvar Movimento</a>
+            {{--<a href="#!" class=" btn modal-action  waves-effect waves-green" onclick="enviarDados()">Salvar Movimento</a>--}}
+            <button class="btn waves-effect waves-light" type="submit" name="action">Salvar Movimento
+                <i class="material-icons right">send</i>
+            </button>
             {{--<input type="button" value="Enviar dados" onclick="enviarDados()"/>--}}
         </div>
+    </form>
     </div>
 
 @endsection
@@ -297,6 +304,8 @@
 @push('scripts')
 <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numbro//min/languages.min.js"></script>
+
 
 
 <script>
@@ -429,41 +438,58 @@
             var newRow = $("<tr>");
             var cols = "";
 
+            var idreven = $("#movcaixa_sel_revendedor :selected").val();
+            var revendedor = $("#movcaixa_sel_revendedor :selected").text();
             var saldo = $("#saldoatu").val().replace(/\./g, "").replace(",", ".");
             var vlrmov = $("#vlrmov").val().replace(/\./g, "").replace(",", ".");
+            var cobrador = $("#movcaixa_sel_cobrador :selected").text();
+            var idbase = "<?php echo $p->idbase; ?>";
+            var idven = "<?php echo $p->idven; ?>";
+            var idusu = "<?php echo $idusu; ?>";
+            var idcobra = $("#movcaixa_sel_cobrador :selected").val();
 
             if (el == 'P'){
                 var saldoresul = parseFloat(saldo) + parseFloat(vlrmov);
-                var tipomov = '<a href="#!" class="btn red ">Pagamento</a>';
+                var tipomov = '<input readonly type="text" class="red white-text center-align" name="tipomov[]" value="PAGAMENTO"/> ';
             }
             if(el == 'R'){
                 var saldoresul = saldo - vlrmov;
-                var tipomov = '<a href="#!" class="btn green ">Recebimento</a>';
+                var tipomov = '<input readonly type="text" class="green white-text center-align" name="tipomov[]" value="RECEBIMENTO"/> ';
 
             }
             if(el == 'D'){
                 var saldoresul = parseFloat(saldo) - parseFloat(vlrmov);
-                var tipomov = '<a href="#!" class="btn orange">Despesa</a>';
+                var tipomov = '<input readonly type="text" class="orange white-text center-align" name="tipomov[]" value="DESPESAS"/> ';
 
             }
 
-            var vlrresul = numeral(saldoresul).format('0,0[.]00');
 
 
+//            cols += '<td data-idreven="'+$("#movcaixa_sel_revendedor :selected").val()+'">'+ $("#movcaixa_sel_revendedor :selected").text() +'</td>';
+//            cols += "<td>"+ $("#saldoatu").val()  +"</td>"
+//            cols += "<td>"+ $("#vlrmov").val() + "</td>";
+//            cols += '<td data-idcobra="'+ $("#movcaixa_sel_cobrador :selected").val() +'">'+ $("#movcaixa_sel_cobrador :selected").text() +'</td>';
 
-
-            cols += '<td data-idreven="'+$("#movcaixa_sel_revendedor :selected").val()+'">'+ $("#movcaixa_sel_revendedor :selected").text() +'</td>'
-            cols += "<td>"+ $("#saldoatu").val()  +"</td>"
-            cols += "<td>"+ $("#vlrmov").val() + "</td>"
-            cols += "<td>"+ vlrresul +"</td>"
-            cols += '<td>' + tipomov + '</td>';
-            cols += '<td data-idcobra="'+ $("#movcaixa_sel_cobrador :selected").val() +'">'+ $("#movcaixa_sel_cobrador :selected").text() +'</td>'
+            cols += '<td><input type="hidden" name="idbase[]" value="'+ idbase +'">' +
+                '<input type="hidden" name="idven[]" value="'+idven+'">' +
+                '<input type="hidden" name="idreven[]" value="'+idreven+'">' +
+                '<input readonly type="text" name="revendedor[]" value="'+ revendedor +'"/></td>';
+            cols += '<td><input readonly type="text" id="saldoatu2" name="saldoatu[]" value="'+saldo.replace(".", ",")+'"/></td>';
+            cols += '<td><input readonly type="text" name="vlrmov[]" value="'+ parseFloat(vlrmov).toFixed(2).replace(".", ",")+'"/></td>';
+            cols += '<td><input readonly type="text" name="saldoresul[]" value="'+ saldoresul.toFixed(2).replace(".", ",")+'"/></td>';
+            cols += '<td>'+tipomov+'</td>';
+            cols += '<td><input type="hidden" name="idusu[]" value="'+ idusu +'">' +
+                '<input type="hidden" name="idcobra[]" value="'+ idcobra +'">' +
+                '<input readonly type="text" name="cobrador[]" value="'+cobrador+'"/></td>';
             cols += '<td>';
             cols += '<button class="btn waves-effect waves-light grey" onclick="remove(this)" type="button"><i class="material-icons">delete</i></button>';
             cols += '</td>';
 
             newRow.append(cols);
             $("#products-table").append(newRow);
+
+//            $('#saldoatu2').mask('000,00');
+
 
 
             return false;
@@ -477,7 +503,7 @@
             $('#products-table tbody tr').each(function () {
                 // Recuperar todas as colunas da linha percorida
                 var colunas = $(this).children();
-                ;
+
                 // Criar objeto para armazenar os dados
                 var pedido = {
                     'idreven': $(colunas[0]).data('idreven'), // valor da coluna Produto

@@ -77,12 +77,13 @@ class MovimentosCaixaController extends StandardController
 
         $p_ideven = $ideven;
 
+        $p = $this->retornaBasepeloIdeven($ideven);
 
 
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven', 'data_movcax'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven', 'data_movcax','p'));
     }
 
     public function indexGo($ideven)
@@ -122,6 +123,9 @@ class MovimentosCaixaController extends StandardController
         $p_ideven = $ideven;
 
 
+        $p = $this->retornaBasepeloIdeven($ideven);
+
+
 
 
 
@@ -129,7 +133,7 @@ class MovimentosCaixaController extends StandardController
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven','sel_revendedor', 'sel_cobrador','data_movcax'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven','sel_revendedor', 'sel_cobrador','data_movcax', 'p'));
     }
 
     public function retornaMovimentosCaixa($ideven){
@@ -451,15 +455,9 @@ class MovimentosCaixaController extends StandardController
     {
         $itens = $this->request->all();
 
+        dd($itens);
 
-//        foreach ($itens as $item){
-//            echo $item->idreven;
-//        }
-
-//        dd($itens);
-
-//        return response()->json($itens);
-        return "aqui deu certo!!";
+        return $itens ;
 
     }
 
