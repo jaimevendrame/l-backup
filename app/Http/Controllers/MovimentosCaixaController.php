@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use lotecweb\Http\Requests;
 use lotecweb\Models\Cobrador;
+use lotecweb\Models\Movimento_caixa;
 use lotecweb\Models\Revendedor;
 use lotecweb\Models\Usuario;
 use lotecweb\Models\Usuario_ven;
@@ -24,7 +25,7 @@ class MovimentosCaixaController extends StandardController
     protected $title = 'Movimentos de Caixa';
     protected $redirectCad = '/admin/contatos/cadastrar';
     protected $redirectEdit = '/admin/contatos/editar';
-    protected $route = '/admin/contatos';
+    protected $route = '/admin/movimentoscaixa';
     public $data_inicial;
     public $data_fim;
 
@@ -34,6 +35,7 @@ class MovimentosCaixaController extends StandardController
         Vendedor $vendedor,
         Revendedor $revendedor,
         Cobrador $cobrador,
+        Movimento_caixa $movimento_caixa,
         Request $request)
     {
         $this->request = $request;
@@ -42,6 +44,7 @@ class MovimentosCaixaController extends StandardController
         $this->vendedor = $vendedor;
         $this->revendedor = $revendedor;
         $this->cobrador = $cobrador;
+        $this->movimmento_caixa = $movimento_caixa;
 
 
     }
@@ -482,9 +485,9 @@ class MovimentosCaixaController extends StandardController
                 "datmov"    => date ("Y/m/d"),
                 "hormov"    => date ("Y/m/d H:i:s"),
                 "tipomov"   => $tipomov[$i],
-                "vlrmov"    => $saldoant[$i],
-                "saldoant"  => $saldoant[$i],
-                "saldoatu"  => $saldoatu[$i],
+                "vlrmov"    => number_format(floatval($vlrmov[$i]), 2, '.', ','),
+                "saldoant"  => number_format(floatval($saldoant[$i]), 2, '.', ','),
+                "saldoatu"  => number_format(floatval($saldoatu[$i]), 2, '.', ','),
                 "idusumov"  => $idusu[$i],
                 "idcobra"   => $idcobra[$i],
                 "nomeusumov"=> $this->retornaUserLotec($idusu[$i])->nomusu,
@@ -493,12 +496,22 @@ class MovimentosCaixaController extends StandardController
 
             array_push($dados, $linha);
 
+            $insert = $this->movimmento_caixa->create($dados);
+
+            if ($insert)
+
+                return $insert;
+
+            else
+                return redirect($this->redirectCad)
+                    ->withErrors(['errors'=> 'Falha ao Cadastrar'])
+                    ->withInput();
+
 
         }
 
-        dd($dados);
+//        dd($dados);
 
-        return $dados ;
 
     }
 

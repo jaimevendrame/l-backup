@@ -212,7 +212,56 @@
     </div>
 
 
+    <script>
+        $(function () {
+            jQuery("#form-add-mov").submit(function () {
 
+
+                alert('ok');
+                return false;
+
+                var dadosForm = jQuery(this).serialize();
+
+                jQuery.ajax({
+                    url: 'add-contato',
+                    data: dadosForm,
+                    method: 'POST',
+                    beforeSend: iniciaPreloader()
+
+
+                }).done(function (data) {
+
+                    finalizaPreloader();
+
+                    if (data == '1') {
+                        jQuery(".contato-errors-msg").hide();
+
+//                    jQuery(".screen").hide();
+
+                        jQuery(".contato-success-msg").html(
+                            "<h4>Sua mensagem foi enviada com sucesso!</h4><br>" +
+                            "<h4>Aguarde que entraremos em contato</h4>"
+                        );
+                        jQuery(".contato-success-msg").show();
+                        $("#especializati-form").trigger("reset");
+
+                        setTimeout(" jQuery('.contato-success-msg').hide();", 5000);
+
+                    } else {
+                        jQuery(".contato-errors-msg").html(data);
+                        jQuery(".contato- errors-msg").show();
+                    }
+                }).fail(function () {
+                    finalizaPreloader();
+                    alert('Falha ao enviar dados!!');
+                });
+
+
+                return false;
+            });
+
+        });
+    </script>
 
     <!-- Modal Structure -->
     <div id="modal_movcaixa" class="modal modal-fixed-footer">
@@ -264,7 +313,7 @@
                 </div>
 
             </form>
-            <form class="form-group" id="form-mov" method="post" action="/admin/movimentoscaixa2" enctype="multipart/form-data">
+            <form class="form-group" id="form-add-mov" method="post" action="/admin/movimentoscaixa2" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
             <div id="scroll">
@@ -291,10 +340,9 @@
         </div>
         <div class="modal-footer">
             {{--<a href="#!" class=" btn modal-action  waves-effect waves-green" onclick="enviarDados()">Salvar Movimento</a>--}}
-            <button class="btn waves-effect waves-light" type="submit" name="action">Salvar Movimento
+            <button class="btn waves-effect waves-light" type="submit" >Salvar Movimento
                 <i class="material-icons right">send</i>
             </button>
-            {{--<input type="button" value="Enviar dados" onclick="enviarDados()"/>--}}
         </div>
     </form>
     </div>
@@ -302,6 +350,46 @@
 @endsection
 
 @push('scripts')
+
+<script>
+    $(function () {
+        jQuery("#form-add-mov").submit(function () {
+
+            var dadosForm = jQuery(this).serialize();
+
+
+            confirm("Salvar a movimentação")
+            alert(dadosForm);
+
+            jQuery.ajax({
+                url: '/admin/movimentoscaixa2',
+                data: dadosForm,
+                method: 'POST'
+
+
+            }).done(function (data) {
+
+
+                if (data == '1') {
+
+                    alert('Movimentação salva com sucesso');
+
+                    setTimeout("location.reload();", 5000);
+
+                } else {
+                    alert('Falha ao cadastrar movimentação!!');
+
+                }
+            }).fail(function () {
+                alert('Falha ao enviar dados!!');
+
+
+            });
+            alert("Form ok!!");
+            return false
+        });
+    });
+</script>
 <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numbro//min/languages.min.js"></script>
@@ -495,65 +583,13 @@
             return false;
         }
 
-        function enviarDados(){
-
-
-            var pedidos = [];
-
-            $('#products-table tbody tr').each(function () {
-                // Recuperar todas as colunas da linha percorida
-                var colunas = $(this).children();
-
-                // Criar objeto para armazenar os dados
-                var pedido = {
-                    'idreven': $(colunas[0]).data('idreven'), // valor da coluna Produto
-                    'revendedor': $(colunas[0]).text(), // valor da coluna Produto
-                    'saldo_atual': $(colunas[1]).text(), // Valor da coluna Quantidade
-                    'vlr_movimento': $(colunas[2]).text(), // Valor da coluna Quantidade
-                    'saldo_resul': $(colunas[3]).text(), // Valor da coluna Quantidade
-                    'tp_movi': $(colunas[4]).text(), // Valor da coluna Quantidade
-                    'idcobra': $(colunas[5]).data('idcobra'), // Valor da coluna Quantidade
-                    'cobrador': $(colunas[5]).text(), // Valor da coluna Quantidade
-                };
-
-                // Adicionar o objeto pedido no array
-                console.log(pedido);
-
-
-                $.ajax({
-
-                    url: '/admin/movimentoscaixa2',
-                    type: 'POST',
-
-                    beforeSend: function (xhr) {
-                        var token = '{{csrf_token()}}';
-
-                        if (token) {
-                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-                        }
-                    },
-
-                    data: pedido,
-                    dataType: 'JSON',
-                    success:function(data){
-                        alert(data);
-                    },error:function(){
-                        alert("error!!!!");
-                    }
-                });
 
 
 
-                pedidos.push(pedido);
-//                alert(pedidos);
-            });
 
 
 
-            // listando os pedidos função teste
-            alert("esta funcionando");
 
-        }
 
 </script>
 
