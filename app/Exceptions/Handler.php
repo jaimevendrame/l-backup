@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
+use Psr\Log\InvalidArgumentException;
 
 class Handler extends ExceptionHandler
 {
@@ -51,6 +52,10 @@ class Handler extends ExceptionHandler
             return response()->view('error.404', [], 404);
         }
         if ($exception instanceof TokenMismatchException)
+        {
+            return response()->view('error.500', [], 500);
+        }
+        if ($exception instanceof InvalidArgumentException)
         {
             return response()->view('error.500', [], 500);
         }

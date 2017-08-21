@@ -71,6 +71,7 @@
                             <thead>
                             <tr>
                                 <th>Revendedor</th>
+                                <th>seqordem</th>
                                 <th>Saldo Anterior</th>
                                 <th>Valor Movimento</th>
                                 <th>Saldo Após Mov.</th>
@@ -88,6 +89,7 @@
 
                                 <tr>
                                     <td>{{ $movi->nomreven }}</td>
+                                    <td>{{ $movi->seqordem }}</td>
                                     <td><b>{{ number_format($movi->saldoant, 2, ',', '.') }}</b></td>
                                     <td>{{ number_format($movi->vlrmov, 2, ',', '.') }}</td>
                                     <td>{{ number_format($movi->saldoatu, 2, ',', '.') }}</td>
@@ -401,12 +403,19 @@
                     scrollCollapse: true,
                     paging:         false,
                     Bfilter:        false,
-//                    "aaSorting": [[]],
+                    //ordenar pela coluna seqordem
+                    "aaSorting": [[1, "desc"]],
 
 
                     columnDefs: [
                         {
                             className: 'mdl-data-table__cell--non-numeric'
+                        },
+                        //ocultar coluna seqordem
+                        {
+                            "targets": [ 1],
+                            "visible": false,
+                            "searchable": false
                         }
 
                     ],
