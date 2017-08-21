@@ -94,7 +94,8 @@
                                     <td> {{ Carbon\Carbon::parse($movi->datmov)->format('d/m/Y') }}</td>
                                     <td>{{ Carbon\Carbon::parse($movi->hormov)->format('H:m:s') }}</td>
                                     <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
-                                    @else class='white-text' bgcolor='#e53935'@endif>
+                                    @elseif($movi->tipomov == 'DESPESA') class='white-text' bgcolor='#ff9800'
+                                        @else class='white-text' bgcolor='#e53935'@endif>
                                         <b>{{ $movi->tipomov }}</b>
                                     </td>
                                     <td>{{ $movi->nomcobra }}</td>
@@ -400,6 +401,8 @@
                     scrollCollapse: true,
                     paging:         false,
                     Bfilter:        false,
+//                    "aaSorting": [[]],
+
 
                     columnDefs: [
                         {

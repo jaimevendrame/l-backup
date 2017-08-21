@@ -179,6 +179,8 @@ class MovimentosCaixaController extends StandardController
             
             $str_idbase
             $str_idven
+            
+            ORDER BY MOVIMENTOS_CAIXA.SEQORDEM DESC
         "
 
         );
@@ -285,6 +287,8 @@ class MovimentosCaixaController extends StandardController
             $str_idven
             $str_idreven
             $str_idcobra
+            
+            ORDER BY MOVIMENTOS_CAIXA.SEQORDEM DESC
         "
 
         );
