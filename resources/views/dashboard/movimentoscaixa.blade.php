@@ -149,7 +149,7 @@
 
                         <div class="row">
 
-                            <div class="col s3 ">
+                            <div class="col s12 m6 l3">
                                 <div class="col s10 z-depth-2 green hoverable">
                                     <div class="row left-align">
                                         <h5 class="white-text">
@@ -162,7 +162,7 @@
                                 </div>
 
                             </div>
-                            <div class="col s3">
+                            <div class="col s12 m6 l3">
                                 <div class="col s10 z-depth-2 red darken-1 hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
@@ -175,7 +175,7 @@
                                 </div>
 
                             </div>
-                            <div class="col s3">
+                            <div class="col s12 m6 l3">
                                 <div class="col s10 z-depth-2 orange hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
@@ -188,8 +188,8 @@
                                 </div>
 
                             </div>
-                            <div class="col s3">
-                                <div class="col s12 z-depth-2 teal hoverable">
+                            <div class="col s12 m6 l3">
+                                <div class="col s10 z-depth-2 teal hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
                                             Saldo Caixa:
