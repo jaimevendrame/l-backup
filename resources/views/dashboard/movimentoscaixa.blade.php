@@ -29,7 +29,7 @@
                                     <select name="sel_revendedor">
                                         <option value="" >Nenhum</option>
                                         @forelse($reven as $r)
-                                            <option value="{{$r->idereven}}" @if( isset($sel_revendedor)) {{ $r->idereven == $sel_revendedor  ? 'selected' : '' }} @endif>{{$r->nomreven}}</option>
+                                            <option value="{{$r->idreven}}" @if( isset($sel_revendedor)) {{ $r->idreven == $sel_revendedor  ? 'selected' : '' }} @endif>{{$r->nomreven}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhuma Revendedor</option>
                                         @endforelse
@@ -217,9 +217,6 @@
             jQuery("#form-add-mov").submit(function () {
 
 
-                alert('ok');
-                return false;
-
                 var dadosForm = jQuery(this).serialize();
 
                 jQuery.ajax({
@@ -359,7 +356,7 @@
 
 
             confirm("Salvar a movimentação")
-            alert(dadosForm);
+//            alert(dadosForm);
 
             jQuery.ajax({
                 url: '/admin/movimentoscaixa2',
@@ -370,11 +367,13 @@
             }).done(function (data) {
 
 
-                if (data == '1') {
+                if (data > '0') {
 
                     alert('Movimentação salva com sucesso');
 
-                    setTimeout("location.reload();", 5000);
+                    location.reload();
+
+//                    setTimeout("location.reload();", 3000);
 
                 } else {
                     alert('Falha ao cadastrar movimentação!!');
@@ -385,8 +384,7 @@
 
 
             });
-            alert("Form ok!!");
-            return false
+
         });
     });
 </script>
@@ -538,16 +536,21 @@
 
             if (el == 'P'){
                 var saldoresul = parseFloat(saldo) + parseFloat(vlrmov);
-                var tipomov = '<input readonly type="text" class="red white-text center-align" name="tipomov[]" value="PAGAMENTO"/> ';
+                var tipomov = '<input readonly type="hidden" name="obsdes[]" value="null"/> <input readonly type="text" class="red white-text center-align" name="tipomov[]" value="PAGAMENTO"/> ';
             }
             if(el == 'R'){
                 var saldoresul = saldo - vlrmov;
-                var tipomov = '<input readonly type="text" class="green white-text center-align" name="tipomov[]" value="RECEBIMENTO"/> ';
+                var tipomov = '<input readonly type="hidden" name="obsdes[]" value="null"/> <input readonly type="text" class="green white-text center-align" name="tipomov[]" value="RECEBIMENTO"/> ';
 
             }
             if(el == 'D'){
+                var despinfo;
+                do {
+                    despinfo = prompt ("Informe a Despesa");
+                } while (despinfo == null || despinfo == "");
+//                alert ("Despesa: "+despinfo);
                 var saldoresul = parseFloat(saldo) - parseFloat(vlrmov);
-                var tipomov = '<input readonly type="text" class="orange white-text center-align" name="tipomov[]" value="DESPESAS"/> ';
+                var tipomov = '<input readonly type="hidden" name="obsdes[]" value="'+despinfo+'"/> <input readonly type="text" class="orange white-text center-align" name="tipomov[]" value="DESPESA"/> ';
 
             }
 
@@ -582,13 +585,6 @@
 
             return false;
         }
-
-
-
-
-
-
-
 
 
 </script>

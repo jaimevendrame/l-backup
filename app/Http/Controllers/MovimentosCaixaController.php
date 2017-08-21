@@ -128,6 +128,8 @@ class MovimentosCaixaController extends StandardController
 
         $p = $this->retornaBasepeloIdeven($ideven);
 
+//        dd($sel_revendedor);
+
 
 
 
@@ -456,6 +458,10 @@ class MovimentosCaixaController extends StandardController
     }
     public function addCaixaGo()
     {
+        $valor = $this->request->all();
+
+//        dd($valor);
+
 
         //Dados retorno request view
         $idbase = $this->request->input('idbase');
@@ -467,50 +473,87 @@ class MovimentosCaixaController extends StandardController
         $saldoatu =  $this->request->input('saldoresul');
         $idusu =  $this->request->input('idusu');
         $idcobra =  $this->request->input('idcobra');
+        $obsdes = $this->request->input('obsdes');
 
 
 
 
         $l = count($idbase);
 
+        $x = 0;
+        $y = 0;
+
         $dados = array();
 
         for ($i =0; $i < $l; $i++){
 
-            $linha =  [
+            $data_mov = date ("Y-m-d");
+            $hora_mov = date ("Y-m-d H:i:s");
+            $idtipo = 2;
+
+
+
+            $linhaMov =  [
                 "idbase"    => $idbase[$i],
                 "idven"     => $idven[$i],
                 "idreven"   => $idreven[$i],
                 "seqmov"    => $this->seqMov($idbase[$i], $idven[$i], $idreven[$i]),
-                "datmov"    => date ("Y/m/d"),
-                "hormov"    => date ("Y/m/d H:i:s"),
+                "datmov"    => $data_mov,
+                "hormov"    => $hora_mov,
                 "tipomov"   => $tipomov[$i],
-                "vlrmov"    => number_format(floatval($vlrmov[$i]), 2, '.', ','),
-                "saldoant"  => number_format(floatval($saldoant[$i]), 2, '.', ','),
-                "saldoatu"  => number_format(floatval($saldoatu[$i]), 2, '.', ','),
+                "vlrmov"    => floatval(str_replace(',','.', $vlrmov[$i])),
+                "saldoant"    => floatval(str_replace(',','.', $saldoant[$i])),
+                "saldoatu"    => floatval(str_replace(',','.', $saldoatu[$i])),
                 "idusumov"  => $idusu[$i],
                 "idcobra"   => $idcobra[$i],
-                "nomeusumov"=> $this->retornaUserLotec($idusu[$i])->nomusu,
+                "nomeusumov"=>  $this->retornaUserLotec($idusu[$i])->nomusu,
 
             ];
 
-            array_push($dados, $linha);
+            $linhaDesp = [
+                "idbase"    => $idbase[$i],
+                "idven"     => $idven[$i],
+                "idreven"   => $idreven[$i],
+                "datdes"    => $data_mov,
+                "hordes"    => $hora_mov,
+                "idtipo"   =>  $idtipo,
+                "vlrdes"    => floatval(str_replace(',','.', $vlrmov[$i])),
+                "idusucad"  => $idusu[$i],
+                "seqdes"    => $this->seqDes($idbase[$i], $idven[$i]),
+                "obsdes"    => $obsdes[$i],
 
-            $insert = $this->movimmento_caixa->create($dados);
+            ];
+
+//            dd($linhaMov);
+
+
+
+            array_push($dados, $linhaMov);
+
+            $insert = DB::table('MOVIMENTOS_CAIXA')->insert($linhaMov);
+
 
             if ($insert)
 
-                return $insert;
+                $x = $x + 1;
 
-            else
-                return redirect($this->redirectCad)
-                    ->withErrors(['errors'=> 'Falha ao Cadastrar'])
-                    ->withInput();
+            if ( $tipomov[$i] == 'DESPESA'){
+
+
+                $insertDesp = DB::table('DESPESAS')->insert($linhaDesp);
+
+                if ($insertDesp)
+
+                    $y = $y + 1;
+            }
+
+
 
 
         }
 
-//        dd($dados);
+        return $x;
+
 
 
     }
@@ -536,4 +579,26 @@ class MovimentosCaixaController extends StandardController
         }
 
     }
+
+    function seqDes($idbase, $idven)
+    {
+        $data = DB::select (" 
+        SELECT MAX(SEQDES) AS SEQDES
+                  FROM DESPESAS
+                  WHERE
+                  IDBASE = '$idbase' AND
+                  IDVEN = '$idven'
+
+        ");
+
+        $p = $data[0]->seqdes;
+
+        if ($p == null){
+            return 1;
+        } else {
+            return $p + 1;
+        }
+
+    }
+
 }
