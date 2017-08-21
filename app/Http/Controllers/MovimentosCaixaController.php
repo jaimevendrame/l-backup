@@ -180,7 +180,6 @@ class MovimentosCaixaController extends StandardController
             $str_idbase
             $str_idven
             
-            ORDER BY MOVIMENTOS_CAIXA.SEQORDEM DESC
         "
 
         );
@@ -270,7 +269,7 @@ class MovimentosCaixaController extends StandardController
 
 
         $data = DB::select ("
-        SELECT MOVIMENTOS_CAIXA.*, REVENDEDOR.NOMREVEN, COBRADOR.NOMCOBRA, '$datIni' AS DATAINI, '$datFim' AS DATAFIM MOVIMENTOS_CAIXA.SEQORDEM AS SEQORDEM
+        SELECT MOVIMENTOS_CAIXA.*, REVENDEDOR.NOMREVEN, COBRADOR.NOMCOBRA, '$datIni' AS DATAINI, '$datFim' AS DATAFIM, MOVIMENTOS_CAIXA.SEQORDEM AS SEQORDEM
         FROM MOVIMENTOS_CAIXA
         INNER JOIN REVENDEDOR ON
                   REVENDEDOR.IDBASE = MOVIMENTOS_CAIXA.IDBASE AND
@@ -288,7 +287,6 @@ class MovimentosCaixaController extends StandardController
             $str_idreven
             $str_idcobra
             
-            ORDER BY MOVIMENTOS_CAIXA.SEQORDEM DESC
         "
 
         );

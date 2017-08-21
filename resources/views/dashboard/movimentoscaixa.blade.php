@@ -310,37 +310,47 @@
             var dadosForm = jQuery(this).serialize();
 
 
-            confirm("Salvar a movimentação")
-//            alert(dadosForm);
+            decisao = confirm("Salvar a movimentação");
 
-            jQuery.ajax({
-                url: '/admin/movimentoscaixa2',
-                data: dadosForm,
-                method: 'POST'
+            if (decisao){
 
-
-            }).done(function (data) {
+                jQuery.ajax({
+                    url: '/admin/movimentoscaixa2',
+                    data: dadosForm,
+                    method: 'POST'
 
 
-                if (data > '0') {
+                }).done(function (data) {
 
-                    alert('Movimentação salva com sucesso');
 
-                    location.reload();
+                    if (data > '0') {
+
+                        alert('Movimentação salva com sucesso');
+
+                        location.reload();
 
 //                    setTimeout("location.reload();", 3000);
 
-                } else {
-                    alert('Falha ao cadastrar movimentação!!');
+                    } else {
+                        alert('Falha ao cadastrar movimentação!!');
 
-                }
-            }).fail(function () {
-                alert('Falha ao enviar dados!!');
+                    }
+                }).fail(function () {
+                    alert('Falha ao enviar dados!!');
 
 
-            });
+                });
 
-            return false;
+                return false;
+
+
+
+            } else {
+                return false;
+            }
+
+
+
 
         });
     });
