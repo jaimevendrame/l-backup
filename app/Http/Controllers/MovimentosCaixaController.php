@@ -524,7 +524,6 @@ class MovimentosCaixaController extends StandardController
 
             ];
 
-//            dd($linhaMov);
 
 
 

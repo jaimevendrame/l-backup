@@ -149,7 +149,7 @@
 
                         <div class="row">
 
-                            <div class="col s12 m6 l3">
+                            <div class="col s6 m6 l3">
                                 <div class="col s10 z-depth-2 green hoverable">
                                     <div class="row left-align">
                                         <h5 class="white-text">
@@ -162,7 +162,7 @@
                                 </div>
 
                             </div>
-                            <div class="col s12 m6 l3">
+                            <div class="col s6 m6 l3">
                                 <div class="col s10 z-depth-2 red darken-1 hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
@@ -175,7 +175,7 @@
                                 </div>
 
                             </div>
-                            <div class="col s12 m6 l3">
+                            <div class="col s6 m6 l3">
                                 <div class="col s10 z-depth-2 orange hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
@@ -188,7 +188,7 @@
                                 </div>
 
                             </div>
-                            <div class="col s12 m6 l3">
+                            <div class="col s6 m6 l3">
                                 <div class="col s10 z-depth-2 teal hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
@@ -211,54 +211,6 @@
 
     </div>
 
-
-    <script>
-        $(function () {
-            jQuery("#form-add-mov").submit(function () {
-
-
-                var dadosForm = jQuery(this).serialize();
-
-                jQuery.ajax({
-                    url: 'add-contato',
-                    data: dadosForm,
-                    method: 'POST',
-                    beforeSend: iniciaPreloader()
-
-
-                }).done(function (data) {
-
-                    finalizaPreloader();
-
-                    if (data == '1') {
-                        jQuery(".contato-errors-msg").hide();
-
-//                    jQuery(".screen").hide();
-
-                        jQuery(".contato-success-msg").html(
-                            "<h4>Sua mensagem foi enviada com sucesso!</h4><br>" +
-                            "<h4>Aguarde que entraremos em contato</h4>"
-                        );
-                        jQuery(".contato-success-msg").show();
-                        $("#especializati-form").trigger("reset");
-
-                        setTimeout(" jQuery('.contato-success-msg').hide();", 5000);
-
-                    } else {
-                        jQuery(".contato-errors-msg").html(data);
-                        jQuery(".contato- errors-msg").show();
-                    }
-                }).fail(function () {
-                    finalizaPreloader();
-                    alert('Falha ao enviar dados!!');
-                });
-
-
-                return false;
-            });
-
-        });
-    </script>
 
     <!-- Modal Structure -->
     <div id="modal_movcaixa" class="modal modal-fixed-footer">
@@ -384,6 +336,8 @@
 
 
             });
+
+            return false;
 
         });
     });
