@@ -72,12 +72,12 @@
                             <tr>
                                 <th>Revendedor</th>
                                 <th>seqordem</th>
+                                <th>Tipo Mov.</th>
                                 <th>Saldo Anterior</th>
                                 <th>Valor Movimento</th>
                                 <th>Saldo Após Mov.</th>
                                 <th>Data Mov.</th>
                                 <th>Horário</th>
-                                <th>Tipo Mov.</th>
                                 <th>Cobrador</th>
                                 <th>Usuário Mov.</th>
 
@@ -90,16 +90,17 @@
                                 <tr>
                                     <td>{{ $movi->nomreven }}</td>
                                     <td>{{ $movi->seqordem }}</td>
+                                    <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
+                                        @elseif($movi->tipomov == 'DESPESA') class='white-text' bgcolor='#ff9800'
+                                        @else class='white-text' bgcolor='#e53935'@endif>
+                                        <b>{{ $movi->tipomov }}</b>
+                                    </td>
                                     <td><b>{{ number_format($movi->saldoant, 2, ',', '.') }}</b></td>
                                     <td>{{ number_format($movi->vlrmov, 2, ',', '.') }}</td>
                                     <td>{{ number_format($movi->saldoatu, 2, ',', '.') }}</td>
                                     <td> {{ Carbon\Carbon::parse($movi->datmov)->format('d/m/Y') }}</td>
                                     <td>{{ Carbon\Carbon::parse($movi->hormov)->format('H:m:s') }}</td>
-                                    <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
-                                    @elseif($movi->tipomov == 'DESPESA') class='white-text' bgcolor='#ff9800'
-                                        @else class='white-text' bgcolor='#e53935'@endif>
-                                        <b>{{ $movi->tipomov }}</b>
-                                    </td>
+
                                     <td>{{ $movi->nomcobra }}</td>
                                     <td>{{ $movi->nomeusumov }}</td>
 
@@ -152,7 +153,7 @@
 
                         <div class="row">
 
-                            <div class="col s6 m6 l3">
+                            <div class="col s12 m12 l3">
                                 <div class="col s10 z-depth-2 green hoverable">
                                     <div class="row left-align">
                                         <h5 class="white-text">
@@ -165,7 +166,7 @@
                                 </div>
 
                             </div>
-                            <div class="col s6 m6 l3">
+                            <div class="col s12 m12 l3">
                                 <div class="col s10 z-depth-2 red darken-1 hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
@@ -178,7 +179,7 @@
                                 </div>
 
                             </div>
-                            <div class="col s6 m6 l3">
+                            <div class="col s12 m12 l3">
                                 <div class="col s10 z-depth-2 orange hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
@@ -191,7 +192,7 @@
                                 </div>
 
                             </div>
-                            <div class="col s6 m6 l3">
+                            <div class="col s12 m12 l3">
                                 <div class="col s10 z-depth-2 teal hoverable">
                                     <div class="row white-text left-align">
                                         <h5>

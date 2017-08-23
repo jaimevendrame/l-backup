@@ -492,6 +492,7 @@ class MovimentosCaixaController extends StandardController
             $data_mov = date ("Y-m-d");
             $hora_mov = date ("Y-m-d H:i:s");
             $idtipo = 2;
+            $insinc = 'NAO';
 
 
 
@@ -509,8 +510,10 @@ class MovimentosCaixaController extends StandardController
                 "idusumov"  => $idusu[$i],
                 "idcobra"   => $idcobra[$i],
                 "nomeusumov"=>  $this->retornaUserLotec($idusu[$i])->nomusu,
+                "insinc"    => $insinc,
 
             ];
+
 
             $linhaDesp = [
                 "idbase"    => $idbase[$i],
