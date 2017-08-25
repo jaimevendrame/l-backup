@@ -226,7 +226,7 @@
             <h4>Movimentar Caixa de Revendedor</h4>
             <form id="myform">
                 <div class="row">
-                    <div class="input-field col s12 m4 l2">
+                    <div class="input-field col s12 m12 l2">
                         <select name="movcaixa_sel_revendedor" id="movcaixa_sel_revendedor">
                             <option value="0" selected>Nenhum</option>
                             @forelse($data_movcax as $r)
@@ -238,11 +238,11 @@
                         </select>
                         <label>Revendedor</label>
                     </div>
-                    <div class="input-field col s12 m4 l2">
+                    <div class="input-field col s12 m12 l2">
                         <input readonly id="saldoatu" placeholder="0,00" type="text" class="validate">
                         <label class="active" for="saldoatu">Saldo Atual</label>
                     </div>
-                    <div class="input-field col s12 m4 l2">
+                    <div class="input-field col s12 m12 l2">
                         <select name="movcaixa_sel_cobrador" id="movcaixa_sel_cobrador">
                             <option value="" >Nenhum</option>
                             @forelse($cobrador as $cob)
@@ -253,7 +253,7 @@
                         </select>
                         <label>Cobradores</label>
                     </div>
-                    <div class="input-field col s12 m4 l2">
+                    <div class="input-field col s12 m12 l2">
                         <input placeholder="Valor" id="vlrmov" type="text" class="validate">
                         <label for="first_name">Valor</label>
                     </div>
