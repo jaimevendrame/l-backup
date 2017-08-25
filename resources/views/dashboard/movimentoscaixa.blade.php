@@ -275,8 +275,8 @@
                         <tr>
                             <th>Revendedor</th>
                             <th>Tipo Movimento</th>
-                            <th>Saldo Atual</th>
                             <th>Valor Movimento</th>
+                            <th>Saldo Atual</th>
                             <th>Saldo Resultado</th>
                             <th>Cobrador</th>
                             <th>Ações</th>
@@ -543,8 +543,8 @@
                 '<input type="hidden" name="idreven[]" value="'+idreven+'">' +
                 '<input readonly type="text" name="revendedor[]" value="'+ revendedor +'"/></td>';
             cols += '<td>'+tipomov+'</td>';
-            cols += '<td><input readonly type="text" id="saldoatu2" name="saldoatu[]" value="'+saldo.replace(".", ",")+'"/></td>';
             cols += '<td><input readonly type="text" name="vlrmov[]" value="'+ parseFloat(vlrmov).toFixed(2).replace(".", ",")+'"/></td>';
+            cols += '<td><input readonly type="text" id="saldoatu2" name="saldoatu[]" value="'+saldo.replace(".", ",")+'"/></td>';
             cols += '<td><input readonly type="text" name="saldoresul[]" value="'+ saldoresul.toFixed(2).replace(".", ",")+'"/></td>';
             cols += '<td><input type="hidden" name="idusu[]" value="'+ idusu +'">' +
                 '<input type="hidden" name="idcobra[]" value="'+ idcobra +'">' +
