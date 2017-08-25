@@ -254,7 +254,7 @@
                         <label>Cobradores</label>
                     </div>
                     <div class="input-field col s12 m12 l2">
-                        <input placeholder="Valor" id="vlrmov" type="text" class="validate">
+                        <input placeholder="Valor" id="vlrmov" type="tel" class="validate">
                         <label for="first_name">Valor</label>
                     </div>
                     <div class="input-field col s12 m12 l3">
@@ -274,10 +274,10 @@
                         <thead >
                         <tr>
                             <th>Revendedor</th>
+                            <th>Tipo Movimento</th>
                             <th>Saldo Atual</th>
                             <th>Valor Movimento</th>
                             <th>Saldo Resultado</th>
-                            <th>Tipo Movimento</th>
                             <th>Cobrador</th>
                             <th>Ações</th>
                         </tr>
@@ -542,10 +542,10 @@
                 '<input type="hidden" name="idven[]" value="'+idven+'">' +
                 '<input type="hidden" name="idreven[]" value="'+idreven+'">' +
                 '<input readonly type="text" name="revendedor[]" value="'+ revendedor +'"/></td>';
+            cols += '<td>'+tipomov+'</td>';
             cols += '<td><input readonly type="text" id="saldoatu2" name="saldoatu[]" value="'+saldo.replace(".", ",")+'"/></td>';
             cols += '<td><input readonly type="text" name="vlrmov[]" value="'+ parseFloat(vlrmov).toFixed(2).replace(".", ",")+'"/></td>';
             cols += '<td><input readonly type="text" name="saldoresul[]" value="'+ saldoresul.toFixed(2).replace(".", ",")+'"/></td>';
-            cols += '<td>'+tipomov+'</td>';
             cols += '<td><input type="hidden" name="idusu[]" value="'+ idusu +'">' +
                 '<input type="hidden" name="idcobra[]" value="'+ idcobra +'">' +
                 '<input readonly type="text" name="cobrador[]" value="'+cobrador+'"/></td>';
