@@ -223,13 +223,56 @@
 
 
                         </table>
+                        <div class="row"></div>
                         <div class="row">
-                            <div class="col s2">Revendedor: @php echo count($data)@endphp</div>
-                            <div class="col s2">Sem vendas: @php echo $semvendas @endphp</div>
-                            <div class="col s2">Com vendas: @php echo count($data) - $semvendas @endphp</div>
-                            <div class="col s2"></div>
-                            <div class="col s2"></div>
-                            <div class="col s2 right-align">Caixa: @php echo number_format($recb - $pagto, 2, ',', '.');  @endphp</div>
+                            <div class="col s12 m12 l3">
+                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                    <div class="row left-align">
+                                        <h5 class=" blue-grey-text">
+                                            Revendedor:
+                                        </h5>
+                                    </div>
+                                    <div class="row right-align">
+                                        <h5 class=" blue-grey-text">@php echo count($data)@endphp</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m12 l3">
+                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                    <div class="row left-align">
+                                        <h5 class="blue-grey-text">
+                                            Sem vendas:
+                                        </h5>
+                                    </div>
+                                    <div class="row right-align">
+                                        <h5 class="blue-grey-text">@php echo $semvendas @endphp</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m12 l3">
+                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                    <div class="row left-align">
+                                        <h5 class="blue-grey-text">
+                                            Com vendas:
+                                        </h5>
+                                    </div>
+                                    <div class="row right-align">
+                                        <h5 class="blue-grey-text">@php echo count($data) - $semvendas @endphp</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m12 l3">
+                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                    <div class="row left-align">
+                                        <h5 class="blue-grey-text">
+                                            Caixa:
+                                        </h5>
+                                    </div>
+                                    <div class="row right-align">
+                                        <h5 class="blue-grey-text">@php echo number_format($recb - $pagto, 2, ',', '.');  @endphp</h5>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
