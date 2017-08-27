@@ -85,6 +85,13 @@ Route::group([
         Route::get('/adduserweb/', 'StandardController@addUserWeb')->name('adduser');
 
 
+        //transmissoes
+        Route::get('/apostas/{idven}', 'ApostasController@index2')->name('retornaresumo');
+        Route::post('/apostas/', 'ApostasController@indexGo')->name('retornaresumo');
+        Route::get('/apostas/aposta_premiada/{idven}/{idbase}/{idreven}/{datini}/{datfim}',
+            'ApostasController@retornaApostaPremios')->name('apostapremiada');
+
+
 
     });
 

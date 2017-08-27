@@ -39,6 +39,10 @@
 //            alert($lnk.href);
             $lnkcaixa.href = $lnk.href.replace(/(.*)/, '/admin/movimentoscaixa/') + el.value;
 //            alert($lnk.href);
+           var $lnkapostas = document.getElementById("lnk-aposta");
+//            alert($lnk.href);
+            $lnkapostas.href = $lnk.href.replace(/(.*)/, '/admin/apostas/') + el.value;
+//            alert($lnk.href);
 
         }
 
@@ -292,7 +296,7 @@
                 stopPropagation: false // Stops event propagation
             }
         );
-        $('.modal').modal();
+
 
         $('select').material_select();
 
@@ -316,6 +320,9 @@
     $("#datFim").val('{{Carbon\Carbon::parse($data[0]->datafim)->format('d/m/Y')}}');
     @endif
 </script>
+
+@stack('modal')
+
 {{--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>

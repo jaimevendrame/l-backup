@@ -291,6 +291,8 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        $('.modal').modal();
+
 
         var table = $('#example').DataTable( {
             fixedColumns: {

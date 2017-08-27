@@ -366,6 +366,9 @@
 
         $(document).ready(function() {
 
+            $('.modal').modal();
+
+
 
             $('#saldoatu').mask('000.000,00');
             $('#vlrmov').mask('000.000.000.000.000,00', {reverse: true});
