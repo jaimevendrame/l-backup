@@ -45,22 +45,12 @@
                                         }
                                     }
 
-
                                 @endphp
                                 <div class="input-field col s12 m2">
                                     <input  readonly id="total_pules" type="text" class="validate" value="@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp">
                                     <label class="active" for="first_name">Total Pules</label>
                                 </div>
 
-
-                                {{--<div class="input-field col s12 m2">--}}
-                                    {{--<select multiple name="sel_options[]">--}}
-                                        {{--<option value="" disabled selected>Opções</option>--}}
-                                        {{--<option value="1" @if(isset($despesas)){{ $despesas == 'SIM'  ? 'selected' : '' }} @endif>Ativos</option>--}}
-                                        {{--<option value="2" @if(isset($in_ativos)){{ $in_ativos == 'SIM'  ? 'selected' : '' }} @endif>Inativos</option>--}}
-                                    {{--</select>--}}
-                                    {{--<label>Opções</label>--}}
-                                {{--</div>--}}
                                 <div class="input-field col s12 m2">
                                     <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                                         <i class="material-icons right">send</i>
@@ -90,13 +80,16 @@
 
                             @forelse($data as $apostas)
                                 <tr {{ $apostas->sitapo == 'CAN'  ? "bgcolor = #fffde7" : '' }}>
-                                    <td><a class="waves-effect waves-light grey btn modal-trigger" href="#modal1"><i class="tiny material-icons">dehaze</i></a></td>
+                                    <td>
+                                        <a id="link-modal" class="waves-effect waves-light grey btn modal-trigger" href="#" onclick='openModal1("/admin/apostas/view/{{$apostas->numpule}}/{{$apostas->ideven}}")'>
+                                            <i class="tiny material-icons">dehaze</i></a>
+                                    </td>
                                     <td>{{$apostas->numpule}}</td>
                                     <td>{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</td>
                                     <td>{{$apostas->nomreven}}</td>
                                     <td>{{Carbon\Carbon::parse($apostas->horger)->format('H:m:s')}} {{Carbon\Carbon::parse($apostas->datger)->format('d/m/Y')}}</td>
                                     <td>{{Carbon\Carbon::parse($apostas->horenv)->format('H:m:s')}} {{Carbon\Carbon::parse($apostas->datenv)->format('d/m/Y')}}</td>
-                                    <td>{{ $apostas->sitapo == 'CAN'  ? 'CANCELADA' : 'VALIDO' }}</td>
+                                    <td>{{ $apostas->sitapo == 'CAN'  ? 'CANCELADO' : 'VALIDO' }}</td>
                                     <td>{{$apostas->nomven}}</td>
                                     <td>{{$apostas->cidreven}}</td>
                                 </tr>
@@ -117,33 +110,261 @@
 
     </div>
 
-    <!-- Modal Trigger -->
-    {{--<a class="waves-effect waves-light grey btn modal-trigger" href="#modal1"><i class="tiny material-icons">dehaze</i></a>--}}
-
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
+    <div id="aposta" class="modal">
+        <div class="right-align">
+            <a href="#!" class=" btn modal-action modal-close waves-effect waves-light red "><i class=" Tiny material-icons">close</i></a>
+        </div>
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
+            <h4>Visualizar Aposta</h4>
+            <div id="modal_content" class="row">
+                <div class="row">
+                    <div class="input-field col s12 m2">
+                        <input  readonly id="n_aposta" type="text" class="validate" value="0000">
+                        <label class="active" for="n_aposta">Nº Aposta</label>
+                    </div>
+                    <div class="input-field col s12 m2">
+                        <input  readonly id="vlr_aposta" type="text" class="validate" value="0,00">
+                        <label class="active" for="vlr_aposta">Valor</label>
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <input  readonly id="revendedor" type="text" class="validate" value="Revendedor">
+                        <label class="active" for="revendedor">Revendedor</label>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <table id="tb-apostas" class="mdl-data-table__cell--non-numeric">
+                        <thead>
+                        <tr>
+                            <th>Modalidade</th>
+                            <th>Palpites</th>
+                            <th>Colocação</th>
+                            <th>Valor</th>
+                            <th>P/Dia</th>
+                            <th>Horário</th>
+                            <th>Situação</th>
+                            <th>Data Envio</th>
+                            <th>Hora Envio</th>
+                            <th>Data Canc</th>
+                            <th>Hora Canc</th>
+                            <th>VLRCOTACAO</th>
+                            <th>Vlr Prêmio</th>
+                            <th>VLRPALPF</th>
+                            <th>VLRPALPD</th>
+                            <th>VLRPRESEC</th>
+                            <th>VLRPREMOL</th>
+                            <th>VLRPRESMJ</th>
+                            <th>VLRPREPAG</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_aposta">
+                        </tbody>
+                    </table>
+                </div>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
+        {{--<div class="modal-footer">--}}
+            {{--<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>--}}
+        {{--</div>--}}
     </div>
 
 @endsection
 @push('modal')
 <script type="application/javascript">
+
+
     $(document).ready(function(){
-        $('.modal').modal({
-                ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-                    alert("Ready");
-                    console.log(modal, trigger);
-                },
-                complete: function() { alert('Closed'); } // Callback for Modal close
-            }
-        );
+
+        //init the modal
+        $('.modal').modal();
+
+        $('#tb-apostas').DataTable({
+
+            dom: 'rt',
+            scrollY: 480,
+            scrollX:        true,
+            scrollCollapse: true,
+            paging:         false,
+            Bfilter:        false,
+            "searching": false,
+            "pagination": false,
+        });
+
+
+
     });
+
+
+    function openModal1(url) {
+
+        $('#tbody_aposta').empty(); //Limpando a tabela
+
+        $('#aposta').modal('open');
+
+
+        jQuery.getJSON(url, function (data) {
+
+            var vlrPalp = 0
+
+            for (var i = 0; i <data.length; i++){
+
+                var newRow = $("<tr>");
+                var cols = "";
+                var palp = [data[i].palp1];
+
+
+                if (data[i].palp2){
+                    palp.push(data[i].palp2);
+                }
+                if (data[i].palp3){
+                    palp.push(data[i].palp3);
+                }
+                if (data[i].palp4){
+                    palp.push(data[i].palp4);
+                }
+                if (data[i].palp5){
+                    palp.push(data[i].palp5);
+                }
+                if (data[i].palp6){
+                    palp.push(data[i].palp6);
+                }
+                if (data[i].palp7){
+                    palp.push(data[i].palp7);
+                }
+                if (data[i].palp8){
+                    palp.push(data[i].palp8);
+                }
+                if (data[i].palp9){
+                    palp.push(data[i].palp9);
+                }
+                if (data[i].palp10){
+                    palp.push(data[i].palp10);
+                }
+                if (data[i].palp11){
+                    palp.push(data[i].palp11);
+                }
+                if (data[i].palp12){
+                    palp.push(data[i].palp12);
+                }
+                if (data[i].palp13){
+                    palp.push(data[i].palp13);
+                }
+                if (data[i].palp14){
+                    palp.push(data[i].palp14);
+                }
+                if (data[i].palp15){
+                    palp.push(data[i].palp15);
+                }
+                if (data[i].palp16){
+                    palp.push(data[i].palp16);
+                }
+                if (data[i].palp17){
+                    palp.push(data[i].palp17);
+                }
+                if (data[i].palp18){
+                    palp.push(data[i].palp18);
+                }
+                if (data[i].palp19){
+                    palp.push(data[i].palp19);
+                }
+                if (data[i].palp20){
+                    palp.push(data[i].palp20);
+                }
+                if (data[i].palp21){
+                    palp.push(data[i].palp21);
+                }
+                if (data[i].palp22){
+                    palp.push(data[i].palp22);
+                }
+                if (data[i].palp23){
+                    palp.push(data[i].palp23);
+                }
+                if (data[i].palp24){
+                    palp.push(data[i].palp24);
+                }
+                if (data[i].palp25){
+                    palp.push(data[i].palp25);
+                }
+
+                var todosPalp = palp.join('-');
+
+                var vlrpalp = data[i].vlrpalp;
+                var numpule = data[i].numpule;
+                var idreven = data[i].idbase +' '+ data[i].nomreven;
+
+
+                if(data[i].sitapo == 'V'){
+
+                    var vaSituapo = 'VALIDO';
+                } else if(data[i].sitapo == 'CAN'){
+                    var vaSituapo = 'CANCELADO';
+                } else {
+                    var vaSituapo = 'PREMIADO';
+
+                }
+
+                var datApo = DateChance(data[i].datapo);
+                var datEnv = DateChance(data[i].datenv);
+
+                var horEnv = time_format(new Date(data[i].horenv));
+
+                 vlrPalp += parseFloat(vlrpalp);
+
+
+                cols += '<td>'+data[i].destipoapo+'</td>';
+                cols += '<td>'+todosPalp+'</td>';
+                cols += '<td>'+data[i].descol+'</td>';
+                cols += '<td>'+parseFloat(vlrpalp).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+datApo+'</td>';
+                cols += '<td>'+data[i].deshor+'</td>';
+                cols += '<td>'+vaSituapo+'</td>';
+                cols += '<td>'+datEnv+'</td>';
+                cols += '<td>'+horEnv+'</td>';
+                cols += '<td>'+data[i].datcan+'</td>';
+                cols += '<td>'+data[i].horcan+'</td>';
+                cols += '<td>'+data[i].vlrcotacao+'</td>';
+                cols += '<td>'+data[i].vlrpre+'</td>';
+                cols += '<td>'+data[i].vlrpalpf+'</td>';
+                cols += '<td>'+data[i].vlrpalpd+'</td>';
+                cols += '<td>'+data[i].vlrpresec+'</td>';
+                cols += '<td>'+data[i].vlrpresmj+'</td>';
+                cols += '<td>'+data[i].vlrpre+'</td>';
+
+
+                newRow.append(cols);
+                $("#tbody_aposta").append(newRow);
+            }
+
+            $('#vlr_aposta').val(vlrPalp.toFixed(2).replace(".", ","));
+            $('#n_aposta').val(numpule);
+            $('#revendedor').val(idreven);
+        });
+
+    };
+
+    function DateChance(data) {
+        var getDate = data.slice(0, 10).split('-'); //create an array
+        var _date =getDate[2] +'/'+ getDate[1] +'/'+ getDate[0];
+        return _date;
+
+    }
+
+    function time_format(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seg = date.getSeconds();
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ':' + seg;
+//        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + strTime;
+        return strTime;
+    }
+
+
+
+
+
 </script>
 @endpush
 
