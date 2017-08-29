@@ -10,6 +10,24 @@
                             {{ csrf_field() }}
 
                             <div class="row">
+                                @php
+                                    $totalPulesValido = 0;
+                                    foreach ($data as $key){
+                                        if ($key->sitapo == 'V'){
+                                            $totalPulesValido += $key->vlrpalp;
+                                        }
+                                    }
+
+                                @endphp
+                                <div class="col s12 m2 l2">
+                                    <div class="col s10 z-depth-2 green hoverable">
+                                        <div class="row right-align">
+                                            <p class="white-text">Total Pules:</p>
+                                            <h5 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="input-field col s6 m2">
                                     <input id="datIni" name="datIni" type="date" class="datepicker"
                                            placeholder ="Data inicial">
@@ -37,25 +55,18 @@
                                     </select>
                                     <label>Bases selecionadas</label>
                                 </div>
-                                @php
-                                    $totalPulesValido = 0;
-                                    foreach ($data as $key){
-                                        if ($key->sitapo == 'V'){
-                                            $totalPulesValido += $key->vlrpalp;
-                                        }
-                                    }
 
-                                @endphp
-                                <div class="input-field col s12 m2">
-                                    <input  readonly id="total_pules" type="text" class="validate" value="@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp">
-                                    <label class="active" for="first_name">Total Pules</label>
-                                </div>
+                                {{--<div class="input-field col s12 m2 z-depth-2 green hoverable">--}}
+                                    {{--<input  readonly id="total_pules" type="text" class="validate" value="@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp">--}}
+                                    {{--<label class="active" for="first_name">Total Pules</label>--}}
+                                {{--</div>--}}
 
                                 <div class="input-field col s12 m2">
                                     <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
+
                             </div>
                         </form>
 
@@ -87,8 +98,8 @@
                                     <td>{{$apostas->numpule}}</td>
                                     <td>{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</td>
                                     <td>{{$apostas->nomreven}}</td>
-                                    <td>{{Carbon\Carbon::parse($apostas->horger)->format('H:m:s')}} {{Carbon\Carbon::parse($apostas->datger)->format('d/m/Y')}}</td>
-                                    <td>{{Carbon\Carbon::parse($apostas->horenv)->format('H:m:s')}} {{Carbon\Carbon::parse($apostas->datenv)->format('d/m/Y')}}</td>
+                                    <td>{{Carbon\Carbon::parse($apostas->horger)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datger)->format('d/m/Y')}}</td>
+                                    <td>{{Carbon\Carbon::parse($apostas->horenv)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datenv)->format('d/m/Y')}}</td>
                                     <td>{{ $apostas->sitapo == 'CAN'  ? 'CANCELADO' : 'VALIDO' }}</td>
                                     <td>{{$apostas->nomven}}</td>
                                     <td>{{$apostas->cidreven}}</td>
