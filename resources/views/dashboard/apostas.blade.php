@@ -10,28 +10,15 @@
                             {{ csrf_field() }}
 
                             <div class="row">
-                                @php
-                                    $totalPulesValido = 0;
-                                    foreach ($data as $key){
-                                        if ($key->sitapo == 'V'){
-                                            $totalPulesValido += $key->vlrpalp;
-                                        }
-                                    }
 
-                                @endphp
-                                <div class="col s12 m2 l2">
-                                    <div class="col s10 z-depth-2 green hoverable">
-                                        <div class="row right-align">
-                                            <p class="white-text">Total Pules:</p>
-                                            <h5 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h5>
-                                        </div>
-                                    </div>
+                                <div class="input-field col s6 m2">
+                                    <input id="n_pule" name="n_pule" type="tel" class="validate">
+                                    <label class="active" for="n_pule">Nº Aposta</label>
                                 </div>
 
                                 <div class="input-field col s6 m2">
                                     <input id="datIni" name="datIni" type="date" class="datepicker"
                                            placeholder ="Data inicial">
-
                                 </div>
                                 <div class="input-field col s6 m2">
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
@@ -117,6 +104,25 @@
 
                 </div>
             </div>
+            <div class="row">
+                @php
+                    $totalPulesValido = 0;
+                    foreach ($data as $key){
+                        if ($key->sitapo == 'V'){
+                            $totalPulesValido += $key->vlrpalp;
+                        }
+                    }
+
+                @endphp
+                <div class="col s12 m12 l12">
+                    <div class="col s12 z-depth-2 green hoverable">
+                        <div class="row right-align">
+                            <p class="white-text">Total Pules:</p>
+                            <h3 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -144,35 +150,38 @@
 
 
                 </div>
-                <div class="row">
-                    <table id="tb-apostas" class="mdl-data-table__cell--non-numeric">
-                        <thead>
-                        <tr>
-                            <th>Modalidade</th>
-                            <th>Palpites</th>
-                            <th>Colocação</th>
-                            <th>Valor</th>
-                            <th>P/Dia</th>
-                            <th>Horário</th>
-                            <th>Situação</th>
-                            <th>Data Envio</th>
-                            <th>Hora Envio</th>
-                            <th>Data Canc</th>
-                            <th>Hora Canc</th>
-                            <th>VLRCOTACAO</th>
-                            <th>Vlr Prêmio</th>
-                            <th>VLRPALPF</th>
-                            <th>VLRPALPD</th>
-                            <th>VLRPRESEC</th>
-                            <th>VLRPREMOL</th>
-                            <th>VLRPRESMJ</th>
-                            <th>VLRPREPAG</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tbody_aposta">
-                        </tbody>
-                    </table>
+                <div class="scroll">
+                    <div class="row">
+                        <table id="tb-apostas" class="display mdl-data-table" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Modalidade</th>
+                                <th>Palpites</th>
+                                <th>Colocação</th>
+                                <th>Valor</th>
+                                <th>P/Dia</th>
+                                <th>Horário</th>
+                                <th>Situação</th>
+                                <th>Data Envio</th>
+                                <th>Hora Envio</th>
+                                <th>Data Canc</th>
+                                <th>Hora Canc</th>
+                                <th>VLRCOTACAO</th>
+                                <th>Vlr Prêmio</th>
+                                <th>VLRPALPF</th>
+                                <th>VLRPALPD</th>
+                                <th>VLRPRESEC</th>
+                                <th>VLRPREMOL</th>
+                                <th>VLRPRESMJ</th>
+                                <th>VLRPREPAG</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody_aposta">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
         </div>
         {{--<div class="modal-footer">--}}
             {{--<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>--}}
@@ -186,19 +195,37 @@
 
     $(document).ready(function(){
 
+
+
         //init the modal
         $('.modal').modal();
 
         $('#tb-apostas').DataTable({
 
             dom: 'rt',
-            scrollY: 480,
-            scrollX:        true,
-            scrollCollapse: true,
+//            scrollY: 900,
+//            scrollX:        true,
+//            scrollCollapse: false,
             paging:         false,
             Bfilter:        false,
             "searching": false,
             "pagination": false,
+
+            "columns": [
+                { "width": "20%" },
+                null,
+                null,
+                null,
+                null
+            ],
+
+
+            columnDefs: [
+                {
+                    targets: [ 0, 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11,12,13,14,15,16,17,18],
+                    className: 'mdl-data-table__cell--non-numeric'
+                },
+                { "width": "100px", "targets":4 }]
         });
 
 
@@ -338,6 +365,7 @@
                 cols += '<td>'+data[i].vlrpalpf+'</td>';
                 cols += '<td>'+data[i].vlrpalpd+'</td>';
                 cols += '<td>'+data[i].vlrpresec+'</td>';
+                cols += '<td>'+data[i].vlrpremol+'</td>';
                 cols += '<td>'+data[i].vlrpresmj+'</td>';
                 cols += '<td>'+data[i].vlrpre+'</td>';
 
@@ -380,8 +408,12 @@
 @endpush
 
 @push('scripts')
-<script>
+        <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
+
+        <script>
     $(document).ready(function() {
+
+        $('#n_pule').mask('00000000000'), {reverse: true};
 
         var table = $('#apostas').DataTable( {
             fixedColumns: {
