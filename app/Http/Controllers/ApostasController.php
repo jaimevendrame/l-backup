@@ -127,7 +127,15 @@ class ApostasController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-        $data = $this->retornaApostasParameter();
+        $pule = $this->request->get('n_pule');
+
+
+        if (empty($pule)){
+            $data = $this->retornaApostasParameter();
+        } else{
+            $data = $this->retornaApostasPule($pule);
+        }
+
 
 
         $title = $this->title;
@@ -232,38 +240,54 @@ class ApostasController extends StandardController
         return $data;
     }
 
+
+    public function retornaApostasPule($pule){
+
+
+        $data = DB::select (
+
+            "SELECT SUM(APOSTA_PALPITES.VLRPALP) AS VLRPALP,
+              APOSTA.NUMPULE, APOSTA.DATGER, APOSTA.HORGER, APOSTA.DATENV, APOSTA.HORENV, APOSTA.SITAPO,
+              REVENDEDOR.IDEREVEN, REVENDEDOR.NOMREVEN, REVENDEDOR.CIDREVEN, VENDEDOR.NOMVEN, VENDEDOR.IDEVEN AS IDEVEN
+              FROM APOSTA
+              INNER JOIN APOSTA_PALPITES ON 
+                         APOSTA_PALPITES.IDBASE  = APOSTA.IDBASE  AND
+                         APOSTA_PALPITES.IDVEN   = APOSTA.IDVEN   AND
+                         APOSTA_PALPITES.IDREVEN = APOSTA.IDREVEN AND
+                         APOSTA_PALPITES.IDTER   = APOSTA.IDTER   AND
+                         APOSTA_PALPITES.IDAPO   = APOSTA.IDAPO   AND
+                         APOSTA_PALPITES.NUMPULE = APOSTA.NUMPULE
+              INNER JOIN REVENDEDOR ON 
+                         REVENDEDOR.IDBASE = APOSTA.IDBASE AND
+                         REVENDEDOR.IDVEN = APOSTA.IDVEN AND
+                         REVENDEDOR.IDREVEN = APOSTA.IDREVEN
+              INNER JOIN VENDEDOR ON 
+                         VENDEDOR.IDBASE = APOSTA.IDBASE AND
+                         VENDEDOR.IDVEN = APOSTA.IDVEN
+              WHERE
+               APOSTA.NUMPULE = '$pule'
+            GROUP BY
+              APOSTA.NUMPULE, APOSTA.DATGER, APOSTA.HORGER, APOSTA.DATENV, APOSTA.HORENV, APOSTA.SITAPO,
+              REVENDEDOR.IDEREVEN, REVENDEDOR.NOMREVEN, REVENDEDOR.CIDREVEN, VENDEDOR.NOMVEN, VENDEDOR.IDEVEN
+            ORDER BY APOSTA.DATENV DESC, APOSTA.HORENV DESC
+     "
+
+        );
+
+
+        return $data;
+    }
+
     /**
      * @return mixed
      */
     public function retornaApostasParameter(){
 
-//        $dados = $this->request->get('sel_options');
-//        $in_ativos = '';
-//
-//        if (isset($dados)){
-//            if (in_array(1, $dados)) {
-//                $despesas = 'SIM';
-//            }
-//
-//            if (in_array(2, $dados)) {
-//                $in_ativos = 'SIM';
-//            } else
-//                $in_ativos = 'NAO';
-//        }
-//
-//
-//        if ($in_ativos == 'SIM'){
-//            $p_in_ativo = '';
-//        } else {
-//            $p_in_ativo = "AND REVENDEDOR.SITREVEN = 'ATIVO'";
-//        }
-
-
-
-
-
         $datIni = $this->request->get('datIni');
         $datFim = $this->request->get('datFim');
+
+
+
 
         if (empty($datFim) || empty($datIni)) {
             $datIni = date ("Y/m/d");
@@ -329,6 +353,7 @@ class ApostasController extends StandardController
                          VENDEDOR.IDBASE = APOSTA.IDBASE AND
                          VENDEDOR.IDVEN = APOSTA.IDVEN
               WHERE
+              
               APOSTA.DATENV BETWEEN '$datIni' AND '$datFim'
               AND VENDEDOR.IDEVEN in ($p)
               
@@ -341,11 +366,6 @@ class ApostasController extends StandardController
      "
 
         );
-
-
-
-
-//        dd($data);
 
         return $data;
     }
