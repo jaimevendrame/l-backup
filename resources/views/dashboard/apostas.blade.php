@@ -56,50 +56,50 @@
 
                             </div>
                         </form>
-
-
-                        <table class="mdl-data-table " id="apostas"  cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Pule</th>
-                                <th>Valor</th>
-                                <th>Revendedor</th>
-                                <th>Geração</th>
-                                <th>Envio</th>
-                                <th>Situação</th>
-                                <th>Vendedor</th>
-                                <th>Cidade</th>
-
-
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            @forelse($data as $apostas)
-                                <tr {{ $apostas->sitapo == 'CAN'  ? "bgcolor = #fffde7" : '' }}>
-                                    <td>
-                                        <a id="link-modal" class="waves-effect waves-light grey btn modal-trigger" href="#" onclick='openModal1("/admin/apostas/view/{{$apostas->numpule}}/{{$apostas->ideven}}")'>
-                                            <i class="tiny material-icons">dehaze</i></a>
-                                    </td>
-                                    <td>{{$apostas->numpule}}</td>
-                                    <td>{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</td>
-                                    <td>{{$apostas->nomreven}}</td>
-                                    <td>{{Carbon\Carbon::parse($apostas->horger)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datger)->format('d/m/Y')}}</td>
-                                    <td>{{Carbon\Carbon::parse($apostas->horenv)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datenv)->format('d/m/Y')}}</td>
-                                    <td>{{ $apostas->sitapo == 'CAN'  ? 'CANCELADO' : 'VALIDO' }}</td>
-                                    <td>{{$apostas->nomven}}</td>
-                                    <td>{{$apostas->cidreven}}</td>
-                                </tr>
-
-                            @empty
+                        @if(!empty($data))
+                            <table class="mdl-data-table " id="apostas"  cellspacing="0" width="100%">
+                                <thead>
                                 <tr>
-                                    nenhum registro encontrado!
+                                    <th></th>
+                                    <th>Pule</th>
+                                    <th>Valor</th>
+                                    <th>Revendedor</th>
+                                    <th>Geração</th>
+                                    <th>Envio</th>
+                                    <th>Situação</th>
+                                    <th>Vendedor</th>
+                                    <th>Cidade</th>
+
+
                                 </tr>
-                            @endforelse
-                        </table>
+                                </thead>
+                                <tbody>
 
+                                @forelse($data as $apostas)
+                                    <tr {{ $apostas->sitapo == 'CAN'  ? "bgcolor = #fffde7" : '' }}>
+                                        <td>
+                                            <a id="link-modal" class="waves-effect waves-light grey btn modal-trigger" href="#" onclick='openModal1("/admin/apostas/view/{{$apostas->numpule}}/{{$apostas->ideven}}")'>
+                                                <i class="tiny material-icons">dehaze</i></a>
+                                        </td>
+                                        <td>{{$apostas->numpule}}</td>
+                                        <td>{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</td>
+                                        <td>{{$apostas->nomreven}}</td>
+                                        <td>{{Carbon\Carbon::parse($apostas->horger)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datger)->format('d/m/Y')}}</td>
+                                        <td>{{Carbon\Carbon::parse($apostas->horenv)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datenv)->format('d/m/Y')}}</td>
+                                        <td>{{ $apostas->sitapo == 'CAN'  ? 'CANCELADO' : 'VALIDO' }}</td>
+                                        <td>{{$apostas->nomven}}</td>
+                                        <td>{{$apostas->cidreven}}</td>
+                                    </tr>
 
+                                @empty
+                                    <tr>
+                                        nenhum registro encontrado!
+                                    </tr>
+                                @endforelse
+                            </table>
+                        @else
+                        <p>Nenhum registro encontrado!</p>
+                        @endif
                     </div>
 
                 </div>
