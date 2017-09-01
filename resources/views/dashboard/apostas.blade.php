@@ -147,6 +147,10 @@
                         <input  readonly id="revendedor" type="text" class="validate" value="Revendedor">
                         <label class="active" for="revendedor">Revendedor</label>
                     </div>
+                    <div class="input-field col s12 m4">
+                        <input  readonly id="vendedor" type="text" class="validate" value="Vendedor">
+                        <label class="active" for="vendedor">Revendedor</label>
+                    </div>
 
 
                 </div>
@@ -329,6 +333,7 @@
                 var vlrpalp = data[i].vlrpalp;
                 var numpule = data[i].numpule;
                 var idreven = data[i].idbase +' '+ data[i].nomreven;
+                var nomven = data[i].idven +' '+ data[i].nomven;
 
 
                 if(data[i].sitapo == 'V'){
@@ -377,6 +382,7 @@
             $('#vlr_aposta').val(vlrPalp.toFixed(2).replace(".", ","));
             $('#n_aposta').val(numpule);
             $('#revendedor').val(idreven);
+            $('#vendedor').val(nomven);
         });
 
     };
