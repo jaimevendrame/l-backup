@@ -137,7 +137,6 @@ class ApostasController extends StandardController
         }
 
 
-
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
@@ -276,6 +275,64 @@ class ApostasController extends StandardController
 
 
         return $data;
+    }
+
+    public function viewPule($ideven){
+
+
+
+        if (Auth::user()->idusu == 1000){
+
+            $data = $this->vendedor
+                ->select('ideven')
+                ->get();
+
+            $palavra = "";
+
+
+            $c = 0;
+            foreach ($data as $key){
+
+                $palavra = $palavra.$key['ideven'];
+                if ($c < count($data)-1){
+                    $palavra = $palavra.",";
+                }
+                $c++;
+
+
+            }
+            $ideven = $palavra;
+
+
+
+        } else{
+            $ideven = $ideven;
+        }
+
+
+        $idusu = Auth::user()->idusu;
+
+        $user_base = $this->retornaBase($idusu);
+
+        $user_bases = $this->retornaBases($idusu);
+
+        $usuario_lotec = $this->retornaUserLotec($idusu);
+
+        $vendedores = $this->retornaBasesUser($idusu);
+
+
+        $menus = $this->retornaMenu($idusu);
+
+        $categorias = $this->retornaCategorias($menus);
+
+        $data = $this->retornaApostas($ideven);
+
+        $title = $this->title;
+
+        $baseAll = $this->retornaBasesAll($idusu);
+
+        return view("dashboard.view_aposta",compact('idusu',
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
     }
 
     /**
@@ -501,5 +558,7 @@ class ApostasController extends StandardController
 
         return json_encode($data);
     }
+
+
 
 }

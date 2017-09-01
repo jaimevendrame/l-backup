@@ -43,11 +43,6 @@
                                     <label>Bases selecionadas</label>
                                 </div>
 
-                                {{--<div class="input-field col s12 m2 z-depth-2 green hoverable">--}}
-                                    {{--<input  readonly id="total_pules" type="text" class="validate" value="@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp">--}}
-                                    {{--<label class="active" for="first_name">Total Pules</label>--}}
-                                {{--</div>--}}
-
                                 <div class="input-field col s12 m2">
                                     <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                                         <i class="material-icons right">send</i>
@@ -149,7 +144,7 @@
                     </div>
                     <div class="input-field col s12 m4">
                         <input  readonly id="vendedor" type="text" class="validate" value="Vendedor">
-                        <label class="active" for="vendedor">Vendedor</label>
+                        <label class="active" for="vendedor">Revendedor</label>
                     </div>
 
 
@@ -170,14 +165,14 @@
                                 <th>Hora Envio</th>
                                 <th>Data Canc</th>
                                 <th>Hora Canc</th>
-                                <th>Cotação</th>
+                                <th>VLRCOTACAO</th>
                                 <th>Vlr Prêmio</th>
-                                <th>Vlr Palp Bancou</th>
-                                <th>Vlr Palp Desc</th>
-                                <th>Prêmio Seco</th>
-                                <th>Prêmio Molhado</th>
-                                <th>Prêmio SecMol</th>
-                                <th>Prêmio Bancou</th>
+                                <th>VLRPALPF</th>
+                                <th>VLRPALPD</th>
+                                <th>VLRPRESEC</th>
+                                <th>VLRPREMOL</th>
+                                <th>VLRPRESMJ</th>
+                                <th>VLRPREPAG</th>
                             </tr>
                             </thead>
                             <tbody id="tbody_aposta">
