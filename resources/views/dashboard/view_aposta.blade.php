@@ -120,7 +120,7 @@
                                         <td>{{number_format($aposta->vlrpalp, 2, ',', '.')}}</td>
                                         <td>{{Carbon\Carbon::parse($aposta->datapo)->format('d/m/Y')}}</td>
                                         <td>{{$aposta->deshor}}</td>
-                                        <td>{{$aposta->sitapo == 'CAN'  ? 'CANCELADO' : 'VALIDO'}}</td>
+                                        <td>{{$aposta->sitapo == 'CAN'  ? 'CANCELADO' : $aposta->sitapo == 'V'  ? 'VALIDO':'PREMIADO'}}</td>
                                         <td>{{Carbon\Carbon::parse($aposta->datenv)->format('d/m/Y')}}</td>
                                         <td>{{Carbon\Carbon::parse($aposta->horenv)->format('H:i:s')}}</td>
                                         <td>{{Carbon\Carbon::parse($aposta->datcan)->format('d/m/Y')}}</td>

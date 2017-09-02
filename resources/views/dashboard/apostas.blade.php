@@ -349,6 +349,18 @@
                 var datApo = DateChance(data[i].datapo);
                 var datEnv = DateChance(data[i].datenv);
 
+                if ((data[i].datcan != null)){
+                    var datCan = DateChance(data[i].datcan);
+                } else {
+                    var datCan = '';
+                }
+
+                if ((data[i].horcan != null)){
+                    var horCan = time_format(new Date(data[i].horcan));
+                } else {
+                    var horCan = '';
+                }
+
                 var horEnv = time_format(new Date(data[i].horenv));
 
                  vlrPalp += parseFloat(vlrpalp);
@@ -363,8 +375,8 @@
                 cols += '<td>'+vaSituapo+'</td>';
                 cols += '<td>'+datEnv+'</td>';
                 cols += '<td>'+horEnv+'</td>';
-                cols += '<td>'+data[i].datcan+'</td>';
-                cols += '<td>'+data[i].horcan+'</td>';
+                cols += '<td>'+datCan+'</td>';
+                cols += '<td>'+horCan+'</td>';
                 cols += '<td>'+parseFloat(data[i].vlrcotacao).toFixed(2).replace(".", ",")+'</td>';
                 cols += '<td>'+parseFloat(data[i].vlrpre).toFixed(2).replace(".", ",")+'</td>';
                 cols += '<td>'+parseFloat(data[i].vlrpalpf).toFixed(2).replace(".", ",")+'</td>';
