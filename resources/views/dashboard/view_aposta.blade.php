@@ -6,9 +6,13 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
+                        @if($title == 'Cancelar Aposta')
+                        <form class="form-group" id="form-cad-edit" method="post" action="/admin/apostas/cancel/{{$ideven}}" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            @else
                         <form class="form-group" id="form-cad-edit" method="post" action="/admin/apostas/view/{{$ideven}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
-
+                        @endif
                             <div class="row">
                                 <div class="input-field col s8 m4">
                                     <input  id="n_pule" name="n_pule" type="text" class="validate" value="@if(!empty($data)) {{$data[0]->numpule}} @endif">
@@ -19,6 +23,13 @@
                                         <i class="tiny material-icons">send</i>
                                     </button>
                                 </div>
+                                @if($title == 'Cancelar Aposta')
+                                    <div class="input-field col s4 m6">
+                                        <button class="tiny btn waves-effect waves-light red" type="submit" name="action">Cancelar Aposta
+                                            <i class="tiny material-icons right">delete_sweep</i>
+                                        </button>
+                                    </div>
+                                    @endif
                             </div>
                             <div class="row">
 
