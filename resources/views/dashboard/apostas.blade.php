@@ -365,14 +365,14 @@
                 cols += '<td>'+horEnv+'</td>';
                 cols += '<td>'+data[i].datcan+'</td>';
                 cols += '<td>'+data[i].horcan+'</td>';
-                cols += '<td>'+data[i].vlrcotacao+'</td>';
-                cols += '<td>'+data[i].vlrpre+'</td>';
-                cols += '<td>'+data[i].vlrpalpf+'</td>';
-                cols += '<td>'+data[i].vlrpalpd+'</td>';
-                cols += '<td>'+data[i].vlrpresec+'</td>';
-                cols += '<td>'+data[i].vlrpremol+'</td>';
-                cols += '<td>'+data[i].vlrpresmj+'</td>';
-                cols += '<td>'+data[i].vlrpre+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrcotacao).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpre).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpalpf).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpalpd).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpresec).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpremol).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpresmj).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpre).toFixed(2).replace(".", ",")+'</td>';
 
 
                 newRow.append(cols);

@@ -32,17 +32,18 @@
     <script>
         function test(el) {
             var $lnk = document.getElementById("lnk-ideven");
-//            alert($lnk.href);
             $lnk.href = $lnk.href.replace(/(.*)/, '/admin/resumocaixa/') + el.value;
-//            alert($lnk.href);
 
             var $lnkcaixa = document.getElementById("lnk");
-//            alert($lnk.href);
             $lnkcaixa.href = $lnk.href.replace(/(.*)/, '/admin/movimentoscaixa/') + el.value;
-//            alert($lnk.href);
+
            var $lnkapostas = document.getElementById("lnk-aposta");
-//            alert($lnk.href);
             $lnkapostas.href = $lnk.href.replace(/(.*)/, '/admin/apostas/') + el.value;
+
+
+           var $lnkapostasview = document.getElementById("lnk-aposta-view");
+//            alert($lnk.href);
+            $lnkapostasview.href = $lnk.href.replace(/(.*)/, '/admin/apostas/view/') + el.value;
 //            alert($lnk.href);
 
         }
@@ -313,7 +314,7 @@
 
     });
 
-    @if(empty($data))
+    @if(empty($data[0]->dataini))
         $("#datIni").val('{{date("d/m/Y")}}');
     $("#datFim").val('{{date("d/m/Y")}}');
 

@@ -89,6 +89,7 @@ Route::group([
         Route::get('/apostas/{idven}', 'ApostasController@index2')->name('retornaresumo');
         Route::post('/apostas/', 'ApostasController@indexGo')->name('retornaresumo');
         Route::get('/apostas/view/{idven}', 'ApostasController@viewPule')->name('view_pule');
+        Route::post('/apostas/view/{idven}', 'ApostasController@viewPuleGo')->name('view_pule');
         Route::get('/apostas/view/{pule}/{idven}',
             'ApostasController@retornaPule')->name('apostapremiada');
 
