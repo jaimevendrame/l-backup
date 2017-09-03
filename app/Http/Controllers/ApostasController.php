@@ -603,7 +603,7 @@ class ApostasController extends StandardController
 
     public function retornaPuleArray($ideven){
 
-        $pule = $this->request->get('n_pule');
+        $pule = $this->request->get('numpule');
 
 
         $p = $this->retornaBasepeloIdeven($ideven);
@@ -791,6 +791,36 @@ class ApostasController extends StandardController
         return json_encode($data);
     }
 
+    public function cancelAposta($ideven){
 
+        $id = $ideven;
+
+        $error1 = 'PULE JÁ CANCELADA';
+
+        $dados = $this->request->except('_token');
+
+        $pule = $this->request->get('numpule');
+
+        $pesquisa = DB::select (" 
+            SELECT NUMPULE FROM CANCELAR_APOSTA WHERE NUMPULE = $pule
+        ");
+
+        if (empty($pesquisa)){
+
+            $insert = DB::table('CANCELAR_APOSTA')->insert($dados);
+
+            if ($insert){
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+
+            return $error1;
+        }
+
+
+
+    }
 
 }
