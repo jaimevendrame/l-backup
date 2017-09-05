@@ -8,12 +8,16 @@
                     <div class="card-content">
 
                         @php
-                            $totalPules= 0;
+                         if (!empty($data)){
+
+                         $totalPules= 0;
                             foreach ($data as $key){
 
                                     $totalPules += $key->vlrpalp;
 
                             }
+                         }
+
 
                         @endphp
 
