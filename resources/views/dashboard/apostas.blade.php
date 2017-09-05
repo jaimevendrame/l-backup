@@ -11,7 +11,7 @@
 
                             <div class="row">
 
-                                <div class="input-field col s6 m4 l2">
+                                <div class="input-field col s12 m4 l2">
                                     <input id="n_pule" name="n_pule" type="tel" class="validate">
                                     <label class="active" for="n_pule">Nº Aposta</label>
                                 </div>
@@ -25,7 +25,7 @@
                                              placeholder ="Data final">
                                 </div>
 
-                                <div class="input-field col s12 m4 l4">
+                                <div class="input-field col s12 m6 l4">
                                     <select multiple name="sel_vendedor[]">
                                         <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
@@ -43,7 +43,7 @@
                                     <label>Bases selecionadas</label>
                                 </div>
 
-                                <div class="input-field col s12 m4 l2">
+                                <div class="input-field col s12 m6 l2">
                                     <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                                         <i class="material-icons right">send</i>
                                     </button>
