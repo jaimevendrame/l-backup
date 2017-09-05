@@ -134,8 +134,8 @@
                                             <td>{{$aposta->sitapo == 'CAN'  ? 'CANCELADO' : $aposta->sitapo == 'V'  ? 'VALIDO':'PREMIADO'}}</td>
                                             <td>{{Carbon\Carbon::parse($aposta->datenv)->format('d/m/Y')}}</td>
                                             <td>{{Carbon\Carbon::parse($aposta->horenv)->format('H:i:s')}}</td>
-                                            <td>{{Carbon\Carbon::parse($aposta->datcan)->format('d/m/Y')}}</td>
-                                            <td>{{Carbon\Carbon::parse($aposta->horcan)->format('H:i:s')}}</td>
+                                            <td>@if(!empty($aposta->datcan)){{Carbon\Carbon::parse($aposta->datcan)->format('d/m/Y')}}@endif</td>
+                                            <td>@if(!empty($aposta->horcan)){{Carbon\Carbon::parse($aposta->horcan)->format('H:i:s')}}@endif</td>
                                             <td>{{number_format($aposta->vlrcotacao, 2, ',', '.')}}</td>
                                             <td>{{number_format($aposta->vlrpre, 2, ',', '.')}}</td>
                                             <td>{{number_format($aposta->vlrpalpf, 2, ',', '.')}}</td>
