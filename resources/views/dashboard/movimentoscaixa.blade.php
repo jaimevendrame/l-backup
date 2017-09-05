@@ -66,7 +66,7 @@
 
 
                         </form>
-
+                        @if(!empty($data))
                         <table class="mdl-data-table " id="movcaixa"  cellspacing="0" width="100%">
                             <thead>
                             <tr>
@@ -149,6 +149,7 @@
 
 
                         </table>
+
                         <div class="row"></div>
 
                         <div class="row">
@@ -206,7 +207,9 @@
 
                             </div>
                         </div>
-
+                        @else
+                            <p>Nenhum registro encontrado!</p>
+                        @endif
                     </div>
 
                 </div>

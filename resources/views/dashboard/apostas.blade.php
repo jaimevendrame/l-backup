@@ -11,21 +11,21 @@
 
                             <div class="row">
 
-                                <div class="input-field col s6 m2">
+                                <div class="input-field col s6 m4 l2">
                                     <input id="n_pule" name="n_pule" type="tel" class="validate">
                                     <label class="active" for="n_pule">Nº Aposta</label>
                                 </div>
 
-                                <div class="input-field col s6 m2">
+                                <div class="input-field col s6 m4 l2">
                                     <input id="datIni" name="datIni" type="date" class="datepicker"
                                            placeholder ="Data inicial">
                                 </div>
-                                <div class="input-field col s6 m2">
+                                <div class="input-field col s6 m4 l2">
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
                                              placeholder ="Data final">
                                 </div>
 
-                                <div class="input-field col s12 m4">
+                                <div class="input-field col s12 m4 l4">
                                     <select multiple name="sel_vendedor[]">
                                         <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
@@ -43,12 +43,7 @@
                                     <label>Bases selecionadas</label>
                                 </div>
 
-                                {{--<div class="input-field col s12 m2 z-depth-2 green hoverable">--}}
-                                    {{--<input  readonly id="total_pules" type="text" class="validate" value="@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp">--}}
-                                    {{--<label class="active" for="first_name">Total Pules</label>--}}
-                                {{--</div>--}}
-
-                                <div class="input-field col s12 m2">
+                                <div class="input-field col s12 m4 l2">
                                     <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                                         <i class="material-icons right">send</i>
                                     </button>

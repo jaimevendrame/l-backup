@@ -191,16 +191,6 @@
 
 
             buttons: [
-                {
-                    extend: 'copy',
-                    text: 'Copiar',
-                },
-                'pdf',
-                'excel',
-                {
-                    extend: 'print',
-                    text: 'Imprimir',
-                },
 
 
                 {

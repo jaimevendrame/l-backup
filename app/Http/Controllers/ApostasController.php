@@ -185,7 +185,14 @@ class ApostasController extends StandardController
 
     public function retornaApostas($ideven){
 
-        $p = $this->retornaBasepeloIdeven($ideven);
+        $p_query = '';
+
+
+        if (Auth::user()->idusu != 1000){
+            $p = $this->retornaBasepeloIdeven($ideven);
+            $p_query = "AND APOSTA_PALPITES.IDBASE = '$p->idbase'
+                AND APOSTA_PALPITES.IDVEN = '$p->idven'";
+        }
 
 
         $datIni = date ("Y/m/d");
@@ -225,8 +232,9 @@ class ApostasController extends StandardController
                          VENDEDOR.IDVEN = APOSTA.IDVEN
               WHERE
               APOSTA.DATENV BETWEEN '$datIni' AND '$datFim'
-              AND REVENDEDOR.IDBASE = '$p->idbase'
-              AND REVENDEDOR.IDVEN = '$p->idven'
+
+              $p_query
+              
             GROUP BY
               APOSTA.NUMPULE, APOSTA.DATGER, APOSTA.HORGER, APOSTA.DATENV, APOSTA.HORENV, APOSTA.SITAPO,
               REVENDEDOR.IDEREVEN, REVENDEDOR.NOMREVEN, REVENDEDOR.CIDREVEN, VENDEDOR.NOMVEN, VENDEDOR.IDEVEN
@@ -337,34 +345,34 @@ class ApostasController extends StandardController
     public function viewPuleGo($ideven){
 
 
-
-        if (Auth::user()->idusu == 1000){
-
-            $data = $this->vendedor
-                ->select('ideven')
-                ->get();
-
-            $palavra = "";
-
-
-            $c = 0;
-            foreach ($data as $key){
-
-                $palavra = $palavra.$key['ideven'];
-                if ($c < count($data)-1){
-                    $palavra = $palavra.",";
-                }
-                $c++;
-
-
-            }
-            $ideven = $palavra;
-
-
-
-        } else{
-            $ideven = $ideven;
-        }
+//
+//        if (Auth::user()->idusu == 1000){
+//
+//            $data = $this->vendedor
+//                ->select('ideven')
+//                ->get();
+//
+//            $palavra = "";
+//
+//
+//            $c = 0;
+//            foreach ($data as $key){
+//
+//                $palavra = $palavra.$key['ideven'];
+//                if ($c < count($data)-1){
+//                    $palavra = $palavra.",";
+//                }
+//                $c++;
+//
+//
+//            }
+//            $ideven = $palavra;
+//
+//
+//
+//        } else{
+//            $ideven = $ideven;
+//        }
 
 
         $idusu = Auth::user()->idusu;
@@ -605,8 +613,14 @@ class ApostasController extends StandardController
 
         $pule = $this->request->get('numpule');
 
+        $p_query = '';
 
-        $p = $this->retornaBasepeloIdeven($ideven);
+
+        if (Auth::user()->idusu != 1000){
+            $p = $this->retornaBasepeloIdeven($ideven);
+            $p_query = "AND APOSTA_PALPITES.IDBASE = '$p->idbase'
+                AND APOSTA_PALPITES.IDVEN = '$p->idven'";
+        }
 
         $data = DB::select (" 
            SELECT APOSTA_PALPITES.IDBASE, APOSTA_PALPITES.IDVEN, APOSTA_PALPITES.IDREVEN,
@@ -650,9 +664,9 @@ class ApostasController extends StandardController
                 INNER JOIN COLOCACOES ON COLOCACOES.IDCOL = APOSTA_PALPITES.IDCOL
                 WHERE
                 APOSTA_PALPITES.NUMPULE = '$pule'
-            
-                AND APOSTA_PALPITES.IDBASE = '$p->idbase'
-                AND APOSTA_PALPITES.IDVEN = '$p->idven'
+                
+            $p_query
+                
         ");
 
         return $data;
