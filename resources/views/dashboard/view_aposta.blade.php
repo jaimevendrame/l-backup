@@ -7,6 +7,17 @@
                 <div class="card">
                     <div class="card-content">
 
+                        @php
+                            $totalPules= 0;
+                            foreach ($data as $key){
+
+                                    $totalPules += $key->vlrpalp;
+
+                            }
+
+                        @endphp
+
+
                         @if($title == 'Cancelar Aposta')
                         <form class="form-group" id="form-cad-edit" method="post" action="/admin/apostas/cancel/{{$ideven}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
@@ -26,7 +37,7 @@
                                 </div>
 
                                 <div class="input-field col s12 m2">
-                                    <input  readonly id="vlr_aposta" type="text" class="validate" value="@if(!empty($data)) {{number_format($data[0]->vlrpalp, 2, ',', '.')}} @endif">
+                                    <input  readonly id="vlr_aposta" type="text" class="validate" value="@if(!empty($data)) {{number_format($totalPules, 2, ',', '.')}} @endif">
                                     <label class="active" for="vlr_aposta">Valor</label>
                                 </div>
                                 <div class="input-field col s12 m3">
