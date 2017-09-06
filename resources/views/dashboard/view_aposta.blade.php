@@ -59,7 +59,7 @@
                                 <form class="form-group" id="form-cancel" method="post" action="/admin/apostas/cancel/pule/{{$ideven}}" send="cancelar" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="numpule" id="numpule" value="@if(!empty($data)) {{$data[0]->numpule}} @endif">
-                                    <input type="hidden" name="retorno" id="retorno" value="CANCELADO COM SUCESSO @php echo date('d/m/Y')." "; echo date('h:i:s');@endphp">
+                                    <input type="hidden" name="retorno" id="retorno" value="PENDENTE">
                                 </form>
                                 @endif
                         @if(!empty($data))

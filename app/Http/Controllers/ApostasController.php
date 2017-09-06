@@ -813,6 +813,7 @@ class ApostasController extends StandardController
 
         $dados = $this->request->except('_token');
 
+
         $pule = $this->request->get('numpule');
 
         $pesquisa = DB::select (" 
