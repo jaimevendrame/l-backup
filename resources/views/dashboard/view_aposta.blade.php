@@ -31,7 +31,7 @@
                         @endif
                             <div class="row">
                                 <div class="input-field col s8 m3">
-                                    <input  id="numpule" name="numpule" type="text" class="validate" value="@if(!empty($data)) {{$data[0]->numpule}} @endif">
+                                    <input  id="numpule" name="numpule" type="tel" class="validate" value="@if(!empty($data)) {{$data[0]->numpule}} @endif">
                                     <label class="active" for="numpule">Nº Aposta</label>
                                 </div>
                                 <div class="input-field col s4 m1">
@@ -146,7 +146,7 @@
                                             <td>{{number_format($aposta->vlrpalp, 2, ',', '.')}}</td>
                                             <td>{{Carbon\Carbon::parse($aposta->datapo)->format('d/m/Y')}}</td>
                                             <td>{{$aposta->deshor}}</td>
-                                            <td>{{$aposta->sitapo == 'CAN'  ? 'CANCELADO' : $aposta->sitapo == 'V'  ? 'VALIDO':'PREMIADO'}}</td>
+                                            <td>@if($aposta->sitapo == 'CAN') CANCELADO @elseif($aposta->sitapo == 'V')VALIDO @else PREMIADO @endif</td>
                                             <td>{{Carbon\Carbon::parse($aposta->datenv)->format('d/m/Y')}}</td>
                                             <td>{{Carbon\Carbon::parse($aposta->horenv)->format('H:i:s')}}</td>
                                             <td>@if(!empty($aposta->datcan)){{Carbon\Carbon::parse($aposta->datcan)->format('d/m/Y')}}@endif</td>
@@ -337,7 +337,7 @@
             var cancelar = $('#form-cancel').attr('send');
 
 
-            $('#numpule').mask('00000000000'), {reverse: true};
+//            $('#numpule').mask('00000000000'), {reverse: true};
 
 
             var table = $('#apostas').DataTable( {
