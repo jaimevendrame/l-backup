@@ -31,7 +31,7 @@
                         @endif
                             <div class="row">
                                 <div class="input-field col s8 m3">
-                                    <input  id="numpule" name="numpule" type="tel" class="validate" value="@if(!empty($data)) {{$data[0]->numpule}} @endif">
+                                    <input  id="numpule" name="numpule" type="text" class="validate" value="@if(!empty($data)) {{$data[0]->numpule}} @endif">
                                     <label class="active" for="numpule">Nº Aposta</label>
                                 </div>
                                 <div class="input-field col s4 m1">
@@ -58,7 +58,13 @@
                                 @if($title == 'Cancelar Aposta')
                                 <form class="form-group" id="form-cancel" method="post" action="/admin/apostas/cancel/pule/{{$ideven}}" send="cancelar" enctype="multipart/form-data">
                                     {{ csrf_field() }}
-                                    <input type="hidden" name="numpule" id="numpule" value="@if(!empty($data)) {{$data[0]->numpule}} @endif">
+
+                                    @if(!empty($data))
+                                        @php
+                                            $nr_pule = str_replace(" ","",$data[0]->numpule);
+                                        @endphp
+                                    @endif
+                                    <input type="hidden" name="numpule" id="numpule" value="@if(!empty($data)) {{$nr_pule}} @endif">
                                     <input type="hidden" name="retorno" id="retorno" value="PENDENTE">
                                 </form>
                                 @endif
@@ -192,7 +198,7 @@
         var cancelar = $('#form-cancel').attr('send');
 
 
-        $('#numpule').mask('00000000000'), {reverse: true};
+        $('#numpule').mask('####################'), {reverse: true};
 
 
         var table = $('#apostas').DataTable( {
@@ -337,7 +343,7 @@
             var cancelar = $('#form-cancel').attr('send');
 
 
-//            $('#numpule').mask('00000000000'), {reverse: true};
+            $('#numpule').mask('####################'), {reverse: true};
 
 
             var table = $('#apostas').DataTable( {

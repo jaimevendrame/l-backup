@@ -426,7 +426,7 @@
         <script>
     $(document).ready(function() {
 
-        $('#n_pule').mask('00000000000'), {reverse: true};
+        $('#numpule').mask('####################'), {reverse: true};
 
         var table = $('#apostas').DataTable( {
             fixedColumns: {
