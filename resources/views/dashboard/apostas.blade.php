@@ -69,9 +69,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {{--//#fffde7--}}
 
                                 @forelse($data as $apostas)
-                                    <tr {{ $apostas->sitapo == 'CAN'  ? "bgcolor = #fffde7" : '' }}>
+                                    <tr {{ $apostas->sitapo == 'CAN'  ? "bgcolor = #f44336" : '' }}>
                                         <td>
                                             <a id="link-modal" class="waves-effect waves-light grey btn modal-trigger" href="#" onclick='openModal1("/admin/apostas/view/{{$apostas->numpule}}/{{$apostas->ideven}}")'>
                                                 <i class="tiny material-icons">dehaze</i></a>
@@ -81,7 +82,7 @@
                                         <td>{{$apostas->nomreven}}</td>
                                         <td>{{Carbon\Carbon::parse($apostas->horger)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datger)->format('d/m/Y')}}</td>
                                         <td>{{Carbon\Carbon::parse($apostas->horenv)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datenv)->format('d/m/Y')}}</td>
-                                        <td>{{ $apostas->sitapo == 'CAN'  ? 'CANCELADO' : 'VALIDO' }}</td>
+                                        <td>@if($apostas->sitapo == 'CAN') CANCELADO @elseif($apostas->sitapo == 'V')VALIDO @else PREMIADO @endif</td>
                                         <td>{{$apostas->nomven}}</td>
                                         <td>{{$apostas->cidreven}}</td>
                                     </tr>

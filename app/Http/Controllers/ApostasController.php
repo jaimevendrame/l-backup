@@ -2,6 +2,7 @@
 
 namespace lotecweb\Http\Controllers;
 
+use Carbon\Carbon;
 use DateInterval;
 use DateTime;
 use Illuminate\Http\Request;
@@ -813,6 +814,36 @@ class ApostasController extends StandardController
 
         $dados = $this->request->except('_token');
 
+        $dataAtual = strtotime (date ("Y-m-d"));
+        $horaAtual = new DateTime();
+        $horaAtual = $horaAtual->format('H:i:s');
+        $horaAtual = strtotime ($horaAtual);
+
+        $dataAposta = $this->request->get('dataaposta');
+        $dataAposta = strtotime($dataAposta);
+        $idLot = $this->request->get('idlot');
+        $idHor = $this->request->get('idhor');
+
+        if($dataAposta < $dataAtual){
+            $data_result = 'Erro: Data limite excedida';
+        } else {
+            $data_result = '';
+        }
+
+        $horlimite = DB::select (" 
+            SELECT HORLIM FROM HOR_APOSTA WHERE IDLOT = $idLot and IDHOR = $idHor
+        ");
+
+        $horlim = new DateTime($horlimite[0]->horlim);
+
+        $horlim = $horlim->format('H:i:s');
+        $horlim = strtotime ($horlim);
+
+        if($horaAtual > $horlim){
+            $hora_result = ' Erro: Hora limite excedida';
+        } else {
+            $hora_result = '';
+        }
 
         $pule = $this->request->get('numpule');
 
@@ -820,7 +851,9 @@ class ApostasController extends StandardController
             SELECT NUMPULE FROM CANCELAR_APOSTA WHERE NUMPULE = $pule
         ");
 
-        if (empty($pesquisa)){
+        $resultado = $data_result.$hora_result;
+
+        if (empty($resultado)){
 
             $insert = DB::table('CANCELAR_APOSTA')->insert($dados);
 
@@ -831,7 +864,7 @@ class ApostasController extends StandardController
             }
         } else {
 
-            return $error1;
+            return $resultado;
         }
 
 
