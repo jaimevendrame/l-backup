@@ -812,7 +812,7 @@ class ApostasController extends StandardController
 
         $error1 = 'PULE JÁ CANCELADA';
 
-        $dados = $this->request->except('_token');
+        $dados = $this->request->except('_token','idlot','idhor','dataaposta');
 
         $dataAtual = strtotime (date ("Y-m-d"));
         $horaAtual = new DateTime();
