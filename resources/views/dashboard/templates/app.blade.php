@@ -51,6 +51,10 @@
             $lnkapostascancel.href = $lnk.href.replace(/(.*)/, '/admin/apostas/cancel/') + el.value;
 //            alert($lnk.href);
 
+            var $lnkapostaspremio = document.getElementById("lnk-aposta-premio");
+//            alert($lnk.href);
+            $lnkapostaspremio.href = $lnk.href.replace(/(.*)/, '/admin/apostaspremiadas/') + el.value;
+//            alert($lnk.href);
         }
 
 
@@ -59,6 +63,15 @@
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
+
+
+        document.addEventListener("DOMContentLoaded", function(){
+            $('.preloader-background').delay(1700).fadeOut('slow');
+
+            $('.preloader-wrapper')
+                .delay(1700)
+                .fadeOut();
+        });
     </script>
     <style>
         header, main, footer {
@@ -76,6 +89,21 @@
         .modal { width: 95% !important ; height: 95% !important ; }
     </style>
 </head>
+<div class="preloader-background">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <body>
 
     <div id="app">

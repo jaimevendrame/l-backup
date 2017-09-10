@@ -85,7 +85,7 @@ Route::group([
         Route::get('/adduserweb/', 'StandardController@addUserWeb')->name('adduser');
 
 
-        //transmissoes
+        //transmissoes de apostas
         Route::get('/apostas/{idven}', 'ApostasController@index2')->name('retornaresumo');
         Route::post('/apostas/', 'ApostasController@indexGo')->name('retornaresumo');
         Route::get('/apostas/view/{idven}', 'ApostasController@viewPule')->name('view_pule');
@@ -95,6 +95,10 @@ Route::group([
         Route::post('/apostas/cancel/pule/{idven}', 'ApostasController@cancelAposta')->name('cancel_pule');
         Route::get('/apostas/view/{pule}/{idven}',
             'ApostasController@retornaPule')->name('apostapremiada');
+
+        //Apostas Premiadas
+        Route::get('/apostaspremiadas/{idven}', 'ApostasPremiadaController@index2')->name('apostapremiada');
+        Route::post('/apostaspremiadas/', 'ApostasPremiadaController@indexGo')->name('apostapremiadaGo');
 
 
 
