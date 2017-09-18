@@ -70,7 +70,7 @@
 
                         </form>
                         @if(!empty($data))
-                        <form id="frm-example" action="/path/to/your/script.php" method="POST">
+                        <form id="frm-example">
                             <table class="mdl-data-table display" id="apostas_premiada"  cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
@@ -100,7 +100,7 @@
 
                                     <tr>
                                         <td>
-                                            <input type="checkbox" id="{{$l}}" class="filled-in" /><label  for="{{$l}}">&nbsp;</label>
+                                            <input type="checkbox" id="{{$l}}" class="filled-in"  onclick="handleClick2(this);"  value="{{$apostas->vlrpre}}"/><label  for="{{$l}}">&nbsp;</label>
                                         </td>
                                         <td>{{$apostas->numpule}}</td>
                                         <td>{{Carbon\Carbon::parse($apostas->datapo)->format('d/m/Y')}}</td>
@@ -186,10 +186,12 @@
                                         nenhum registro encontrado!
                                     </tr>
                                 @endforelse
-                            </table></form>
+                            </table>
+                        </form>
                         @else
                         <p>Nenhum registro encontrado!</p>
                         @endif
+
                     </div>
 
                 </div>
@@ -202,18 +204,19 @@
                     }
 
                 @endphp
-                <div class="col s12 m12 l12">
-                    <div class="col s6 m6 l6">
-                        <div class="col s6 m6 l6 z-depth-2 gray hoverable">
-                            <div class="row right-align">
-                                <p class="white-text">Total Pules:</p>
-                                <h3 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h3>
-                            </div>
+                <div class="row">
+
+                </div>
+                <div class="row">
+                    <div class="col s6 m6 l6 z-depth-2 gray hoverable">
+                        <div class="row right-align">
+                            <p class="">Total Selecionados:</p>
+                            <h3 class="resultado">0,00</h3>
                         </div>
                     </div>
                     <div class="col s6 m6 l6 z-depth-2 red hoverable">
                         <div class="row right-align">
-                            <p class="white-text">Total Pules:</p>
+                            <p class="white-text">Total de Prêmios:</p>
                             <h3 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h3>
                         </div>
                     </div>
@@ -245,14 +248,49 @@
     }
 </script>
 
+<script>
+    function id( el ){
+        return document.getElementById( el );
+    }
+
+    var currentValue = 0;
+    function handleClick2(myCheckbox) {
+//        alert('Old value: ' + currentValue);
+//        alert('New value: ' + myCheckbox.value);
+//        currentValue = myCheckbox.value;
+
+        var inputs = id('apostas_premiada').getElementsByTagName('input');
+
+
+        var  valor = 0;
+        for( var i=0; i<inputs.length; i++ )
+        {
+            if( inputs[i].type=='checkbox' )
+            {
+
+                 inputs[i].value;
+
+                if (inputs[i].checked){
+//                    alert("checked") ;
+                    valor = parseFloat(valor) + parseFloat(inputs[i].value);
+//                    alert(valor);
+
+                }
+
+            }
+
+            $(".resultado").html(valor.toFixed(2).replace('.',','));
+        }
+
+
+
+    }
+</script>
+
+
         <script>
     $(document).ready(function() {
 
-        $('input[type=checkbox]').each(function() {
-            if(this.nextSibling.nodeName != 'label') {
-                $(this).after('<label for="'+this.id+'"></label>')
-            }
-        })
 
 
         $('#n_pule').mask('####################'), {reverse: true};
