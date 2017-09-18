@@ -54,15 +54,15 @@
 
                             </div>
                             <div class="row">
-                                <div class="input-field col s4 m3 l3 ">
+                                <div class="input-field col s12 m4 l3 ">
                                     <input class="with-gap" name="group1" type="radio" id="test1" checked="checked" onclick="handleClick(this);" value="0"/>
                                     <label for="test1">Aguardando Liberação</label>
                                 </div>
-                                <div class="input-field col s4 m3 l2 ">
+                                <div class="input-field col s12 m4 l2 ">
                                     <input class="with-gap" name="group1" type="radio" id="test2" onclick="handleClick(this);" value="1"/>
                                     <label for="test2">Não Liberados</label>
                                 </div>
-                                <div class="input-field col s4 m3 l2 ">
+                                <div class="input-field col s12 m4 l2 ">
                                     <input class="with-gap" name="group1" type="radio" id="test3"  onclick="handleClick(this);" value="2"/>
                                     <label for="test3">Liberados</label>
                                 </div>
@@ -100,7 +100,7 @@
 
                                     <tr>
                                         <td>
-                                            <input type="checkbox" id="{{$l}}" class="filled-in"  onclick="handleClick2(this);"  value="{{$apostas->vlrpre}}"/><label  for="{{$l}}">&nbsp;</label>
+                                            <input type="checkbox" id="{{$l}}" class="filled-in"  onclick="handleClick2();"  value="{{$apostas->vlrpre}}"/><label  for="{{$l}}">&nbsp;</label>
                                         </td>
                                         <td>{{$apostas->numpule}}</td>
                                         <td>{{Carbon\Carbon::parse($apostas->datapo)->format('d/m/Y')}}</td>
@@ -208,13 +208,20 @@
 
                 </div>
                 <div class="row">
-                    <div class="col s6 m6 l6 z-depth-2 gray hoverable">
-                        <div class="row right-align">
-                            <p class="">Total Selecionados:</p>
-                            <h3 class="resultado">0,00</h3>
+                    <div class="col s12 m12 l6 z-depth-2 gray hoverable">
+                        <div class="row">
+                            <div class="col s6 m6 l6 valign-wrapper"  style="padding-top: 10%">
+                                <div id="pagar_premio">
+                                    <a class="waves-effect waves-light btn">Pagar</a>
+                                </div>
+                            </div>
+                            <div class="col s6 m6 l6 right-align">
+                                <p class="right-align">Total Selecionados:</p>
+                                <h3 class="resultado">0,00</h3>
+                            </div>
                         </div>
                     </div>
-                    <div class="col s6 m6 l6 z-depth-2 red hoverable">
+                    <div class="col s12 m12 l6 z-depth-2 red hoverable">
                         <div class="row right-align">
                             <p class="white-text">Total de Prêmios:</p>
                             <h3 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h3>
@@ -253,30 +260,26 @@
         return document.getElementById( el );
     }
 
-    var currentValue = 0;
-    function handleClick2(myCheckbox) {
-//        alert('Old value: ' + currentValue);
-//        alert('New value: ' + myCheckbox.value);
-//        currentValue = myCheckbox.value;
+    function handleClick2() {
+
 
         var inputs = id('apostas_premiada').getElementsByTagName('input');
-
 
         var  valor = 0;
         for( var i=0; i<inputs.length; i++ )
         {
             if( inputs[i].type=='checkbox' )
             {
-
                  inputs[i].value;
-
                 if (inputs[i].checked){
-//                    alert("checked") ;
                     valor = parseFloat(valor) + parseFloat(inputs[i].value);
-//                    alert(valor);
-
                 }
+            }
 
+            if (valor > 0){
+                $("#pagar_premio").show();
+            } else {
+                $("#pagar_premio").hide();
             }
 
             $(".resultado").html(valor.toFixed(2).replace('.',','));
@@ -291,24 +294,11 @@
         <script>
     $(document).ready(function() {
 
-
+        $("#pagar_premio").hide();
 
         $('#n_pule').mask('####################'), {reverse: true};
 
         var table = $('#apostas_premiada').DataTable( {
-//
-//            'columnDefs': [
-//                {
-//                    'targets': 0,
-//                    'checkboxes': {
-//                        'selectRow': true
-//                    }
-//                }
-//            ],
-//            'select': {
-//                'style': 'multi'
-//            },
-//            'order': [[1, 'asc']],
 
             dom: 'Brtip',
             buttons: [
