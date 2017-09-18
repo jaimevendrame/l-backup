@@ -102,6 +102,9 @@ class ApostasPremiadaController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
+        //datas inicio e fim mês
+
+
 
 
 
@@ -197,8 +200,9 @@ class ApostasPremiadaController extends StandardController
 
 
 
-        $datIni = date ("Y/m/d");
-        $datFim = date ("Y/m/d");
+        $datIni = date ("Y/m/1");//retorna o primeiro dia do mês corrente
+        $datFim = date ("Y/m/t");//retorna o último dia mês corrente
+
 
         $this->data_inicial = $datIni;
         $this->data_fim = $datFim;
@@ -215,7 +219,7 @@ class ApostasPremiadaController extends StandardController
 
         $data = DB::select (
 
-            "SELECT APOSTA_PALPITES.IDBASE, APOSTA_PALPITES.IDVEN, APOSTA_PALPITES.IDREVEN, 
+            "SELECT APOSTA_PALPITES.IDBASE, APOSTA_PALPITES.IDVEN, APOSTA_PALPITES.IDREVEN, '$datIni' AS DATAINI, '$datFim' AS DATAFIM,
                     APOSTA_PALPITES.IDTER, APOSTA_PALPITES.IDAPO, APOSTA_PALPITES.NUMPULE,
                     APOSTA_PALPITES.SEQPALP, APOSTA_PALPITES.DATAPO,APOSTA_PALPITES.IDMENU,
                     APOSTA_PALPITES.IDTIPOAPO,APOSTA_PALPITES.IDLOT,APOSTA_PALPITES.IDHOR,

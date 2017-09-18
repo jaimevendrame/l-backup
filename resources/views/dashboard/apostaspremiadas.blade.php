@@ -19,12 +19,12 @@
                                 </div>
 
                                 <div class="input-field col s6 m4 l2">
-                                    <input disabled id="datIni" name="datIni" type="date" class="datepicker"
-                                           placeholder ="Data inicial">
+                                    <input  id="datIni" name="datIni" type="date" class="datepicker"
+                                           placeholder ="Data inicial" disabled>
                                 </div>
                                 <div class="input-field col s6 m4 l2">
-                                     <input disabled id="datFim" name="datFim" type="date" class="datepicker"
-                                             placeholder ="Data final">
+                                     <input id="datFim" name="datFim" type="date" class="datepicker"
+                                             placeholder ="Data final" disabled>
                                 </div>
 
                                 <div class="input-field col s12 m6 l4">
@@ -55,15 +55,15 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s4 m3 l3 ">
-                                    <input class="with-gap" name="group1" type="radio" id="test1" checked="checked"/>
+                                    <input class="with-gap" name="group1" type="radio" id="test1" checked="checked" onclick="handleClick(this);" value="0"/>
                                     <label for="test1">Aguardando Liberação</label>
                                 </div>
                                 <div class="input-field col s4 m3 l2 ">
-                                    <input class="with-gap" name="group1" type="radio" id="test2" />
+                                    <input class="with-gap" name="group1" type="radio" id="test2" onclick="handleClick(this);" value="1"/>
                                     <label for="test2">Não Liberados</label>
                                 </div>
                                 <div class="input-field col s4 m3 l2 ">
-                                    <input class="with-gap" name="group1" type="radio" id="test3"  />
+                                    <input class="with-gap" name="group1" type="radio" id="test3"  onclick="handleClick(this);" value="2"/>
                                     <label for="test3">Liberados</label>
                                 </div>
                             </div>
@@ -228,7 +228,22 @@
 
 @push('scripts')
 <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
+<script>
+    var currentValue = 0;
+    function handleClick(myRadio) {
+//        alert('Old value: ' + currentValue);
+//        alert('New value: ' + myRadio.value);
+        currentValue = myRadio.value;
+        if (currentValue > 0){
+            document.getElementById("datIni").disabled = false;
+            document.getElementById("datFim").disabled = false;
+        } else {
+            document.getElementById("datIni").disabled = true;
+            document.getElementById("datFim").disabled = true;
 
+        }
+    }
+</script>
 
         <script>
     $(document).ready(function() {
