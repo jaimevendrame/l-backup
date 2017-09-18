@@ -1,6 +1,8 @@
 @extends('dashboard.templates.app')
 
 @section('content')
+    <script src="{{url('assets/js/jquery-3.2.0.min.js')}}"></script>
+
     <div class="section">
         <div class="row">
             <div class="col s12">
@@ -49,9 +51,26 @@
                                     </button>
                                 </div>
 
+
                             </div>
+                            <div class="row">
+                                <div class="input-field col s4 m3 l3 ">
+                                    <input class="with-gap" name="group1" type="radio" id="test1" checked="checked"/>
+                                    <label for="test1">Aguardando Liberação</label>
+                                </div>
+                                <div class="input-field col s4 m3 l2 ">
+                                    <input class="with-gap" name="group1" type="radio" id="test2" />
+                                    <label for="test2">Não Liberados</label>
+                                </div>
+                                <div class="input-field col s4 m3 l2 ">
+                                    <input class="with-gap" name="group1" type="radio" id="test3"  />
+                                    <label for="test3">Liberados</label>
+                                </div>
+                            </div>
+
                         </form>
                         @if(!empty($data))
+                        <form id="frm-example" action="/path/to/your/script.php" method="POST">
                             <table class="mdl-data-table display" id="apostas_premiada"  cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
@@ -75,14 +94,18 @@
                                 </thead>
                                 <tbody>
                                 {{--//#fffde7--}}
-
+                                @php $l = 0 @endphp
                                 @forelse($data as $apostas)
+                                    @php $l += 1 @endphp
+
                                     <tr>
-                                        <td></td>
+                                        <td>
+                                            <input type="checkbox" id="{{$l}}" class="filled-in" /><label  for="{{$l}}">&nbsp;</label>
+                                        </td>
                                         <td>{{$apostas->numpule}}</td>
                                         <td>{{Carbon\Carbon::parse($apostas->datapo)->format('d/m/Y')}}</td>
                                         <td>{{$apostas->deshor}}</td>
-                                        <td>{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</td>
+                                        <td class="valor">{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</td>
                                         <td>{{ number_format($apostas->vlrpre, 2, ',', '.') }}</td>
                                         <td>{{Carbon\Carbon::parse($apostas->datlimpre)->format('d/m/Y')}}</td>
                                         <td>
@@ -163,7 +186,7 @@
                                         nenhum registro encontrado!
                                     </tr>
                                 @endforelse
-                            </table>
+                            </table></form>
                         @else
                         <p>Nenhum registro encontrado!</p>
                         @endif
@@ -180,7 +203,10 @@
 
                 @endphp
                 <div class="col s12 m12 l12">
-                    <div class="col s12 z-depth-2 green hoverable">
+                    <div class="col s6 m6 l6">
+
+                    </div>
+                    <div class="col s6 m6 l6 z-depth-2 red hoverable">
                         <div class="row right-align">
                             <p class="white-text">Total Pules:</p>
                             <h3 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h3>
@@ -197,30 +223,34 @@
 
 @push('scripts')
 <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js"></script>
 
 
         <script>
     $(document).ready(function() {
 
+        $('input[type=checkbox]').each(function() {
+            if(this.nextSibling.nodeName != 'label') {
+                $(this).after('<label for="'+this.id+'"></label>')
+            }
+        })
+
+
         $('#n_pule').mask('####################'), {reverse: true};
 
         var table = $('#apostas_premiada').DataTable( {
-
-            'columnDefs': [
-                {
-                    'targets': 0,
-                    'checkboxes': {
-                        'selectRow': true
-                    }
-                }
-            ],
-            'select': {
-                'style': 'multi'
-            },
-            'order': [[1, 'asc']],
-
-
+//
+//            'columnDefs': [
+//                {
+//                    'targets': 0,
+//                    'checkboxes': {
+//                        'selectRow': true
+//                    }
+//                }
+//            ],
+//            'select': {
+//                'style': 'multi'
+//            },
+//            'order': [[1, 'asc']],
 
             dom: 'Brtip',
             buttons: [
@@ -273,19 +303,68 @@
             }
 
         } );
+        // Handle form submission event
+        $('#frm-example').on('submit', function(e){
+            var form = this;
 
-        // #myInput is a <input type="text"> element
-        $('#myInput').on( 'keyup', function () {
-            table.search( this.value ).draw();
-        } );
+            var rows_selected = table.column(0).checkboxes.selected();
 
-        $('#apostas_premiada tbody').on( 'click', 'tr', function () {
-            $(this).toggleClass('selected');
-        } );
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function(index, rowId){
+                // Create a hidden element
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });
+        });
 
-        $('#button').click( function () {
-            alert( table.rows('.selected').data().length +' row(s) selected' );
-        } );
+
+//        $('#apostas_premiada tbody').on('click', 'tr', function () {
+//            var data = table.row( this ).data();
+//            alert( 'You clicked on '+data[0]+'\'s row' );
+
+//            $('table tr').each(function(){
+//                var name = $(this).find('.selected').html();
+//                alert(name);
+
+//            });
+
+//            var cell = table.cell( this );
+//
+//            $('#click-output').prepend(
+//                '<div>'+cell.data()+'</div>'
+//            alert(cell.data)
+//            );
+
+//            $('#apostas_premiada tbody tr td').each(
+//                function(){
+//                    //aqui dentro você teria tudo que tivesse dentro de cada tr td...
+//                    var valor = $(this).find('valor').html;
+//                    console.log(valor);
+//
+//                }
+//            );
+
+//        } );
+
+//        $(table.table().container()).on( 'click', 'td', function () {
+//            var cell = table.cell( this );
+//
+//            $('#click-output').prepend(
+//                '<div>'+cell.data()+'</div>'
+//                alert(cell.data)
+//            );
+//        } );
+//
+//        // #myInput is a <input type="text"> element
+//        $('#myInput').on( 'keyup', function () {
+//            table.search( this.value ).draw();
+//        } );
+
+
 
     });
 </script>

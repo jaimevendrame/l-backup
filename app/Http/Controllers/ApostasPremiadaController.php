@@ -209,7 +209,7 @@ class ApostasPremiadaController extends StandardController
         $data_termino->sub(new DateInterval('P'.$parcelas.'D'));
         $datAnt = $data_termino->format('Y/m/d');
 
-
+        $dataAtual = date ("Y-m-d");
 
         $data = DB::select (
 
@@ -255,10 +255,11 @@ class ApostasPremiadaController extends StandardController
                       
                       $p_query
                       
+                      AND APOSTA_PALPITES.SITPRE = 'BLO'
+                      AND APOSTA_PALPITES.DATLIMPRE >= '$dataAtual'
                          "
 
         );
-
 
         return $data;
     }

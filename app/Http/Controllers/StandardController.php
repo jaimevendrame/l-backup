@@ -191,6 +191,7 @@ class StandardController extends BaseController
             ->where([
                 ['USUARIO_MENU_ACTION.IDUSU', '=', $idUsu],
                 ['USUARIO_MENU_ACTION.INLIB', '=', 'SIM'],
+                ['MENU_ACTION.INWEB', '=', 'SIM'],
             ])
             ->orderBy('MENU_ACTION.CATACT', 'asc')
             ->get();

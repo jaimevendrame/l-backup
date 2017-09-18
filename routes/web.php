@@ -37,6 +37,10 @@ Route::get('/home', function (){
     return redirect()->route('admin.home');
 });
 
+Route::get('/teste', function () {
+    return view('testes.feito');
+});
+
 //Route::get('/data', 'TestController@index');
 //Route :: get ( ' /teste ' , function() {
 //    phpinfo();
