@@ -19,11 +19,11 @@
                                 </div>
 
                                 <div class="input-field col s6 m4 l2">
-                                    <input id="datIni" name="datIni" type="date" class="datepicker"
+                                    <input disabled id="datIni" name="datIni" type="date" class="datepicker"
                                            placeholder ="Data inicial">
                                 </div>
                                 <div class="input-field col s6 m4 l2">
-                                     <input id="datFim" name="datFim" type="date" class="datepicker"
+                                     <input disabled id="datFim" name="datFim" type="date" class="datepicker"
                                              placeholder ="Data final">
                                 </div>
 
@@ -204,7 +204,12 @@
                 @endphp
                 <div class="col s12 m12 l12">
                     <div class="col s6 m6 l6">
-
+                        <div class="col s6 m6 l6 z-depth-2 gray hoverable">
+                            <div class="row right-align">
+                                <p class="white-text">Total Pules:</p>
+                                <h3 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h3>
+                            </div>
+                        </div>
                     </div>
                     <div class="col s6 m6 l6 z-depth-2 red hoverable">
                         <div class="row right-align">
