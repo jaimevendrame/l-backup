@@ -198,7 +198,7 @@
                 @php
                     $totalPulesValido = 0;
                     foreach ($data as $key){
-                        $totalPulesValido += $key->vlrpalp;
+                        $totalPulesValido += $key->vlrpre;
                     }
 
                 @endphp

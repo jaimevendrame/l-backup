@@ -196,6 +196,7 @@ class ApostasPremiadaController extends StandardController
         }
 
 
+
         $datIni = date ("Y/m/d");
         $datFim = date ("Y/m/d");
 
@@ -210,6 +211,7 @@ class ApostasPremiadaController extends StandardController
         $datAnt = $data_termino->format('Y/m/d');
 
         $dataAtual = date ("Y-m-d");
+
 
         $data = DB::select (
 
