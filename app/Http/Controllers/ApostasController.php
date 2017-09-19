@@ -528,6 +528,8 @@ class ApostasController extends StandardController
 
 
 
+
+
         if (empty($datFim) || empty($datIni)) {
             $datIni = date ("Y/m/d");
             $datFim = date ("Y/m/d");

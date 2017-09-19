@@ -368,35 +368,6 @@ class ApostasPremiadaController extends StandardController
     public function viewPuleGo($ideven){
 
 
-//
-//        if (Auth::user()->idusu == 1000){
-//
-//            $data = $this->vendedor
-//                ->select('ideven')
-//                ->get();
-//
-//            $palavra = "";
-//
-//
-//            $c = 0;
-//            foreach ($data as $key){
-//
-//                $palavra = $palavra.$key['ideven'];
-//                if ($c < count($data)-1){
-//                    $palavra = $palavra.",";
-//                }
-//                $c++;
-//
-//
-//            }
-//            $ideven = $palavra;
-//
-//
-//
-//        } else{
-//            $ideven = $ideven;
-//        }
-
 
         $idusu = Auth::user()->idusu;
 
@@ -544,15 +515,26 @@ class ApostasPremiadaController extends StandardController
      */
     public function retornaApostasParameter(){
 
+        $p_tipo = $this->request->get('group1');
         $datIni = $this->request->get('datIni');
         $datFim = $this->request->get('datFim');
+        $nr_aposta = $this->request->get('nr_pule');
 
 
+        $s_query_aposta = '';
 
+        $dataAtual = date ("Y-m-d");
+
+        //se inout nr_pule for preenchido add sql
+        if (!empty($nr_aposta)){
+            $s_query_aposta = "AND APOSTA_PALPITES.NUMPULE = '$nr_aposta'";
+
+//            dd($s_query_aposta);
+        }
 
         if (empty($datFim) || empty($datIni)) {
-            $datIni = date ("Y/m/d");
-            $datFim = date ("Y/m/d");
+            $datIni = date ("Y/m/1");
+            $datFim = date ("Y/m/t");
         } else {
             //Converte data inicial de string para Date(y/m/d)
             $datetimeinicial = new DateTime();
@@ -563,23 +545,32 @@ class ApostasPremiadaController extends StandardController
             //Converte data final de string para Date(y/m/d)
             $datetimefinal = new DateTime();
             $newDateFinal = $datetimefinal->createFromFormat('d/m/Y', $datFim);
-
             $datFim = $newDateFinal->format('Y/m/d');
-
         }
-            $inicio = $datIni; // data inicio menos um dia
-            $parcelas = 1;
-            $data_termino = new DateTime($inicio);
-            $data_termino->sub(new DateInterval('P' . $parcelas . 'D'));
-            $datAnt = $data_termino->format('Y/m/d');
+
+        if ($p_tipo == '0'){
+            $s_bloq = 'BLO';
+            $s_query_blo = "AND APOSTA_PALPITES.SITPRE = '$s_bloq'
+            AND APOSTA_PALPITES.DATLIMPRE >= '$dataAtual'";
 
 
+            } elseif  ($p_tipo == '1'){
+                $s_sitpre = 'BLO';
+                $s_query_blo = "AND APOSTA_PALPITES.SITPRE = '$s_sitpre'
+                                AND APOSTA_PALPITES.DATLIMPRE < '$dataAtual'
+                                AND APOSTA_PALPITES.DATLIMPRE BETWEEN '$datIni' AND '$datFim'";
+            } elseif ($p_tipo =='2'){
+                $s_sitpre = 'LIB';
+                $s_query_blo = "AND APOSTA_PALPITES.SITPRE = '$s_sitpre'
+                                AND APOSTA_PALPITES.DATLIMPRE BETWEEN '$datIni' AND '$datFim'";
+            }
 
 
         $codigo = Auth::user()->idusu;
 
         //referente aos IDEVEN
         $valor = $this->request->get('sel_vendedor');
+//        dd($valor);
         if ($valor == NULL){
             $valor = $this->retornaBasesPadrao($codigo);
 //            dd($valor);
@@ -590,44 +581,58 @@ class ApostasPremiadaController extends StandardController
             $p = implode(",", $valor);
         }
 
-//        dd($valor);
 
 
         $data = DB::select (
 
-            "SELECT SUM(APOSTA_PALPITES.VLRPALP) AS VLRPALP,
-              APOSTA.NUMPULE, APOSTA.DATGER, APOSTA.HORGER, APOSTA.DATENV, APOSTA.HORENV, APOSTA.SITAPO,
-              REVENDEDOR.IDEREVEN, REVENDEDOR.NOMREVEN, REVENDEDOR.CIDREVEN, VENDEDOR.NOMVEN, VENDEDOR.IDEVEN, '$datIni' AS DATAINI, '$datFim' AS DATAFIM
-              FROM APOSTA
-              INNER JOIN APOSTA_PALPITES ON 
-                         APOSTA_PALPITES.IDBASE  = APOSTA.IDBASE  AND
-                         APOSTA_PALPITES.IDVEN   = APOSTA.IDVEN   AND
-                         APOSTA_PALPITES.IDREVEN = APOSTA.IDREVEN AND
-                         APOSTA_PALPITES.IDTER   = APOSTA.IDTER   AND
-                         APOSTA_PALPITES.IDAPO   = APOSTA.IDAPO   AND
-                         APOSTA_PALPITES.NUMPULE = APOSTA.NUMPULE
-              INNER JOIN REVENDEDOR ON 
-                         REVENDEDOR.IDBASE = APOSTA.IDBASE AND
-                         REVENDEDOR.IDVEN = APOSTA.IDVEN AND
-                         REVENDEDOR.IDREVEN = APOSTA.IDREVEN
-              INNER JOIN VENDEDOR ON 
-                         VENDEDOR.IDBASE = APOSTA.IDBASE AND
-                         VENDEDOR.IDVEN = APOSTA.IDVEN
-              WHERE
-              
-              APOSTA.DATENV BETWEEN '$datIni' AND '$datFim'
-              AND VENDEDOR.IDEVEN in ($p)
-              
-              
-            GROUP BY
-              APOSTA.NUMPULE, APOSTA.DATGER, APOSTA.HORGER, APOSTA.DATENV, APOSTA.HORENV, APOSTA.SITAPO,
-              REVENDEDOR.IDEREVEN, REVENDEDOR.NOMREVEN, REVENDEDOR.CIDREVEN, VENDEDOR.NOMVEN, VENDEDOR.IDEVEN
-            ORDER BY APOSTA.DATENV DESC, APOSTA.HORENV DESC
-            
-     "
+            "SELECT APOSTA_PALPITES.IDBASE, APOSTA_PALPITES.IDVEN, APOSTA_PALPITES.IDREVEN, '$datIni' AS DATAINI, '$datFim' AS DATAFIM,
+                    APOSTA_PALPITES.IDTER, APOSTA_PALPITES.IDAPO, APOSTA_PALPITES.NUMPULE,
+                    APOSTA_PALPITES.SEQPALP, APOSTA_PALPITES.DATAPO,APOSTA_PALPITES.IDMENU,
+                    APOSTA_PALPITES.IDTIPOAPO,APOSTA_PALPITES.IDLOT,APOSTA_PALPITES.IDHOR,
+                    APOSTA_PALPITES.IDCOL,APOSTA_PALPITES.VLRPALP,APOSTA_PALPITES.PALP1,
+                    APOSTA_PALPITES.PALP2,APOSTA_PALPITES.PALP3,APOSTA_PALPITES.PALP4,
+                    APOSTA_PALPITES.PALP5,APOSTA_PALPITES.PALP6,APOSTA_PALPITES.PALP7,
+                    APOSTA_PALPITES.PALP8,APOSTA_PALPITES.PALP9,APOSTA_PALPITES.PALP10,
+                    APOSTA_PALPITES.PALP11,APOSTA_PALPITES.PALP12,APOSTA_PALPITES.PALP13,
+                    APOSTA_PALPITES.PALP14,APOSTA_PALPITES.PALP15,APOSTA_PALPITES.SITAPO,
+                    APOSTA_PALPITES.VLRCOM,APOSTA_PALPITES.VLRPRESEC,APOSTA_PALPITES.VLRPREMOL,
+                    APOSTA_PALPITES.VLRPRE,APOSTA_PALPITES.COLMOTDES,APOSTA_PALPITES.VLRPRESMJ,
+                    APOSTA_PALPITES.VLRPALPF,APOSTA_PALPITES.VLRPALPD,APOSTA_PALPITES.VLRPREPAG,
+                    APOSTA_PALPITES.DATENV, APOSTA_PALPITES.HORENV,APOSTA_PALPITES.INCOMB,
+                    APOSTA_PALPITES.VLRCOTACAO,APOSTA_PALPITES.DATCAN,APOSTA_PALPITES.HORCAN,
+                    APOSTA_PALPITES.SITPRE,APOSTA_PALPITES.DATLIBPRE,APOSTA_PALPITES.HORLIBPRE,
+                    APOSTA_PALPITES.DATLIMPRE, APOSTA_PALPITES.INATRASADO, APOSTA_PALPITES.INSORPRO, 
+                    APOSTA_PALPITES.INFODESC, APOSTA_PALPITES.PALP16,APOSTA_PALPITES.PALP17,
+                    APOSTA_PALPITES.PALP18,APOSTA_PALPITES.PALP19,APOSTA_PALPITES.PALP20,
+                    APOSTA_PALPITES.PALP21,APOSTA_PALPITES.PALP22,APOSTA_PALPITES.PALP23,
+                    APOSTA_PALPITES.PALP24,APOSTA_PALPITES.PALP25,APOSTA_PALPITES.PRELIBMANUAL,
+                    APOSTA_PALPITES.NUMAUT,APOSTA_PALPITES.VLR_AUX,VENDEDOR.IDEVEN,
+                    REVENDEDOR.NOMREVEN,
+                    HOR_APOSTA.DESHOR,
+                    TIPO_APOSTA.DESTIPOAPO,
+                    COLOCACOES.DESCOL, '' as inSel
+                    FROM APOSTA_PALPITES
+                    INNER JOIN REVENDEDOR ON REVENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
+                                               REVENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN AND
+                                               REVENDEDOR.IDREVEN = APOSTA_PALPITES.IDREVEN
+                    INNER JOIN HOR_APOSTA ON HOR_APOSTA.IDLOT = APOSTA_PALPITES.IDLOT AND
+                                              HOR_APOSTA.IDHOR = APOSTA_PALPITES.IDHOR
+                    INNER JOIN TIPO_APOSTA ON TIPO_APOSTA.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO
+                    INNER JOIN COLOCACOES ON COLOCACOES.IDCOL = APOSTA_PALPITES.IDCOL
+                    INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
+                                             VENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN
+                      WHERE
+                      APOSTA_PALPITES.SEQPALP <> 999999
+                      AND APOSTA_PALPITES.SITAPO = 'PRE'
+                  
+                     $s_query_blo
+                     AND VENDEDOR.IDEVEN in ($p)
+                     
+                     $s_query_aposta 
+                         "
 
         );
-
+//        dd($data);
         return $data;
     }
 

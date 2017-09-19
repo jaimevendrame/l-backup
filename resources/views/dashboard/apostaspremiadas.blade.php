@@ -14,8 +14,8 @@
                             <div class="row">
 
                                 <div class="input-field col s12 m4 l2">
-                                    <input id="n_pule" name="n_pule" type="tel" class="validate">
-                                    <label class="active" for="n_pule">Nº Aposta</label>
+                                    <input id="nr_pule" name="nr_pule" type="tel" class="validate">
+                                    <label class="active" for="nr_pule">Nº Aposta</label>
                                 </div>
 
                                 <div class="input-field col s6 m4 l2">
@@ -296,7 +296,7 @@
 
         $("#pagar_premio").hide();
 
-        $('#n_pule').mask('####################'), {reverse: true};
+        $('#nr_pule').mask('####################'), {reverse: true};
 
         var table = $('#apostas_premiada').DataTable( {
 
@@ -407,10 +407,10 @@
 //            );
 //        } );
 //
-//        // #myInput is a <input type="text"> element
-//        $('#myInput').on( 'keyup', function () {
-//            table.search( this.value ).draw();
-//        } );
+        // #myInput is a <input type="text"> element
+        $('#myInput').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
 
 
 
