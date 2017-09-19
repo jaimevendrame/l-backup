@@ -126,7 +126,9 @@
 
                                     <tr>
                                         <td>
-                                            <input type="checkbox" id="{{$l}}" class="filled-in"  onclick="handleClick2();"  value="{{$apostas->vlrpre}}"/><label  for="{{$l}}">&nbsp;</label>
+                                            <div class="check-on" @if(isset($p_situacao) && ($p_situacao == '2')) style="display: none;"@endif>
+                                                <input  type="checkbox" id="{{$l}}" class="filled-in"  onclick="handleClick2();"  value="{{$apostas->vlrpre}}"/><label  for="{{$l}}">&nbsp;</label>
+                                            </div>
                                         </td>
                                         <td><a id="link-modal" class="classe1 modal-trigger" href="#" onclick='openModal1("/admin/apostas/view/{{$apostas->numpule}}/{{$apostas->ideven}}")'>
                                                 {{$apostas->numpule}} </a></td>
@@ -338,6 +340,11 @@
             document.getElementById("datFim").disabled = true;
 
         }
+        if (currentValue == 2){
+            $(".check-on").hide();
+        } else {
+            $(".check-on").show();
+        }
     }
 </script>
 
@@ -379,6 +386,7 @@
 
         <script>
     $(document).ready(function() {
+
 
         $("#pagar_premio").hide();
 
