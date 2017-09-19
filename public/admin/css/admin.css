@@ -81,3 +81,16 @@ div.scroll
     right: 0;
     bottom: 0;
 }
+
+a.classe1:link, a.classe1:visited {
+    text-decoration: none;
+    color: #000000;
+}
+a.classe1:hover {
+    text-decoration: underline;
+    color: #f00;
+    font-weight: bold;
+}
+a.classe1:active {
+    text-decoration: none
+}

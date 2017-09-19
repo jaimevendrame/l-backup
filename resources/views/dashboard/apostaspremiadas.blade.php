@@ -128,7 +128,8 @@
                                         <td>
                                             <input type="checkbox" id="{{$l}}" class="filled-in"  onclick="handleClick2();"  value="{{$apostas->vlrpre}}"/><label  for="{{$l}}">&nbsp;</label>
                                         </td>
-                                        <td>{{$apostas->numpule}}</td>
+                                        <td><a id="link-modal" class="classe1 modal-trigger" href="#" onclick='openModal1("/admin/apostas/view/{{$apostas->numpule}}/{{$apostas->ideven}}")'>
+                                                {{$apostas->numpule}} </a></td>
                                         <td>{{Carbon\Carbon::parse($apostas->datapo)->format('d/m/Y')}}</td>
                                         <td>{{$apostas->deshor}}</td>
                                         <td class="valor">{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</td>
@@ -258,7 +259,66 @@
         </div>
 
     </div>
+    <div id="aposta" class="modal">
+        <div class="right-align">
+            <a href="#!" class=" btn modal-action modal-close waves-effect waves-light red "><i class=" Tiny material-icons">close</i></a>
+        </div>
+        <div class="modal-content">
+            <h4>Visualizar Aposta</h4>
+            <div id="modal_content" class="row">
+                <div class="row">
+                    <div class="input-field col s12 m2">
+                        <input  readonly id="n_aposta" type="text" class="validate" value="0000">
+                        <label class="active" for="n_aposta">Nº Aposta</label>
+                    </div>
+                    <div class="input-field col s12 m2">
+                        <input  readonly id="vlr_aposta" type="text" class="validate" value="0,00">
+                        <label class="active" for="vlr_aposta">Valor</label>
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <input  readonly id="revendedor" type="text" class="validate" value="Revendedor">
+                        <label class="active" for="revendedor">Revendedor</label>
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <input  readonly id="vendedor" type="text" class="validate" value="Vendedor">
+                        <label class="active" for="vendedor">Vendedor</label>
+                    </div>
 
+
+                </div>
+                <div class="scroll">
+                    <div class="row">
+                        <table id="tb-apostas" class="display mdl-data-table" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Modalidade</th>
+                                <th>Palpites</th>
+                                <th>Colocação</th>
+                                <th>Valor</th>
+                                <th>P/Dia</th>
+                                <th>Horário</th>
+                                <th>Situação</th>
+                                <th>Data Envio</th>
+                                <th>Hora Envio</th>
+                                <th>Data Canc</th>
+                                <th>Hora Canc</th>
+                                <th>Cotação</th>
+                                <th>Vlr Prêmio</th>
+                                <th>Vlr Palp Bancou</th>
+                                <th>Vlr Palp Desc</th>
+                                <th>Prêmio Seco</th>
+                                <th>Prêmio Molhado</th>
+                                <th>Prêmio SecMol</th>
+                                <th>Prêmio Bancou</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody_aposta">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
 
 @endsection
 
@@ -395,44 +455,6 @@
             });
         });
 
-
-//        $('#apostas_premiada tbody').on('click', 'tr', function () {
-//            var data = table.row( this ).data();
-//            alert( 'You clicked on '+data[0]+'\'s row' );
-
-//            $('table tr').each(function(){
-//                var name = $(this).find('.selected').html();
-//                alert(name);
-
-//            });
-
-//            var cell = table.cell( this );
-//
-//            $('#click-output').prepend(
-//                '<div>'+cell.data()+'</div>'
-//            alert(cell.data)
-//            );
-
-//            $('#apostas_premiada tbody tr td').each(
-//                function(){
-//                    //aqui dentro você teria tudo que tivesse dentro de cada tr td...
-//                    var valor = $(this).find('valor').html;
-//                    console.log(valor);
-//
-//                }
-//            );
-
-//        } );
-
-//        $(table.table().container()).on( 'click', 'td', function () {
-//            var cell = table.cell( this );
-//
-//            $('#click-output').prepend(
-//                '<div>'+cell.data()+'</div>'
-//                alert(cell.data)
-//            );
-//        } );
-//
         // #myInput is a <input type="text"> element
         $('#myInput').on( 'keyup', function () {
             table.search( this.value ).draw();
@@ -444,3 +466,235 @@
 </script>
 @endpush
 
+
+@push('modal')
+<script type="application/javascript">
+
+
+    $(document).ready(function(){
+
+
+
+        //init the modal
+        $('.modal').modal();
+
+        $('#tb-apostas').DataTable({
+
+            dom: 'rt',
+//            scrollY: 900,
+//            scrollX:        true,
+//            scrollCollapse: false,
+            paging:         false,
+            Bfilter:        false,
+            "searching": false,
+            "pagination": false,
+
+            "columns": [
+                { "width": "20%" },
+                null,
+                null,
+                null,
+                null
+            ],
+
+
+            columnDefs: [
+                {
+                    targets: [ 0, 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11,12,13,14,15,16,17,18],
+                    className: 'mdl-data-table__cell--non-numeric'
+                }
+            ]
+        });
+
+
+
+    });
+
+
+    function openModal1(url) {
+
+        $('#tbody_aposta').empty(); //Limpando a tabela
+
+        $('#aposta').modal('open');
+
+
+        jQuery.getJSON(url, function (data) {
+
+            var vlrPalp = 0
+
+            for (var i = 0; i <data.length; i++){
+
+                var newRow = $("<tr>");
+                var cols = "";
+                var palp = [data[i].palp1];
+
+
+                if (data[i].palp2){
+                    palp.push(data[i].palp2);
+                }
+                if (data[i].palp3){
+                    palp.push(data[i].palp3);
+                }
+                if (data[i].palp4){
+                    palp.push(data[i].palp4);
+                }
+                if (data[i].palp5){
+                    palp.push(data[i].palp5);
+                }
+                if (data[i].palp6){
+                    palp.push(data[i].palp6);
+                }
+                if (data[i].palp7){
+                    palp.push(data[i].palp7);
+                }
+                if (data[i].palp8){
+                    palp.push(data[i].palp8);
+                }
+                if (data[i].palp9){
+                    palp.push(data[i].palp9);
+                }
+                if (data[i].palp10){
+                    palp.push(data[i].palp10);
+                }
+                if (data[i].palp11){
+                    palp.push(data[i].palp11);
+                }
+                if (data[i].palp12){
+                    palp.push(data[i].palp12);
+                }
+                if (data[i].palp13){
+                    palp.push(data[i].palp13);
+                }
+                if (data[i].palp14){
+                    palp.push(data[i].palp14);
+                }
+                if (data[i].palp15){
+                    palp.push(data[i].palp15);
+                }
+                if (data[i].palp16){
+                    palp.push(data[i].palp16);
+                }
+                if (data[i].palp17){
+                    palp.push(data[i].palp17);
+                }
+                if (data[i].palp18){
+                    palp.push(data[i].palp18);
+                }
+                if (data[i].palp19){
+                    palp.push(data[i].palp19);
+                }
+                if (data[i].palp20){
+                    palp.push(data[i].palp20);
+                }
+                if (data[i].palp21){
+                    palp.push(data[i].palp21);
+                }
+                if (data[i].palp22){
+                    palp.push(data[i].palp22);
+                }
+                if (data[i].palp23){
+                    palp.push(data[i].palp23);
+                }
+                if (data[i].palp24){
+                    palp.push(data[i].palp24);
+                }
+                if (data[i].palp25){
+                    palp.push(data[i].palp25);
+                }
+
+                var todosPalp = palp.join('-');
+
+                var vlrpalp = data[i].vlrpalp;
+                var numpule = data[i].numpule;
+                var idreven = data[i].idbase +' '+ data[i].nomreven;
+                var nomven = data[i].idven +' '+ data[i].nomven;
+
+
+                if(data[i].sitapo == 'V'){
+
+                    var vaSituapo = 'VALIDO';
+                } else if(data[i].sitapo == 'CAN'){
+                    var vaSituapo = 'CANCELADO';
+                } else {
+                    var vaSituapo = 'PREMIADO';
+
+                }
+
+                var datApo = DateChance(data[i].datapo);
+                var datEnv = DateChance(data[i].datenv);
+
+                if ((data[i].datcan != null)){
+                    var datCan = DateChance(data[i].datcan);
+                } else {
+                    var datCan = '';
+                }
+
+                if ((data[i].horcan != null)){
+                    var horCan = time_format(new Date(data[i].horcan));
+                } else {
+                    var horCan = '';
+                }
+
+                var horEnv = time_format(new Date(data[i].horenv));
+
+                vlrPalp += parseFloat(vlrpalp);
+
+
+                cols += '<td>'+data[i].destipoapo+'</td>';
+                cols += '<td>'+todosPalp+'</td>';
+                cols += '<td>'+data[i].descol+'</td>';
+                cols += '<td>'+parseFloat(vlrpalp).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+datApo+'</td>';
+                cols += '<td>'+data[i].deshor+'</td>';
+                cols += '<td>'+vaSituapo+'</td>';
+                cols += '<td>'+datEnv+'</td>';
+                cols += '<td>'+horEnv+'</td>';
+                cols += '<td>'+datCan+'</td>';
+                cols += '<td>'+horCan+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrcotacao).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpre).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpalpf).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpalpd).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpresec).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpremol).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpresmj).toFixed(2).replace(".", ",")+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpre).toFixed(2).replace(".", ",")+'</td>';
+
+
+                newRow.append(cols);
+                $("#tbody_aposta").append(newRow);
+            }
+
+            $('#vlr_aposta').val(vlrPalp.toFixed(2).replace(".", ","));
+            $('#n_aposta').val(numpule);
+            $('#revendedor').val(idreven);
+            $('#vendedor').val(nomven);
+        });
+
+    };
+
+    function DateChance(data) {
+        var getDate = data.slice(0, 10).split('-'); //create an array
+        var _date =getDate[2] +'/'+ getDate[1] +'/'+ getDate[0];
+        return _date;
+
+    }
+
+    function time_format(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seg = date.getSeconds();
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ':' + seg;
+//        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + strTime;
+        return strTime;
+    }
+
+
+
+
+
+</script>
+@endpush
