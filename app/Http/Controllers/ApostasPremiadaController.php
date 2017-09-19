@@ -181,10 +181,11 @@ class ApostasPremiadaController extends StandardController
                 $in_ativos = 'NAO';
         }
 
+        $p_situacao =  $this->request->get('group1');
 
 
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'despesas','in_ativos'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'despesas','in_ativos', 'p_situacao'));
     }
 
     public function retornaApostas($ideven){
@@ -446,6 +447,8 @@ class ApostasPremiadaController extends StandardController
         $title = 'Cancelar Aposta';
 
         $baseAll = $this->retornaBasesAll($idusu);
+
+
 
         return view("dashboard.view_aposta",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
