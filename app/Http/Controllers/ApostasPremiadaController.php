@@ -561,8 +561,8 @@ class ApostasPremiadaController extends StandardController
                                 AND APOSTA_PALPITES.DATLIMPRE BETWEEN '$datIni' AND '$datFim'";
             } elseif ($p_tipo =='2'){
                 $s_sitpre = 'LIB';
-                $s_query_blo = "AND APOSTA_PALPITES.SITPRE = '$s_sitpre'
-                                AND APOSTA_PALPITES.DATLIMPRE BETWEEN '$datIni' AND '$datFim'";
+                $s_query_blo = "AND APOSTA_PALPITES.SITPRE = '$s_sitpre' AND APOSTA_PALPITES.DATLIBPRE BETWEEN '$datIni' AND '$datFim'";
+
             }
 
 
@@ -580,7 +580,6 @@ class ApostasPremiadaController extends StandardController
             //Construi a string com base no array do select via form
             $p = implode(",", $valor);
         }
-
 
 
         $data = DB::select (
