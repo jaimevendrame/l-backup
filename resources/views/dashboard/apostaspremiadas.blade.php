@@ -11,7 +11,7 @@
                         <form class="form-group" id="form-cad-edit" method="post" action="/admin/apostaspremiadas" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            <div class="row">
+                            <div class="row" style="margin-bottom:0px;">
 
                                 <div class="input-field col s12 m4 l2">
                                     <input id="nr_pule" name="nr_pule" type="tel" class="validate">
@@ -53,7 +53,7 @@
 
 
                             </div>
-                            <div class="row">
+                            <div class="row left-align padding-materialize">
                                 <div class="input-field col s12 m4 l3 ">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '0')
@@ -79,7 +79,7 @@
                                     @endif
                                     <label for="test2">Não Liberados</label>
                                 </div>
-                                <div class="input-field col s12 m4 l2 ">
+                                <div class="input-field col s12 m4 l2">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '2')
                                             <input class="with-gap" name="group1" type="radio" id="test3"  checked="checked" onclick="handleClick(this);" value="2"/>
@@ -345,6 +345,8 @@
         } else {
             $(".check-on").show();
         }
+
+        document.getElementById("form-cad-edit").submit();
     }
 </script>
 
