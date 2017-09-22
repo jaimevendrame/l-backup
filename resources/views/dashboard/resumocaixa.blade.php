@@ -112,7 +112,7 @@
                                     <td>@if($resumo->vlrpremio > 0)<a href="#{{$resumo->vlrdevant}}" class="btn">@endif{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</a></td>
                                 @if($resumo->vlrpremio > 0)
                                     <!-- Modal Structure -->
-                                        <div id="{{$resumo->vlrdevant}}" class="modal">
+                                        <div id="{{$resumo->vlrdevant}}" class="modal modal2">
                                             <div class="modal-content">
                                                 <div class="modal-footer">
                                                     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>

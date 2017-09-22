@@ -896,8 +896,56 @@ class ApostasPremiadaController extends StandardController
             return $resultado;
         }
 
+    }
+
+    public function payBet() {
+
+        $data = $this->request->get('dados');
+
+        $data = explode(" ", $data, -1);
+
+        $data = array_chunk($data, 8);
 
 
+        $dados = array();
+        $x = 0;
+
+
+        for ($i=0; $i<count($data); $i++){
+            $linhaMov =  [
+                "idbase"    => $data[$i][0],
+                "idven"     => $data[$i][1],
+                "idreven"   => $data[$i][2],
+                "idter"     => $data[$i][3],
+                "idapo"     => $data[$i][4],
+                "numpule"   => $data[$i][5],
+                "seqpalp"   => $data[$i][6],
+                "inpro"     => $data[$i][7],
+            ];
+            array_push($dados, $linhaMov);
+        }
+
+//        dd(($dados[0]));
+
+        for ($i=0; $i<count($dados); $i++){
+            $insert = DB::table('LIBERAR_PREMIO')->insert($dados[$i]);
+
+            if ($insert){
+                $x = $x + 1;
+            }
+
+        }
+
+        return $x;
+    }
+
+    public function searchPayBetReleased($nr_pule){
+
+        $data = DB::select (" 
+            SELECT NUMPULE FROM LIBERAR_PREMIO WHERE NUMPULE = $nr_pule
+        ");
+
+        return $data;
     }
 
 }

@@ -103,6 +103,8 @@ Route::group([
         //Apostas Premiadas
         Route::get('/apostaspremiadas/{idven}', 'ApostasPremiadaController@index2')->name('apostapremiada');
         Route::post('/apostaspremiadas/', 'ApostasPremiadaController@indexGo')->name('apostapremiadaGo');
+        Route::post('/apostaspremiadas/paybet/', 'ApostasPremiadaController@payBet')->name('addcaixa');
+
 
 
 

@@ -57,7 +57,7 @@
                                 <div class="input-field col s12 m4 l3 ">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '0')
-                                            <input class="with-gap" name="group1" type="radio" id="test1"  checked="checked"  onclick="handleClick(this);" value="0"/>
+                                            <input class="with-gap" data-valor="ok" name="group1" type="radio" id="test1"  checked="checked"  onclick="handleClick(this);" value="0"/>
                                             @else
                                             <input class="with-gap" name="group1" type="radio" id="test1"  onclick="handleClick(this);" value="0"/>
                                             @endif
@@ -127,7 +127,9 @@
                                     <tr>
                                         <td>
                                             <div class="check-on" @if(isset($p_situacao) && ($p_situacao == '2')) style="display: none;"@endif>
-                                                <input  type="checkbox" id="{{$l}}" class="filled-in"  onclick="handleClick2();"  value="{{$apostas->vlrpre}}"/><label  for="{{$l}}">&nbsp;</label>
+                                                <input  data-dados="{{$apostas->idbase}} {{$apostas->idven}} {{$apostas->idreven}} {{$apostas->idter}} {{$apostas->idapo}} {{$apostas->numpule}} {{$apostas->seqpalp}} NAO "
+                                                        type="checkbox" id="{{$l}}" class="filled-in"  onclick="handleClick2();"  value="{{$apostas->vlrpre}}"/><label  for="{{$l}}">&nbsp;</label>
+
                                             </div>
                                         </td>
                                         <td><a id="link-modal" class="classe1 modal-trigger" href="#" onclick='openModal1("/admin/apostas/view/{{$apostas->numpule}}/{{$apostas->ideven}}")'>
@@ -241,7 +243,12 @@
                         <div class="row">
                             <div class="col s6 m6 l6 valign-wrapper"  style="padding-top: 10%">
                                 <div id="pagar_premio">
-                                    <a class="waves-effect waves-light btn">Pagar</a>
+                                    <form id="frm-paybet" name="frm-paybet" method="post" action="/admin/apostaspremiadas/paybet" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input id="input-paybet" name="dados" type="hidden" value="0"/>
+                                        <button class="btn waves-effect waves-light" type="submit" name="action">Pagar
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col s6 m6 l6 right-align">
@@ -261,7 +268,7 @@
         </div>
 
     </div>
-    <div id="aposta" class="modal">
+    <div id="aposta" class="modal modal2">
         <div class="right-align">
             <a href="#!" class=" btn modal-action modal-close waves-effect waves-light red "><i class=" Tiny material-icons">close</i></a>
         </div>
@@ -285,8 +292,6 @@
                         <input  readonly id="vendedor" type="text" class="validate" value="Vendedor">
                         <label class="active" for="vendedor">Vendedor</label>
                     </div>
-
-
                 </div>
                 <div class="scroll">
                     <div class="row">
@@ -319,36 +324,92 @@
                         </table>
                     </div>
                 </div>
-
             </div>
+        </div>
+    </div>
 
 @endsection
 
 @push('scripts')
 <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
 <script>
+    $(function () {
+        jQuery("#frm-paybet").submit(function () {
+
+
+            if (payBet()){
+
+                var dadosForm = jQuery(this).serialize();
+
+                alert(dadosForm);
+
+                decisao = confirm("Pagar aposta(s)");
+
+                if (decisao){
+
+                    jQuery.ajax({
+                        url: '/admin/apostaspremiadas/paybet',
+                        data: dadosForm,
+                        method: 'POST'
+
+                    }).done(function (data) {
+
+                        if (data > '0') {
+
+                            alert('Pagamento realizado com sucesso');
+
+//                            location.reload();
+
+//                    setTimeout("location.reload();", 3000);
+
+                        } else {
+                            alert('Falha ao pagar!!');
+                        }
+                    }).fail(function () {
+                        alert('Falha ao enviar dados!!');
+                    });
+                    return false;
+                } else {
+                    return false;
+                }
+            }
+            alert('falha!!')
+        });
+    });
+</script>
+<script>
     var currentValue = 0;
     function handleClick(myRadio) {
 //        alert('Old value: ' + currentValue);
 //        alert('New value: ' + myRadio.value);
         currentValue = myRadio.value;
+
+
         if (currentValue > 0){
             document.getElementById("datIni").disabled = false;
             document.getElementById("datFim").disabled = false;
+            document.getElementById("form-cad-edit").submit();
+
         } else {
             document.getElementById("datIni").disabled = true;
             document.getElementById("datFim").disabled = true;
+            document.getElementById("form-cad-edit").submit();
+
 
         }
         if (currentValue == 2){
             $(".check-on").hide();
+            document.getElementById("form-cad-edit").submit();
+
         } else {
             $(".check-on").show();
+            document.getElementById("form-cad-edit").submit();
+
         }
 
-        document.getElementById("form-cad-edit").submit();
     }
 </script>
+
 
 <script>
     function id( el ){
@@ -359,8 +420,8 @@
 
 
         var inputs = id('apostas_premiada').getElementsByTagName('input');
-
         var  valor = 0;
+        var idel =';'
         for( var i=0; i<inputs.length; i++ )
         {
             if( inputs[i].type=='checkbox' )
@@ -379,9 +440,34 @@
 
             $(".resultado").html(valor.toFixed(2).replace('.',','));
         }
+    }
+    function payBet() {
 
+        var inputs = id('apostas_premiada').getElementsByTagName('input');
 
+        var  valor ='';
+        var idel =''
+        for( var i=0; i<inputs.length; i++ )
+        {
+            if( inputs[i].type=='checkbox' )
+            {
+                inputs[i].value;
+                if (inputs[i].checked){
+                    idel = inputs[i].id;
+                    valor += $("#"+idel ).data('dados');
+                }
+            }
+        }
+        console.log(valor);
+//        alert(valor);
 
+        $("#input-paybet").val(valor);
+
+        if (valor != ''){
+            return true;
+        } else {
+            return false;
+        }
     }
 </script>
 
@@ -417,7 +503,7 @@
             paging:         false,
             Bfilter:        false,
             "bProcessing": true,
-            "aaSorting": [[1, "desc"]],
+            "aaSorting": [[7, "asc"]],
 
 
             language: {

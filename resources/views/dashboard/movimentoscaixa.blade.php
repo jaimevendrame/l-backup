@@ -220,7 +220,7 @@
 
 
     <!-- Modal Structure -->
-    <div id="modal_movcaixa" class="modal modal-fixed-footer">
+    <div id="modal_movcaixa" class="modal modal2 modal-fixed-footer">
         <div class="right-align">
             <a href="#!" class=" btn modal-action modal-close waves-effect waves-light red "><i class=" Tiny material-icons">close</i></a>
         </div>
