@@ -144,7 +144,19 @@
 
                                             }
                             @endphp
+                            <tr>
+                                <th>Revendedor</th>
+                                <th>seqordem</th>
+                                <th>Tipo Mov.</th>
+                                <th>Valor Movimento</th>
+                                <th>Saldo Anterior</th>
+                                <th>Saldo Após Mov.</th>
+                                <th>Data Mov.</th>
+                                <th>Horário</th>
+                                <th>Cobrador</th>
+                                <th>Usuário Mov.</th>
 
+                            </tr>
                             </tfoot>
 
 

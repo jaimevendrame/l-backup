@@ -182,6 +182,32 @@
                                                 nenhum registro encontrado!
                                             </tr>
                                         @endforelse
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Modalidade</th>
+                                            <th>Palpites</th>
+                                            <th>Colocação</th>
+                                            <th>Valor</th>
+                                            <th>P/Dia</th>
+                                            <th>Horário</th>
+                                            <th>Situação</th>
+                                            <th>Data Envio</th>
+                                            <th>Hora Envio</th>
+                                            <th>Data Canc</th>
+                                            <th>Hora Canc</th>
+                                            <th>Cotação</th>
+                                            <th>Vlr Prêmio</th>
+                                            <th>Vlr Palp Bancou</th>
+                                            <th>Vlr Palp Desc</th>
+                                            <th>Prêmio Seco</th>
+                                            <th>Prêmio Molhado</th>
+                                            <th>Prêmio SecMol</th>
+                                            <th>Prêmio Bancou</th>
+
+
+                                        </tr>
+                                        </tfoot>
                                     </table>
                                 @endif
                             </div>

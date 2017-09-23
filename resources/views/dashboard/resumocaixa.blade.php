@@ -206,17 +206,17 @@
                             <tr>
 
                                 <th>Revendedor</th>
-                                <th>@php echo number_format($saldoanterior, 2, ',', '.'); @endphp</th>
-                                <th>@php echo number_format($venda, 2, ',', '.'); @endphp</th>
-                                <th>@php echo number_format($comissao, 2, ',', '.'); @endphp</th>
-                                <th>@php echo number_format($liquido, 2, ',', '.'); @endphp</th>
-                                <th>@php echo number_format($premio, 2, ',', '.'); @endphp</th>
-                                <th>@php echo number_format($despesas, 2, ',', '.'); @endphp</th>
-                                <th>@php echo number_format($liquido - $premio - $despesas, 2, ',', '.'); @endphp</th>
-                                <th>@php echo number_format($pagto, 2, ',', '.'); @endphp</th>
-                                <th>@php echo number_format($recb, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($saldoanterior, 2, ',', '.'); @endphp </br>Saldo Anterior</th>
+                                <th>@php echo number_format($venda, 2, ',', '.'); @endphp</br>Vendido</th>
+                                <th>@php echo number_format($comissao, 2, ',', '.'); @endphp</br>Comissão</th>
+                                <th>@php echo number_format($liquido, 2, ',', '.'); @endphp</br>Liquido</th>
+                                <th>@php echo number_format($premio, 2, ',', '.'); @endphp</br>Prêmio</th>
+                                <th>@php echo number_format($despesas, 2, ',', '.'); @endphp</br>Despesas</th>
+                                <th>@php echo number_format($liquido - $premio - $despesas, 2, ',', '.'); @endphp</br>Lucro</th>
+                                <th>@php echo number_format($pagto, 2, ',', '.'); @endphp</br>Pagamento</th>
+                                <th>@php echo number_format($recb, 2, ',', '.'); @endphp</br>Recebimento</th>
                                 <th>Última Venda</th>
-                                <th>@php echo number_format($saldoatual, 2, ',', '.'); @endphp</th>
+                                <th>@php echo number_format($saldoatual, 2, ',', '.'); @endphp</br>Saldo Atual</th>
 
                             </tr>
                             </tfoot>
@@ -296,9 +296,7 @@
 
         var table = $('#example').DataTable( {
             fixedColumns: {
-                leftColumns: 1,
-                rightColumns: 1
-
+                leftColumns: 1
             },
 
 

@@ -78,7 +78,7 @@
                                                 <i class="tiny material-icons">dehaze</i></a>
                                         </td>
                                         <td>{{$apostas->numpule}}</td>
-                                        <td>{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</td>
+                                        <td><b>{{ number_format($apostas->vlrpalp, 2, ',', '.') }}</b></td>
                                         <td>{{$apostas->nomreven}}</td>
                                         <td>{{Carbon\Carbon::parse($apostas->horger)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datger)->format('d/m/Y')}}</td>
                                         <td>{{Carbon\Carbon::parse($apostas->horenv)->format('H:i:s')}} {{Carbon\Carbon::parse($apostas->datenv)->format('d/m/Y')}}</td>
@@ -92,6 +92,21 @@
                                         nenhum registro encontrado!
                                     </tr>
                                 @endforelse
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th>Pule</th>
+                                        <th>Valor</th>
+                                        <th>Revendedor</th>
+                                        <th>Geração</th>
+                                        <th>Envio</th>
+                                        <th>Situação</th>
+                                        <th>Vendedor</th>
+                                        <th>Cidade</th>
+
+                                    </tr>
+                                </tfoot>
                             </table>
                         @else
                         <p>Nenhum registro encontrado!</p>
@@ -178,6 +193,29 @@
                             </thead>
                             <tbody id="tbody_aposta">
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Modalidade</th>
+                                <th>Palpites</th>
+                                <th>Colocação</th>
+                                <th>Valor</th>
+                                <th>P/Dia</th>
+                                <th>Horário</th>
+                                <th>Situação</th>
+                                <th>Data Envio</th>
+                                <th>Hora Envio</th>
+                                <th>Data Canc</th>
+                                <th>Hora Canc</th>
+                                <th>Cotação</th>
+                                <th>Vlr Prêmio</th>
+                                <th>Vlr Palp Bancou</th>
+                                <th>Vlr Palp Desc</th>
+                                <th>Prêmio Seco</th>
+                                <th>Prêmio Molhado</th>
+                                <th>Prêmio SecMol</th>
+                                <th>Prêmio Bancou</th>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

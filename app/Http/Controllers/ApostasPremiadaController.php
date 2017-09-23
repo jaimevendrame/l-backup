@@ -906,23 +906,35 @@ class ApostasPremiadaController extends StandardController
 
         $data = array_chunk($data, 8);
 
-
         $dados = array();
+
         $x = 0;
 
 
         for ($i=0; $i<count($data); $i++){
-            $linhaMov =  [
-                "idbase"    => $data[$i][0],
-                "idven"     => $data[$i][1],
-                "idreven"   => $data[$i][2],
-                "idter"     => $data[$i][3],
-                "idapo"     => $data[$i][4],
-                "numpule"   => $data[$i][5],
-                "seqpalp"   => $data[$i][6],
-                "inpro"     => $data[$i][7],
-            ];
-            array_push($dados, $linhaMov);
+
+            if ($this->searchPayBetReleased(
+                $data[$i][0],
+                $data[$i][1],
+                $data[$i][2],
+                $data[$i][3],
+                $data[$i][4],
+                $data[$i][5],
+                $data[$i][6]
+            ) == 0){
+                $linhaMov =  [
+                    "idbase"    => $data[$i][0],
+                    "idven"     => $data[$i][1],
+                    "idreven"   => $data[$i][2],
+                    "idter"     => $data[$i][3],
+                    "idapo"     => $data[$i][4],
+                    "numpule"   => $data[$i][5],
+                    "seqpalp"   => $data[$i][6],
+                    "inpro"     => $data[$i][7],
+                ];
+                array_push($dados, $linhaMov);
+            }
+
         }
 
 //        dd(($dados[0]));
@@ -939,13 +951,30 @@ class ApostasPremiadaController extends StandardController
         return $x;
     }
 
-    public function searchPayBetReleased($nr_pule){
+    public function searchPayBetReleased($idbase, $idven, $idreven, $idter, $idapo, $numpule, $seqpalp){
 
-        $data = DB::select (" 
-            SELECT NUMPULE FROM LIBERAR_PREMIO WHERE NUMPULE = $nr_pule
-        ");
+        $retorno = 0;
+        $data = DB::table('LIBERAR_PREMIO')
+            ->select('NUMPULE')
+            ->where([
+                ['IDBASE', '=', $idbase],
+                ['IDVEN', '=', $idven],
+                ['IDREVEN', '=', $idreven],
+                ['IDTER', '=', $idter],
+                ['IDAPO', '=', $idapo],
+                ['NUMPULE', '=', $numpule],
+                ['SEQPALP', '=', $seqpalp]
+            ])->get();
 
-        return $data;
+        if(empty($data)){
+            $retorno = 1;
+            return $retorno;
+        } else{
+            $retorno = 0;
+            return $retorno;
+        }
+
     }
 
 }
+

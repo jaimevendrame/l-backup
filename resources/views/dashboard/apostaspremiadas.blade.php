@@ -114,8 +114,6 @@
                                     <th>Colocação</th>
                                     <th>Data Liberação</th>
                                     <th>Manual</th>
-
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -217,6 +215,25 @@
                                         nenhum registro encontrado!
                                     </tr>
                                 @endforelse
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>Aposta Nº</th>
+                                    <th>Data p/ Sorteio</th>
+                                    <th>Horário</th>
+                                    <th>Valor Palpite</th>
+                                    <th>Valor Prêmio</th>
+                                    <th>Limite p/ Pagamento</th>
+                                    <th>Dias restante</th>
+                                    <th>Revendedor</th>
+                                    <th>Modalidade Apostas</th>
+                                    <th>Palpite</th>
+                                    <th>Colocação</th>
+                                    <th>Data Liberação</th>
+                                    <th>Manual</th>
+
+                                </tfoot>
                             </table>
                         </form>
                         @else
@@ -243,12 +260,13 @@
                         <div class="row">
                             <div class="col s6 m6 l6 valign-wrapper"  style="padding-top: 10%">
                                 <div id="pagar_premio">
-                                    <form id="frm-paybet" name="frm-paybet" method="post" action="/admin/apostaspremiadas/paybet" enctype="multipart/form-data">
+                                    <form id="frm-paybet" name="frm-paybet" method="post"enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <input id="input-paybet" name="dados" type="hidden" value="0"/>
-                                        <button class="btn waves-effect waves-light" type="submit" name="action">Pagar
-                                        </button>
+
                                     </form>
+                                    <button class="btn waves-effect waves-light" onclick="teste();" name="action">Pagar
+                                    </button>
                                 </div>
                             </div>
                             <div class="col s6 m6 l6 right-align">
@@ -266,7 +284,7 @@
                 </div>
             </div>
         </div>
-
+       
     </div>
     <div id="aposta" class="modal modal2">
         <div class="right-align">
@@ -331,51 +349,130 @@
 @endsection
 
 @push('scripts')
+
 <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
 <script>
-    $(function () {
-        jQuery("#frm-paybet").submit(function () {
+
+            function teste() {
+
+                $.confirm({
+                    theme: 'supervan',
+                    title: 'Pagar prêmios?',
+                    content: 'Pagar prêmio das apostas selecionadas',
+                    type: 'green',
+                    buttons: {
+                        ok: {
+                            text: "SIM",
+//                            btnClass: 'btn-primary',
+                            keys: ['enter'],
+                            action: function(){
+                                payBet();
+                                var dadosForm = jQuery('#frm-paybet').serialize();
+                                console.log(dadosForm);
+
+                                jQuery.ajax({
+                                url: '/admin/apostaspremiadas/paybet',
+                                data: dadosForm,
+                                method: 'POST'
+
+                            }).done(function (data) {
+
+                                if (data > '0') {
+                                    $.confirm({
+                                        theme: 'supervan',
+                                        title: 'Pagamento!',
+                                        content: 'Pagamento realizado com sucesso!',
+                                        buttons: {
+                                            confirm: function () {
+                                                document.getElementById("form-cad-edit").submit();
+                                            }
+
+                                        }
+                                    });
 
 
-            if (payBet()){
 
-                var dadosForm = jQuery(this).serialize();
+                                } else {
+                                    $.alert({
+                                        title: 'Pagamento!',
+                                        content: 'Falha ao pagar!',
+                                    });
 
-                alert(dadosForm);
+                                }
+                            }).fail(function () {
+                                    $.confirm({
+                                        theme: 'supervan',
+                                        title: 'Enviar Dados!',
+                                        content: 'Falha ao enviar dados!!',
+                                        buttons: {
+                                            confirm: function () {
+                                                document.getElementById("form-cad-edit").submit();
+                                            }
 
-                decisao = confirm("Pagar aposta(s)");
+                                        }
+                                    });
 
-                if (decisao){
-
-                    jQuery.ajax({
-                        url: '/admin/apostaspremiadas/paybet',
-                        data: dadosForm,
-                        method: 'POST'
-
-                    }).done(function (data) {
-
-                        if (data > '0') {
-
-                            alert('Pagamento realizado com sucesso');
-
-//                            location.reload();
-
-//                    setTimeout("location.reload();", 3000);
-
-                        } else {
-                            alert('Falha ao pagar!!');
+                            });
+                            return false;
+                            }
+                        },
+                        NO:{
+                            text: "NÃO",
+                            cancel: function(){
+                                console.log('the user clicked cancel');
+                            }
                         }
-                    }).fail(function () {
-                        alert('Falha ao enviar dados!!');
-                    });
-                    return false;
-                } else {
-                    return false;
-                }
-            }
-            alert('falha!!')
-        });
-    });
+
+                    }
+                });
+            };
+
+
+//    $(function () {
+//        jQuery("#frm-paybet").submit(function () {
+//
+//
+//            if (payBet()){
+//
+//                var dadosForm = jQuery(this).serialize();
+//
+////                alert(dadosForm);
+//
+//                decisao = confirm("Pagar aposta(s)");
+//
+//                if (decisao){
+//
+//                    jQuery.ajax({
+//                        url: '/admin/apostaspremiadas/paybet',
+//                        data: dadosForm,
+//                        method: 'POST'
+//
+//                    }).done(function (data) {
+//
+//                        if (data > '0') {
+//
+//                            alert('Pagamento realizado com sucesso');
+//
+//                            document.getElementById("form-cad-edit").submit();
+//
+////                    setTimeout("location.reload();", 3000);
+//
+//                        } else {
+//                            alert('Falha ao pagar!!');
+//                        }
+//                    }).fail(function () {
+//                        alert('Falha ao enviar dados!!');
+//                        document.getElementById("form-cad-edit").submit();
+//
+//                    });
+//                    return false;
+//                } else {
+//                    return false;
+//                }
+//            }
+//            alert('falha!!')
+//        });
+//    });
 </script>
 <script>
     var currentValue = 0;
@@ -793,4 +890,5 @@
 
 
 </script>
+
 @endpush
