@@ -26,8 +26,11 @@
 
                                 </div>
                                 <div class="input-field col s6 m4 l2">
+                                    @if(isset($p_situacao))
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
                                              placeholder ="Data final"  @if($p_situacao == '0') disabled @else @endif>
+                                    @endif
+
                                 </div>
 
                                 <div class="input-field col s12 m6 l4">
