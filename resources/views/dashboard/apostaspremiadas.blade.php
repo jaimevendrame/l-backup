@@ -60,7 +60,7 @@
 
                             </div>
                             <div class="row left-align padding-materialize  z-depth-2 ">
-                                <div class="input-field col s4 m3 l3 ">
+                                <div class="input-field col s12 m3 l3 ">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '0')
                                             <input class="with-gap" data-valor="ok" name="group1" type="radio" id="test1"  checked="checked"  onclick="handleClick(this);" value="0"/>
@@ -73,7 +73,7 @@
 
                                     <label for="test1">Aguardando Liberação</label>
                                 </div>
-                                <div class="input-field col s4 m3 l3 ">
+                                <div class="input-field col s12 m3 l3 ">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '1')
                                         <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="handleClick(this);" value="1"/>
@@ -85,7 +85,7 @@
                                     @endif
                                     <label for="test2">Não Liberados</label>
                                 </div>
-                                <div class="input-field col s4 m3 l3">
+                                <div class="input-field col s12 m3 l3">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '2')
                                             <input class="with-gap" name="group1" type="radio" id="test3"  checked="checked" onclick="handleClick(this);" value="2"/>
