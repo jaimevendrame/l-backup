@@ -22,6 +22,9 @@
                                     @if(isset($p_situacao))
                                         <input  id="datIni" name="datIni" type="date" class="datepicker"
                                                 placeholder ="Data inicial" @if($p_situacao == '0') disabled @else @endif>
+                                        @else
+                                        <input  id="datIni" name="datIni" type="date" class="datepicker"
+                                                placeholder ="Data inicial"  disabled >
                                         @endif
 
                                 </div>
@@ -29,6 +32,9 @@
                                     @if(isset($p_situacao))
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
                                              placeholder ="Data final"  @if($p_situacao == '0') disabled @else @endif>
+                                        @else
+                                        <input id="datFim" name="datFim" type="date" class="datepicker"
+                                               placeholder ="Data final" disabled>
                                     @endif
 
                                 </div>

@@ -79,21 +79,70 @@
 
                         <table class="mdl-data-table " id="example"  cellspacing="0" width="100%">
                             <thead>
-                            <tr>
-                                <th>Revendedor</th>
-                                <th>Saldo Anterior</th>
-                                <th>Vendido</th>
-                                <th>Comissão</th>
-                                <th>Liquido</th>
-                                <th>Prêmio</th>
-                                <th>Despesas</th>
-                                <th>Lucro</th>
-                                <th>Pagamento</th>
-                                <th>Recebimento</th>
-                                <th>Saldo Atual</th>
-                                <th>Última Venda</th>
+                            @php
+                                $saldoanterior = 0;
 
+                                $venda = 0;
+
+                                $comissao = 0;
+
+                                $liquido = 0;
+
+                                $premio = 0;
+
+                                $despesas = 0;
+
+
+                                $pagto = 0;
+
+                                $recb = 0;
+
+                                $saldoatual = 0;
+                                $semvendas = 0;
+
+                                foreach($data as $key) {
+
+                                        if ($key->vlrven <= 0){
+                                        $semvendas += 1;
+                                        }
+
+                                         $saldoanterior += $key->vlrdevant;
+
+                                         $venda += $key->vlrven;
+
+                                         $comissao += $key->vlrcom;
+
+                                         $liquido += $key->vlrliqbru;
+
+                                         $premio+= $key->vlrpremio;
+
+                                         $despesas += $key->despesas;
+
+
+                                         $pagto+= $key->vlrpagou;
+
+                                         $recb+= $key->vlrreceb;
+
+                                         $saldoatual+= $key->vlrdevatu;
+
+                                            }
+                            @endphp
+                            <tr bgcolor="#fffde7" class="black-text">
+
+                                <th class="black-text">Revendedor</th>
+                                <th class="black-text">@php echo number_format($saldoanterior, 2, ',', '.'); @endphp </br><b>Saldo Anterior</b></th>
+                                <th class="black-text">@php echo number_format($venda, 2, ',', '.'); @endphp</br><b>Vendido</b></th>
+                                <th class="black-text">@php echo number_format($comissao, 2, ',', '.'); @endphp</br><b>Comissão</b></th>
+                                <th class="black-text">@php echo number_format($liquido, 2, ',', '.'); @endphp</br><b>Liquido</b></th>
+                                <th class="black-text">@php echo number_format($premio, 2, ',', '.'); @endphp</br><b>Prêmio</b></th>
+                                <th class="black-text">@php echo number_format($despesas, 2, ',', '.'); @endphp</br><b>Despesas</b></th>
+                                <th class="black-text">@php echo number_format($liquido - $premio - $despesas, 2, ',', '.'); @endphp</br><b>Lucro</b></th>
+                                <th class="black-text">@php echo number_format($pagto, 2, ',', '.'); @endphp</br><b>Pagamento</b></th>
+                                <th class="black-text">@php echo number_format($recb, 2, ',', '.'); @endphp</br><b>Recebimento</b></th>
+                                <th class="black-text">@php echo number_format($saldoatual, 2, ',', '.'); @endphp</br><b>Saldo Atual</b></th>
+                                <th class="black-text">Última Venda</th>
                             </tr>
+
                             </thead>
                             <tbody>
 
@@ -155,68 +204,20 @@
                             @endforelse
 
                             <tfoot>
-                            @php
-                                $saldoanterior = 0;
-
-                                $venda = 0;
-
-                                $comissao = 0;
-
-                                $liquido = 0;
-
-                                $premio = 0;
-
-                                $despesas = 0;
-
-
-                                $pagto = 0;
-
-                                $recb = 0;
-
-                                $saldoatual = 0;
-                                $semvendas = 0;
-
-                                foreach($data as $key) {
-
-                                        if ($key->vlrven <= 0){
-                                        $semvendas += 1;
-                                        }
-
-                                         $saldoanterior += $key->vlrdevant;
-
-                                         $venda += $key->vlrven;
-
-                                         $comissao += $key->vlrcom;
-
-                                         $liquido += $key->vlrliqbru;
-
-                                         $premio+= $key->vlrpremio;
-
-                                         $despesas += $key->despesas;
-
-
-                                         $pagto+= $key->vlrpagou;
-
-                                         $recb+= $key->vlrreceb;
-
-                                         $saldoatual+= $key->vlrdevatu;
-
-                                            }
-                            @endphp
-                            <tr bgcolor="#fffde7">
-
+                            <tr>
                                 <th>Revendedor</th>
-                                <th>@php echo number_format($saldoanterior, 2, ',', '.'); @endphp </br>Saldo Anterior</th>
-                                <th>@php echo number_format($venda, 2, ',', '.'); @endphp</br>Vendido</th>
-                                <th>@php echo number_format($comissao, 2, ',', '.'); @endphp</br>Comissão</th>
-                                <th>@php echo number_format($liquido, 2, ',', '.'); @endphp</br>Liquido</th>
-                                <th>@php echo number_format($premio, 2, ',', '.'); @endphp</br>Prêmio</th>
-                                <th>@php echo number_format($despesas, 2, ',', '.'); @endphp</br>Despesas</th>
-                                <th>@php echo number_format($liquido - $premio - $despesas, 2, ',', '.'); @endphp</br>Lucro</th>
-                                <th>@php echo number_format($pagto, 2, ',', '.'); @endphp</br>Pagamento</th>
-                                <th>@php echo number_format($recb, 2, ',', '.'); @endphp</br>Recebimento</th>
-                                <th>@php echo number_format($saldoatual, 2, ',', '.'); @endphp</br>Saldo Atual</th>
+                                <th>Saldo Anterior</th>
+                                <th>Vendido</th>
+                                <th>Comissão</th>
+                                <th>Liquido</th>
+                                <th>Prêmio</th>
+                                <th>Despesas</th>
+                                <th>Lucro</th>
+                                <th>Pagamento</th>
+                                <th>Recebimento</th>
+                                <th>Saldo Atual</th>
                                 <th>Última Venda</th>
+
                             </tr>
                             </tfoot>
 
