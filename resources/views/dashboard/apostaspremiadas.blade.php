@@ -104,7 +104,10 @@
                                     }
 
                                 @endphp
-                                <div class="col s3 m3 l3 z-depth-2 red hoverable">
+                                <div class="show-on-small hide-on-med-and-up">
+                                    <div class="row"></div>
+                                </div>
+                                <div class="col s12 m3 l3 z-depth-2 red hoverable">
                                     <div class="row right-align padding-materialize">
                                         <p class="white-text">Total de Prêmios:</p>
                                         <h5 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h5>
