@@ -90,8 +90,8 @@
                                 <th>Lucro</th>
                                 <th>Pagamento</th>
                                 <th>Recebimento</th>
-                                <th>Última Venda</th>
                                 <th>Saldo Atual</th>
+                                <th>Última Venda</th>
 
                             </tr>
                             </thead>
@@ -140,11 +140,11 @@
                                     <td>{{ number_format(($resumo->vlrliqbru - $resumo->vlrpremio - $resumo->despesas), 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
-                                    <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
-                                    {{--                                    <td> {{$resumo->dataultve n}}</td>--}}
                                     <td @if ($resumo->vlrdevatu < 0) class='white-text' bgcolor='#e53935'
                                         @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
                                     @else @endif><b>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</b></td>
+                                    <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
+                                    {{--                                    <td> {{$resumo->dataultve n}}</td>--}}
 
 
                                 </tr>
@@ -203,7 +203,7 @@
 
                                             }
                             @endphp
-                            <tr>
+                            <tr bgcolor="#fffde7">
 
                                 <th>Revendedor</th>
                                 <th>@php echo number_format($saldoanterior, 2, ',', '.'); @endphp </br>Saldo Anterior</th>
@@ -215,9 +215,8 @@
                                 <th>@php echo number_format($liquido - $premio - $despesas, 2, ',', '.'); @endphp</br>Lucro</th>
                                 <th>@php echo number_format($pagto, 2, ',', '.'); @endphp</br>Pagamento</th>
                                 <th>@php echo number_format($recb, 2, ',', '.'); @endphp</br>Recebimento</th>
-                                <th>Última Venda</th>
                                 <th>@php echo number_format($saldoatual, 2, ',', '.'); @endphp</br>Saldo Atual</th>
-
+                                <th>Última Venda</th>
                             </tr>
                             </tfoot>
 

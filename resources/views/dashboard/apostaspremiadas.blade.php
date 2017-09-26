@@ -19,12 +19,15 @@
                                 </div>
 
                                 <div class="input-field col s6 m4 l2">
-                                    <input  id="datIni" name="datIni" type="date" class="datepicker"
-                                           placeholder ="Data inicial" disabled>
+                                    @if(isset($p_situacao))
+                                        <input  id="datIni" name="datIni" type="date" class="datepicker"
+                                                placeholder ="Data inicial" @if($p_situacao == '0') disabled @else @endif>
+                                        @endif
+
                                 </div>
                                 <div class="input-field col s6 m4 l2">
                                      <input id="datFim" name="datFim" type="date" class="datepicker"
-                                             placeholder ="Data final" disabled>
+                                             placeholder ="Data final"  @if($p_situacao == '0') disabled @else @endif>
                                 </div>
 
                                 <div class="input-field col s12 m6 l4">
@@ -53,8 +56,8 @@
 
 
                             </div>
-                            <div class="row left-align padding-materialize">
-                                <div class="input-field col s12 m4 l3 ">
+                            <div class="row left-align padding-materialize  z-depth-2 ">
+                                <div class="input-field col s4 m3 l3 ">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '0')
                                             <input class="with-gap" data-valor="ok" name="group1" type="radio" id="test1"  checked="checked"  onclick="handleClick(this);" value="0"/>
@@ -67,7 +70,7 @@
 
                                     <label for="test1">Aguardando Liberação</label>
                                 </div>
-                                <div class="input-field col s12 m4 l2 ">
+                                <div class="input-field col s4 m3 l3 ">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '1')
                                         <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="handleClick(this);" value="1"/>
@@ -79,7 +82,7 @@
                                     @endif
                                     <label for="test2">Não Liberados</label>
                                 </div>
-                                <div class="input-field col s12 m4 l2">
+                                <div class="input-field col s4 m3 l3">
                                     @if(isset($p_situacao))
                                         @if($p_situacao == '2')
                                             <input class="with-gap" name="group1" type="radio" id="test3"  checked="checked" onclick="handleClick(this);" value="2"/>
@@ -91,7 +94,19 @@
                                     @endif
                                         <label for="test3">Liberados</label>
                                 </div>
+                                @php
+                                    $totalPulesValido = 0;
+                                    foreach ($data as $key){
+                                        $totalPulesValido += $key->vlrpre;
+                                    }
 
+                                @endphp
+                                <div class="col s3 m3 l3 z-depth-2 red hoverable">
+                                    <div class="row right-align padding-materialize">
+                                        <p class="white-text">Total de Prêmios:</p>
+                                        <h5 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h5>
+                                    </div>
+                                </div>
                             </div>
 
                         </form>
@@ -245,13 +260,7 @@
                 </div>
             </div>
             <div class="row">
-                @php
-                    $totalPulesValido = 0;
-                    foreach ($data as $key){
-                        $totalPulesValido += $key->vlrpre;
-                    }
 
-                @endphp
                 <div class="row">
 
                 </div>
@@ -275,12 +284,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m12 l6 z-depth-2 red hoverable">
-                        <div class="row right-align">
-                            <p class="white-text">Total de Prêmios:</p>
-                            <h3 class="white-text">@php echo number_format($totalPulesValido, 2, ',', '.'); @endphp</h3>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
