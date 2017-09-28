@@ -99,13 +99,7 @@
 
         .modal { width: 95% !important ; height: 95% !important ; }
     </style>
-    <script language="javascript">
-        $(document).ready(function(){
-            $(".button-collapse").sideNav();
-            $('.collapsible').collapsible('open');
 
-        });
-    </script>
 
 </head>
 <div class="preloader-background">
@@ -364,6 +358,12 @@
 
 
 @stack('scripts')
+<script language="javascript">
+    $(document).ready(function(){
+        $(".button-collapse").sideNav();
+        $('.collapsible').collapsible('open', 0);
 
+    });
+</script>
 </body>
 </html>

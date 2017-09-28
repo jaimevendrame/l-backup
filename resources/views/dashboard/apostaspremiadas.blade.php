@@ -443,51 +443,6 @@
             };
 
 
-//    $(function () {
-//        jQuery("#frm-paybet").submit(function () {
-//
-//
-//            if (payBet()){
-//
-//                var dadosForm = jQuery(this).serialize();
-//
-////                alert(dadosForm);
-//
-//                decisao = confirm("Pagar aposta(s)");
-//
-//                if (decisao){
-//
-//                    jQuery.ajax({
-//                        url: '/admin/apostaspremiadas/paybet',
-//                        data: dadosForm,
-//                        method: 'POST'
-//
-//                    }).done(function (data) {
-//
-//                        if (data > '0') {
-//
-//                            alert('Pagamento realizado com sucesso');
-//
-//                            document.getElementById("form-cad-edit").submit();
-//
-////                    setTimeout("location.reload();", 3000);
-//
-//                        } else {
-//                            alert('Falha ao pagar!!');
-//                        }
-//                    }).fail(function () {
-//                        alert('Falha ao enviar dados!!');
-//                        document.getElementById("form-cad-edit").submit();
-//
-//                    });
-//                    return false;
-//                } else {
-//                    return false;
-//                }
-//            }
-//            alert('falha!!')
-//        });
-//    });
 </script>
 <script>
     var currentValue = 0;
@@ -582,9 +537,7 @@
         }
     }
 </script>
-
-
-        <script>
+<script>
     $(document).ready(function() {
 
 
@@ -899,10 +852,6 @@
 //        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + strTime;
         return strTime;
     }
-
-
-
-
 
 </script>
 
