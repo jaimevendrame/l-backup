@@ -127,7 +127,7 @@
 
                                             }
                             @endphp
-                            <tr bgcolor="#fffde7" class="black-text">
+                            <tr bgcolor="#fffde7">
 
                                 <th class="black-text">Revendedor</th>
                                 <th class="black-text">@php echo number_format($saldoanterior, 2, ',', '.'); @endphp </br><b>Saldo Anterior</b></th>

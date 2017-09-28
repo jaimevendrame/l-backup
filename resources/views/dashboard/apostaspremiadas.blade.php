@@ -120,7 +120,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </form>
                         @if(!empty($data))
                         <form id="frm-example">
