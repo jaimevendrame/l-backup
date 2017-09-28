@@ -99,6 +99,14 @@
 
         .modal { width: 95% !important ; height: 95% !important ; }
     </style>
+    <script language="javascript">
+        $(document).ready(function(){
+            $(".button-collapse").sideNav();
+            $('.collapsible').collapsible('open');
+
+        });
+    </script>
+
 </head>
 <div class="preloader-background">
     <div class="preloader-wrapper big active">
@@ -299,11 +307,10 @@
 <script type="application/javascript">
     $(document).ready(function(){
 
-        $('.collapsible').collapsible('open', 0);
+
 
         // Show sideNav
 
-        $(".button-collapse").sideNav();
 
         $('.dropdown-button').dropdown({
                 inDuration: 300,
@@ -313,7 +320,7 @@
                 gutter: 0, // Spacing from edge
                 belowOrigin: false, // Displays dropdown below the button
                 alignment: 'left', // Displays dropdown with edge aligned to the left of button
-                stopPropagation: false // Stops event propagation
+                stopPropagation: false, // Stops event propagation
             }
         );
 
