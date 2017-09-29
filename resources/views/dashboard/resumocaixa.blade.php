@@ -262,14 +262,20 @@
                                 </div>
                             </div>
                             <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                @php
+                                if ( ($recb - $pagto) < 0)
+                                 $cor = 'vermelho';
+                                else
+                                $cor = 'verde';
+                                @endphp
+                                <div class="col s10 z-depth-2 @php echo $cor @endphp  hoverable">
                                     <div class="row left-align">
-                                        <h5 class="blue-grey-text">
+                                        <h5 class="blue-grey-text white-text">
                                             Caixa:
                                         </h5>
                                     </div>
                                     <div class="row right-align">
-                                        <h5 class="blue-grey-text">@php echo number_format($recb - $pagto, 2, ',', '.');  @endphp</h5>
+                                        <h5 class="blue-grey-text white-text">@php echo number_format($recb - $pagto, 2, ',', '.');  @endphp</h5>
                                     </div>
                                 </div>
                             </div>

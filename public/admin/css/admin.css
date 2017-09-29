@@ -99,3 +99,9 @@ a.classe1:active {
 .padding-materialize{
     margin-bottom: 5px;
 }
+.vermelho {
+    background-color:#e53b36;
+}
+.verde{
+    background-color: #4caf50;
+}
