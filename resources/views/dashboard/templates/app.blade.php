@@ -66,6 +66,11 @@
 //            alert($lnk.href);
             $lnkapostaspremio.href = $lnk.href.replace(/(.*)/, '/admin/apostaspremiadas/') + el.value;
 //            alert($lnk.href);
+
+            var $lnkresultsadosorteio = document.getElementById("lnk-resul-sorteio");
+//            alert($lnk.href);
+            $lnkresultsadosorteio.href = $lnk.href.replace(/(.*)/, '/admin/resultadosorteio/') + el.value;
+//            alert($lnk.href);
         }
 
 

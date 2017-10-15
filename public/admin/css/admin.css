@@ -58,6 +58,14 @@ div.scroll
     white-space: nowrap;
 }
 
+div.scroll_h
+{
+    width: 100%;
+    /*height:500px;*/
+
+    overflow-x: auto;
+    white-space: nowrap !important;
+}
 
 /*thead {*/
     /*position:fixed;*/
@@ -104,4 +112,12 @@ a.classe1:active {
 }
 .verde{
     background-color: #4caf50;
+}
+
+.card-custom{
+    display: inline-block;
+    width: 300px;
+    white-space: nowrap;
+    margin-left: 5px;
+
 }

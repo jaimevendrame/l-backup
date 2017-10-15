@@ -105,6 +105,11 @@ Route::group([
         Route::post('/apostaspremiadas/', 'ApostasPremiadaController@indexGo')->name('apostapremiadaGo');
         Route::post('/apostaspremiadas/paybet/', 'ApostasPremiadaController@payBet')->name('addcaixa');
 
+        //RESULTADO DE SORTEIO
+
+        Route::get('/resultadosorteio/{idven}', 'ResultadoSorteioController@index2')->name('resultadosorteio');
+        Route::post('/resultadosorteio/', 'ResultadoSorteioController@indexGo')->name('resultadosorteioGo');
+
 
 
 
