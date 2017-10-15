@@ -106,11 +106,12 @@ class ResultadoSorteioController extends StandardController
 
         $sorteios = $this->returnSorteio();
         $sorteioite = $this->returnSorteioIte();
+        $linhas = 6;
 
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'sorteios', 'sorteioite'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'sorteios', 'sorteioite', 'linhas'));
     }
 
     public function indexGo()
@@ -1005,7 +1006,7 @@ class ResultadoSorteioController extends StandardController
             SORTEIOS.DEZ5, SORTEIOS.DEZ6, SORTEIOS.DEZ7,SORTEIOS.DEZ8
             FROM SORTEIOS
             WHERE
-            SORTEIOS.DATSOR = '2017-10-13' 
+            SORTEIOS.DATSOR = '2017-10-7' 
             AND SORTEIOS.IDBASE = 0
             ORDER BY SORTEIOS.IDSOR
             ");

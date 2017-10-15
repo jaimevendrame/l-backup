@@ -75,32 +75,69 @@
                                                                 @if($sorteio->idlot == $key->idlot)
                                                                     <div class="card-custom">
                                                                         <div class="card">
-                                                                            <span class="card-title"><b>{{$sorteio->dessor}}</b></span>
 
-                                                                            <table class="">
-                                                                                <thead>
-                                                                                <tr>
-                                                                                    <th>Prêmio</th>
-                                                                                    <th>Resultado</th>
-                                                                                    <th>Grupo</th>
-                                                                                    <th></th>
-                                                                                </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                @forelse($sorteioite as $ite)
-                                                                                    @if($ite->idsor == $sorteio->idsor)
+                                                                            @if($sorteio->idlot == 4)
+                                                                                <table>
+                                                                                    <tr>
+                                                                                        <th>{{$sorteio->dez1}}</th>
+                                                                                        <th>{{$sorteio->dez2}}</th>
+                                                                                        <th>{{$sorteio->dez3}}</th>
+                                                                                        <th>{{$sorteio->dez4}}</th>
+                                                                                        <th>{{$sorteio->dez5}}</th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                @elseif($sorteio->idlot == 5)
+                                                                                <table>
+                                                                                    <tr>
+                                                                                        <th>{{$sorteio->dez1}}</th>
+                                                                                        <th>{{$sorteio->dez2}}</th>
+                                                                                        <th>{{$sorteio->dez3}}</th>
+                                                                                        <th>{{$sorteio->dez4}}</th>
+                                                                                        <th>{{$sorteio->dez5}}</th>
+                                                                                        <th>{{$sorteio->dez6}}</th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                @else
+                                                                                <span class="card-title"><b>{{$sorteio->dessor}}</b></span>
+                                                                                    <table class="">
+                                                                                        <thead>
                                                                                         <tr>
-                                                                                            <td>{{$ite->desseq}}</td>
-                                                                                            <td>{{$ite->milsor}}</td>
-                                                                                            <td>{{$ite->gru}}</td>
-                                                                                            <td>{{$ite->desgru}}</td>
+                                                                                            <th>Prêmio</th>
+                                                                                            <th>Resultado</th>
+                                                                                            <th>Grupo</th>
+                                                                                            <th></th>
                                                                                         </tr>
-                                                                                    @endif
-                                                                                @empty
-                                                                                    <p>Sem dados!</p>
-                                                                                @endforelse
-                                                                                </tbody>
-                                                                            </table>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                        @forelse($sorteioite as $ite)
+                                                                                            @if($ite->idsor == $sorteio->idsor)
+                                                                                                @if($ite->seqsor < $linhas)
+                                                                                                    <tr>
+                                                                                                        <td>{{$ite->desseq}}</td>
+                                                                                                        <td>{{$ite->milsor}}</td>
+                                                                                                        <td>{{$ite->gru}}</td>
+                                                                                                        <td>{{$ite->desgru}}</td>
+                                                                                                    </tr>
+                                                                                                    @elseif($ite->seqsor == 9)
+                                                                                                    <tr>
+                                                                                                        <td>{{$ite->desseq}}</td>
+                                                                                                        <td>{{$ite->milsor}}</td>
+                                                                                                        <td>{{$ite->gru}}</td>
+                                                                                                        <td>{{$ite->desgru}}</td>
+                                                                                                    </tr>
+                                                                                                    @elseif($ite->seqsor == 10)
+                                                                                                    <tr>
+                                                                                                        <td>{{$ite->desseq}}</td>
+                                                                                                        <td colspan="3">{{$ite->super5}}</td>
+                                                                                                    </tr>
+                                                                                                    @endif
+                                                                                            @endif
+                                                                                        @empty
+                                                                                            <p>Sem dados!</p>
+                                                                                        @endforelse
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 @endif
