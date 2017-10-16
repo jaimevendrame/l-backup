@@ -81,6 +81,7 @@ class ResultadoSorteioController extends StandardController
 
         $user_base = $this->retornaBase($idusu);
 
+
         $user_bases = $this->retornaBases($idusu);
 
         $usuario_lotec = $this->retornaUserLotec($idusu);
@@ -96,7 +97,7 @@ class ResultadoSorteioController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-        $data = $this->returnLoter($ideven);
+        $data = "";
 
         $title = $this->title;
 
@@ -104,9 +105,9 @@ class ResultadoSorteioController extends StandardController
 
         //datas inicio e fim mês
 
-        $sorteios = $this->returnSorteio();
-        $sorteioite = $this->returnSorteioIte();
-        $linhas = 6;
+//        $sorteios = $this->returnSorteio();
+//        $sorteioite = $this->returnSorteioIte();
+//        $linhas = 6;
 
 
 
@@ -114,7 +115,7 @@ class ResultadoSorteioController extends StandardController
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'sorteios', 'sorteioite', 'linhas'));
     }
 
-    public function indexGo()
+    public function indexGo($ideven)
     {
 
 
@@ -132,38 +133,22 @@ class ResultadoSorteioController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-        $pule = $this->request->get('n_pule');
+
+        $ideven = $ideven;
+
+        $sorteios = $this->returnSorteio();
+        $sorteioite = $this->returnSorteioIte();
+        $linhas = 6;
 
 
-        if (empty($pule)){
-            $data = $this->retornaApostasParameter();
-        } else{
-            $data = $this->retornaApostasPule($pule);
-        }
+
+        $data = $this->returnLoter($ideven);
 
 
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-
-        //referente aos IDEVEN
-        $valor = $this->request->get('sel_vendedor');
-//         dd($valor);
-
-        if (isset($valor)){
-//            $ideven2 = implode(",", $valor);
-            $ideven2 = $valor;
-        } else{
-
-            $valor = $this->retornaBasesPadrao($idusu);
-//            dd($valor);
-            $ideven2  = $valor;
-//            dd('ok!!');
-
-        }
-
-//dd($ideven2);
 
         $dados = $this->request->get('sel_options');
         $in_ativos = '';
@@ -186,91 +171,10 @@ class ResultadoSorteioController extends StandardController
 
 
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'despesas','in_ativos', 'p_situacao'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'sorteios', 'sorteioite', 'linhas'));
     }
 
-    public function retornaApostas($ideven){
 
-        $p_query = '';
-
-
-        if (Auth::user()->idusu != 1000){
-            $p = $this->retornaBasepeloIdeven($ideven);
-            $p_query = "AND APOSTA_PALPITES.IDBASE = '$p->idbase'
-                AND APOSTA_PALPITES.IDVEN = '$p->idven'";
-        }
-
-
-
-        $datIni = date ("Y/m/1");//retorna o primeiro dia do mês corrente
-        $datFim = date ("Y/m/t");//retorna o último dia mês corrente
-
-
-        $this->data_inicial = $datIni;
-        $this->data_fim = $datFim;
-
-        //data atual menos um dia
-        $inicio = $datIni; // data inicio menos um dia
-        $parcelas = 1;
-        $data_termino = new DateTime($inicio);
-        $data_termino->sub(new DateInterval('P'.$parcelas.'D'));
-        $datAnt = $data_termino->format('Y/m/d');
-
-        $dataAtual = date ("Y-m-d");
-
-
-        $data = DB::select (
-
-            "SELECT APOSTA_PALPITES.IDBASE, APOSTA_PALPITES.IDVEN, APOSTA_PALPITES.IDREVEN, '$datIni' AS DATAINI, '$datFim' AS DATAFIM,
-                    APOSTA_PALPITES.IDTER, APOSTA_PALPITES.IDAPO, APOSTA_PALPITES.NUMPULE,
-                    APOSTA_PALPITES.SEQPALP, APOSTA_PALPITES.DATAPO,APOSTA_PALPITES.IDMENU,
-                    APOSTA_PALPITES.IDTIPOAPO,APOSTA_PALPITES.IDLOT,APOSTA_PALPITES.IDHOR,
-                    APOSTA_PALPITES.IDCOL,APOSTA_PALPITES.VLRPALP,APOSTA_PALPITES.PALP1,
-                    APOSTA_PALPITES.PALP2,APOSTA_PALPITES.PALP3,APOSTA_PALPITES.PALP4,
-                    APOSTA_PALPITES.PALP5,APOSTA_PALPITES.PALP6,APOSTA_PALPITES.PALP7,
-                    APOSTA_PALPITES.PALP8,APOSTA_PALPITES.PALP9,APOSTA_PALPITES.PALP10,
-                    APOSTA_PALPITES.PALP11,APOSTA_PALPITES.PALP12,APOSTA_PALPITES.PALP13,
-                    APOSTA_PALPITES.PALP14,APOSTA_PALPITES.PALP15,APOSTA_PALPITES.SITAPO,
-                    APOSTA_PALPITES.VLRCOM,APOSTA_PALPITES.VLRPRESEC,APOSTA_PALPITES.VLRPREMOL,
-                    APOSTA_PALPITES.VLRPRE,APOSTA_PALPITES.COLMOTDES,APOSTA_PALPITES.VLRPRESMJ,
-                    APOSTA_PALPITES.VLRPALPF,APOSTA_PALPITES.VLRPALPD,APOSTA_PALPITES.VLRPREPAG,
-                    APOSTA_PALPITES.DATENV, APOSTA_PALPITES.HORENV,APOSTA_PALPITES.INCOMB,
-                    APOSTA_PALPITES.VLRCOTACAO,APOSTA_PALPITES.DATCAN,APOSTA_PALPITES.HORCAN,
-                    APOSTA_PALPITES.SITPRE,APOSTA_PALPITES.DATLIBPRE,APOSTA_PALPITES.HORLIBPRE,
-                    APOSTA_PALPITES.DATLIMPRE, APOSTA_PALPITES.INATRASADO, APOSTA_PALPITES.INSORPRO, 
-                    APOSTA_PALPITES.INFODESC, APOSTA_PALPITES.PALP16,APOSTA_PALPITES.PALP17,
-                    APOSTA_PALPITES.PALP18,APOSTA_PALPITES.PALP19,APOSTA_PALPITES.PALP20,
-                    APOSTA_PALPITES.PALP21,APOSTA_PALPITES.PALP22,APOSTA_PALPITES.PALP23,
-                    APOSTA_PALPITES.PALP24,APOSTA_PALPITES.PALP25,APOSTA_PALPITES.PRELIBMANUAL,
-                    APOSTA_PALPITES.NUMAUT,APOSTA_PALPITES.VLR_AUX,VENDEDOR.IDEVEN,
-                    REVENDEDOR.NOMREVEN,
-                    HOR_APOSTA.DESHOR,
-                    TIPO_APOSTA.DESTIPOAPO,
-                    COLOCACOES.DESCOL, '' as inSel
-                    FROM APOSTA_PALPITES
-                    INNER JOIN REVENDEDOR ON REVENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
-                                               REVENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN AND
-                                               REVENDEDOR.IDREVEN = APOSTA_PALPITES.IDREVEN
-                    INNER JOIN HOR_APOSTA ON HOR_APOSTA.IDLOT = APOSTA_PALPITES.IDLOT AND
-                                              HOR_APOSTA.IDHOR = APOSTA_PALPITES.IDHOR
-                    INNER JOIN TIPO_APOSTA ON TIPO_APOSTA.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO
-                    INNER JOIN COLOCACOES ON COLOCACOES.IDCOL = APOSTA_PALPITES.IDCOL
-                    INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
-                                             VENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN
-                      WHERE
-                      APOSTA_PALPITES.SEQPALP <> 999999
-                      AND APOSTA_PALPITES.SITAPO = 'PRE'
-                      
-                      $p_query
-                      
-                      AND APOSTA_PALPITES.SITPRE = 'BLO'
-                      AND APOSTA_PALPITES.DATLIMPRE >= '$dataAtual'
-                         "
-
-        );
-
-        return $data;
-    }
 
 
     public function retornaApostasPule($pule){
@@ -310,208 +214,9 @@ class ResultadoSorteioController extends StandardController
         return $data;
     }
 
-    public function viewPule($ideven){
 
 
-        if (Auth::user()->idusu == 1000){
 
-            $data = $this->vendedor
-                ->select('ideven')
-                ->get();
-
-            $palavra = "";
-
-
-            $c = 0;
-            foreach ($data as $key){
-
-                $palavra = $palavra.$key['ideven'];
-                if ($c < count($data)-1){
-                    $palavra = $palavra.",";
-                }
-                $c++;
-
-
-            }
-            $ideven = $palavra;
-
-
-
-        } else{
-            $ideven = $ideven;
-        }
-
-
-
-        $idusu = Auth::user()->idusu;
-
-        $user_base = $this->retornaBase($idusu);
-
-        $user_bases = $this->retornaBases($idusu);
-
-        $usuario_lotec = $this->retornaUserLotec($idusu);
-
-        $vendedores = $this->retornaBasesUser($idusu);
-
-        $menus = $this->retornaMenu($idusu);
-
-        $categorias = $this->retornaCategorias($menus);
-
-        $data = '';
-
-        $title = 'Visualizar Aposta';
-
-        $baseAll = $this->retornaBasesAll($idusu);
-
-        return view("dashboard.view_aposta",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
-    }
-
-    public function viewPuleGo($ideven){
-
-
-
-        $idusu = Auth::user()->idusu;
-
-        $user_base = $this->retornaBase($idusu);
-
-        $user_bases = $this->retornaBases($idusu);
-
-        $usuario_lotec = $this->retornaUserLotec($idusu);
-
-        $vendedores = $this->retornaBasesUser($idusu);
-
-        $menus = $this->retornaMenu($idusu);
-
-        $categorias = $this->retornaCategorias($menus);
-
-        $title = 'Visualizar Aposta';
-
-        $baseAll = $this->retornaBasesAll($idusu);
-
-        $data = $this->retornaPuleArray($ideven);
-
-
-        return view("dashboard.view_aposta",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
-    }
-
-    public function cancelPule($ideven){
-
-
-        if (Auth::user()->idusu == 1000){
-
-            $data = $this->vendedor
-                ->select('ideven')
-                ->get();
-
-            $palavra = "";
-
-
-            $c = 0;
-            foreach ($data as $key){
-
-                $palavra = $palavra.$key['ideven'];
-                if ($c < count($data)-1){
-                    $palavra = $palavra.",";
-                }
-                $c++;
-
-
-            }
-            $ideven = $palavra;
-
-
-
-        } else{
-            $ideven = $ideven;
-        }
-
-
-
-        $idusu = Auth::user()->idusu;
-
-        $user_base = $this->retornaBase($idusu);
-
-        $user_bases = $this->retornaBases($idusu);
-
-        $usuario_lotec = $this->retornaUserLotec($idusu);
-
-        $vendedores = $this->retornaBasesUser($idusu);
-
-        $menus = $this->retornaMenu($idusu);
-
-        $categorias = $this->retornaCategorias($menus);
-
-        $data = '';
-
-        $title = 'Cancelar Aposta';
-
-        $baseAll = $this->retornaBasesAll($idusu);
-
-
-
-        return view("dashboard.view_aposta",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
-    }
-
-    public function cancelPuleGo($ideven){
-
-
-
-        if (Auth::user()->idusu == 1000){
-
-            $data = $this->vendedor
-                ->select('ideven')
-                ->get();
-
-            $palavra = "";
-
-
-            $c = 0;
-            foreach ($data as $key){
-
-                $palavra = $palavra.$key['ideven'];
-                if ($c < count($data)-1){
-                    $palavra = $palavra.",";
-                }
-                $c++;
-
-
-            }
-            $ideven = $palavra;
-
-
-
-        } else{
-            $ideven = $ideven;
-        }
-
-
-        $idusu = Auth::user()->idusu;
-
-        $user_base = $this->retornaBase($idusu);
-
-        $user_bases = $this->retornaBases($idusu);
-
-        $usuario_lotec = $this->retornaUserLotec($idusu);
-
-        $vendedores = $this->retornaBasesUser($idusu);
-
-        $menus = $this->retornaMenu($idusu);
-
-        $categorias = $this->retornaCategorias($menus);
-
-        $title = 'Cancelar Aposta';
-
-        $baseAll = $this->retornaBasesAll($idusu);
-
-        $data = $this->retornaPuleArray($ideven);
-
-
-        return view("dashboard.view_aposta",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
-    }
 
 
     /**
@@ -640,69 +345,7 @@ class ResultadoSorteioController extends StandardController
     }
 
 
-    public function retornaPuleArray($ideven){
 
-        $pule = $this->request->get('numpule');
-
-        $p_query = '';
-
-
-        if (Auth::user()->idusu != 1000){
-            $p = $this->retornaBasepeloIdeven($ideven);
-            $p_query = "AND APOSTA_PALPITES.IDBASE = '$p->idbase'
-                AND APOSTA_PALPITES.IDVEN = '$p->idven'";
-        }
-
-        $data = DB::select (" 
-           SELECT APOSTA_PALPITES.IDBASE, APOSTA_PALPITES.IDVEN, APOSTA_PALPITES.IDREVEN,
-            APOSTA_PALPITES.IDTER, APOSTA_PALPITES.IDAPO, APOSTA_PALPITES.NUMPULE,
-            APOSTA_PALPITES.SEQPALP, APOSTA_PALPITES.DATAPO,APOSTA_PALPITES.IDMENU,
-            APOSTA_PALPITES.IDTIPOAPO,APOSTA_PALPITES.IDLOT,APOSTA_PALPITES.IDHOR,
-            APOSTA_PALPITES.IDCOL,APOSTA_PALPITES.VLRPALP,APOSTA_PALPITES.PALP1,
-            APOSTA_PALPITES.PALP2,APOSTA_PALPITES.PALP3,APOSTA_PALPITES.PALP4,
-            APOSTA_PALPITES.PALP5,APOSTA_PALPITES.PALP6,APOSTA_PALPITES.PALP7,
-            APOSTA_PALPITES.PALP8,APOSTA_PALPITES.PALP9,APOSTA_PALPITES.PALP10,
-            APOSTA_PALPITES.PALP11,APOSTA_PALPITES.PALP12,APOSTA_PALPITES.PALP13,
-            APOSTA_PALPITES.PALP14,APOSTA_PALPITES.PALP15,APOSTA_PALPITES.SITAPO,
-            APOSTA_PALPITES.VLRCOM,APOSTA_PALPITES.VLRPRESEC,APOSTA_PALPITES.VLRPREMOL,
-            APOSTA_PALPITES.VLRPRE,APOSTA_PALPITES.COLMOTDES,APOSTA_PALPITES.VLRPRESMJ,
-            APOSTA_PALPITES.VLRPALPF,APOSTA_PALPITES.VLRPALPD,APOSTA_PALPITES.VLRPREPAG,
-            APOSTA_PALPITES.DATENV, APOSTA_PALPITES.HORENV,APOSTA_PALPITES.INCOMB,
-            APOSTA_PALPITES.VLRCOTACAO,APOSTA_PALPITES.DATCAN,APOSTA_PALPITES.HORCAN,
-            APOSTA_PALPITES.SITPRE,APOSTA_PALPITES.DATLIBPRE,APOSTA_PALPITES.HORLIBPRE,
-            APOSTA_PALPITES.DATLIMPRE, APOSTA_PALPITES.INATRASADO, APOSTA_PALPITES.INSORPRO,
-            APOSTA_PALPITES.INFODESC, APOSTA_PALPITES.PALP16,APOSTA_PALPITES.PALP17,
-            APOSTA_PALPITES.PALP18,APOSTA_PALPITES.PALP19,APOSTA_PALPITES.PALP20,
-            APOSTA_PALPITES.PALP21,APOSTA_PALPITES.PALP22,APOSTA_PALPITES.PALP23,
-            APOSTA_PALPITES.PALP24,APOSTA_PALPITES.PALP25,APOSTA_PALPITES.PRELIBMANUAL,
-            APOSTA_PALPITES.NUMAUT,APOSTA_PALPITES.VLR_AUX,
-            TIPO_APOSTA.DESTIPOAPO,
-            COLOCACOES.DESCOL,
-            LOTERIAS.DESLOT,
-            HOR_APOSTA.DESHOR,
-            REVENDEDOR.NOMREVEN,
-            VENDEDOR.NOMVEN
-            FROM APOSTA_PALPITES
-                INNER JOIN REVENDEDOR ON REVENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
-                            REVENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN AND
-                            REVENDEDOR.IDREVEN = APOSTA_PALPITES.IDREVEN
-                INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
-                             VENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN
-                INNER JOIN LOTERIAS ON LOTERIAS.IDLOT = APOSTA_PALPITES.IDLOT
-                INNER JOIN HOR_APOSTA ON HOR_APOSTA.IDLOT = APOSTA_PALPITES.IDLOT AND
-                            HOR_APOSTA.IDHOR = APOSTA_PALPITES.IDHOR
-                INNER JOIN TIPO_APOSTA ON TIPO_APOSTA.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO
-                INNER JOIN COLOCACOES ON COLOCACOES.IDCOL = APOSTA_PALPITES.IDCOL
-                WHERE
-                APOSTA_PALPITES.NUMPULE = '$pule'
-                
-            $p_query
-                
-        ");
-
-        return $data;
-
-    }
 
 
     public function retornaBasesPadrao($id){
@@ -776,207 +419,10 @@ class ResultadoSorteioController extends StandardController
         return $data;
     }
 
-    public function retornaPule($pule, $ideven){
-
-        $p = $this->retornaBasepeloIdeven($ideven);
-
-//        $datini = date ("Y/m/d");
-//        $datfim = date ("Y/m/d");
-
-        $data = DB::select (" 
-           SELECT APOSTA_PALPITES.IDBASE, APOSTA_PALPITES.IDVEN, APOSTA_PALPITES.IDREVEN,
-            APOSTA_PALPITES.IDTER, APOSTA_PALPITES.IDAPO, APOSTA_PALPITES.NUMPULE,
-            APOSTA_PALPITES.SEQPALP, APOSTA_PALPITES.DATAPO,APOSTA_PALPITES.IDMENU,
-            APOSTA_PALPITES.IDTIPOAPO,APOSTA_PALPITES.IDLOT,APOSTA_PALPITES.IDHOR,
-            APOSTA_PALPITES.IDCOL,APOSTA_PALPITES.VLRPALP,APOSTA_PALPITES.PALP1,
-            APOSTA_PALPITES.PALP2,APOSTA_PALPITES.PALP3,APOSTA_PALPITES.PALP4,
-            APOSTA_PALPITES.PALP5,APOSTA_PALPITES.PALP6,APOSTA_PALPITES.PALP7,
-            APOSTA_PALPITES.PALP8,APOSTA_PALPITES.PALP9,APOSTA_PALPITES.PALP10,
-            APOSTA_PALPITES.PALP11,APOSTA_PALPITES.PALP12,APOSTA_PALPITES.PALP13,
-            APOSTA_PALPITES.PALP14,APOSTA_PALPITES.PALP15,APOSTA_PALPITES.SITAPO,
-            APOSTA_PALPITES.VLRCOM,APOSTA_PALPITES.VLRPRESEC,APOSTA_PALPITES.VLRPREMOL,
-            APOSTA_PALPITES.VLRPRE,APOSTA_PALPITES.COLMOTDES,APOSTA_PALPITES.VLRPRESMJ,
-            APOSTA_PALPITES.VLRPALPF,APOSTA_PALPITES.VLRPALPD,APOSTA_PALPITES.VLRPREPAG,
-            APOSTA_PALPITES.DATENV, APOSTA_PALPITES.HORENV,APOSTA_PALPITES.INCOMB,
-            APOSTA_PALPITES.VLRCOTACAO,APOSTA_PALPITES.DATCAN,APOSTA_PALPITES.HORCAN,
-            APOSTA_PALPITES.SITPRE,APOSTA_PALPITES.DATLIBPRE,APOSTA_PALPITES.HORLIBPRE,
-            APOSTA_PALPITES.DATLIMPRE, APOSTA_PALPITES.INATRASADO, APOSTA_PALPITES.INSORPRO,
-            APOSTA_PALPITES.INFODESC, APOSTA_PALPITES.PALP16,APOSTA_PALPITES.PALP17,
-            APOSTA_PALPITES.PALP18,APOSTA_PALPITES.PALP19,APOSTA_PALPITES.PALP20,
-            APOSTA_PALPITES.PALP21,APOSTA_PALPITES.PALP22,APOSTA_PALPITES.PALP23,
-            APOSTA_PALPITES.PALP24,APOSTA_PALPITES.PALP25,APOSTA_PALPITES.PRELIBMANUAL,
-            APOSTA_PALPITES.NUMAUT,APOSTA_PALPITES.VLR_AUX,
-            TIPO_APOSTA.DESTIPOAPO,
-            COLOCACOES.DESCOL,
-            LOTERIAS.DESLOT,
-            HOR_APOSTA.DESHOR,
-            REVENDEDOR.NOMREVEN,
-            VENDEDOR.NOMVEN
-            FROM APOSTA_PALPITES
-                INNER JOIN REVENDEDOR ON REVENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
-                            REVENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN AND
-                            REVENDEDOR.IDREVEN = APOSTA_PALPITES.IDREVEN
-                INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = APOSTA_PALPITES.IDBASE AND
-                             VENDEDOR.IDVEN = APOSTA_PALPITES.IDVEN
-                INNER JOIN LOTERIAS ON LOTERIAS.IDLOT = APOSTA_PALPITES.IDLOT
-                INNER JOIN HOR_APOSTA ON HOR_APOSTA.IDLOT = APOSTA_PALPITES.IDLOT AND
-                            HOR_APOSTA.IDHOR = APOSTA_PALPITES.IDHOR
-                INNER JOIN TIPO_APOSTA ON TIPO_APOSTA.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO
-                INNER JOIN COLOCACOES ON COLOCACOES.IDCOL = APOSTA_PALPITES.IDCOL
-                WHERE
-                APOSTA_PALPITES.NUMPULE = '$pule'
-            
-                AND APOSTA_PALPITES.IDBASE = '$p->idbase'
-                AND APOSTA_PALPITES.IDVEN = '$p->idven'
-        ");
 
 
-//        dd($data);
-
-        return json_encode($data);
-    }
-
-    public function cancelAposta($ideven){
-
-        $id = $ideven;
-
-        $error1 = 'PULE JÁ CANCELADA';
-
-        $dados = $this->request->except('_token','idlot','idhor','dataaposta');
-
-        $dataAtual = strtotime (date ("Y-m-d"));
-        $horaAtual = new DateTime();
-        $horaAtual = $horaAtual->format('H:i:s');
-        $horaAtual = strtotime ($horaAtual);
-
-        $dataAposta = $this->request->get('dataaposta');
-        $dataAposta = strtotime($dataAposta);
-        $idLot = $this->request->get('idlot');
-        $idHor = $this->request->get('idhor');
-
-        if($dataAposta < $dataAtual){
-            $data_result = 'Erro: Data limite excedida';
-        } else {
-            $data_result = '';
-        }
-
-        $horlimite = DB::select (" 
-            SELECT HORLIM FROM HOR_APOSTA WHERE IDLOT = $idLot and IDHOR = $idHor
-        ");
-
-        $horlim = new DateTime($horlimite[0]->horlim);
-
-        $horlim = $horlim->format('H:i:s');
-        $horlim = strtotime ($horlim);
-
-        if($horaAtual > $horlim){
-            $hora_result = ' Erro: Hora limite excedida';
-        } else {
-            $hora_result = '';
-        }
-
-        $pule = $this->request->get('numpule');
-
-        $pesquisa = DB::select (" 
-            SELECT NUMPULE FROM CANCELAR_APOSTA WHERE NUMPULE = $pule
-        ");
-
-        $resultado = $data_result.$hora_result;
-
-        if (empty($resultado)){
-
-            $insert = DB::table('CANCELAR_APOSTA')->insert($dados);
-
-            if ($insert){
-                return 1;
-            } else {
-                return 0;
-            }
-        } else {
-
-            return $resultado;
-        }
-
-    }
-
-    public function payBet() {
-
-        $data = $this->request->get('dados');
-
-        $data = explode(" ", $data, -1);
-
-        $data = array_chunk($data, 8);
-
-        $dados = array();
-
-        $x = 0;
 
 
-        for ($i=0; $i<count($data); $i++){
-
-            if ($this->searchPayBetReleased(
-                $data[$i][0],
-                $data[$i][1],
-                $data[$i][2],
-                $data[$i][3],
-                $data[$i][4],
-                $data[$i][5],
-                $data[$i][6]
-            ) == 0){
-                $linhaMov =  [
-                    "idbase"    => $data[$i][0],
-                    "idven"     => $data[$i][1],
-                    "idreven"   => $data[$i][2],
-                    "idter"     => $data[$i][3],
-                    "idapo"     => $data[$i][4],
-                    "numpule"   => $data[$i][5],
-                    "seqpalp"   => $data[$i][6],
-                    "inpro"     => $data[$i][7],
-                ];
-                array_push($dados, $linhaMov);
-            }
-
-        }
-
-//        dd(($dados[0]));
-
-        for ($i=0; $i<count($dados); $i++){
-            $insert = DB::table('LIBERAR_PREMIO')->insert($dados[$i]);
-
-            if ($insert){
-                $x = $x + 1;
-            }
-
-        }
-
-        return $x;
-    }
-
-    public function searchPayBetReleased($idbase, $idven, $idreven, $idter, $idapo, $numpule, $seqpalp)
-    {
-
-        $retorno = 0;
-        $data = DB::table('LIBERAR_PREMIO')
-            ->select('NUMPULE')
-            ->where([
-                ['IDBASE', '=', $idbase],
-                ['IDVEN', '=', $idven],
-                ['IDREVEN', '=', $idreven],
-                ['IDTER', '=', $idter],
-                ['IDAPO', '=', $idapo],
-                ['NUMPULE', '=', $numpule],
-                ['SEQPALP', '=', $seqpalp]
-            ])->get();
-
-        if (empty($data)) {
-            $retorno = 1;
-            return $retorno;
-        } else {
-            $retorno = 0;
-            return $retorno;
-        }
-
-    }
         //Resultado de Sorteio
 
         public function returnLoter($ideven){
@@ -1000,13 +446,22 @@ class ResultadoSorteioController extends StandardController
         }
 
         public function returnSorteio(){
+
+            $datIni = $this->request->get('datIni');
+
+            //Converte data inicial de string para Date(y/m/d)
+            $datetimeinicial = new DateTime();
+            $newDateInicial = $datetimeinicial->createFromFormat('d/m/Y', $datIni);
+
+            $datIni = $newDateInicial->format('Y/m/d');
+
             $data = DB::select ("
-            SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,
+            SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,'$datIni' AS DATAINI,
             SORTEIOS.DEZ1, SORTEIOS.DEZ2, SORTEIOS.DEZ3,SORTEIOS.DEZ4,
             SORTEIOS.DEZ5, SORTEIOS.DEZ6, SORTEIOS.DEZ7,SORTEIOS.DEZ8
             FROM SORTEIOS
             WHERE
-            SORTEIOS.DATSOR = '2017-10-7' 
+            SORTEIOS.DATSOR = '$datIni' 
             AND SORTEIOS.IDBASE = 0
             ORDER BY SORTEIOS.IDSOR
             ");

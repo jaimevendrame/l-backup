@@ -107,8 +107,8 @@ Route::group([
 
         //RESULTADO DE SORTEIO
 
-        Route::get('/resultadosorteio/{idven}', 'ResultadoSorteioController@index2')->name('resultadosorteio');
-        Route::post('/resultadosorteio/', 'ResultadoSorteioController@indexGo')->name('resultadosorteioGo');
+        Route::get('/resultadosorteio/{ideven}', 'ResultadoSorteioController@index2')->name('resultadosorteio');
+        Route::post('/resultadosorteio/{ideven}', 'ResultadoSorteioController@indexGo')->name('resultadosorteioGo');
 
 
 
