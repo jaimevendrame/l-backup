@@ -20,20 +20,20 @@
 
                                 </div>
                                 @if(isset($linhas))
-                                    @if($linhas >= 6)
+                                    @if($col >= 6)
                                         <div class="input-field col s4 m1 l1">
 
                                             <input type="checkbox" id="col6" name="col6" value="7"/>
                                             <label for="col6">6º</label>
                                         </div>
                                     @endif
-                                    @if($linhas >= 7)
+                                    @if($col >= 7)
                                     <div class="input-field col s4 m1 l1">
                                         <input type="checkbox" id="col7" name="col7" value="8"/>
                                         <label for="col7">7º</label>
                                     </div>
                                     @endif
-                                    @if($linhas >= 8)
+                                    @if($col >= 8)
                                         <div class="input-field col s4 m1 l1">
                                         <input type="checkbox" id="col8" name="col8" value="9"/>
                                         <label for="col8">8º</label>
@@ -55,105 +55,9 @@
                             </div>
                             <div class="clearfix"></div>
 
-                            {{--@if(!empty($data))--}}
-
-                                {{--@forelse($data as $key)--}}
-
-                                    {{--<div class="row">--}}
-                                        {{--<div class="col s12 m12 l12">--}}
-                                        {{--<div class="card">--}}
-                                            {{--<div class="card-content">--}}
-                                                {{--<span class="card-title"><b>{{$key->deslot}}</b></span>--}}
-                                                {{--<div class="scroll_h">--}}
-                                                    {{--<div class="row">--}}
-                                                        {{--@forelse($sorteios as $sorteio)--}}
-                                                            {{--@if($sorteio->idlot == $key->idlot)--}}
-                                                                {{--<div class="card-custom">--}}
-                                                                    {{--<div class="card">--}}
-
-                                                                        {{--@if($sorteio->idlot == 4)--}}
-                                                                            {{--<table>--}}
-                                                                                {{--<tr>--}}
-                                                                                    {{--<th>{{$sorteio->dez1}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez2}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez3}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez4}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez5}}</th>--}}
-                                                                                {{--</tr>--}}
-                                                                            {{--</table>--}}
-                                                                        {{--@elseif($sorteio->idlot == 5)--}}
-                                                                            {{--<table>--}}
-                                                                                {{--<tr>--}}
-                                                                                    {{--<th>{{$sorteio->dez1}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez2}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez3}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez4}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez5}}</th>--}}
-                                                                                    {{--<th>{{$sorteio->dez6}}</th>--}}
-                                                                                {{--</tr>--}}
-                                                                            {{--</table>--}}
-                                                                        {{--@else--}}
-                                                                            {{--<span class="card-title"><b>{{$sorteio->dessor}}</b></span>--}}
-                                                                            {{--<table class="">--}}
-                                                                                {{--<thead>--}}
-                                                                                {{--<tr>--}}
-                                                                                    {{--<th>Prêmio</th>--}}
-                                                                                    {{--<th>Resultado</th>--}}
-                                                                                    {{--<th>Grupo</th>--}}
-                                                                                    {{--<th></th>--}}
-                                                                                {{--</tr>--}}
-                                                                                {{--</thead>--}}
-                                                                                {{--<tbody>--}}
-                                                                                {{--@forelse($sorteioite as $ite)--}}
-                                                                                    {{--@if($ite->idsor == $sorteio->idsor)--}}
-                                                                                        {{--@if($ite->seqsor < $linhas)--}}
-                                                                                            {{--<tr>--}}
-                                                                                                {{--<td>{{$ite->desseq}}</td>--}}
-                                                                                                {{--<td>{{$ite->milsor}}</td>--}}
-                                                                                                {{--<td>{{$ite->gru}}</td>--}}
-                                                                                                {{--<td>{{$ite->desgru}}</td>--}}
-                                                                                            {{--</tr>--}}
-                                                                                        {{--@elseif($ite->seqsor == 9)--}}
-                                                                                            {{--<tr>--}}
-                                                                                                {{--<td>{{$ite->desseq}}</td>--}}
-                                                                                                {{--<td>{{$ite->milsor}}</td>--}}
-                                                                                                {{--<td>{{$ite->gru}}</td>--}}
-                                                                                                {{--<td>{{$ite->desgru}}</td>--}}
-                                                                                            {{--</tr>--}}
-                                                                                        {{--@elseif($ite->seqsor == 10)--}}
-                                                                                            {{--<tr>--}}
-                                                                                                {{--<td>{{$ite->desseq}}</td>--}}
-                                                                                                {{--<td colspan="3">{{$ite->super5}}</td>--}}
-                                                                                            {{--</tr>--}}
-                                                                                        {{--@endif--}}
-                                                                                    {{--@endif--}}
-                                                                                {{--@empty--}}
-                                                                                    {{--<p>Sem dados!</p>--}}
-                                                                                {{--@endforelse--}}
-                                                                                {{--</tbody>--}}
-                                                                            {{--</table>--}}
-                                                                        {{--@endif--}}
-                                                                    {{--</div>--}}
-                                                                {{--</div>--}}
-                                                            {{--@endif--}}
-                                                        {{--@empty--}}
-                                                            {{--<p>Sem dados!</p>--}}
-                                                        {{--@endforelse--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
-
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--@empty--}}
-                                    {{--<p>nada</p>--}}
-                                {{--@endforelse--}}
-
-
-                            {{--@endif--}}
-
                         </form>
+
+
 @php
 $x = 0;
 $y = 0;

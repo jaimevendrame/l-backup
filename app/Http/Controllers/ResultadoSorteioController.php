@@ -44,19 +44,6 @@ class ResultadoSorteioController extends StandardController
     public function index2($ideven)
     {
 
-//        $valor = $this->tudoAqui($ideven);
-
-//        $x = 0;
-//        foreach ($valor as $key =>$loteria)
-//            if($loteria['idlot'] != $x){
-//                echo $loteria['deslot']."<br>";
-//                $x = $loteria['idlot'];
-//
-//
-//                foreach ($deslot as $idsort =>$sort)
-//                    echo $sort['idsor'];
-//            }
-//        dd($valor);
 
 
         if (Auth::user()->idusu == 1000){
@@ -99,9 +86,6 @@ class ResultadoSorteioController extends StandardController
 
         $usuario_lotec = $this->retornaUserLotec($idusu);
 
-//dd($idusu);
-
-//        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
 
         $vendedores = $this->retornaBasesUser($idusu);
 
@@ -110,18 +94,11 @@ class ResultadoSorteioController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-//        $data = $this->returnLoter($ideven);
-        $data = "";
-//        dd($data);
 
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-        //datas inicio e fim mês
-
-//        $sorteios = $this->returnSorteio();
-//        $sorteioite = $this->returnSorteioIte();
         $linhas = 6;
 
 
@@ -151,9 +128,6 @@ class ResultadoSorteioController extends StandardController
 
         $ideven = $ideven;
 
-//        $sorteios = $this->returnSorteio();
-//        $sorteioite = $this->returnSorteioIte();
-
         $linhas = $this->returnColMax($ideven);
 
         $linhas = $linhas->colmax;
@@ -171,16 +145,16 @@ class ResultadoSorteioController extends StandardController
         $col7 = $this->request->get('col7');
         $col8 = $this->request->get('col8');
 
-        if ($col6 != null && $col6 == $col){
+
+        if ($col6 != null ){
             $linhas = $col6;
         }
-        if ($col7 != null && $col7 == $col){
+        if ($col7 != null ){
             $linhas = $col7;
         }
-        if ($col8 != null && $col7 == $col){
+        if ($col8 != null ){
             $linhas = $col8;
         }
-
 
         $in_ativos = '';
 
@@ -202,7 +176,7 @@ class ResultadoSorteioController extends StandardController
 
 
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'valor','title', 'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'linhas'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'valor','title', 'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'linhas','col'));
     }
 
 
