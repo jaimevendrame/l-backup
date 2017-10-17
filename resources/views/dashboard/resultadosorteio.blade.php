@@ -55,105 +55,229 @@
                             </div>
                             <div class="clearfix"></div>
 
-                            @if(!empty($data))
+                            {{--@if(!empty($data))--}}
 
-                                @forelse($data as $key)
+                                {{--@forelse($data as $key)--}}
 
-                                    <div class="row">
+                                    {{--<div class="row">--}}
                                         {{--<div class="col s12 m12 l12">--}}
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <span class="card-title"><b>{{$key->deslot}}</b></span>
-                                                <div class="scroll_h">
-                                                    <div class="row">
-                                                        @forelse($sorteios as $sorteio)
-                                                            @if($sorteio->idlot == $key->idlot)
-                                                                <div class="card-custom">
-                                                                    <div class="card">
+                                        {{--<div class="card">--}}
+                                            {{--<div class="card-content">--}}
+                                                {{--<span class="card-title"><b>{{$key->deslot}}</b></span>--}}
+                                                {{--<div class="scroll_h">--}}
+                                                    {{--<div class="row">--}}
+                                                        {{--@forelse($sorteios as $sorteio)--}}
+                                                            {{--@if($sorteio->idlot == $key->idlot)--}}
+                                                                {{--<div class="card-custom">--}}
+                                                                    {{--<div class="card">--}}
 
-                                                                        @if($sorteio->idlot == 4)
-                                                                            <table>
-                                                                                <tr>
-                                                                                    <th>{{$sorteio->dez1}}</th>
-                                                                                    <th>{{$sorteio->dez2}}</th>
-                                                                                    <th>{{$sorteio->dez3}}</th>
-                                                                                    <th>{{$sorteio->dez4}}</th>
-                                                                                    <th>{{$sorteio->dez5}}</th>
-                                                                                </tr>
-                                                                            </table>
-                                                                        @elseif($sorteio->idlot == 5)
-                                                                            <table>
-                                                                                <tr>
-                                                                                    <th>{{$sorteio->dez1}}</th>
-                                                                                    <th>{{$sorteio->dez2}}</th>
-                                                                                    <th>{{$sorteio->dez3}}</th>
-                                                                                    <th>{{$sorteio->dez4}}</th>
-                                                                                    <th>{{$sorteio->dez5}}</th>
-                                                                                    <th>{{$sorteio->dez6}}</th>
-                                                                                </tr>
-                                                                            </table>
-                                                                        @else
-                                                                            <span class="card-title"><b>{{$sorteio->dessor}}</b></span>
-                                                                            <table class="">
-                                                                                <thead>
-                                                                                <tr>
-                                                                                    <th>Prêmio</th>
-                                                                                    <th>Resultado</th>
-                                                                                    <th>Grupo</th>
-                                                                                    <th></th>
-                                                                                </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                @forelse($sorteioite as $ite)
-                                                                                    @if($ite->idsor == $sorteio->idsor)
-                                                                                        @if($ite->seqsor < $linhas)
-                                                                                            <tr>
-                                                                                                <td>{{$ite->desseq}}</td>
-                                                                                                <td>{{$ite->milsor}}</td>
-                                                                                                <td>{{$ite->gru}}</td>
-                                                                                                <td>{{$ite->desgru}}</td>
-                                                                                            </tr>
-                                                                                        @elseif($ite->seqsor == 9)
-                                                                                            <tr>
-                                                                                                <td>{{$ite->desseq}}</td>
-                                                                                                <td>{{$ite->milsor}}</td>
-                                                                                                <td>{{$ite->gru}}</td>
-                                                                                                <td>{{$ite->desgru}}</td>
-                                                                                            </tr>
-                                                                                        @elseif($ite->seqsor == 10)
-                                                                                            <tr>
-                                                                                                <td>{{$ite->desseq}}</td>
-                                                                                                <td colspan="3">{{$ite->super5}}</td>
-                                                                                            </tr>
-                                                                                        @endif
-                                                                                    @endif
-                                                                                @empty
-                                                                                    <p>Sem dados!</p>
-                                                                                @endforelse
-                                                                                </tbody>
-                                                                            </table>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                        @empty
-                                                            <p>Sem dados!</p>
-                                                        @endforelse
-                                                    </div>
-                                                </div>
+                                                                        {{--@if($sorteio->idlot == 4)--}}
+                                                                            {{--<table>--}}
+                                                                                {{--<tr>--}}
+                                                                                    {{--<th>{{$sorteio->dez1}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez2}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez3}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez4}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez5}}</th>--}}
+                                                                                {{--</tr>--}}
+                                                                            {{--</table>--}}
+                                                                        {{--@elseif($sorteio->idlot == 5)--}}
+                                                                            {{--<table>--}}
+                                                                                {{--<tr>--}}
+                                                                                    {{--<th>{{$sorteio->dez1}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez2}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez3}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez4}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez5}}</th>--}}
+                                                                                    {{--<th>{{$sorteio->dez6}}</th>--}}
+                                                                                {{--</tr>--}}
+                                                                            {{--</table>--}}
+                                                                        {{--@else--}}
+                                                                            {{--<span class="card-title"><b>{{$sorteio->dessor}}</b></span>--}}
+                                                                            {{--<table class="">--}}
+                                                                                {{--<thead>--}}
+                                                                                {{--<tr>--}}
+                                                                                    {{--<th>Prêmio</th>--}}
+                                                                                    {{--<th>Resultado</th>--}}
+                                                                                    {{--<th>Grupo</th>--}}
+                                                                                    {{--<th></th>--}}
+                                                                                {{--</tr>--}}
+                                                                                {{--</thead>--}}
+                                                                                {{--<tbody>--}}
+                                                                                {{--@forelse($sorteioite as $ite)--}}
+                                                                                    {{--@if($ite->idsor == $sorteio->idsor)--}}
+                                                                                        {{--@if($ite->seqsor < $linhas)--}}
+                                                                                            {{--<tr>--}}
+                                                                                                {{--<td>{{$ite->desseq}}</td>--}}
+                                                                                                {{--<td>{{$ite->milsor}}</td>--}}
+                                                                                                {{--<td>{{$ite->gru}}</td>--}}
+                                                                                                {{--<td>{{$ite->desgru}}</td>--}}
+                                                                                            {{--</tr>--}}
+                                                                                        {{--@elseif($ite->seqsor == 9)--}}
+                                                                                            {{--<tr>--}}
+                                                                                                {{--<td>{{$ite->desseq}}</td>--}}
+                                                                                                {{--<td>{{$ite->milsor}}</td>--}}
+                                                                                                {{--<td>{{$ite->gru}}</td>--}}
+                                                                                                {{--<td>{{$ite->desgru}}</td>--}}
+                                                                                            {{--</tr>--}}
+                                                                                        {{--@elseif($ite->seqsor == 10)--}}
+                                                                                            {{--<tr>--}}
+                                                                                                {{--<td>{{$ite->desseq}}</td>--}}
+                                                                                                {{--<td colspan="3">{{$ite->super5}}</td>--}}
+                                                                                            {{--</tr>--}}
+                                                                                        {{--@endif--}}
+                                                                                    {{--@endif--}}
+                                                                                {{--@empty--}}
+                                                                                    {{--<p>Sem dados!</p>--}}
+                                                                                {{--@endforelse--}}
+                                                                                {{--</tbody>--}}
+                                                                            {{--</table>--}}
+                                                                        {{--@endif--}}
+                                                                    {{--</div>--}}
+                                                                {{--</div>--}}
+                                                            {{--@endif--}}
+                                                        {{--@empty--}}
+                                                            {{--<p>Sem dados!</p>--}}
+                                                        {{--@endforelse--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
 
-                                            </div>
-                                        </div>
+                                            {{--</div>--}}
                                         {{--</div>--}}
-                                    </div>
-                                @empty
-                                    <p>nada</p>
-                                @endforelse
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--@empty--}}
+                                    {{--<p>nada</p>--}}
+                                {{--@endforelse--}}
 
 
-                            @endif
+                            {{--@endif--}}
 
                         </form>
+@php
+$x = 0;
+$y = 0;
+
+if (!empty($valor)){
+
+
+
+
+
+    foreach ($valor as $key =>$loteria){
+        if($loteria['idlot'] != $x){
+
+            echo '<div class="row">';
+                echo '<div class="col s12 m12 l12">';
+                    echo '<div class="card">';
+                        echo '<div class="card-content">';
+                              echo '<span class="card-title"><b>'.$loteria['deslot'].'</b></span>';
+                                $x = $loteria['idlot'];
+
+                                echo '<div class="scroll_h">';
+                                    echo ' <div class="row">';
+                                        foreach ($valor as $key =>$sorteio){
+                                        if($sorteio['idlot'] == $loteria['idlot'] && $sorteio['idsor'] != $y){
+                                            echo '<div class="card-custom">';
+                                                echo '<div class="card">';
+                                                    $y = $sorteio['idsor'];
+
+                                                    if ($sorteio['idlot'] == 4){
+
+
+                                                            echo "<table>";
+                                                            echo '<tr>';
+                                                            echo '<th>'. $sorteio['dez1'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez2'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez3'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez4'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez5'] . '</th>';
+
+                                                            echo '</tr>';
+                                                            echo "</table>";
+
+                                                            }
+                                                            elseif($sorteio['idlot'] == 5){
+
+                                                            echo "<table>";
+                                                            echo '<tr>';
+                                                            echo '<th>'. $sorteio['dez1'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez2'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez3'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez4'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez5'] . '</th>';
+                                                            echo '<th>'. $sorteio['dez6'] . '</th>';
+
+                                                            echo '</tr>';
+                                                            echo "</table>";
+
+                                                            }
+                                                            else {
+
+
+                                                            echo '<span class="card-title"><b>'. $sorteio['dessor'] . '</b></span>';
+                                                            echo "<table>";
+                                                            echo '<thead>';
+                                                            echo '<th>Prêmio</th>';
+                                                            echo '<th>Resultado</th>';
+                                                            echo '<th>Grupo</th>';
+                                                            echo '<th></th>';
+                                                            echo '</thead>';
+                                                            echo '</tbody>';
+
+                                                                foreach ($valor as $key =>$ite){
+                                                                if ($ite['idsor'] == $sorteio['idsor']){
+
+                                                                    if ($ite['seqsor'] < $linhas)
+                                                                    {
+                                                                    echo "<tr>";
+                                                                    echo "<td>".$ite['desseq']."</td>";
+                                                                    echo "<td>".$ite['milsor']."</td>";
+                                                                    echo "<td>".$ite['gru']."</td>";
+                                                                    echo "<td>".$ite['desgru']."</td>";
+                                                                    echo "</tr>";
+                                                                    } elseif ($ite['seqsor'] == 9)
+                                                                    {
+                                                                    echo "<tr>";
+                                                                    echo "<td>".$ite['desseq']."</td>";
+                                                                    echo "<td>".$ite['milsor']."</td>";
+                                                                    echo "<td>".$ite['gru']."</td>";
+                                                                    echo "<td>".$ite['desgru']."</td>";
+                                                                    echo "</tr>";
+                                                                    }
+                                                                    elseif ($ite['seqsor'] == 10)
+                                                                    {
+                                                                    echo "<tr>";
+                                                                    echo "<td>".$ite['desseq']."</td>";
+                                                                    echo "<td colspan='3'>".$ite['super5']."</td>";
+                                                                    echo "</tr>";
+                                                                    }
+
+
+
+
+                                                                }
+
+                                                                }
+                                                                echo "</tbody>";
+                                                                echo "</table>";
+                                                            }
+                                                echo '</div>';
+                                            echo '</div>';
+                                        }
+                                        }
+                                    echo '</div>';
+                                echo '</div>';
+
+
+                        echo '</div>';
+                    echo '</div>';
+                echo '</div>';
+            echo '</div>';
+        }
+    }
+}
+@endphp
 
                     </div>
 

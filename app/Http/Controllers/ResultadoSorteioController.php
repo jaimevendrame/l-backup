@@ -44,6 +44,19 @@ class ResultadoSorteioController extends StandardController
     public function index2($ideven)
     {
 
+//        $valor = $this->tudoAqui($ideven);
+
+//        $x = 0;
+//        foreach ($valor as $key =>$loteria)
+//            if($loteria['idlot'] != $x){
+//                echo $loteria['deslot']."<br>";
+//                $x = $loteria['idlot'];
+//
+//
+//                foreach ($deslot as $idsort =>$sort)
+//                    echo $sort['idsor'];
+//            }
+//        dd($valor);
 
 
         if (Auth::user()->idusu == 1000){
@@ -97,7 +110,9 @@ class ResultadoSorteioController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-        $data = $this->returnLoter($ideven);
+//        $data = $this->returnLoter($ideven);
+        $data = "";
+//        dd($data);
 
         $title = $this->title;
 
@@ -105,14 +120,14 @@ class ResultadoSorteioController extends StandardController
 
         //datas inicio e fim mês
 
-        $sorteios = $this->returnSorteio();
-        $sorteioite = $this->returnSorteioIte();
+//        $sorteios = $this->returnSorteio();
+//        $sorteioite = $this->returnSorteioIte();
         $linhas = 6;
 
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'sorteios', 'sorteioite', 'linhas'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'sorteios', 'sorteioite', 'linhas', 'valor'));
     }
 
     public function indexGo($ideven)
@@ -136,15 +151,15 @@ class ResultadoSorteioController extends StandardController
 
         $ideven = $ideven;
 
-        $sorteios = $this->returnSorteio();
-        $sorteioite = $this->returnSorteioIte();
+//        $sorteios = $this->returnSorteio();
+//        $sorteioite = $this->returnSorteioIte();
 
         $linhas = $this->returnColMax($ideven);
 
         $linhas = $linhas->colmax;
         $col = $linhas;
 
-        $data = $this->returnLoter($ideven);
+        $valor = $this->tudoAqui($ideven);
 
 
         $title = $this->title;
@@ -187,7 +202,7 @@ class ResultadoSorteioController extends StandardController
 
 
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'sorteios', 'sorteioite', 'linhas'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'valor','title', 'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'linhas'));
     }
 
 
@@ -350,6 +365,88 @@ class ResultadoSorteioController extends StandardController
             ->first();
 
         return $data;
+    }
+
+    public function sorteioA($idlot){
+        $datIni = $this->request->get('datIni');
+        if ($datIni == ''){
+            $datIni = date ("Y/m/d");
+        } else {
+
+            //Converte data inicial de string para Date(y/m/d)
+            $datetimeinicial = new DateTime();
+            $newDateInicial = $datetimeinicial->createFromFormat('d/m/Y', $datIni);
+
+            $datIni = $newDateInicial->format('Y/m/d');
+        }
+
+        $data = DB::select ("
+            SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,
+            SORTEIOS.DEZ1, SORTEIOS.DEZ2, SORTEIOS.DEZ3,SORTEIOS.DEZ4,
+            SORTEIOS.DEZ5, SORTEIOS.DEZ6, SORTEIOS.DEZ7,SORTEIOS.DEZ8,SORTEIOS.DATSOR
+            FROM SORTEIOS
+            WHERE
+            SORTEIOS.DATSOR = '$datIni' 
+            AND SORTEIOS.IDBASE = 0
+            AND SORTEIOS.IDLOT = '$idlot'
+            ORDER BY SORTEIOS.IDSOR
+            ");
+        return $data;
+    }
+    public function returnSorteioIteA($idsor){
+        $data = DB::select ("
+            SELECT SORTEIOS_ITE.*
+            FROM SORTEIOS_ITE
+            WHERE
+            SORTEIOS_ITE.IDSOR = '$idsor'
+            ORDER BY SORTEIOS_ITE.SEQSOR ASC     
+            ");
+
+        return $data;
+    }
+    public function tudoAqui($ideven){
+
+        $loteria = $this->returnLoter($ideven);
+
+        $data = array();
+
+        foreach ($loteria as $key){
+//            echo $key->idlot. '-'. $key->deslot. ': ';
+            $sorteios = $this->sorteioA($key->idlot);
+            foreach ($sorteios as $sort){
+//                echo $sort->idsor.' ';
+                $sorteioite = $this->returnSorteioIteA($sort->idsor);
+                foreach ($sorteioite as $ite){
+//                    echo $ite->desseq.' ';
+                    $linha = [
+                        "idlot" => $key->idlot,
+                        "deslot" => $key->deslot,
+                        "idsor" => $sort->idsor,
+                        "dessor" => $sort->dessor,
+                        "datsor" => $sort->datsor,
+                        "dez1" => $sort->dez1,
+                        "dez2" => $sort->dez2,
+                        "dez3" => $sort->dez3,
+                        "dez4" => $sort->dez4,
+                        "dez5" => $sort->dez5,
+                        "dez6" => $sort->dez6,
+                        "dez7" => $sort->dez7,
+                        "dez8" => $sort->dez8,
+                        "seqsor" => $ite->seqsor,
+                        "desseq" => $ite->desseq,
+                        "milsor" => $ite->milsor,
+                        "gru" => $ite->gru,
+                        "desgru" => $ite->desgru,
+                        "super5" => $ite->super5,
+                    ];
+                    array_push($data, $linha);
+                }
+
+            }
+
+        }
+
+       return $data;
     }
 
 }
