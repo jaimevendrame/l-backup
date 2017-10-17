@@ -97,7 +97,7 @@ class ResultadoSorteioController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-        $data = "";
+        $data = $this->returnLoter($ideven);
 
         $title = $this->title;
 
@@ -105,9 +105,9 @@ class ResultadoSorteioController extends StandardController
 
         //datas inicio e fim mês
 
-//        $sorteios = $this->returnSorteio();
-//        $sorteioite = $this->returnSorteioIte();
-//        $linhas = 6;
+        $sorteios = $this->returnSorteio();
+        $sorteioite = $this->returnSorteioIte();
+        $linhas = 6;
 
 
 
@@ -304,13 +304,16 @@ class ResultadoSorteioController extends StandardController
         public function returnSorteio(){
 
             $datIni = $this->request->get('datIni');
+            if ($datIni == ''){
+                $datIni = date ("Y/m/d");
+            } else {
 
-            //Converte data inicial de string para Date(y/m/d)
-            $datetimeinicial = new DateTime();
-            $newDateInicial = $datetimeinicial->createFromFormat('d/m/Y', $datIni);
+                //Converte data inicial de string para Date(y/m/d)
+                $datetimeinicial = new DateTime();
+                $newDateInicial = $datetimeinicial->createFromFormat('d/m/Y', $datIni);
 
-            $datIni = $newDateInicial->format('Y/m/d');
-
+                $datIni = $newDateInicial->format('Y/m/d');
+            }
             $data = DB::select ("
             SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,'$datIni' AS DATAINI,
             SORTEIOS.DEZ1, SORTEIOS.DEZ2, SORTEIOS.DEZ3,SORTEIOS.DEZ4,
