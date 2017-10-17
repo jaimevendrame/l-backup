@@ -19,36 +19,31 @@
                                                 placeholder ="Data inicial"  >
 
                                 </div>
+                                @if(isset($linhas))
+                                    @if($linhas >= 6)
+                                        <div class="input-field col s4 m1 l1">
 
-                                {{--<div class="input-field col s12 m6 l4">--}}
-                                    {{--<select multiple name="sel_vendedor[]">--}}
-                                        {{--<option value="" disabled selected>Selecionar Vendedores</option>--}}
-                                        {{--@forelse($baseAll as $bases)--}}
-                                            {{--@if( isset($ideven) && !empty($ideven))--}}
-                                            {{--<option value="{{$bases->ideven}}" {{ $bases->ideven == $ideven  ? 'selected' : '' }} >{{$bases->ideven}}-{{$bases->nomven}}</option>--}}
-                                                {{--@elseif(isset($ideven2) && (is_array($ideven2))) <option value="{{$bases->ideven}}" @forelse($ideven2 as $select) {{ $bases->ideven == $select  ? 'selected' : '' }} @ @empty @endforelse >{{$bases->ideven}}-{{$bases->nomven}}</option>--}}
-                                             {{--@else<table class="col m4">--}}
-                                                {{--<thead>--}}
-                                                    {{--<tr>--}}
-                                                        {{--<th>{{$sorteio->dessor}}</th>--}}
-                                                    {{--</tr>--}}
-                                                {{--</thead>--}}
-                                                {{--<tbody>--}}
-                                                {{--<tr>--}}
-                                                    {{--<td>llll</td>--}}
-                                                {{--</tr>--}}
-                                                {{--</tbody>--}}
+                                            <input type="checkbox" id="col6" name="col6" value="7"/>
+                                            <label for="col6">6º</label>
+                                        </div>
+                                    @endif
+                                    @if($linhas >= 7)
+                                    <div class="input-field col s4 m1 l1">
+                                        <input type="checkbox" id="col7" name="col7" value="8"/>
+                                        <label for="col7">7º</label>
+                                    </div>
+                                    @endif
+                                    @if($linhas >= 8)
+                                        <div class="input-field col s4 m1 l1">
+                                        <input type="checkbox" id="col8" name="col8" value="9"/>
+                                        <label for="col8">8º</label>
+                                    </div>
+                                    @endif
+                                @endif
 
-                                            {{--</table>--}}
-                                                {{--<option value="{{$bases->ideven}}">{{$bases->ideven}}-{{$bases->nomven}}</option>--}}
-                                            {{--@endif--}}
-                                        {{--@empty--}}
-                                            {{--<option value="" disabled selected>Nenhuma base</option>--}}
-                                        {{--@endforelse--}}
 
-                                    {{--</select>--}}
-                                    {{--<label>Bases selecionadas</label>--}}
-                                {{--</div>--}}
+
+
 
                                 <div class="input-field col s12 m6 l2">
                                     <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
