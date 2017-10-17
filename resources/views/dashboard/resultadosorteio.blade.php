@@ -2,7 +2,6 @@
 
 @section('content')
     <script src="{{url('assets/js/jquery-3.2.0.min.js')}}"></script>
-
     <div class="section">
         <div class="row">
             <div class="col s12">
@@ -211,10 +210,10 @@ if (!empty($valor)){
 
 
         //Set data
-        @if(empty($sorteios[0]->dataini))
+        @if(empty($datainicial))
             $("#datIni").val('{{date("d/m/Y")}}');
         @else
-            $("#datIni").val('{{Carbon\Carbon::parse($sorteios[0]->dataini)->format('d/m/Y')}}');
+            $("#datIni").val('{{$datainicial}}');
         @endif
 
 

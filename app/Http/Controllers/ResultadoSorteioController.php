@@ -46,35 +46,7 @@ class ResultadoSorteioController extends StandardController
 
 
 
-        if (Auth::user()->idusu == 1000){
 
-            $data = $this->vendedor
-                ->select('ideven')
-                ->get();
-
-            $palavra = "";
-
-
-            $c = 0;
-            foreach ($data as $key){
-
-//                echo  $key['ideven'].'\n';
-//                echo $c.'\n';
-                $palavra = $palavra.$key['ideven'];
-                if ($c < count($data)-1){
-                    $palavra = $palavra.",";
-                }
-                $c++;
-
-
-            }
-            $ideven = $palavra;
-
-
-
-        } else{
-            $ideven = $ideven;
-        }
 
 
         $idusu = Auth::user()->idusu;
@@ -101,14 +73,33 @@ class ResultadoSorteioController extends StandardController
 
         $linhas = 6;
 
+        $col = 0;
+
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'sorteios', 'sorteioite', 'linhas', 'valor'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'sorteios', 'sorteioite', 'linhas', 'valor', 'col'));
     }
 
     public function indexGo($ideven)
     {
+        if (Auth::user()->idusu == 1000){
+
+
+            $linhas = 9;
+            $col = $linhas;
+
+            $ideven = 1000;
+
+
+
+        } else{
+            $linhas = $this->returnColMax($ideven);
+
+            $linhas = $linhas->colmax;
+            $col = $linhas;
+        }
+
 
 
         $idusu = Auth::user()->idusu;
@@ -128,10 +119,10 @@ class ResultadoSorteioController extends StandardController
 
         $ideven = $ideven;
 
-        $linhas = $this->returnColMax($ideven);
 
-        $linhas = $linhas->colmax;
-        $col = $linhas;
+
+
+
 
         $valor = $this->tudoAqui($ideven);
 
@@ -158,25 +149,15 @@ class ResultadoSorteioController extends StandardController
 
         $in_ativos = '';
 
+        $datainicial = $this->request->get('datIni');
 
 
-        if (isset($dados)){
-            if (in_array(1, $dados)) {
-                $despesas = 'SIM';
-            }else {
-                $despesas = 'NAO';}
 
-            if (in_array(2, $dados)) {
-                $in_ativos = 'SIM';
-            } else
-                $in_ativos = 'NAO';
-        }
 
-        $p_situacao =  $this->request->get('group1');
 
 
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'valor','title', 'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'linhas','col'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'valor','title', 'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'linhas','col', 'datainicial'));
     }
 
 
@@ -273,6 +254,7 @@ class ResultadoSorteioController extends StandardController
         public function returnLoter($ideven){
             $p = $this->retornaBasepeloIdeven($ideven);
 
+
             $data = DB::select (" 
             SELECT VEN_LOTERIA.IDBASE, VEN_LOTERIA.IDVEN, VEN_LOTERIA.IDLOT,
             VEN_LOTERIA.SITLIG, VEN_LOTERIA.INAUTO,
@@ -290,41 +272,8 @@ class ResultadoSorteioController extends StandardController
             return $data;
         }
 
-        public function returnSorteio(){
 
-            $datIni = $this->request->get('datIni');
-            if ($datIni == ''){
-                $datIni = date ("Y/m/d");
-            } else {
 
-                //Converte data inicial de string para Date(y/m/d)
-                $datetimeinicial = new DateTime();
-                $newDateInicial = $datetimeinicial->createFromFormat('d/m/Y', $datIni);
-
-                $datIni = $newDateInicial->format('Y/m/d');
-            }
-            $data = DB::select ("
-            SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,'$datIni' AS DATAINI,
-            SORTEIOS.DEZ1, SORTEIOS.DEZ2, SORTEIOS.DEZ3,SORTEIOS.DEZ4,
-            SORTEIOS.DEZ5, SORTEIOS.DEZ6, SORTEIOS.DEZ7,SORTEIOS.DEZ8
-            FROM SORTEIOS
-            WHERE
-            SORTEIOS.DATSOR = '$datIni' 
-            AND SORTEIOS.IDBASE = 0
-            ORDER BY SORTEIOS.IDSOR
-            ");
-            return $data;
-        }
-
-    public function returnSorteioIte(){
-            $data = DB::select ("
-            SELECT SORTEIOS_ITE.*
-            FROM SORTEIOS_ITE
-            ORDER BY SORTEIOS_ITE.SEQSOR ASC     
-            ");
-
-            return $data;
-    }
 
     public function returnColMax($ideven){
 
@@ -355,7 +304,7 @@ class ResultadoSorteioController extends StandardController
         }
 
         $data = DB::select ("
-            SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,
+            SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,'$datIni' AS DATAINI,
             SORTEIOS.DEZ1, SORTEIOS.DEZ2, SORTEIOS.DEZ3,SORTEIOS.DEZ4,
             SORTEIOS.DEZ5, SORTEIOS.DEZ6, SORTEIOS.DEZ7,SORTEIOS.DEZ8,SORTEIOS.DATSOR
             FROM SORTEIOS
