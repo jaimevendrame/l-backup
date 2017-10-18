@@ -133,7 +133,7 @@ if (!empty($valor)){
 
                                                                     if ( ($ite['seqsor'] < $linhas) || ($ite['seqsor'] < 6) )
                                                                     {
-                                                                    echo "<tr class'custom'>";
+                                                                    echo "<tr>";
                                                                     echo "<td>".$ite['desseq']."</td>";
                                                                     echo "<td>".$ite['milsor']."</td>";
                                                                     echo "<td>".$ite['gru']."</td>";
@@ -141,7 +141,7 @@ if (!empty($valor)){
                                                                     echo "</tr>";
                                                                     } elseif ($ite['seqsor'] == 9)
                                                                     {
-                                                                    echo "<tr class'custom'>";
+                                                                    echo "<tr>";
                                                                     echo "<td>".$ite['desseq']."</td>";
                                                                     echo "<td>".$ite['milsor']."</td>";
                                                                     echo "<td>".$ite['gru']."</td>";
@@ -150,7 +150,7 @@ if (!empty($valor)){
                                                                     }
                                                                     elseif ($ite['seqsor'] == 10)
                                                                     {
-                                                                    echo "<tr class'custom'>";
+                                                                    echo "<tr>";
                                                                     echo "<td>".$ite['desseq']."</td>";
                                                                     echo "<td colspan='3'>".$ite['super5']."</td>";
                                                                     echo "</tr>";

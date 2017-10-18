@@ -124,10 +124,6 @@ a.classe1:active {
 
 .table-custom table, th, td, tr {
     height: 30px !important;
-    padding: 5px;
+    padding: 5px !important;
 }
 
-tr.custom {
-    height: 30px !important;
-
-}
