@@ -131,7 +131,7 @@ if (!empty($valor)){
                                                                 foreach ($valor as $key =>$ite){
                                                                 if ($ite['idsor'] == $sorteio['idsor']){
 
-                                                                    if ($ite['seqsor'] < $linhas)
+                                                                    if ( ($ite['seqsor'] < $linhas) || ($ite['seqsor'] < 6) )
                                                                     {
                                                                     echo "<tr>";
                                                                     echo "<td>".$ite['desseq']."</td>";
