@@ -121,3 +121,13 @@ a.classe1:active {
     margin-left: 5px;
 
 }
+
+.table-custom table, th, td, tr {
+    height: 30px !important;
+    padding: 5px;
+}
+
+tr.custom {
+    height: 30px !important;
+
+}
