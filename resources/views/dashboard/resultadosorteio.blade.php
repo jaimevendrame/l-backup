@@ -119,7 +119,7 @@ if (!empty($valor)){
 
 
                                                             echo '<span class="card-title"><b>'. $sorteio['dessor'] . '</b></span>';
-                                                            echo "<table class='table-custom'>";
+                                                            echo "<table class='tbsorteio'>";
                                                             echo '<thead>';
                                                             echo '<th>Prêmio</th>';
                                                             echo '<th>Resultado</th>';
@@ -133,7 +133,7 @@ if (!empty($valor)){
 
                                                                     if ( ($ite['seqsor'] < $linhas) || ($ite['seqsor'] < 6) )
                                                                     {
-                                                                    echo "<tr>";
+                                                                    echo "<tr style= 'height: 30px !important; padding: 5px !important;'>";
                                                                     echo "<td>".$ite['desseq']."</td>";
                                                                     echo "<td>".$ite['milsor']."</td>";
                                                                     echo "<td>".$ite['gru']."</td>";
@@ -141,7 +141,7 @@ if (!empty($valor)){
                                                                     echo "</tr>";
                                                                     } elseif ($ite['seqsor'] == 9)
                                                                     {
-                                                                    echo "<tr>";
+                                                                    echo "<tr class='tbsorteio'>";
                                                                     echo "<td>".$ite['desseq']."</td>";
                                                                     echo "<td>".$ite['milsor']."</td>";
                                                                     echo "<td>".$ite['gru']."</td>";
