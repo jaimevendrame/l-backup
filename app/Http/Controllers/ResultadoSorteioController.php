@@ -136,7 +136,7 @@ class ResultadoSorteioController extends StandardController
         $col7 = $this->request->get('col7');
         $col8 = $this->request->get('col8');
 
-
+        $linhas = 5;
         if ($col6 != null ){
             $linhas = $col6;
         }
@@ -152,7 +152,7 @@ class ResultadoSorteioController extends StandardController
         $datainicial = $this->request->get('datIni');
 
 
-//$linhas = 6;
+
 
 
 

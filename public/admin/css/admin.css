@@ -133,7 +133,7 @@ table.tbsorteio th{
 }
 table.tbsorteio tr{
     /*border-collapse: collapse; !* CSS2 *!*/
-    /*background: #FFFFF0;*/
+    background: #FFFFF0;
     /*border: solid green 1px;*/
     height: 30px !important;
     padding: 5px !important;
@@ -145,4 +145,6 @@ table.tbsorteio td{
     height: 30px !important;
     padding: 5px !important;
 }
-
+table.linhasAlternadas tr:nth-child(even) /* CSS3 */ {
+    background: #F0FFFF;
+}
