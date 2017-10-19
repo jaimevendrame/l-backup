@@ -10,39 +10,37 @@
                         <form class="form-group" id="form-cad-edit" method="post" action="/admin/resultadosorteio/{{$ideven}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            <div class="row" style="margin-bottom:0px;">
+                            <div class="row">
 
-                                <div class="input-field col s6 m4 l2">
+                                <div class="input-field col s12 m4 l2">
 
                                         <input  id="datIni" name="datIni" type="date" class="datepicker"
                                                 placeholder ="Data inicial"  >
 
                                 </div>
                                 @if(isset($linhas))
-                                    @if($col >= 6)
-                                        <div class="input-field col s4 m1 l1">
+                                    {{--<div class="col s12">--}}
+                                        @if($col >= 6)
+                                            <div class="input-field col s3 m1 l1">
 
-                                            <input type="checkbox" id="col6" name="col6" value="6" @if($linhas >= 6)checked @endif/>
-                                            <label for="col6">6º</label>
+                                                <input type="checkbox" id="col6" name="col6" value="6" @if($linhas >= 6)checked @endif/>
+                                                <label for="col6">6º</label>
+                                            </div>
+                                        @endif
+                                        @if($col >= 7)
+                                        <div class="input-field col s3 m1 l1">
+                                            <input type="checkbox" id="col7" name="col7" value="7" @if($linhas >= 7)checked @endif/>
+                                            <label for="col7">7º</label>
                                         </div>
-                                    @endif
-                                    @if($col >= 7)
-                                    <div class="input-field col s4 m1 l1">
-                                        <input type="checkbox" id="col7" name="col7" value="7" @if($linhas >= 7)checked @endif/>
-                                        <label for="col7">7º</label>
-                                    </div>
-                                    @endif
-                                    @if($col >= 8)
-                                        <div class="input-field col s4 m1 l1">
-                                        <input type="checkbox" id="col8" name="col8" value="8"  @if($linhas >= 8)checked @endif/>
-                                        <label for="col8">8º</label>
-                                    </div>
-                                    @endif
+                                        @endif
+                                        @if($col >= 8)
+                                            <div class="input-field col s3 m1 l1">
+                                            <input type="checkbox" id="col8" name="col8" value="8"  @if($linhas >= 8)checked @endif/>
+                                            <label for="col8">8º</label>
+                                        </div>
+                                        @endif
+                                    {{--</div>--}}
                                 @endif
-
-
-
-
 
                                 <div class="input-field col s12 m6 l2">
                                     <button class="btn waves-effect waves-light " type="submit" name="action">Atualizar
