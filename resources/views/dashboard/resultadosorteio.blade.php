@@ -134,10 +134,10 @@ if (!empty($valor)){
                                                                     if ( ($ite['seqsor'] <= $linhas) )
                                                                     {
                                                                     echo "<tr>";
-                                                                    echo "<td>".$ite['desseq']."</td>";
-                                                                    echo "<td>".$ite['milsor']."</td>";
-                                                                    echo "<td>".$ite['gru']."</td>";
-                                                                    echo "<td>".$ite['desgru']."</td>";
+                                                                    echo '<td class="center-align">'.$ite['desseq']."</td>";
+                                                                    echo '<td class="center-align">'.$ite['milsor']."</td>";
+                                                                    echo '<td class="center-align">'.$ite['gru']."</td>";
+                                                                    echo '<td class="center-align">'.$ite['desgru']."</td>";
                                                                     echo "</tr>";
                                                                     }
 
@@ -146,16 +146,16 @@ if (!empty($valor)){
                                                                     elseif ($ite['seqsor'] == 9)
                                                                     {
                                                                     echo "<tr>";
-                                                                    echo "<td>".$ite['desseq']."</td>";
-                                                                    echo "<td>".$ite['milsor']."</td>";
-                                                                    echo "<td>".$ite['gru']."</td>";
-                                                                    echo "<td>".$ite['desgru']."</td>";
+                                                                    echo '<td class="center-align">'.$ite['desseq']."</td>";
+                                                                    echo '<td class="center-align">'.$ite['milsor']."</td>";
+                                                                    echo '<td class="center-align">'.$ite['gru']."</td>";
+                                                                    echo '<td>'.$ite['desgru']."</td>";
                                                                     echo "</tr>";
                                                                     }
                                                                     elseif ($ite['seqsor'] == 10)
                                                                     {
                                                                     echo "<tr>";
-                                                                    echo "<td>".$ite['desseq']."</td>";
+                                                                    echo '<td class="center-align">'.$ite['desseq']."</td>";
                                                                     echo "<td colspan='3'>".$ite['super5']."</td>";
                                                                     echo "</tr>";
                                                                     }
