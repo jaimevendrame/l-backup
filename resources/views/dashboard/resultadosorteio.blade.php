@@ -131,7 +131,7 @@ if (!empty($valor)){
                                                                 foreach ($valor as $key =>$ite){
                                                                 if ($ite['idsor'] == $sorteio['idsor']){
 
-                                                                    if ( ($ite['seqsor'] < $linhas) || ($ite['seqsor'] < 6) )
+                                                                    if ( ($ite['seqsor'] <= $linhas) )
                                                                     {
                                                                     echo "<tr>";
                                                                     echo "<td>".$ite['desseq']."</td>";
@@ -139,7 +139,11 @@ if (!empty($valor)){
                                                                     echo "<td>".$ite['gru']."</td>";
                                                                     echo "<td>".$ite['desgru']."</td>";
                                                                     echo "</tr>";
-                                                                    } elseif ($ite['seqsor'] == 9)
+                                                                    }
+
+
+
+                                                                    elseif ($ite['seqsor'] == 9)
                                                                     {
                                                                     echo "<tr>";
                                                                     echo "<td>".$ite['desseq']."</td>";

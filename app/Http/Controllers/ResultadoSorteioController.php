@@ -152,7 +152,7 @@ class ResultadoSorteioController extends StandardController
         $datainicial = $this->request->get('datIni');
 
 
-
+//$linhas = 6;
 
 
 
@@ -290,7 +290,7 @@ class ResultadoSorteioController extends StandardController
         return $data;
     }
 
-    public function sorteioA($idlot){
+    public function sorteioA($idlot, $inauto, $idbase, $idven){
         $datIni = $this->request->get('datIni');
         if ($datIni == ''){
             $datIni = date ("Y/m/d");
@@ -303,7 +303,8 @@ class ResultadoSorteioController extends StandardController
             $datIni = $newDateInicial->format('Y/m/d');
         }
 
-        $data = DB::select ("
+        if ($inauto == 'SIM'){
+            $data = DB::select ("
             SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,'$datIni' AS DATAINI,
             SORTEIOS.DEZ1, SORTEIOS.DEZ2, SORTEIOS.DEZ3,SORTEIOS.DEZ4,
             SORTEIOS.DEZ5, SORTEIOS.DEZ6, SORTEIOS.DEZ7,SORTEIOS.DEZ8,SORTEIOS.DATSOR
@@ -314,6 +315,22 @@ class ResultadoSorteioController extends StandardController
             AND SORTEIOS.IDLOT = '$idlot'
             ORDER BY SORTEIOS.IDSOR
             ");
+        } else {
+            $data = DB::select ("
+            SELECT SORTEIOS.IDSOR, SORTEIOS.IDLOT, SORTEIOS.IDHOR, SORTEIOS.DESSOR,'$datIni' AS DATAINI,
+            SORTEIOS.DEZ1, SORTEIOS.DEZ2, SORTEIOS.DEZ3,SORTEIOS.DEZ4,
+            SORTEIOS.DEZ5, SORTEIOS.DEZ6, SORTEIOS.DEZ7,SORTEIOS.DEZ8,SORTEIOS.DATSOR
+            FROM SORTEIOS
+            WHERE
+            SORTEIOS.DATSOR = '$datIni' 
+            AND SORTEIOS.IDBASE = '$idbase'
+            AND SORTEIOS.IDVEN = '$idven'
+            AND SORTEIOS.IDLOT = '$idlot'
+            ORDER BY SORTEIOS.IDSOR
+            ");
+        }
+
+
         return $data;
     }
     public function returnSorteioIteA($idsor){
@@ -335,7 +352,7 @@ class ResultadoSorteioController extends StandardController
 
         foreach ($loteria as $key){
 //            echo $key->idlot. '-'. $key->deslot. ': ';
-            $sorteios = $this->sorteioA($key->idlot);
+            $sorteios = $this->sorteioA($key->idlot, $key->inauto, $key->idbase, $key->idven);
             foreach ($sorteios as $sort){
 //                echo $sort->idsor.' ';
                 $sorteioite = $this->returnSorteioIteA($sort->idsor);
