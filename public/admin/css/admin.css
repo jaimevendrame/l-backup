@@ -122,7 +122,26 @@ a.classe1:active {
 
 }
 
+
+
+table.tbsorteio th{
+    /*border-collapse: collapse; !* CSS2 *!*/
+    /*background: #FFFFF0;*/
+    /*border: solid green 1px;*/
+    height: 30px !important;
+    padding: 5px !important;
+}
 table.tbsorteio tr{
+    /*border-collapse: collapse; !* CSS2 *!*/
+    /*background: #FFFFF0;*/
+    /*border: solid green 1px;*/
+    height: 30px !important;
+    padding: 5px !important;
+}
+table.tbsorteio td{
+    /*border-collapse: collapse; !* CSS2 *!*/
+    /*background: #FFFFF0;*/
+    /*border: solid green 1px;*/
     height: 30px !important;
     padding: 5px !important;
 }
