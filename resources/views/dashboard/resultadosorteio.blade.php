@@ -74,7 +74,7 @@ if (!empty($valor)){
                 echo '<div class="col s12 m12 l12">';
                     echo '<div class="card">';
                         echo '<div class="card-content">';
-                              echo '<span class="card-title"><b>'.$loteria['deslot'].'</b></span>';
+{{--                              echo '<span class="card-title"><b>'.$loteria['deslot'].'</b></span>';--}}
                                 $x = $loteria['idlot'];
 
                                 echo '<div class="scroll_h">';
@@ -82,8 +82,9 @@ if (!empty($valor)){
                                         foreach ($valor as $key =>$sorteio){
                                         if($sorteio['idlot'] == $loteria['idlot'] && $sorteio['idsor'] != $y){
                                             echo '<div class="card-custom">';
-                                                echo '<div class="card blue-grey darken-3">';
+                                                echo '<div class="card blue-grey darken-2">';
                                                     $y = $sorteio['idsor'];
+                                                            echo '<span class="card-title white-text"><b> '. $sorteio['dessor'] . '</b></span>';
 
                                                     if ($sorteio['idlot'] == 4){
 
@@ -102,7 +103,7 @@ if (!empty($valor)){
                                                             }
                                                             elseif($sorteio['idlot'] == 5){
 
-                                                            echo "<table>";
+                                                            echo "<table class='striped'>";
                                                             echo '<tr>';
                                                             echo '<th class="center-align">'. $sorteio['dez1'] . '</th>';
                                                             echo '<th class="center-align">'. $sorteio['dez2'] . '</th>';
@@ -118,13 +119,12 @@ if (!empty($valor)){
                                                             else {
 
 
-                                                            echo '<span class="card-title white-text"><b> '. $sorteio['dessor'] . '</b></span>';
                                                             echo '<table class="tbsorteio striped">';
                                                             echo '<thead class="white-text">';
-                                                            echo '<th class="blue-grey darken-3">Prêmio</th>';
-                                                            echo '<th class="blue-grey darken-3">Resultado</th>';
-                                                            echo '<th class="blue-grey darken-3">Grupo</th>';
-                                                            echo '<th class="blue-grey darken-3"></th>';
+                                                            echo '<th class="blue-grey darken-2">Prêmio</th>';
+                                                            echo '<th class="blue-grey darken-2">Resultado</th>';
+                                                            echo '<th class="blue-grey darken-2">Grupo</th>';
+                                                            echo '<th class="blue-grey darken-2"></th>';
                                                             echo '</thead>';
                                                             echo '</tbody>';
 
