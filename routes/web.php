@@ -111,6 +111,15 @@ Route::group([
         Route::post('/resultadosorteio/{ideven}', 'ResultadoSorteioController@indexGo')->name('resultadosorteioGo');
 
 
+        //Manager Usuários
+        Route::get('/manager/desktop/', 'StandardController@returnUsuarioDesktop')->name('manager-user-desktop');
+        Route::get('/manager/web/', 'StandardController@returnUsuarioWeb')->name('manager-user-web');
+        Route::get('/manager/web/create/{id}', 'StandardController@createUsuarioWeb')->name('create-user-web');
+        Route::post('/manager/web/update/{id}', 'StandardController@updateUsuarioWeb')->name('update-user-web');
+        Route::post('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
+
+
+
 
 
     });

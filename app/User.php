@@ -33,4 +33,12 @@ class User extends Authenticatable
     {
         return $this->idusu;
     }
+
+    public $rulesEdit = [
+        'email' => 'required|email',
+    ];
+
+//    public function getPasswordAttribute($password){
+//        return bcrypt($password);
+//    }
 }

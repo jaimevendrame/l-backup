@@ -19,7 +19,9 @@
 
                                 </div>
                                 @if(isset($linhas))
-                                    <div class="col s12 center">
+{{--                                    {{$linhas}}--}}
+                                    @if($linhas >= 6)
+                                    <div class="col s12 m4 l4 center">
                                         @if($col >= 6)
                                             <div class="input-field col s4 m1 l1">
 
@@ -40,6 +42,7 @@
                                         </div>
                                         @endif
                                     </div>
+                                    @endif
                                 @endif
 
                                 <div class="input-field col s12 m6 l2 center-align">

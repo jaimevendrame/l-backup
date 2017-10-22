@@ -56,9 +56,9 @@
                         </form>
                     </div>
                 </div>
-                <div class="card-action right-align">
-                    <a href="{{ url('/password/reset') }}">Esqueceu a senha?</a>
-                </div>
+                {{--<div class="card-action right-align">--}}
+                    {{--<a href="{{ url('/password/reset') }}">Esqueceu a senha?</a>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>

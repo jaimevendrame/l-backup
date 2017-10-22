@@ -15,6 +15,7 @@ use Illuminate\Routing\Controller as BaseController;
 use lotecweb\Models\Cobrador;
 use lotecweb\Models\Revendedor;
 use lotecweb\Models\Usuario;
+use lotecweb\Models\Usuario_ven;
 use lotecweb\Models\Vendedor;
 use lotecweb\User;
 
@@ -33,7 +34,9 @@ class StandardController extends BaseController
         Revendedor $revendedor,
         Vendedor $vendedor,
         Cobrador $cobrador,
+        Usuario_ven $usuario_ven,
         Request $request
+
 
     )
     {
@@ -44,6 +47,7 @@ class StandardController extends BaseController
         $this->revendedor = $revendedor;
         $this->vendedor = $vendedor;
         $this->cobrador = $cobrador;
+        $this->usuario_ven = $usuario_ven;
 
 
 
@@ -291,6 +295,187 @@ class StandardController extends BaseController
         ->get();
 
         return $data;
+    }
+
+    public function returnUsuarioDesktop(){
+
+        $idusu = Auth::user()->idusu;
+
+        $user_base = $this->retornaBase($idusu);
+
+        $user_bases = $this->retornaBases($idusu);
+
+        $usuario_lotec = $this->retornaUserLotec($idusu);
+
+        $vendedores = $this->retornaBasesAll($idusu);
+
+        $menus = $this->retornaMenu($idusu);
+
+        $categorias = $this->retornaCategorias($menus);
+
+        $title = 'Manager Usuário Desktop';
+
+
+
+        $inadmin = $this->usuario
+            ->where('idusu', '=', $idusu)
+            ->first();
+        if ($inadmin->inadim == "SIM"){
+            $data = $this->usuario->all();
+            $path = "dashboard.admin.usuario";
+        } else {
+            $data = "";
+            $path = "errors.403";
+        }
+
+        return view("$path", compact('idusu',
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title'));
+    }
+
+
+    public function returnUsuarioWeb(){
+
+        $idusu = Auth::user()->idusu;
+
+        $user_base = $this->retornaBase($idusu);
+
+        $user_bases = $this->retornaBases($idusu);
+
+        $usuario_lotec = $this->retornaUserLotec($idusu);
+
+        $vendedores = $this->retornaBasesAll($idusu);
+
+        $menus = $this->retornaMenu($idusu);
+
+        $categorias = $this->retornaCategorias($menus);
+
+        $title = 'Manager Usuário Web';
+
+        $inadmin = $this->usuario
+            ->where('idusu', '=', $idusu)
+            ->first();
+        if ($inadmin->inadim == "SIM"){
+            $data = $this->user->all();
+            $path = "dashboard.admin.uweb";
+        } else {
+            $data = "";
+            $path = "errors.403";
+        }
+
+
+        return view("$path", compact('idusu',
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title'));
+    }
+
+    public function createUsuarioWeb($id){
+
+        $idusu = Auth::user()->idusu;
+
+        $user_base = $this->retornaBase($idusu);
+
+        $user_bases = $this->retornaBases($idusu);
+
+        $usuario_lotec = $this->retornaUserLotec($idusu);
+
+        $vendedores = $this->retornaBasesAll($idusu);
+
+        $menus = $this->retornaMenu($idusu);
+
+        $categorias = $this->retornaCategorias($menus);
+
+        $title = 'Criar Usuário Web';
+
+
+
+
+
+
+
+
+        $inadmin = $this->usuario
+            ->where('idusu', '=', $idusu)
+            ->first();
+        if ($inadmin->inadim == "SIM"){
+            $data = $this->usuario
+                ->where('idusu', '=', $id)
+                ->first();
+
+            $usuarioWeb = $this->user
+                ->where('idusu', '=', $id)
+                ->first();
+
+            $path = "dashboard.admin.createuweb";
+        } else {
+            $data = "";
+            $usuarioWeb = "";
+            $path = "errors.403";
+        }
+
+        return view("$path", compact('idusu',
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'usuarioWeb'));
+    }
+
+
+    public function updateUsuarioWeb(){
+
+        $dadosForm = $this->request->all();
+        $idusu = $this->request->get('idusu');
+        $id = $this->request->get('id');
+
+        $validator = validator($dadosForm, $this->user->rulesEdit);
+
+        if ($validator->fails()) {
+
+            return redirect("/admin/manager/web/create/$idusu")
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $item = $this->user->find($id);
+
+        $dadosForm['password'] = bcrypt($dadosForm['password']);
+
+        $update = $item->update($dadosForm);
+
+        if ($update)
+
+            return redirect("/admin/manager/desktop/");
+
+        else
+            return redirect("/admin/manager/web/create/$id")
+                ->withErrors(['errors'=> 'Falha ao Editar'])
+                ->withInput();
+    }
+
+    public function insertUsuarioWeb(){
+
+
+        $dadosForm = $this->request->all();
+        $idusu = $this->request->get('idusu');
+        $id = $this->request->get('id');
+
+        $validator = validator($dadosForm, $this->user->rulesEdit);
+
+        if ($validator->fails()) {
+
+            return redirect("/admin/manager/web/create/$idusu")
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        $dadosForm['password'] = bcrypt($dadosForm['password']);
+
+        $insert = $this->user->create($dadosForm);
+
+        if ($insert)
+
+            return redirect("/admin/manager/desktop/");
+
+        else
+            return redirect("/admin/manager/web/create/$id")
+                ->withErrors(['errors'=> 'Falha ao Editar'])
+                ->withInput();
     }
 
 }

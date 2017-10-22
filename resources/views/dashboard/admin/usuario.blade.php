@@ -7,185 +7,52 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <form class="form-group" id="form-cad-edit" method="post" action="/admin/resultadosorteio/{{$ideven}}" enctype="multipart/form-data">
-                            {{ csrf_field() }}
+                        <div class="row">
 
-                            <div class="row">
 
-                                <div class="input-field col s12 m4 l2">
-
-                                        <input  id="datIni" name="datIni" type="date" class="datepicker"
-                                                placeholder ="Data inicial"  >
-
-                                </div>
-                                @if(isset($linhas))
-{{--                                    {{$linhas}}--}}
-                                    @if($linhas >= 6)
-                                    <div class="col s12 m4 l4 center">
-                                        @if($col >= 6)
-                                            <div class="input-field col s4 m1 l1">
-
-                                                <input type="checkbox" id="col6" name="col6" value="6" @if($linhas >= 6)checked @endif/>
-                                                <label for="col6">6º</label>
-                                            </div>
-                                        @endif
-                                        @if($col >= 7)
-                                        <div class="input-field col s4 m1 l1">
-                                            <input type="checkbox" id="col7" name="col7" value="7" @if($linhas >= 7)checked @endif/>
-                                            <label for="col7">7º</label>
-                                        </div>
-                                        @endif
-                                        @if($col >= 8)
-                                            <div class="input-field col s4 m1 l1">
-                                            <input type="checkbox" id="col8" name="col8" value="8"  @if($linhas >= 8)checked @endif/>
-                                            <label for="col8">8º</label>
-                                        </div>
-                                        @endif
-                                    </div>
+                            <table class="mdl-data-table" id="example">
+                                <thead>
+                                <tr>
+                                    <th colspan="6">Dados dos usuários Desktop</th>
+                                </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Login</th>
+                                    <th>Senha</th>
+                                    <th>Email</th>
+                                    <th>Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if(!empty($data))
+                                @forelse($data as $u)
+                                    <tr>
+                                        <td>{{$u->idusu}}</td>
+                                        <td>{{$u->nomusu}}</td>
+                                        <td>{{$u->logusu}}</td>
+                                        <td>{{$u->senusu}}</td>
+                                        <td>{{$u->emausu}}</td>
+                                        <td><a href="/admin/manager/web/create/{{$u->idusu}}" class="btn"><i class="material-icons">web</i></a></td>
+                                    </tr>
+                                    @empty
+                                <p>Nenhum registro!</p>
+                                    @endforelse
                                     @endif
-                                @endif
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Login</th>
+                                    <th>Senha</th>
+                                    <th>Email</th>
+                                    <th>Ações</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
 
-                                <div class="input-field col s12 m6 l2 center-align">
-                                    <button class="btn waves-effect waves-light " type="submit" name="action">Atualizar
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </div>
-
-
-                            </div>
-                            <div class="clearfix"></div>
-
-                        </form>
-
-
-@php
-$x = 0;
-$y = 0;
-
-if (!empty($valor)){
-
-
-
-
-
-    foreach ($valor as $key =>$loteria){
-        if($loteria['idlot'] != $x){
-
-            echo '<div class="row">';
-                echo '<div class="col s12 m12 l12">';
-                    echo '<div class="card">';
-                        echo '<div class="card-content">';
-{{--                              echo '<span class="card-title"><b>'.$loteria['deslot'].'</b></span>';--}}
-                                $x = $loteria['idlot'];
-
-                                echo '<div class="scroll_h">';
-                                    echo ' <div class="row">';
-                                        foreach ($valor as $key =>$sorteio){
-                                        if($sorteio['idlot'] == $loteria['idlot'] && $sorteio['idsor'] != $y){
-                                            echo '<div class="card-custom">';
-                                                echo '<div class="card blue-grey darken-2">';
-                                                    $y = $sorteio['idsor'];
-                                                            echo '<span class="card-title white-text"><b> '. $sorteio['dessor'] . '</b></span>';
-
-                                                    if ($sorteio['idlot'] == 4){
-
-
-                                                            echo "<table class='striped'>";
-                                                            echo '<tr>';
-                                                            echo '<th class="center-align">'. $sorteio['dez1'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez2'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez3'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez4'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez5'] . '</th>';
-
-                                                            echo '</tr>';
-                                                            echo "</table>";
-
-                                                            }
-                                                            elseif($sorteio['idlot'] == 5){
-
-                                                            echo "<table class='striped'>";
-                                                            echo '<tr>';
-                                                            echo '<th class="center-align">'. $sorteio['dez1'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez2'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez3'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez4'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez5'] . '</th>';
-                                                            echo '<th class="center-align">'. $sorteio['dez6'] . '</th>';
-
-                                                            echo '</tr>';
-                                                            echo "</table>";
-
-                                                            }
-                                                            else {
-
-
-                                                            echo '<table class="tbsorteio striped">';
-                                                            echo '<thead class="white-text">';
-                                                            echo '<th class="blue-grey darken-2">Prêmio</th>';
-                                                            echo '<th class="blue-grey darken-2">Resultado</th>';
-                                                            echo '<th class="blue-grey darken-2">Grupo</th>';
-                                                            echo '<th class="blue-grey darken-2"></th>';
-                                                            echo '</thead>';
-                                                            echo '</tbody>';
-
-                                                                foreach ($valor as $key =>$ite){
-                                                                if ($ite['idsor'] == $sorteio['idsor']){
-
-                                                                    if ( ($ite['seqsor'] <= $linhas) )
-                                                                    {
-                                                                    echo "<tr>";
-                                                                    echo '<td class="center-align">'.$ite['desseq']."</td>";
-                                                                    echo '<td class="center-align">'.$ite['milsor']."</td>";
-                                                                    echo '<td class="center-align">'.$ite['gru']."</td>";
-                                                                    echo '<td class="center-align">'.$ite['desgru']."</td>";
-                                                                    echo "</tr>";
-                                                                    }
-
-
-
-                                                                    elseif ($ite['seqsor'] == 9)
-                                                                    {
-                                                                    echo "<tr>";
-                                                                    echo '<td class="center-align">'.$ite['desseq']."</td>";
-                                                                    echo '<td class="center-align">'.$ite['milsor']."</td>";
-                                                                    echo '<td class="center-align">'.$ite['gru']."</td>";
-                                                                    echo '<td>'.$ite['desgru']."</td>";
-                                                                    echo "</tr>";
-                                                                    }
-                                                                    elseif ($ite['seqsor'] == 10)
-                                                                    {
-                                                                    echo "<tr>";
-                                                                    echo '<td class="center-align">'.$ite['desseq']."</td>";
-                                                                    echo "<td colspan='3'>".$ite['super5']."</td>";
-                                                                    echo "</tr>";
-                                                                    }
-
-
-
-
-                                                                }
-
-                                                                }
-                                                                echo "</tbody>";
-                                                                echo "</table>";
-                                                            }
-                                                echo '</div>';
-                                            echo '</div>';
-                                        }
-                                        }
-                                    echo '</div>';
-                                echo '</div>';
-
-
-                        echo '</div>';
-                    echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        }
-    }
-}
-@endphp
 
                     </div>
 
@@ -203,23 +70,74 @@ if (!empty($valor)){
 
 @push('scripts')
 
-<script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
-
-
-
-
 <script>
     $(document).ready(function() {
 
-        $('.carousel.carousel-slider').carousel({fullWidth: true});
+        var table = $('#example').DataTable( {
+
+            dom: 'Brtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    text: 'Copiar',
+                },
+                'pdf',
+                'excel',
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                }
+            ],
 
 
-        //Set data
-        @if(empty($datainicial))
-            $("#datIni").val('{{date("d/m/Y")}}');
-        @else
-            $("#datIni").val('{{$datainicial}}');
-        @endif
+            scrollY: 480,
+            scrollX:        true,
+            scrollCollapse: true,
+            paging:        false,
+            Bfilter:        false,
+            "aaSorting": [[0, "asc"]],
+
+
+            columnDefs: [
+                {
+                    className: 'mdl-data-table__cell--non-numeric'
+                }
+
+
+            ],
+
+            language: {
+                "decimal":        ",",
+                "thousands":      ".",
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            }
+
+        } );
+
+        // #myInput is a <input type="text"> element
+        $('#myInput').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
 
 
     });

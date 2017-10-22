@@ -254,6 +254,14 @@ class ResultadoSorteioController extends StandardController
         public function returnLoter($ideven){
             $p = $this->retornaBasepeloIdeven($ideven);
 
+            if (Auth::user()->idusu == 1000){
+
+                $p->idbase = 1000;
+                $p->idven = 1000;
+
+            }
+
+//            dd($p->idbase);
 
             $data = DB::select (" 
             SELECT VEN_LOTERIA.IDBASE, VEN_LOTERIA.IDVEN, VEN_LOTERIA.IDLOT,
@@ -349,6 +357,8 @@ class ResultadoSorteioController extends StandardController
         $loteria = $this->returnLoter($ideven);
 
         $data = array();
+
+//        dd($loteria);
 
         foreach ($loteria as $key){
 //            echo $key->idlot. '-'. $key->deslot. ': ';

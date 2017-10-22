@@ -11,25 +11,25 @@
                             <table class="mdl-data-table" id="example">
                                 <thead>
                                 <tr>
-                                    <th colspan="6">Dados dos usuários Desktop</th>
+                                    <th colspan="6">Dados dos usuários Web</th>
                                 </tr>
                                 <tr>
                                     <th>ID</th>
                                     <th>Nome</th>
-                                    <th>Login</th>
-                                    <th>Senha</th>
                                     <th>Email</th>
+                                    <th>Senha</th>
+                                    <th>ID Usuario Desktop</th>
                                     <th>Ações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @forelse($data as $u)
                                     <tr>
+                                        <td>{{$u->id}}</td>
+                                        <td>{{$u->name}}</td>
+                                        <td>{{$u->email}}</td>
+                                        <td>******</td>
                                         <td>{{$u->idusu}}</td>
-                                        <td>{{$u->nomusu}}</td>
-                                        <td>{{$u->logusu}}</td>
-                                        <td>{{$u->senusu}}</td>
-                                        <td>{{$u->emausu}}</td>
                                         <td><a href="" class="btn"><i class="material-icons">web</i></a></td>
                                     </tr>
                                     @empty
@@ -40,9 +40,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nome</th>
-                                    <th>Login</th>
-                                    <th>Senha</th>
                                     <th>Email</th>
+                                    <th>Senha</th>
+                                    <th>ID Usuario Desktop</th>
                                     <th>Ações</th>
                                 </tr>
                                 </tfoot>
