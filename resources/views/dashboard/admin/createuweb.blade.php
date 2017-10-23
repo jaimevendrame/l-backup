@@ -38,10 +38,16 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
+                                    <input id="login" type="text" readonly class="validate" value="{{$data->logusu }}" name="logusu">
+                                    <label for="login">Login</label>
+                                </div>
+                                <div class="input-field col s6">
                                     <input id="password" type="password" readonly class="validate" value="{{$data->senusu }}" name="password">
                                     <label for="password">Senha</label>
                                 </div>
 
+                            </div>
+                            <div class="row">
                                 <div class="input-field col s6">
                                     <select name="role">
                                         <option value="client" @if( !empty($usuarioWeb)) {{$usuarioWeb->role == 'client'? 'selected':''}} @else @endif >NÃO</option>
