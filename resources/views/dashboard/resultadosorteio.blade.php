@@ -19,7 +19,6 @@
 
                                 </div>
                                 @if(isset($linhas))
-{{--                                    {{$linhas}}--}}
                                     @if($linhas >= 6)
                                     <div class="col s12 m4 l4 center">
                                         @if($col >= 6)
@@ -75,7 +74,7 @@ if (!empty($valor)){
                 echo '<div class="col s12 m12 l12">';
                     echo '<div class="card">';
                         echo '<div class="card-content">';
-{{--                              echo '<span class="card-title"><b>'.$loteria['deslot'].'</b></span>';--}}
+                             echo '<span class="card-title"><b>'.$loteria['deslot'].'</b></span>';
                                 $x = $loteria['idlot'];
 
                                 echo '<div class="scroll_h">';

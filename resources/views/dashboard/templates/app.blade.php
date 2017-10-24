@@ -71,6 +71,11 @@
 //            alert($lnk.href);
             $lnkresultsadosorteio.href = $lnk.href.replace(/(.*)/, '/admin/resultadosorteio/') + el.value;
 //            alert($lnk.href);
+
+            var $lnksenhadodia = document.getElementById("lnk-senha");
+//            alert($lnk.href);
+            $lnksenhadodia.href = $lnk.href.replace(/(.*)/, '/admin/senhadodia/') + el.value;
+//            alert($lnk.href);
         }
 
 
