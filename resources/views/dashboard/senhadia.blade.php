@@ -9,37 +9,28 @@
                     <div class="card-content blue-grey darken-2">
                         <span class="card-title center white-text"><b>Movimentar Caixa:</b></span>
                         <div class="card-action">
-                        @forelse($data as $s)
-                                <h1 class="center-align white-text"><b>{{$s->baixa_caixa}}</b></h1>
-                            @empty
-                        @endforelse
+                            @if(!empty($data))
+                                @forelse($data as $s)
+                                        <h1 class="center-align white-text"><b>{{$s->baixa_caixa}}</b></h1>
+                                    @empty
+                                @endforelse
+                            @else
+                                <p class="white-text">Usuário Administrador</p>
+                            @endif
                         </div>
 
                     </div>
 
                 </div>
             </div>
-            <div class="row">
 
-
-            </div>
         </div>
 
     </div>
 
 @endsection
 
-@push('scripts')
 
-
-
-
-<script>
-    $(document).ready(function() {
-
-    });
-</script>
-@endpush
 
 
 

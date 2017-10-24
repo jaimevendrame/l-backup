@@ -65,7 +65,19 @@ class SenhaDiaController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-        $data = $this->retornaSenhaDia($ideven);
+
+        if (Auth::user()->idusu == 1000){
+
+
+           $data= '';
+
+
+
+        } else{
+            $data = $this->retornaSenhaDia($ideven);
+        }
+
+
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
