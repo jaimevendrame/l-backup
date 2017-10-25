@@ -40,6 +40,9 @@ Route::get('/home', function (){
 Route::get('/teste', function () {
     return view('testes.feito');
 });
+Route::get('/expired', function () {
+    return view('errors.expired');
+});
 
 //Route::get('/data', 'TestController@index');
 //Route :: get ( ' /teste ' , function() {
@@ -53,7 +56,7 @@ Route::group([
 
     Auth::routes();
 
-    Route::group(['middleware' => 'can:access-admin'], function (){
+    Route::group(['middleware' => ['can:access-admin', 'check.gmail']], function (){
 
 
 

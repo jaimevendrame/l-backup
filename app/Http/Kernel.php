@@ -36,6 +36,10 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+        'check.gmail' => [
+            \Illuminate\Auth\Middleware\Authenticate::class,
+            \lotecweb\Http\Middleware\CheckMensalidade::class,
+        ],
     ];
 
     /**
@@ -52,5 +56,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \lotecweb\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'check.gmail' => \lotecweb\Http\Middleware\CheckMensalidade::class,
+
     ];
 }

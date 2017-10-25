@@ -77,11 +77,13 @@ class StandardController extends BaseController
 
         $title = $this->title;
 
+        $validaMesalidade = $this->validarMensalidade($idusu);
+
 
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'validaMesalidade'));
     }
 
 
@@ -476,6 +478,38 @@ class StandardController extends BaseController
             return redirect("/admin/manager/web/create/$id")
                 ->withErrors(['errors'=> 'Falha ao Editar'])
                 ->withInput();
+    }
+
+
+    public function validarMensalidade($idusu){
+
+        $p = $this->returnBaseIdvenDefault($idusu);
+         $d = date ("Y-m-d");
+
+        $data = DB::table('cobranca')
+                    ->select('datven','datpro' )
+                    ->where([
+                        ['idbase','=', $p->idbase],
+                        ['idven', '=', $p->idven],
+                        ['sitcob', '=', 'ABERTO']
+                    ])
+                    ->first();
+
+        return $data;
+    }
+
+    public function returnBaseIdvenDefault($idusu){
+
+
+
+        $data = DB::table('usuario_ven')
+                    ->where([
+                        ['inpadrao', '=', 'SIM'],
+                        ['idusu', '=', $idusu]
+                    ])
+            ->first();
+
+        return $data;
     }
 
 

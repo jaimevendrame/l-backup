@@ -270,8 +270,39 @@
 
                 </ul>
 
+                @if(!empty($validaMesalidade))
+                    @php
+                        $datven = new DateTime($validaMesalidade->datven);
+
+                        $datatual = date ("Y-m-d");
+                        $datatual = new DateTime($datatual);
+
+                        $umdiaantes = $datatual->modify('-1 day');
+
+                    @endphp
+                    <div class="row">
+                        <div class="col s11 m11 l11 ">
+                            <div class="card yellow">
+                                <div class="card-content">
+                                    <span class="card-title "><b>Aviso</b><i class="material-icons">error</i></span>
+                                    <p>Sua mensalidade vence em: <b>{{Carbon\Carbon::parse($validaMesalidade->datven)->format('d/m/Y')}}</b>,
+                                        favor regularizar até <b>{{Carbon\Carbon::parse($validaMesalidade->datpro)->modify('-1 day')->format('d/m/Y')}}</b>.</p>
+                                    <p></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                @endif
+
 
             </ul>
+
+
         </header>
 
 
