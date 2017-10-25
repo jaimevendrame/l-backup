@@ -151,3 +151,8 @@ table.linhasAlternadas tr:nth-child(even) /* CSS3 */ {
 .card .card-content .card-title {
     margin-left: 5px;
 }
+
+.flow {
+    font-size: small;
+    text-align: justify;
+}
