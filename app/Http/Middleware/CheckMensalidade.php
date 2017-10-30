@@ -28,7 +28,7 @@ class CheckMensalidade
         $d = $this->validarMensalidade($idusu);
         $dataAtual = date ("Y-m-d");
 //        $dataAtual = new DateTime(' 2017-10-24');
-        if (!isNull($d)){
+        if ($d != Null){
             // Verifica validade da mensalidade
             if ( $d->datpro <= $dataAtual )
                 return redirect('/expired');
