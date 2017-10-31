@@ -77,7 +77,13 @@ class StandardController extends BaseController
 
         $title = $this->title;
 
-        $validaMesalidade = $this->validarMensalidade($idusu);
+        $admin = Usuario::where('idusu', '=', $idusu)->first();
+
+        if ($admin->inadim != 'SIM'){
+            $validaMesalidade = $this->validarMensalidade($idusu);
+        }
+
+
 
 
 

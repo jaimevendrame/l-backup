@@ -124,6 +124,9 @@ Route::group([
         //Senha do Dia
         Route::get('/senhadodia/{idven}', 'SenhaDiaController@index2')->name('senhadia');
 
+        //Descarga Envidas
+        Route::get('/descargasenvidas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
+
 
 
 

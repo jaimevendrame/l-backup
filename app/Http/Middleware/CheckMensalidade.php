@@ -5,6 +5,7 @@ namespace lotecweb\Http\Middleware;
 use Closure;
 use DateTime;
 use Illuminate\Support\Facades\DB;
+use lotecweb\Models\Usuario;
 
 class CheckMensalidade
 {
@@ -24,15 +25,21 @@ class CheckMensalidade
         // Recupera idusu do usuário logado
         $idusu = auth()->user()->idusu;
 
+        $admin = Usuario::where('idusu', '=', $idusu)->first();
+//        dd($admin->inadim);
 
-        $d = $this->validarMensalidade($idusu);
-        $dataAtual = date ("Y-m-d");
-//        $dataAtual = new DateTime(' 2017-10-24');
-        if ($d != Null){
-            // Verifica validade da mensalidade
-            if ( $d->datpro <= $dataAtual )
-                return redirect('/expired');
+        if ($admin->inadim != 'SIM'){
+            $d = $this->validarMensalidade($idusu);
+            $dataAtual = date ("Y-m-d");
+//            dd($d);
+            if ($d != Null){
+                // Verifica validade da mensalidade
+                if ( $d->datpro <= $dataAtual )
+                    return redirect('/expired');
+            }
         }
+
+
 
 
 
