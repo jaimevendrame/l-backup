@@ -274,13 +274,24 @@
                     @php
                         $datven = new DateTime($validaMesalidade->datven);
 
+
+
+
+
+
                         $datatual = date ("Y-m-d");
                         $datatual = new DateTime($datatual);
+
+{{--                        echo strtotime($datatual->format('Y-m-d'))."<br>";--}}
+{{--                        echo strtotime($datven->format('Y-m-d'));--}}
+
+                        $datatualX = strtotime($datatual->format('Y-m-d'));
+                        $datvenX = strtotime($datven->format('Y-m-d'));
 
                         $umdiaantes = $datatual->modify('-1 day');
 
                     @endphp
-                    @if($datven < $datatual)
+                    @if($datvenX < $datatualX)
                         <div class="row">
                             <div class="col s12 m12 l12 ">
                                 <div class="card yellow">

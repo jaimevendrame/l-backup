@@ -499,6 +499,7 @@ class StandardController extends BaseController
                         ['idven', '=', $p->idven],
                         ['sitcob', '=', 'ABERTO']
                     ])
+                    ->orderby('idcob','asc')
                     ->first();
 
         return $data;
