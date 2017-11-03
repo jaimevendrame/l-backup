@@ -95,7 +95,7 @@ class DescargasEnviadasController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-        $data = $this->retornaResumoCaixa($ideven);
+//        $data = $this->retornaResumoCaixa($ideven);
 
         $title = $this->title;
 
@@ -106,6 +106,8 @@ class DescargasEnviadasController extends StandardController
         $semana = $this->returnLoteriaDia();
 
         $loterias = $this->returnLoterias();
+
+        $data = $this->returnDescargasEnviadas();
 
 
 
@@ -728,6 +730,106 @@ class DescargasEnviadasController extends StandardController
     }
 
     public function returnDescargasEnviadas(){
+        $var_cond = 3;
+        $hora = '2017-11-03';
+        $dat = '2017-11-03';
+        $dataini = '2017-11-03';
+        $datafim = '2017-11-03';
+        $var_query_1 = '';
+        $var_query_2 = '';
+        $var_query_3 = '';
+        $var_query_4 = '';
+        $var_query_5 = '';
+        $var_query_6 = '';
+        $var_string_ven = '';
+        //Origem
+        $idbaseo = '';
+        $idveno = '';
+        //Destino
+        $idbased = '';
+        $idvend = '';
+        //pesquisa palpite
+        $palpite = '';
+        //pesquisar por horário loterias
+        $var_hora_select = '';
+        //pesquisar loteria
+        $var_loteria_select = '';
+
+        $idusu = auth()->user()->idusu;
+        $admin = Usuario::where('idusu', '=', $idusu)->first();
+
+
+        if($var_cond != 3){
+
+            if ($var_cond = 0 ){
+                //Se situação = 0
+                $var_query_1 = " AND APOSTA_DESCARGA.SITDES = 'EL' AND
+                        ((((SELECT CONCAT(CONCAT(RPAD(EXTRACT(HOUR FROM HA.HORLIM),2,0),':'),
+                            CONCAT(CONCAT(RPAD(EXTRACT(MINUTE FROM HA.HORLIM),2,0),':'),RPAD(EXTRACT(Second FROM HA.HORLIM),2,0)))
+                        FROM HOR_APOSTA HA
+                        WHERE
+                        HA.IDLOT = APOSTA_PALPITES.IDLOT AND
+                        HA.IDHOR = APOSTA_PALPITES.IDHOR) > '$hora')
+                        AND (APOSTA_PALPITES.DATAPO = '$dat')) OR
+                        (APOSTA_PALPITES.DATAPO > '$dat'))
+                        AND APOSTA_PALPITES.DATENV between '$dataini' AND '$datafim'";
+            } elseif ($var_cond = 1 ){
+                //Se situação = 1
+                $var_query_1 = "AND APOSTA_DESCARGA.SITDES = 'PRO' 
+                        AND APOSTA_PALPITES.DATENV between '$dataini' AND '$datafim'";
+            } elseif ($var_cond = 2 ){
+                //Se situação = 2
+                $var_query_1 = " AND APOSTA_DESCARGA.SITDES = ''EL'' AND
+                            ((((SELECT CONCAT(CONCAT(RPAD(EXTRACT(HOUR FROM HA.HORLIM),2,0),'':''),
+                             CONCAT(CONCAT(RPAD(EXTRACT(MINUTE FROM HA.HORLIM),2,0),'':''),RPAD(EXTRACT(Second FROM HA.HORLIM),2,0)))
+                              FROM HOR_APOSTA HA
+                               WHERE
+                               HA.IDLOT = APOSTA_PALPITES.IDLOT AND
+                               HA.IDHOR = APOSTA_PALPITES.IDHOR) < '$hora')
+                               AND (APOSTA_PALPITES.DATAPO = '$dat')) OR
+                               (APOSTA_PALPITES.DATAPO < ''$dat))
+                               AND APOSTA_PALPITES.DATENV between '$dataini' AND '$datafim'";
+            } else {
+                //Se não
+                $var_query_1 = "AND APOSTA_PALPITES.DATENV between '$dataini' AND '$datafim'";
+            }
+        }
+
+
+        //Vendedor Origem selecionado por base
+       if (empty($var_string_ven)) {
+           if ($admin->inadim = 'NAO') {
+
+               $var_query_2 = " AND APOSTA_DESCARGA.IDBASEO = '$idbaseo' 
+                                    AND APOSTA_DESCARGA.IDVENO  = '$idveno'";
+
+           }
+       } else {
+           $var_query_2 = " AND VEN_O.IDEVEN IN '$var_string_ven' ";
+       }
+
+       //Vendedor Destino selecionado
+        if (!empty($idbased)){
+            $var_query_3 = " AND APOSTA_DESCARGA.IDBASED = '$idbased'
+                        AND APOSTA_DESCARGA.IDVEND  = '$idvend'";
+        }
+
+        //Pesquisar Palpite
+        if (!empty($palpite)){
+            $var_query_4 = " AND APOSTA_PALPITES.PALP1 LIKE '"%".$palpite."%"'";
+        }
+
+        //pesquisar por horário loterias
+        if (!empty($var_hora_select)){
+            $var_query_5 = " AND HOR_APOSTA.IDEHOR IN '$var_hora_select";
+        }
+        //pesquisar por loteria selecionada
+        if (!empty($var_loteria_select)){
+            $var_query_6 = " AND LOTERIAS.IDLOT = '$var_loteria_select";
+        }
+
+
+
         $data = DB::select(" 
                     SELECT APOSTA_DESCARGA.IDBASE,APOSTA_DESCARGA.IDVEN,APOSTA_DESCARGA.IDREVEN,
                     APOSTA_DESCARGA.IDTER,APOSTA_DESCARGA.IDAPO,APOSTA_DESCARGA.NUMPULE, 
@@ -786,9 +888,13 @@ class DescargasEnviadasController extends StandardController
                               WHERE 
                                   APOSTA_DESCARGA.IDBASE <> 999999 
                                   AND APOSTA_DESCARGA.SITDES <> 'CAN' 
-                                  AND APOSTA_DESCARGA.VLRPALP > 0 ;
+                                  AND APOSTA_DESCARGA.VLRPALP > 0
+                          
+                                  ORDER BY HOR_APOSTA.HORSOR, APOSTA_DESCARGA.VLRPALP DESC
         ");
 
+
+dd($data);
         return $data;
     }
 }

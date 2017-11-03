@@ -109,122 +109,39 @@
 
 
                         <table class="mdl-data-table " id="example"  cellspacing="0" width="100%">
-                            <thead>
-                            @php
-                                $saldoanterior = 0;
-
-                                $venda = 0;
-
-                                $comissao = 0;
-
-                                $liquido = 0;
-
-                                $premio = 0;
-
-                                $despesas = 0;
-
-
-                                $pagto = 0;
-
-                                $recb = 0;
-
-                                $saldoatual = 0;
-                                $semvendas = 0;
-
-                                foreach($data as $key) {
-
-                                        if ($key->vlrven <= 0){
-                                        $semvendas += 1;
-                                        }
-
-                                         $saldoanterior += $key->vlrdevant;
-
-                                         $venda += $key->vlrven;
-
-                                         $comissao += $key->vlrcom;
-
-                                         $liquido += $key->vlrliqbru;
-
-                                         $premio+= $key->vlrpremio;
-
-                                         $despesas += $key->despesas;
-
-
-                                         $pagto+= $key->vlrpagou;
-
-                                         $recb+= $key->vlrreceb;
-
-                                         $saldoatual+= $key->vlrdevatu;
-
-                                            }
-                            @endphp
-                            <tr bgcolor="#fffde7">
-
-                                <th class="black-text">Revendedor</th>
-                                <th class="black-text">@php echo number_format($saldoanterior, 2, ',', '.'); @endphp </br><b>Saldo Anterior</b></th>
-                                <th class="black-text">@php echo number_format($venda, 2, ',', '.'); @endphp</br><b>Vendido</b></th>
-                                <th class="black-text">@php echo number_format($comissao, 2, ',', '.'); @endphp</br><b>Comissão</b></th>
-                                <th class="black-text">@php echo number_format($liquido, 2, ',', '.'); @endphp</br><b>Liquido</b></th>
-                                <th class="black-text">@php echo number_format($premio, 2, ',', '.'); @endphp</br><b>Prêmio</b></th>
-                                <th class="black-text">@php echo number_format($despesas, 2, ',', '.'); @endphp</br><b>Despesas</b></th>
-                                <th class="black-text">@php echo number_format($liquido - $premio - $despesas, 2, ',', '.'); @endphp</br><b>Lucro</b></th>
-                                <th class="black-text">@php echo number_format($pagto, 2, ',', '.'); @endphp</br><b>Pagamento</b></th>
-                                <th class="black-text">@php echo number_format($recb, 2, ',', '.'); @endphp</br><b>Recebimento</b></th>
-                                <th class="black-text">@php echo number_format($saldoatual, 2, ',', '.'); @endphp</br><b>Saldo Atual</b></th>
-                                <th class="black-text">Última Venda</th>
-                            </tr>
-
-                            </thead>
+                            <thead><tr>
+                                <th></th>
+                                <th></th>
+                                <th>Pule</th>
+                                <th>Data Sorteio</th>
+                                <th>Loteria</th>
+                                <th>Modalidade</th>
+                                <th>Palpite</th>
+                                <th>Vlr. Descarga</th>
+                                <th>Tipo</th>
+                                <th>Colocação</th>
+                                <th>Horário Limite</th>
+                                <th>Vendedor Destino</th>
+                                <th>Data Envio Aposta</th>
+                            </tr></thead>
                             <tbody>
 
-                            @forelse($data as $resumo)
+                            @forelse($data as $d)
 
                                 <tr>
-                                    <td>{{ $resumo->nomreven }}</td>
-                                    <td
-                                            @if ($resumo->vlrdevant < 0)class='white-text' bgcolor='#e53935'
-                                            @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
-                                    @else @endif >
-                                        <b>{{ number_format($resumo->vlrdevant, 2, ',', '.') }}</b></td>
-                                    <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
-                                    <td>@if($resumo->vlrpremio > 0)<a href="#{{$resumo->vlrdevant}}" class="btn">@endif{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</a></td>
-                                @if($resumo->vlrpremio > 0)
-                                    <!-- Modal Structure -->
-                                        <div id="{{$resumo->vlrdevant}}" class="modal modal2">
-                                            <div class="modal-content">
-                                                <div class="modal-footer">
-                                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
-                                                </div>
-                                                <h4>Aposta Premiada</h4>
-                                                <p>
-                                                <div class="video-container">
-                                                    <iframe width="700" height="315" src="/admin/resumocaixa/aposta_premiada/{{$resumo->idven}}/{{$resumo->idbase}}/{{$resumo->idreven}}/{{Carbon\Carbon::parse($resumo->dataini)->format('Y-m-d')}}/{{Carbon\Carbon::parse($resumo->datafim)->format('Y-m-d')}}" frameborder="0" allowfullscreen></iframe></div>
-                                                </p>
-
-                                            </div>
-
-                                        </div>
-                                    @endif
-                                    @if(isset($despesas))
-                                        @if($despesas == 'SIM')
-                                        <td>{{ number_format($resumo->despesas, 2, ',', '.') }}</td>
-                                        @else
-                                        <td>{{ number_format(0, 2, ',', '.') }}</td>
-                                        @endif
-                                    @else
-                                        <td>{{ number_format(0, 2, ',', '.') }}</td>
-
-                                    @endif
-                                    <td>{{ number_format(($resumo->vlrliqbru - $resumo->vlrpremio - $resumo->despesas), 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrpagou, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrreceb, 2, ',', '.') }}</td>
-                                    <td @if ($resumo->vlrdevatu < 0) class='white-text' bgcolor='#e53935'
-                                        @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
-                                    @else @endif><b>{{ number_format($resumo->vlrdevatu, 2, ',', '.') }}</b></td>
-                                    <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
-                                    {{--                                    <td> {{$resumo->dataultve n}}</td>--}}
+                                    <td>{{ $d->infodesc }}</td>
+                                    <td>{{ $d->numpule }}</td>
+                                    <td>{{ $d->datapo }}</td>
+                                    <td>{{ $d->deshor }}</td>
+                                    <td>{{ $d->destipoapo }}</td>
+                                    <td> vaDesPalp </td>
+                                    <td>{{ $d->vrlpalp }}</td>
+                                    <td>{{ $d->tipodesc }}</td>
+                                    <td>{{ $d->descol }}</td>
+                                    <td> vaSitDes </td>
+                                    <td>{{ $d->horlim }}</td>
+                                    <td>{{ $d->nomven }}</td>
+                                    <td> vaDatEnv </td>
 
 
                                 </tr>
@@ -236,18 +153,19 @@
 
                             <tfoot>
                             <tr>
-                                <th>Revendedor</th>
-                                <th>Saldo Anterior</th>
-                                <th>Vendido</th>
-                                <th>Comissão</th>
-                                <th>Liquido</th>
-                                <th>Prêmio</th>
-                                <th>Despesas</th>
-                                <th>Lucro</th>
-                                <th>Pagamento</th>
-                                <th>Recebimento</th>
-                                <th>Saldo Atual</th>
-                                <th>Última Venda</th>
+                                <th></th>
+                                <th></th>
+                                <th>Pule</th>
+                                <th>Data Sorteio</th>
+                                <th>Loteria</th>
+                                <th>Modalidade</th>
+                                <th>Palpite</th>
+                                <th>Vlr. Descarga</th>
+                                <th>Tipo</th>
+                                <th>Colocação</th>
+                                <th>Horário Limite</th>
+                                <th>Vendedor Destino</th>
+                                <th>Data Envio Aposta</th>
 
                             </tr>
                             </tfoot>
@@ -255,62 +173,62 @@
 
                         </table>
                         <div class="row"></div>
-                        <div class="row">
-                            <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
-                                    <div class="row left-align">
-                                        <h5 class=" blue-grey-text">
-                                            Revendedor:
-                                        </h5>
-                                    </div>
-                                    <div class="row right-align">
-                                        <h5 class=" blue-grey-text">@php echo count($data)@endphp</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
-                                    <div class="row left-align">
-                                        <h5 class="blue-grey-text">
-                                            Sem vendas:
-                                        </h5>
-                                    </div>
-                                    <div class="row right-align">
-                                        <h5 class="blue-grey-text">@php echo $semvendas @endphp</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
-                                    <div class="row left-align">
-                                        <h5 class="blue-grey-text">
-                                            Com vendas:
-                                        </h5>
-                                    </div>
-                                    <div class="row right-align">
-                                        <h5 class="blue-grey-text">@php echo count($data) - $semvendas @endphp</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col s12 m12 l3">
-                                @php
-                                if ( ($recb - $pagto) < 0)
-                                 $cor = 'vermelho';
-                                else
-                                $cor = 'verde';
-                                @endphp
-                                <div class="col s10 z-depth-2 @php echo $cor @endphp  hoverable">
-                                    <div class="row left-align">
-                                        <h5 class="blue-grey-text white-text">
-                                            Caixa:
-                                        </h5>
-                                    </div>
-                                    <div class="row right-align">
-                                        <h5 class="blue-grey-text white-text">@php echo number_format($recb - $pagto, 2, ',', '.');  @endphp</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="row">--}}
+                            {{--<div class="col s12 m12 l3">--}}
+                                {{--<div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">--}}
+                                    {{--<div class="row left-align">--}}
+                                        {{--<h5 class=" blue-grey-text">--}}
+                                            {{--Revendedor:--}}
+                                        {{--</h5>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="row right-align">--}}
+                                        {{--<h5 class=" blue-grey-text">@php echo count($data)@endphp</h5>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col s12 m12 l3">--}}
+                                {{--<div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">--}}
+                                    {{--<div class="row left-align">--}}
+                                        {{--<h5 class="blue-grey-text">--}}
+                                            {{--Sem vendas:--}}
+                                        {{--</h5>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="row right-align">--}}
+                                        {{--<h5 class="blue-grey-text">@php echo $semvendas @endphp</h5>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col s12 m12 l3">--}}
+                                {{--<div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">--}}
+                                    {{--<div class="row left-align">--}}
+                                        {{--<h5 class="blue-grey-text">--}}
+                                            {{--Com vendas:--}}
+                                        {{--</h5>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="row right-align">--}}
+                                        {{--<h5 class="blue-grey-text">@php echo count($data) - $semvendas @endphp</h5>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col s12 m12 l3">--}}
+                                {{--@php--}}
+                                {{--if ( ($recb - $pagto) < 0)--}}
+                                 {{--$cor = 'vermelho';--}}
+                                {{--else--}}
+                                {{--$cor = 'verde';--}}
+                                {{--@endphp--}}
+                                {{--<div class="col s10 z-depth-2 @php echo $cor @endphp  hoverable">--}}
+                                    {{--<div class="row left-align">--}}
+                                        {{--<h5 class="blue-grey-text white-text">--}}
+                                            {{--Caixa:--}}
+                                        {{--</h5>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="row right-align">--}}
+                                        {{--<h5 class="blue-grey-text white-text">@php echo number_format($recb - $pagto, 2, ',', '.');  @endphp</h5>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
                     </div>
 
