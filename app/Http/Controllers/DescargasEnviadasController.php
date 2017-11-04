@@ -107,8 +107,10 @@ class DescargasEnviadasController extends StandardController
 
         $loterias = $this->returnLoterias();
 
-        $data = $this->returnDescargasEnviadas();
+//        $data = $this->returnDescargasEnviadasx();
+        $data = $this->descarga();
 
+//        dd($data);
 
 
         return view("{$this->nameView}",compact('idusu',
@@ -889,12 +891,83 @@ class DescargasEnviadasController extends StandardController
                                   APOSTA_DESCARGA.IDBASE <> 999999 
                                   AND APOSTA_DESCARGA.SITDES <> 'CAN' 
                                   AND APOSTA_DESCARGA.VLRPALP > 0
+                                  AND APOSTA_PALPITES.DATENV between '$dataini' AND '$datafim'
                           
-                                  ORDER BY HOR_APOSTA.HORSOR, APOSTA_DESCARGA.VLRPALP DESC
         ");
 
 
-dd($data);
+//dd($data);
+        return $data;
+    }
+
+    public function descarga(){
+        $data = DB::select(" 
+                    SELECT APOSTA_DESCARGA.IDBASE,APOSTA_DESCARGA.IDVEN,APOSTA_DESCARGA.IDREVEN,
+                    APOSTA_DESCARGA.IDTER,APOSTA_DESCARGA.IDAPO,APOSTA_DESCARGA.NUMPULE, 
+                    APOSTA_DESCARGA.SEQPALP, APOSTA_DESCARGA.SEQDES,APOSTA_DESCARGA.IDBASED, 
+                    APOSTA_DESCARGA.IDVEND,APOSTA_DESCARGA.IDBASEO,APOSTA_DESCARGA.IDVENO, 
+                    APOSTA_DESCARGA.VLRPALPO,APOSTA_DESCARGA.VLRPALP,APOSTA_DESCARGA.VLRPALPF, 
+                    APOSTA_DESCARGA.VLRPALPD,APOSTA_DESCARGA.VLRPRESEC,APOSTA_DESCARGA.VLRPREMOL, 
+                    APOSTA_DESCARGA.VLRPRESMJ,APOSTA_DESCARGA.VLRPRE,APOSTA_DESCARGA.VLRPREPAG, 
+                    APOSTA_DESCARGA.SITDES,APOSTA_DESCARGA.COLMOTDES,APOSTA_DESCARGA.COLPRE, 
+                    APOSTA_DESCARGA.PERDESC,APOSTA_DESCARGA.DATAPO,APOSTA_DESCARGA.HORAPO, 
+                    APOSTA_DESCARGA.IDTIPOAPO,APOSTA_DESCARGA.IDCOL,APOSTA_DESCARGA.DATENV, 
+                    APOSTA_DESCARGA.HORENV,APOSTA_DESCARGA.GRUPDES,APOSTA_DESCARGA.INCOMB, 
+                    APOSTA_DESCARGA.VLRCOTACAO,APOSTA_DESCARGA.IDMENU,APOSTA_DESCARGA.INFODESC, 
+                    APOSTA_DESCARGA.TIPODESC,APOSTA_DESCARGA.VLRPALPSECO,APOSTA_DESCARGA.VLRPALPMOLHADO, 
+                    APOSTA_DESCARGA.INVISU,APOSTA_DESCARGA.IDCOLDESC, 
+                    VENDEDOR.NOMVEN, 
+                    HOR_APOSTA.HORLIM, HOR_APOSTA.HORSOR, HOR_APOSTA.DESHOR, 
+                    LOTERIAS.DESLOT, LOTERIAS.ABRLOT, 
+                    TIPO_APOSTA.DESTIPOAPO, 
+                    COLOCACOES.DESCOL, 
+                    VEN_O.NOMVEN AS NOMVEM_O, 
+                    APOSTA_PALPITES.VLRPALP, APOSTA_PALPITES.PALP1, APOSTA_PALPITES.PALP2, APOSTA_PALPITES.PALP3,  
+                              APOSTA_PALPITES.PALP4, APOSTA_PALPITES.PALP5, APOSTA_PALPITES.PALP6, 
+                              APOSTA_PALPITES.PALP7, APOSTA_PALPITES.PALP8, APOSTA_PALPITES.PALP9, 
+                              APOSTA_PALPITES.PALP10, APOSTA_PALPITES.PALP11, APOSTA_PALPITES.PALP12, 
+                              APOSTA_PALPITES.PALP13, APOSTA_PALPITES.PALP14, APOSTA_PALPITES.PALP15, 
+                              APOSTA_PALPITES.PALP16, APOSTA_PALPITES.PALP17, APOSTA_PALPITES.PALP18, 
+                              APOSTA_PALPITES.PALP19, APOSTA_PALPITES.PALP20, APOSTA_PALPITES.PALP21, 
+                              APOSTA_PALPITES.PALP22, APOSTA_PALPITES.PALP23, APOSTA_PALPITES.PALP24, 
+                              APOSTA_PALPITES.PALP25, 
+                              APOSTA_PALPITES.VLRPALP AS AP_VLRPALP, APOSTA_PALPITES.VLRPRESEC AS AP_VLRPRESEC, 
+                              APOSTA_PALPITES.VLRPREMOL AS AP_VLRPREMOL, APOSTA_PALPITES.VLRPRESMJ AS AP_VLRPRESMJ, 
+                              APOSTA_PALPITES.VLRPALPF AS AP_VLRPALPF, APOSTA_PALPITES.VLRPALPD AS AP_VLRPALPD, APOSTA_PALPITES.IDLOT, APOSTA_PALPITES.IDHOR, 
+                              APOSTA_PALPITES.VLRCOTACAO AS AP_VLRCOTACAO, 
+                              VEN_TIPO_APO.VLRLIMDESC 
+                              FROM APOSTA_DESCARGA 
+                              INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = APOSTA_DESCARGA.IDBASED AND 
+                                                     VENDEDOR.IDVEN  = APOSTA_DESCARGA.IDVEND 
+                              INNER JOIN VENDEDOR VEN_O ON VEN_O.IDBASE = APOSTA_DESCARGA.IDBASEO AND 
+                                                           VEN_O.IDVEN  = APOSTA_DESCARGA.IDVENO   
+                              INNER JOIN APOSTA_PALPITES ON APOSTA_PALPITES.IDBASE  = APOSTA_DESCARGA.IDBASE AND 
+                                                            APOSTA_PALPITES.IDVEN   = APOSTA_DESCARGA.IDVEN AND 
+                                                            APOSTA_PALPITES.IDREVEN = APOSTA_DESCARGA.IDREVEN AND 
+                                                            APOSTA_PALPITES.IDTER   = APOSTA_DESCARGA.IDTER AND 
+                                                            APOSTA_PALPITES.IDAPO   = APOSTA_DESCARGA.IDAPO AND 
+                                                            APOSTA_PALPITES.NUMPULE = APOSTA_DESCARGA.NUMPULE AND 
+                                                            APOSTA_PALPITES.SEQPALP = APOSTA_DESCARGA.SEQPALP 
+                              INNER JOIN HOR_APOSTA ON HOR_APOSTA.IDLOT = APOSTA_PALPITES.IDLOT AND 
+                                                         HOR_APOSTA.IDHOR = APOSTA_PALPITES.IDHOR 
+                              INNER JOIN LOTERIAS ON LOTERIAS.IDLOT = APOSTA_PALPITES.IDLOT 
+                              INNER JOIN TIPO_APOSTA ON TIPO_APOSTA.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO 
+                              INNER JOIN COLOCACOES ON COLOCACOES.IDCOL = APOSTA_PALPITES.IDCOL 
+                              INNER JOIN VEN_TIPO_APO ON VEN_TIPO_APO.IDBASE = VEN_O.IDBASE AND 
+                                                          VEN_TIPO_APO.IDVEN = VEN_O.IDVEN AND 
+                                                          VEN_TIPO_APO.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO 
+                              WHERE 
+                                  APOSTA_DESCARGA.IDBASE <> 999999 
+                                  AND APOSTA_DESCARGA.SITDES <> 'CAN' 
+                                  AND APOSTA_DESCARGA.VLRPALP > 0
+                          
+                                  AND APOSTA_PALPITES.DATENV between '2017-11-03' AND '2017-11-03'
+                                  AND APOSTA_DESCARGA.IDBASEO = 1004
+                                  AND APOSTA_DESCARGA.IDVENO  = 1004
+        ");
+
+
+//dd($data);
         return $data;
     }
 }

@@ -111,7 +111,6 @@
                         <table class="mdl-data-table " id="example"  cellspacing="0" width="100%">
                             <thead><tr>
                                 <th></th>
-                                <th></th>
                                 <th>Pule</th>
                                 <th>Data Sorteio</th>
                                 <th>Loteria</th>
@@ -120,6 +119,7 @@
                                 <th>Vlr. Descarga</th>
                                 <th>Tipo</th>
                                 <th>Colocação</th>
+                                <th>Situação</th>
                                 <th>Horário Limite</th>
                                 <th>Vendedor Destino</th>
                                 <th>Data Envio Aposta</th>
@@ -128,20 +128,78 @@
 
                             @forelse($data as $d)
 
+
                                 <tr>
                                     <td>{{ $d->infodesc }}</td>
                                     <td>{{ $d->numpule }}</td>
-                                    <td>{{ $d->datapo }}</td>
+                                    <td>{{ Carbon\Carbon::parse($d->datapo)->format('d/m/Y') }}</td>
                                     <td>{{ $d->deshor }}</td>
                                     <td>{{ $d->destipoapo }}</td>
-                                    <td> vaDesPalp </td>
-                                    <td>{{ $d->vrlpalp }}</td>
+                                    <td>  @if( isset($d->palp1) ){{$d->palp1}}@endif
+
+                                        @if( isset($d->palp2) ){{'- '.$d->palp2}}@endif
+
+                                        @if( isset($d->palp3) ) {{'- '.$d->palp3}} @endif
+
+                                        @if( isset($d->palp4) ){{'- '.$d->palp4}}@endif
+
+                                        @if( isset($d->palp5) ){{'- '.$d->palp5}}@endif
+
+                                        @if( isset($d->palp6) ){{'- '.$d->palp6}}@endif
+
+                                        @if( isset($d->palp7) ){{'- '.$d->palp7}}@endif
+
+                                        @if( isset($d->palp8) ){{'- '.$d->palp8}}@endif
+
+                                        @if( isset($d->palp9) ){{'- '.$d->palp9}}@endif
+
+                                        @if( isset($d->palp10) ){{'- '.$d->palp10}}@endif
+
+                                        @if( isset($d->palp11) ){{'- '.$d->palp11}}@endif
+
+                                        @if( isset($d->palp12) ){{'- '.$d->palp12}}@endif
+
+                                        @if( isset($d->palp13) ){{'- '.$d->palp13}}@endif
+
+                                        @if( isset($d->palp13) ){{'- '.$d->palp13}}@endif
+
+                                        @if( isset($d->palp14) ){{'- '.$d->palp14}}@endif
+
+                                        @if( isset($d->palp15) ){{'- '.$d->palp15}}@endif
+
+                                        @if( isset($d->palp16) ){{'- '.$d->palp16}}@endif
+
+                                        @if( isset($d->palp17) ){{'- '.$d->palp17}}@endif
+
+                                        @if( isset($d->palp18) ){{'- '.$d->palp18}}@endif
+
+                                        @if( isset($d->palp19) ){{'- '.$d->palp19}}@endif
+
+                                        @if( isset($d->palp20) ){{'- '.$d->palp20}}@endif
+
+                                        @if( isset($d->palp21) ){{'- '.$d->palp21}}@endif
+
+                                        @if( isset($d->palp22) ){{'- '.$d->palp22}}@endif
+
+                                        @if( isset($d->palp23) ){{'- '.$d->palp23}}@endif
+
+                                        @if( isset($d->palp24) ){{'- '.$d->palp24}}@endif
+
+                                        @if( isset($d->palp25) ){{'- '.$d->palp25}}@endif
+                                    </td>
+                                    <td>{{ $d->vlrpalp }}</td>
                                     <td>{{ $d->tipodesc }}</td>
                                     <td>{{ $d->descol }}</td>
-                                    <td> vaSitDes </td>
-                                    <td>{{ $d->horlim }}</td>
+                                    @if($d->sitdes = 'PRO')
+                                        <td class="green">LIBERADOS</td>
+                                    @elseif($d->sitdes = 'EL')
+                                        <td class="red"></td>
+                                    @elseif($d->sitdes = 'PRE')
+                                        <td class="orange">PREMIADO</td>
+                                    @endif
+                                    <td>{{Carbon\Carbon::parse($d->horlim)->format('H:i:s')}}</td>
                                     <td>{{ $d->nomven }}</td>
-                                    <td> vaDatEnv </td>
+                                    <td> {{ Carbon\Carbon::parse($d->datenv)->format('d/m/Y') }} - {{Carbon\Carbon::parse($d->horenv)->format('H:i:s')}} </td>
 
 
                                 </tr>
@@ -154,7 +212,6 @@
                             <tfoot>
                             <tr>
                                 <th></th>
-                                <th></th>
                                 <th>Pule</th>
                                 <th>Data Sorteio</th>
                                 <th>Loteria</th>
@@ -163,6 +220,7 @@
                                 <th>Vlr. Descarga</th>
                                 <th>Tipo</th>
                                 <th>Colocação</th>
+                                <th>Situação</th>
                                 <th>Horário Limite</th>
                                 <th>Vendedor Destino</th>
                                 <th>Data Envio Aposta</th>
@@ -250,9 +308,6 @@
 
 
         var table = $('#example').DataTable( {
-            fixedColumns: {
-                leftColumns: 1
-            },
 
 
             dom: 'Brtip',
@@ -278,14 +333,14 @@
             "aaSorting": [[0, "desc"]],
 
 
-            columnDefs: [
-                {
-                    targets: [ 0, 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11],
-                    className: 'mdl-data-table__cell--non-numeric'
-                }
+//            columnDefs: [
+//                {
+//                    targets: [ 0, 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11],
+//                    className: 'mdl-data-table__cell--non-numeric'
+//                }
 
 
-            ],
+//            ],
 
             language: {
                 "decimal":        ",",

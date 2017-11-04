@@ -172,7 +172,7 @@ class MovimentosCaixaController extends StandardController
                   REVENDEDOR.IDREVEN = MOVIMENTOS_CAIXA.IDREVEN
         LEFT JOIN COBRADOR ON
                   COBRADOR.IDBASE = MOVIMENTOS_CAIXA.IDBASE AND
-                  COBRADOR.IDVEN = MOVIMENTOS_CAIXA.IDBASE AND
+                  COBRADOR.IDVEN = MOVIMENTOS_CAIXA.IDVEN AND
                   COBRADOR.IDCOBRA = MOVIMENTOS_CAIXA.IDCOBRA
         WHERE 
             MOVIMENTOS_CAIXA.DATMOV BETWEEN '$datIni' AND '$datFim'
