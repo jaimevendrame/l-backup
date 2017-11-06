@@ -26,15 +26,11 @@
                                 </div>
 
                                 <div class="input-field col s12 m4">
-                                    <select multiple name="sel_vendedor[]">
+                                    <select multiple name="sel_lotodia[]">
                                         <option value="" disabled selected>Selecionar</option>
                                         @forelse($semana as $s)
-                                            {{--@if( isset($ideven) && !empty($ideven))--}}
-                                            {{--<option value="{{$bases->ideven}}" {{ $bases->ideven == $ideven  ? 'selected' : '' }} >{{$bases->ideven}}-{{$bases->nomven}}</option>--}}
-                                                {{--@elseif(isset($ideven2) && (is_array($ideven2))) <option value="{{$bases->ideven}}" @forelse($ideven2 as $select) {{ $bases->ideven == $select  ? 'selected' : '' }} @ @empty @endforelse >{{$bases->ideven}}-{{$bases->nomven}}</option>--}}
-                                             {{--@else--}}
-                                                <option value="{{$s->idhor}}">{{$s->deshor}}</option>
-                                            {{--@endif--}}
+
+                                                <option value="{{$s->idhor}}">{{$s->idhor}}-{{$s->deshor}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhum</option>
                                         @endforelse
@@ -85,7 +81,7 @@
                                     <label>Situação</label>
                                 </div>
                                 <div class="input-field col s8 m2 l2">
-                                    <input  id="numpule" name="numpule" type="text" class="validate" value="">
+                                    <input  id="numpule" name="numpule" type="text" class="validate" @if(!empty($palpite)) value="{{$palpite}}" @else value="" @endif>
                                     <label class="active" for="numpule">Nº Aposta</label>
                                 </div>
                                 <div class="input-field col s12 m2">
@@ -188,7 +184,7 @@
 
                                         @if( isset($d->palp25) ){{'- '.$d->palp25}}@endif
                                     </td>
-                                    <td>{{ $d->vlrpalp }}</td>
+                                    <td>{{ number_format($d->vlrpalpo, 2, ',', '.') }}</td>
                                     <td>{{ $d->tipodesc }}</td>
                                     <td>{{ $d->descol }}</td>
                                     @if($d->sitdes = 'PRO')
@@ -232,6 +228,26 @@
 
                         </table>
                         <div class="row"></div>
+                        @php
+                        $total = 0;
+                        foreach ($data as $d){
+                            $total = $total + $d->vlrpalpo;
+                        }
+                        @endphp
+                        <div class="row">
+                            <div class="col s12 m12 l3">
+                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                    <div class="row left-align">
+                                        <h5 class=" blue-grey-text">
+                                        Total:
+                                        </h5>
+                                    </div>
+                                    <div class="row right-align">
+                                        <h5 class=" blue-grey-text">@php echo number_format($total, 2, ',', '.');  @endphp</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {{--<div class="row">--}}
                             {{--<div class="col s12 m12 l3">--}}
                                 {{--<div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">--}}

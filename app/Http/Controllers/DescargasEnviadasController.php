@@ -126,12 +126,15 @@ class DescargasEnviadasController extends StandardController
         //pegar vededor destino
         $idvendd = $this->request->get('sel_vendedord');
 
+        //pegar palpites
+        $palpite = $this->request->get('numpule');
+
 
 
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2', 'idlot','idsit',
-            'idvendd','descarga', 'semana', 'loterias'));
+            'palpite','idvendd','descarga', 'semana', 'loterias'));
     }
 
     public function indexGo()
@@ -782,17 +785,7 @@ class DescargasEnviadasController extends StandardController
         $var_query_4 = '';
         $var_query_5 = '';
         $var_query_6 = '';
-        $var_string_ven = '';
 
-        //Destino
-        $idbased = '';
-        $idvend = '';
-        //pesquisa palpite
-        $palpite = '';
-        //pesquisar por horário loterias
-        $var_hora_select = '';
-        //pesquisar loteria
-        $var_loteria_select = '';
 
         $idusu = auth()->user()->idusu;
         $admin = Usuario::where('idusu', '=', $idusu)->first();
@@ -805,7 +798,6 @@ class DescargasEnviadasController extends StandardController
         } else {
             $var_cond = 2;
         }
-//dd($var_cond);
         if($var_cond != 3){
 
 
@@ -932,8 +924,13 @@ class DescargasEnviadasController extends StandardController
         }
 
         //pesquisar por horário loterias
+        $var_hora_select = $this->request->get('sel_lotodia');
+
         if (!empty($var_hora_select)){
-            $var_query_5 = " AND HOR_APOSTA.IDEHOR IN '$var_hora_select";
+            $var_hora_select = implode(",", $var_hora_select);
+            $var_query_5 = " AND HOR_APOSTA.IDHOR IN ($var_hora_select) ";
+
+//            dd($var_query_5);
         }
         //pesquisar por loteria selecionada
         $sel_loterias = $this->request->get('sel_loterias');
