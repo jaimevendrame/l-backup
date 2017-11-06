@@ -398,7 +398,7 @@ class ResumoCaixaController extends StandardController
             $p = implode(",", $valor);
         }
 
-//        dd($valor);
+//        dd($p);
 
 
         $data = DB::select (

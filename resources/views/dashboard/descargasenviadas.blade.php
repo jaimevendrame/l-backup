@@ -11,7 +11,7 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <form class="form-group" id="form-cad-edit" method="post" action="/admin/resumocaixa" enctype="multipart/form-data">
+                        <form class="form-group" id="form-cad-edit" method="post" action="/admin/descargasenvidas/{{$ideven}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="row">
@@ -46,9 +46,10 @@
                                     <select multiple name="sel_vendedor[]">
                                         <option value="" disabled selected>Selecionar Vendedores</option>
                                         @forelse($baseAll as $bases)
-                                            @if( isset($ideven) && !empty($ideven))
+                                            @if( empty($ideven2) )
                                             <option value="{{$bases->ideven}}" {{ $bases->ideven == $ideven  ? 'selected' : '' }} >{{$bases->ideven}}-{{$bases->nomven}}</option>
-                                                @elseif(isset($ideven2) && (is_array($ideven2))) <option value="{{$bases->ideven}}" @forelse($ideven2 as $select) {{ $bases->ideven == $select  ? 'selected' : '' }} @ @empty @endforelse >{{$bases->ideven}}-{{$bases->nomven}}</option>
+                                            @elseif(isset($ideven2) && (is_array($ideven2)))
+                                            <option value="{{$bases->ideven}}" @forelse($ideven2 as $select) {{ $bases->ideven == $select  ? 'selected' : '' }} @ @empty @endforelse >{{$bases->ideven}}-{{$bases->nomven}}</option>
                                              @else
                                                 <option value="{{$bases->ideven}}">{{$bases->ideven}}-{{$bases->nomven}}</option>
                                             @endif
@@ -330,7 +331,7 @@
             scrollCollapse: true,
             paging:         false,
             Bfilter:        false,
-            "aaSorting": [[0, "desc"]],
+            "aaSorting": [[3, "desc"],[6, "desc"]],
 
 
 //            columnDefs: [
