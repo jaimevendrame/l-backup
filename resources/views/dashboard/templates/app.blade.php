@@ -67,7 +67,7 @@
             $lnksenhadodia.href = $lnk.href.replace(/(.*)/, '/admin/senhadodia/') + el.value;
 
             var $lnkdescenv = document.getElementById("lnk-descenv");
-            $lnkdescenv.href = $lnk.href.replace(/(.*)/, '/admin/descargasenvidas/') + el.value;
+            $lnkdescenv.href = $lnk.href.replace(/(.*)/, '/admin/descargasenviadas/') + el.value;
         }
 
 

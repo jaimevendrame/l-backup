@@ -813,13 +813,13 @@ class DescargasEnviadasController extends StandardController
                         (APOSTA_PALPITES.DATAPO > '$dat'))
                         AND APOSTA_PALPITES.DATENV between '$datIni' AND '$datFim'";
 
-                dd($var_query_1);
+//                dd($var_query_1);
 
             } elseif ($var_cond == 1 ){
                 //Se situação = 1
                 $var_query_1 = "AND APOSTA_DESCARGA.SITDES = 'PRO' 
                         AND APOSTA_PALPITES.DATENV between '$datIni' AND '$datFim'";
-                dd($var_query_1);
+//                dd($var_query_1);
             } elseif ($var_cond == 2 ){
                 //Se situação = 2
                 $var_query_1 = " AND APOSTA_DESCARGA.SITDES = 'EL' AND
@@ -853,10 +853,7 @@ class DescargasEnviadasController extends StandardController
                                   AND (APOSTA_PALPITES.DATAPO = '$dat')) OR
                                   (APOSTA_PALPITES.DATAPO > '$dat'))
                                   AND APOSTA_PALPITES.DATENV between '$datIni' AND '$datFim'";
-                dd($var_query_1);
-
-
-
+//                dd($var_query_1);
             }
         } else {
             //Se não
@@ -896,15 +893,32 @@ class DescargasEnviadasController extends StandardController
        }
 
        //Vendedor Destino selecionado
+        $vendedord = $this->request->get('sel_vendedord');
+        if (!empty($vendedord)){
+            $vendedord = str_split($vendedord, 4);
+
+        }
+        if ($vendedord == Null){
+            $idbased = "";
+            $idevend = "";
+        } else {
+            $idbased =  $vendedord[0];
+            $idvend =  $vendedord[1];
+        }
 
         if (!empty($idbased)){
             $var_query_3 = " AND APOSTA_DESCARGA.IDBASED = '$idbased'
                         AND APOSTA_DESCARGA.IDVEND  = '$idvend'";
+
+//            dd($var_query_3);
         }
 
         //Pesquisar Palpite
+        $palpite = $this->request->get('numpule');
+//        dd($palpite);
         if (!empty($palpite)){
-            $var_query_4 = " AND APOSTA_PALPITES.PALP1 LIKE '"%".$palpite."%"'";
+            $var_query_4 = " AND APOSTA_PALPITES.PALP1 LIKE '%$palpite%'";
+//            dd($var_query_4);
         }
 
         //pesquisar por horário loterias
@@ -912,8 +926,11 @@ class DescargasEnviadasController extends StandardController
             $var_query_5 = " AND HOR_APOSTA.IDEHOR IN '$var_hora_select";
         }
         //pesquisar por loteria selecionada
+        $sel_loterias = $this->request->get('sel_loterias');
+        $var_loteria_select = $sel_loterias;
+
         if (!empty($var_loteria_select)){
-            $var_query_6 = " AND LOTERIAS.IDLOT = '$var_loteria_select";
+            $var_query_6 = " AND LOTERIAS.IDLOT = '$var_loteria_select'";
         }
 
 

@@ -11,7 +11,7 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <form class="form-group" id="form-cad-edit" method="post" action="/admin/descargasenvidas/{{$ideven}}" enctype="multipart/form-data">
+                        <form class="form-group" id="form-cad-edit" method="post" action="/admin/descargasenviadas/{{$ideven}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="row">
@@ -63,10 +63,10 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m2">
-                                    <select name="sel_revendedor">
+                                    <select name="sel_vendedord">
                                         <option value="" >Nenhum</option>
                                         @forelse($descarga as $d)
-                                            <option value="{{$d->idbasedesc}}" @if( isset($sel_revendedor)) {{ $d->idbasedesc == $sel_revendedor  ? 'selected' : '' }} @endif>{{$d->nomven}}</option>
+                                            <option value="{{$d->idbasedesc}}{{$d->idvendesc}}" data-valor="{{$d->idvendesc}}"@if( isset($sel_revendedor)) {{ $d->idbasedesc == $sel_revendedor  ? 'selected' : '' }} @endif>{{$d->nomven}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhum vendedor</option>
                                         @endforelse
