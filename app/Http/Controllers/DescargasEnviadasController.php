@@ -95,8 +95,6 @@ class DescargasEnviadasController extends StandardController
 
         $categorias = $this->retornaCategorias($menus);
 
-//        $data = $this->retornaResumoCaixa($ideven);
-
         $title = $this->title;
 
         $baseAll = $this->retornaBasesAll($idusu);
@@ -108,9 +106,6 @@ class DescargasEnviadasController extends StandardController
         $loterias = $this->returnLoterias();
 
         $data = $this->returnDescargasEnviadas($ideven);
-//        $data = $this->descarga();
-
-//        dd($data);
 
         //referente aos IDEVEN
         $valor = $this->request->get('sel_vendedor');
@@ -122,7 +117,7 @@ class DescargasEnviadasController extends StandardController
             $ideven = $ideven;
         }
 
-//        dd($ideven2);
+
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2',
@@ -743,11 +738,6 @@ class DescargasEnviadasController extends StandardController
 
     public function returnDescargasEnviadas($ideven){
 
-
-
-
-
-
         $datIni = $this->request->get('datIni');
         $datFim = $this->request->get('datFim');
 
@@ -771,7 +761,7 @@ class DescargasEnviadasController extends StandardController
 
 
 
-        $var_cond = 3;
+//        $var_cond = 3;
         //Pegar Data e Hora atual..
         $hora = date('H:i:s');
         $dat = date ("Y/m/d");
@@ -798,8 +788,14 @@ class DescargasEnviadasController extends StandardController
         $admin = Usuario::where('idusu', '=', $idusu)->first();
 
 
+        $situacao = $this->request->get('sel_situacao');
 
-
+        if (!empty($situacao)){
+            $var_cond = $situacao;
+        } else {
+            $var_cond = 2;
+        }
+//dd($var_cond);
         if($var_cond != 3){
 
 
@@ -817,10 +813,13 @@ class DescargasEnviadasController extends StandardController
                         (APOSTA_PALPITES.DATAPO > '$dat'))
                         AND APOSTA_PALPITES.DATENV between '$datIni' AND '$datFim'";
 
+                dd($var_query_1);
+
             } elseif ($var_cond == 1 ){
                 //Se situação = 1
                 $var_query_1 = "AND APOSTA_DESCARGA.SITDES = 'PRO' 
                         AND APOSTA_PALPITES.DATENV between '$datIni' AND '$datFim'";
+                dd($var_query_1);
             } elseif ($var_cond == 2 ){
                 //Se situação = 2
                 $var_query_1 = " AND APOSTA_DESCARGA.SITDES = 'EL' AND
@@ -854,6 +853,7 @@ class DescargasEnviadasController extends StandardController
                                   AND (APOSTA_PALPITES.DATAPO = '$dat')) OR
                                   (APOSTA_PALPITES.DATAPO > '$dat'))
                                   AND APOSTA_PALPITES.DATENV between '$datIni' AND '$datFim'";
+                dd($var_query_1);
 
 
 

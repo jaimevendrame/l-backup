@@ -125,8 +125,8 @@ Route::group([
         Route::get('/senhadodia/{idven}', 'SenhaDiaController@index2')->name('senhadia');
 
         //Descarga Envidas
-        Route::get('/descargasenvidas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
-        Route::post('/descargasenvidas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
+        Route::get('/descargasenviadas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
+        Route::post('/descargasenviadas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
 
 
 

@@ -51,31 +51,23 @@
            var $lnkapostas = document.getElementById("lnk-aposta");
             $lnkapostas.href = $lnk.href.replace(/(.*)/, '/admin/apostas/') + el.value;
 
-
            var $lnkapostasview = document.getElementById("lnk-aposta-view");
-//            alert($lnk.href);
             $lnkapostasview.href = $lnk.href.replace(/(.*)/, '/admin/apostas/view/') + el.value;
-//            alert($lnk.href);
 
             var $lnkapostascancel = document.getElementById("lnk-aposta-cancel");
-//            alert($lnk.href);
             $lnkapostascancel.href = $lnk.href.replace(/(.*)/, '/admin/apostas/cancel/') + el.value;
-//            alert($lnk.href);
 
             var $lnkapostaspremio = document.getElementById("lnk-aposta-premio");
-//            alert($lnk.href);
             $lnkapostaspremio.href = $lnk.href.replace(/(.*)/, '/admin/apostaspremiadas/') + el.value;
-//            alert($lnk.href);
 
             var $lnkresultsadosorteio = document.getElementById("lnk-resul-sorteio");
-//            alert($lnk.href);
             $lnkresultsadosorteio.href = $lnk.href.replace(/(.*)/, '/admin/resultadosorteio/') + el.value;
-//            alert($lnk.href);
 
             var $lnksenhadodia = document.getElementById("lnk-senha");
-//            alert($lnk.href);
             $lnksenhadodia.href = $lnk.href.replace(/(.*)/, '/admin/senhadodia/') + el.value;
-//            alert($lnk.href);
+
+            var $lnkdescenv = document.getElementById("lnk-descenv");
+            $lnkdescenv.href = $lnk.href.replace(/(.*)/, '/admin/descargasenvidas/') + el.value;
         }
 
 

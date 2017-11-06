@@ -75,7 +75,7 @@
                                     <label>Vendedor</label>
                                 </div>
                                 <div class="input-field col s12 m2">
-                                    <select  name="sel_options[]">
+                                    <select  name="sel_situacao">
                                         {{--<option value="3" disabled selected>Opções</option>--}}
                                         <option value="3">Todos</option>
                                         <option value="0">Pendente de liberação</option>
@@ -89,7 +89,7 @@
                                     <label class="active" for="numpule">Nº Aposta</label>
                                 </div>
                                 <div class="input-field col s12 m2">
-                                    <select  name="sel_options[]">
+                                    <select  name="sel_loterias">
                                         <option value="" disabled selected>Todos</option>
                                         @forelse($loterias as $l)
                                         <option value="{{$l->idlot}}">{{$l->deslot}}</option>
