@@ -129,12 +129,22 @@ class DescargasEnviadasController extends StandardController
         //pegar palpites
         $palpite = $this->request->get('numpule');
 
+        //pesquisar por horário loterias
+        $idehor = $this->request->get('sel_lotodia');
 
+        if ($idehor != Null){
+
+            $idehor = $idehor;
+        } else{
+
+            $idehor  = '';
+
+        }
 
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2', 'idlot','idsit',
-            'palpite','idvendd','descarga', 'semana', 'loterias'));
+            'idehor','palpite','idvendd','descarga', 'semana', 'loterias'));
     }
 
     public function indexGo()
@@ -928,7 +938,7 @@ class DescargasEnviadasController extends StandardController
 
         if (!empty($var_hora_select)){
             $var_hora_select = implode(",", $var_hora_select);
-            $var_query_5 = " AND HOR_APOSTA.IDHOR IN ($var_hora_select) ";
+            $var_query_5 = " AND HOR_APOSTA.IDEHOR IN ($var_hora_select) ";
 
 //            dd($var_query_5);
         }

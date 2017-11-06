@@ -30,7 +30,14 @@
                                         <option value="" disabled selected>Selecionar</option>
                                         @forelse($semana as $s)
 
-                                                <option value="{{$s->idhor}}">{{$s->idhor}}-{{$s->deshor}}</option>
+                                            @if(!empty($idehor))
+                                                <option value="{{$s->idehor}}" @forelse($idehor as $select) {{ $s->idehor == $select  ? 'selected' : '' }} @ @empty @endforelse >{{$s->idehor}}-{{$s->deshor}}</option>
+
+                                                @else
+                                                <option value="{{$s->idehor}}">{{$s->idehor}}-{{$s->deshor}}</option>
+
+                                            @endif
+
                                         @empty
                                             <option value="" disabled selected>Nenhum</option>
                                         @endforelse
