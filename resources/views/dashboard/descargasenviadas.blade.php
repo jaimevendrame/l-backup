@@ -66,7 +66,7 @@
                                     <select name="sel_vendedord">
                                         <option value="" >Nenhum</option>
                                         @forelse($descarga as $d)
-                                            <option value="{{$d->idbasedesc}}{{$d->idvendesc}}" data-valor="{{$d->idvendesc}}"@if( isset($sel_revendedor)) {{ $d->idbasedesc == $sel_revendedor  ? 'selected' : '' }} @endif>{{$d->nomven}}</option>
+                                            <option value="{{$d->idbasedesc}}{{$d->idvendesc}}"@if( !empty($idvendd)) {{ $d->idbasedesc.$d->idvendesc == $idvendd  ? 'selected' : '' }} @endif>{{$d->nomven}}</option>
                                         @empty
                                             <option value="" disabled selected>Nenhum vendedor</option>
                                         @endforelse
@@ -77,10 +77,10 @@
                                 <div class="input-field col s12 m2">
                                     <select  name="sel_situacao">
                                         {{--<option value="3" disabled selected>Opções</option>--}}
-                                        <option value="3">Todos</option>
-                                        <option value="0">Pendente de liberação</option>
-                                        <option value="1">Liberadas</option>
-                                        <option value="2">Não liberadas</option>
+                                        <option value="3" @if(!empty($idsit)) {{ $idsit == 3  ? 'selected' : '' }}  @endif>Todos</option>
+                                        <option value="0" @if(!empty($idsit)) {{ $idsit == 0  ? 'selected' : '' }}  @endif>Pendente de liberação</option>
+                                        <option value="1" @if(!empty($idsit)) {{ $idsit == 1  ? 'selected' : '' }}  @endif>Liberadas</option>
+                                        <option value="2" @if(!empty($idsit)) {{ $idsit == 2  ? 'selected' : '' }}  @endif>Não liberadas</option>
                                     </select>
                                     <label>Situação</label>
                                 </div>
@@ -90,9 +90,9 @@
                                 </div>
                                 <div class="input-field col s12 m2">
                                     <select  name="sel_loterias">
-                                        <option value="" disabled selected>Todos</option>
+                                        <option value=""  selected>Todos</option>
                                         @forelse($loterias as $l)
-                                        <option value="{{$l->idlot}}">{{$l->deslot}}</option>
+                                        <option value="{{$l->idlot}}" @if(!empty($idlot)) {{ $l->idlot == $idlot  ? 'selected' : '' }}  @endif>{{$l->deslot}}</option>
                                         @empty
                                         <option value="">Nenhum</option>
                                         @endforelse

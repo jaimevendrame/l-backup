@@ -117,11 +117,21 @@ class DescargasEnviadasController extends StandardController
             $ideven = $ideven;
         }
 
+        //pegar loteria paramter
+        $idlot = $this->request->get('sel_loterias');
+
+        //pegar situação
+        $idsit = $this->request->get('sel_situacao');
+
+        //pegar vededor destino
+        $idvendd = $this->request->get('sel_vendedord');
+
+
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2',
-            'descarga', 'semana', 'loterias'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2', 'idlot','idsit',
+            'idvendd','descarga', 'semana', 'loterias'));
     }
 
     public function indexGo()
