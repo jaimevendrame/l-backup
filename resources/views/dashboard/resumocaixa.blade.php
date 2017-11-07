@@ -45,7 +45,7 @@
                                 <div class="input-field col s12 m2">
                                     <select multiple name="sel_options[]">
                                         <option value="" disabled selected>Opções</option>
-                                        <option value="1" @if(isset($despesas)){{ $despesas == 'SIM'  ? 'selected' : '' }} @endif>Com Despesas</option>
+                                        <option value="1" @if(isset($var_despesas)){{ $var_despesas == 'SIM'  ? 'selected' : '' }} @endif>Com Despesas</option>
                                         <option value="2" @if(isset($in_ativos)){{ $in_ativos == 'SIM'  ? 'selected' : '' }} @endif>Mostrar Inativos</option>
                                     </select>
                                     <label>Opções</label>
@@ -176,11 +176,12 @@
 
                                         </div>
                                     @endif
-                                    @if(isset($despesas))
-                                        @if($despesas == 'SIM')
+                                    @if(isset($var_despesas))
+                                        @if($var_despesas == 'SIM')
                                         <td>{{ number_format($resumo->despesas, 2, ',', '.') }}</td>
                                         @else
-                                        <td>{{ number_format(0, 2, ',', '.') }}</td>
+                                        <td>{{ number_format(0, 2, ',', '.') }}
+                                        </td>
                                         @endif
                                     @else
                                         <td>{{ number_format(0, 2, ',', '.') }}</td>

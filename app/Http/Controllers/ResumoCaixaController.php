@@ -154,15 +154,15 @@ class ResumoCaixaController extends StandardController
 //dd($ideven2);
 
         $dados = $this->request->get('sel_options');
-        $in_ativos = '';
 
-
+        $in_ativos = 'NAO';
+        $var_despesas = 'NAO';
 
         if (isset($dados)){
             if (in_array(1, $dados)) {
-                $despesas = 'SIM';
+                $var_despesas = 'SIM';
             }else {
-                $despesas = 'NAO';}
+                $var_despesas = 'NAO';}
 
             if (in_array(2, $dados)) {
                 $in_ativos = 'SIM';
@@ -171,9 +171,8 @@ class ResumoCaixaController extends StandardController
         }
 
 
-
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'despesas','in_ativos'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'var_despesas','in_ativos'));
     }
 
     public function retornaResumoCaixa($ideven){
