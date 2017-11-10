@@ -126,7 +126,7 @@ Route::group([
 
         //Descarga Envidas
         Route::get('/descargasenviadas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
-        Route::post('/descargasenviadas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
+        Route::post('/descargasenviadas/{idven}', 'DescargasEnviadasController@indexGo')->name('descargaenviadas');
 
 
 
