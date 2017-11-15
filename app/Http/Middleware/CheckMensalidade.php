@@ -40,7 +40,9 @@ class CheckMensalidade
         }
 
 
+        $log = $this->logUsuario($idusu);
 
+//        dd($log);
 
 
         // Permite que continue (Caso não entre em nenhum dos if acima)...
@@ -76,6 +78,40 @@ class CheckMensalidade
             ->first();
 
         return $data;
+    }
+
+    public function logUsuario($idusu){
+
+        $usuario = DB::table('USUARIO')
+                    ->where('IDUSU','=', $idusu)->first();
+
+
+        $idusulog = DB::select("SELECT MAX(USULOG.IDUSULOG) AS IDUSULOG  FROM USULOG");
+
+        $idusulog = $idusulog[0]->idusulog + 1;
+
+
+        $data_array = [
+            "idusulog" => $idusulog,
+            "idusu" => $usuario->idusu,
+            "datlog" => date('Y-m-d'),
+            "horlog" => date('Y-m-d H:i:s'),
+            "inadmin" => $usuario->inadim,
+            "versis" => 'WEB',
+        ];
+
+//        dd($data_array);
+
+        $insert = DB::table('usulog')->insert($data_array);
+
+        if ($insert)
+
+            return $insert;
+
+        else
+            return 2;
+
+
     }
 
 
