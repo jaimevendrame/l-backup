@@ -120,6 +120,7 @@ Route::group([
         Route::get('/manager/web/create/{id}', 'StandardController@createUsuarioWeb')->name('create-user-web');
         Route::post('/manager/web/update/{id}', 'StandardController@updateUsuarioWeb')->name('update-user-web');
         Route::post('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
+        Route::get('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
 
         //Senha do Dia
         Route::get('/senhadodia/{idven}', 'SenhaDiaController@index2')->name('senhadia');
