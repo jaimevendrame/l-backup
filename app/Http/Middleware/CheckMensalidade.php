@@ -90,6 +90,7 @@ class CheckMensalidade
 
         $idusulog = $idusulog[0]->idusulog + 1;
 
+        $p = $this->returnBaseIdvenDefault($idusu);
 
         $data_array = [
             "idusulog" => $idusulog,
@@ -98,6 +99,8 @@ class CheckMensalidade
             "horlog" => date('Y-m-d H:i:s'),
             "inadmin" => $usuario->inadim,
             "versis" => 'WEB',
+            "idbase" =>$p->idbase,
+            "idven" =>$p->idven,
         ];
 
 //        dd($data_array);

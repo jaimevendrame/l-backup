@@ -35,7 +35,7 @@ Route::get('/', function () {
 
 Route::get('/home', function (){
     return redirect()->route('admin.home');
-});
+})->middleware('check.gmail');
 
 Route::get('/teste', function () {
     return view('testes.feito');
@@ -56,7 +56,7 @@ Route::group([
 
     Auth::routes();
 
-    Route::group(['middleware' => ['can:access-admin', 'check.gmail']], function (){
+    Route::group(['middleware' => ['can:access-admin']], function (){
 
 
 
