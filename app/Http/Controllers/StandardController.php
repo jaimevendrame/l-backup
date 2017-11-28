@@ -460,7 +460,6 @@ class StandardController extends BaseController
 
         $dadosForm = $this->request->all();
 
-        dd($dadosForm);
 
         $idusu = $this->request->get('idusu');
         $id = $this->request->get('id');
@@ -488,38 +487,14 @@ class StandardController extends BaseController
                 ->withErrors(['errors'=> 'Falha ao Editar'])
                 ->withInput();
     }
-    public function insertUsuarioWebGo(){
+    public function WebGo(){
 
 
         $dadosForm = $this->request->all();
 
         dd($dadosForm);
 
-        $idusu = $this->request->get('idusu');
-        $id = $this->request->get('id');
 
-        $validator = validator($dadosForm, $this->user->rulesEdit);
-
-        if ($validator->fails()) {
-
-            return redirect("/admin/manager/web/create/$idusu")
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-
-        $dadosForm['password'] = bcrypt($dadosForm['password']);
-
-        $insert = $this->user->create($dadosForm);
-
-        if ($insert)
-
-            return redirect("/admin/manager/desktop/");
-
-        else
-            return redirect("/admin/manager/web/create/$id")
-                ->withErrors(['errors'=> 'Falha ao Editar'])
-                ->withInput();
     }
 
     public function validarMensalidade($idusu){
