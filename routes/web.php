@@ -118,9 +118,11 @@ Route::group([
         Route::get('/manager/desktop/', 'StandardController@returnUsuarioDesktop')->name('manager-user-desktop');
         Route::get('/manager/web/', 'StandardController@returnUsuarioWeb')->name('manager-user-web');
         Route::get('/manager/web/create/{id}', 'StandardController@createUsuarioWeb')->name('create-user-web');
+        Route::post('/manager/web/create/{id}', 'StandardController@createUsuarioWeb')->name('create-user-web');
         Route::post('/manager/web/update/{id}', 'StandardController@updateUsuarioWeb')->name('update-user-web');
-        Route::post('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
         Route::get('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
+        Route::post('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
+
 
         //Senha do Dia
         Route::get('/senhadodia/{idven}', 'SenhaDiaController@index2')->name('senhadia');
@@ -128,6 +130,7 @@ Route::group([
         //Descarga Envidas
         Route::get('/descargasenviadas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
         Route::post('/descargasenviadas/{idven}', 'DescargasEnviadasController@indexGo')->name('descargaenviadas');
+        Route::get('/descargasenviadas/view/{idven}/{idapo}', 'DescargasEnviadasController@returnInfoDescEnv')->name('descargaenviadas');
 
 
 

@@ -117,6 +117,7 @@
 
                                 <thead><tr>
                                     <th></th>
+                                    <th></th>
                                     <th>Pule</th>
                                     <th>Data Sorteio</th>
                                     <th>Loteria</th>
@@ -135,6 +136,7 @@
                                 @forelse($data as $d)
 
                                     <tr>
+                                        <td><a class="waves-effect waves-light btn blue" onclick='edit("/descargasenviadas/view/{{$ideven}}/{{$d->idapo}}")'><i class="material-icons">info</i></a>
                                         <td>{{ $d->infodesc }}</td>
                                         <td>{{ $d->numpule }}</td>
                                         <td>{{ Carbon\Carbon::parse($d->datapo)->format('d/m/Y') }}</td>
@@ -223,6 +225,7 @@
                                 <tfoot>
                                 <tr>
                                     <th></th>
+                                    <th></th>
                                     <th>Pule</th>
                                     <th>Data Sorteio</th>
                                     <th>Loteria</th>
@@ -278,7 +281,17 @@
     </div>
 
 
-
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+            <input type="text" id="teste">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
 @endsection
 
 
@@ -357,6 +370,18 @@
         } );
 
     });
+
+    //Editar
+    function edit(urlEdit){
+
+        jQuery.getJSON(urlEdit, function(data){
+            $('#teste').val(data.nomvem_o);
+
+        });
+
+        $('#modal1').modal('open');
+        return false;
+    }
 </script>
 @endpush
 
