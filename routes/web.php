@@ -124,6 +124,7 @@ Route::group([
         Route::post('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
 //        Route::post('/manager/web/insert2/', 'StandardController@WebGo');
 
+        Route::get('/manager/web-go/', 'StandardController@webinsert');
         Route::post('/manager/web-go/', 'StandardController@webinsertGo');
 
 
