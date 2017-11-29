@@ -16,7 +16,7 @@
                         @endif
                         @if(!empty($usuarioWeb))
                         <form id="form-cad-edit" method="post" action="/admin/manager/web/update/{{$usuarioWeb->id}}" enctype="multipart/form-data" autocomplete="off">
-                            <input type="hidden" value="{{$usuarioWeb->id}}" name="id">
+{{--                            <input type="hidden" value="{{$usuarioWeb->id}}" name="id">--}}
                         @else
                                 <form id="form-cad-edit" method="post" action="/admin/manager/web-go/" enctype="multipart/form-data" autocomplete="off">
 
