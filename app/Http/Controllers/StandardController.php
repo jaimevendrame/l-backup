@@ -460,7 +460,7 @@ class StandardController extends BaseController
 
         $dadosForm = $this->request->all();
 
-
+        dd($dadosForm);
         $idusu = $this->request->get('idusu');
         $id = $this->request->get('id');
 
