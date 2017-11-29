@@ -22,6 +22,7 @@
                                     <th>Senha</th>
                                     <th>Email</th>
                                     <th>Ações</th>
+                                    <th>Ações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -34,6 +35,7 @@
                                         <td>{{$u->senusu}}</td>
                                         <td>{{$u->emausu}}</td>
                                         <td><a href="/admin/manager/web/create/{{$u->idusu}}" class="btn"><i class="material-icons">web</i></a></td>
+                                        <td><a href="/admin/manager/web-go/{{$u->idusu}}" class="btn"><i class="material-icons">web</i></a></td>
                                     </tr>
                                     @empty
                                 <p>Nenhum registro!</p>
@@ -47,6 +49,7 @@
                                     <th>Login</th>
                                     <th>Senha</th>
                                     <th>Email</th>
+                                    <th>Ações</th>
                                     <th>Ações</th>
                                 </tr>
                                 </tfoot>

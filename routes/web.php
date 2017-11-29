@@ -121,8 +121,11 @@ Route::group([
         Route::post('/manager/web/create/{id}', 'StandardController@createUsuarioWeb')->name('create-user-web');
         Route::post('/manager/web/update/{id}', 'StandardController@updateUsuarioWeb')->name('update-user-web');
         Route::get('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
-//        Route::post('/manager/web/insert/', 'StandardController@insertUsuarioWebGo')->name('insert-user-web');
-        Route::post('/manager/web/insert2/', 'StandardController@WebGo');
+        Route::post('/manager/web/insert/', 'StandardController@insertUsuarioWeb')->name('insert-user-web');
+//        Route::post('/manager/web/insert2/', 'StandardController@WebGo');
+
+        Route::get('/manager/web-go/{id}', 'StandardController@webinsertGo');
+
 
 
         //Senha do Dia

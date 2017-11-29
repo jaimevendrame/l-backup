@@ -530,5 +530,15 @@ class StandardController extends BaseController
     }
 
 
+    public function webinsertGo($id){
+
+        $data = $this->usuario
+            ->where('idusu', '=', $id)
+            ->first();
+
+
+        return $data;
+    }
+
 
 }
