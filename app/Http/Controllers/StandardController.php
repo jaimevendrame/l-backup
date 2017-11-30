@@ -427,6 +427,8 @@ class StandardController extends BaseController
     public function updateUsuarioWeb(){
 
         $dadosForm = $this->request->all();
+
+
         $idusu = $this->request->get('idusu');
         $id = $this->request->get('id');
 
@@ -440,6 +442,7 @@ class StandardController extends BaseController
         }
 
         $item = $this->user->find($id);
+
 
         $dadosForm['password'] = bcrypt($dadosForm['password']);
 
