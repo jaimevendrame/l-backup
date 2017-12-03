@@ -27,6 +27,18 @@
                                         @endif
                                     </div>
                                 </div>
+                                {{--<div class="row">--}}
+                                    {{--<div class="input-field col s12">--}}
+                                        {{--<i class="material-icons prefix">perm_identity</i>--}}
+                                        {{--<input id="name" type="text" name="name" class="validate {{ $errors->has('name') ? ' has-error' : '' }}">--}}
+                                        {{--<label for="name">Username</label>--}}
+                                        {{--@if ($errors->has('name'))--}}
+                                            {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('name') }}</strong>--}}
+                                    {{--</span>--}}
+                                        {{--@endif--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">lock</i>

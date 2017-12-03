@@ -140,6 +140,13 @@ Route::group([
         Route::get('/descargasenviadas/view/{idven}/{idapo}', 'DescargasEnviadasController@returnInfoDescEnv')->name('descargaenviadas');
 
 
+        //Cadastro de usuário web
+
+        Route::get('/acesso/desktop/', 'AcessoWebController@indexDesktop')->name('index.desktop');
+        Route::get('/acesso/web/', 'AcessoWebController@indexWeb')->name('index.web');
+        Route::get('/acesso/web/create/{id}', 'AcessoWebController@create')->name('create.get');
+        Route::post('/acesso/web/create/', 'AcessoWebController@createGo')->name('create.post');
+        Route::post('/acesso/web/update/{id}', 'AcessoWebController@update')->name('update.post');
 
 
     });

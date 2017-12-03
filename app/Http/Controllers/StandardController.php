@@ -283,7 +283,7 @@ class StandardController extends BaseController
 
         $idbase = $this->retornaBasepeloIdeven($id);
 
-//        dd($idbase->idbase);
+//        dd($id);
 
         $data = $this->revendedor
             ->where('idbase','=',$idbase->idbase)
