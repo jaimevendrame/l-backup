@@ -44,6 +44,20 @@ class Home2Controller extends StandardController
 
     }
 
+    public function indexGo(){
+        $select_ideven = $this->request->get('select_ideven');
+
+        // Criar uma sessão
+        $cart = $select_ideven ;
+        session(['cart' => $cart]);
+
+        // Recuperar
+        $cart = session('cart');
+
+        return $select_ideven;
+
+    }
+
     public function retornaResumoCaixa(){
 
 

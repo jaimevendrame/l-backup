@@ -19,25 +19,43 @@
                                 <input placeholder="Usuário" id="first_name" type="text" class="validate"  readonly value="{{ $usuario_lotec->idusu .' - '. $usuario_lotec->nomusu}}">
                                 <label for="first_name">Usuário:</label>
                             </div>
-                            <div class="input-field col s12">
-                                <label class="active">Vendedor:</label>
-                                <br>
-                                <select class="browser-default blue-grey darken-1" onchange="test(this)">
-                                    @if ($vendedores->count())
-                                        @foreach($vendedores as $vendedor)
-                                            <option value="{{ $vendedor->ideven  }}" {{ $vendedor->inpadrao == 'SIM'  ? 'selected' : '' }}>
-                                                Base: {{ $vendedor->idbase}} Vendedor: {{ $vendedor->idven  }} - {{ $vendedor->nomven }} Cidade: {{ $vendedor->cidbas }}
-                                            </option>
+                            <form id="form-cad-edit" method="post" action="/admin/home/" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="input-field col s12">
+                                    <label class="active">Vendedor:</label>
+                                    <br>
+                                    <select class="browser-default blue-grey darken-1" onchange="test(this)" name="select_ideven">
+                                        @if ($vendedores->count())
+                                            @foreach($vendedores as $vendedor)
+                                                <option value="{{ $vendedor->ideven  }}" {{ $vendedor->inpadrao == 'SIM'  ? 'selected' : '' }}>
+                                                    Base: {{ $vendedor->idbase}} Vendedor: {{ $vendedor->idven  }} - {{ $vendedor->nomven }} Cidade: {{ $vendedor->cidbas }}
 
-                                    @endforeach
-                                           @endif
-                                </select>
+                                                </option>
 
-                            </div>
+                                            @endforeach
+                                        @endif
+                                    </select>
+
+                                </div>
+                                <div class="input-field col s12">
+                                    <button class="btn btn-block right">salvar</button>
+                                </div>
+                            </form>
+
+
                         </div>
                     </div>
                 </div>
             </div>
+{{--
+            @if(session()->has('ideven'))
+
+                <tr>
+                    <td>{{ session()->get('ideven') }}</td>
+
+                </tr>
+            @endif
+--}}
             <div class="col s4">
                 {{--<div class="card blue-grey darken-1">--}}
                     {{--<div class="card-content white-text">--}}

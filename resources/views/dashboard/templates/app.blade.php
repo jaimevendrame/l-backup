@@ -68,10 +68,16 @@
 
             var $lnkdescenv = document.getElementById("lnk-descenv");
             $lnkdescenv.href = $lnk.href.replace(/(.*)/, '/admin/descargasenviadas/') + el.value;
+
+            //session
+
+
+
         }
 
 
     </script>
+
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -233,8 +239,12 @@
                     foreach ($vendedores as $item){
                             if ($item->inpadrao == 'SIM'){
                                 $m = $item->ideven;
+
                             }
                         }
+                    if (session()->has('ideven')){
+                    $m = session()->get('ideven');
+                    }
                     @endphp
 
                    @php
@@ -261,7 +271,6 @@
                     @endphp
 
                 </ul>
-
                 @if(!empty($validaMesalidade))
                     @php
                         $datven = new DateTime($validaMesalidade->datven);

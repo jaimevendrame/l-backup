@@ -60,7 +60,9 @@ Route::group([
 
 
 
-        Route::get('/home', 'Home2Controller@index')->name('home');
+        Route::any('/home', 'Home2Controller@index')->name('home');
+//        Route::post('/home', 'Home2Controller@indexGo');
+
         Route::get('/delete/{idAluno}', 'HomeController@delete')->name('delete');
 //        Route::get('/show/{idAluno}', 'AlunoController@show')->name('show');
 //        Route::get('/sms/{idAluno}', 'AlunoController@sms')->name('sms');

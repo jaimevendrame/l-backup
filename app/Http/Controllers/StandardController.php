@@ -84,8 +84,22 @@ class StandardController extends BaseController
         }
 
 
+        $select_ideven = $this->request->get('select_ideven');
+        $valor = $select_ideven ;
+
+        if ($valor == Null){
+            session()->get('ideven');
+        } else {
+            session()->put('ideven', $valor);
+        }
 
 
+
+
+
+
+//        // Recuperar
+//        $cart = session('cart');
 
 
         return view("{$this->nameView}",compact('idusu',
