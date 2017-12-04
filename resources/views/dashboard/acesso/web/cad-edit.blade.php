@@ -38,8 +38,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <input id="login" type="text" readonly class="validate" value="{{$data->logusu }}" name="logusu">
-                                            <label for="login">Login</label>
+                                            <input id="login" type="text"  class="validate" value="{{$data->logusu }}" name="username">
+                                            <label for="login">USERNAME</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input id="password" type="password" readonly class="validate" value="{{$data->senusu }}" name="password">

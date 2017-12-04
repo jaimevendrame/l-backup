@@ -65,6 +65,8 @@ class AcessoWebController extends StandardController
 
         $vendedores = $this->retornaBasesAll($idusu);
 
+//        dd($vendedores);
+
         $menus = $this->retornaMenu($idusu);
 
         $categorias = $this->retornaCategorias($menus);
@@ -121,6 +123,7 @@ class AcessoWebController extends StandardController
 
         $dadosForm = $this->request->all();
 
+        dd($dadosForm);
         $idusu = $this->request->get('idusu');
         $id = $this->request->get('id');
 
@@ -154,6 +157,7 @@ class AcessoWebController extends StandardController
     {
         $dadosForm = $this->request->all();
 
+//        dd($dadosForm);
 
         $idusu = $this->request->get('idusu');
 //        $id = $this->request->get('id');
@@ -256,30 +260,24 @@ class AcessoWebController extends StandardController
 
     public function retornaBasesAll($id){
 
-        if ($id == 1000){
-            $data = DB::table('VENDEDOR')
-                ->orderBy('NOMVEN', 'asc')
-                ->get();
-            return $data;
 
-        } else{
+        $data = $this->usuario_ven
 
-            $data = $this->usuario_ven
+//            ->select('USUARIO_VEN.*')
+            ->join('VENDEDOR', [
+                ['USUARIO_VEN.IDVEN','=','VENDEDOR.IDVEN'],
+                ['USUARIO_VEN.IDBASE', '=', 'VENDEDOR.IDBASE']])
+            ->join('BASE', 'USUARIO_VEN.IDBASE', '=', 'BASE.IDBASE')
+            ->where([
+                ['USUARIO_VEN.idusu', '=', $id]
+            ])
+            ->orderby('INPADRAO', 'DESC')
+            ->get();
 
 
-                ->join('VENDEDOR', [
-                    ['USUARIO_VEN.IDVEN','=','VENDEDOR.IDVEN'],
-                    ['USUARIO_VEN.IDBASE', '=', 'VENDEDOR.IDBASE']])
-                ->join('BASE', 'USUARIO_VEN.IDBASE', '=', 'BASE.IDBASE')
-                ->where([
-                    ['USUARIO_VEN.idusu', '=', $id]
-                ])
-                ->orderby('INPADRAO', 'DESC')
-                ->get();
+//        dd($data);
 
-            return $data;
-        }
-
+        return $data;
     }
 
 
