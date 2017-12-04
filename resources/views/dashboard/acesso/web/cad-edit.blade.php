@@ -32,13 +32,15 @@
                                                    @if( !empty($usuarioWeb))  value="{{$usuarioWeb->email}}"
                                                    @else
                                                    value="{{$data->emausu}}"   @endif name="email">
-
                                             <label for="email">Email</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <input id="login" type="text"  class="validate" value="{{$data->logusu }}" name="username">
+                                            <input placeholder="Username" id="login" type="text" class="validate"
+                                                   @if( !empty($usuarioWeb))  value="{{$usuarioWeb->username}}"
+                                                   @else
+                                                   value="{{$data->logusu}}"   @endif name="username">
                                             <label for="login">USERNAME</label>
                                         </div>
                                         <div class="input-field col s6">
