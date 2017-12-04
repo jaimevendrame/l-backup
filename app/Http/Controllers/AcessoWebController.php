@@ -81,9 +81,36 @@ class AcessoWebController extends StandardController
 
     public function indexWeb()
     {
+
+        $idusu = Auth::user()->idusu;
+
+//        $inadmin = $this->usuario
+//            ->where('idusu', '=', $idusu)
+//            ->first();
+//
+//        if ($inadmin->inadim != "SIM"){
+//            return view('errors.403');
+//        }
+
+        $user_base = $this->retornaBase($idusu);
+
+        $user_bases = $this->retornaBases($idusu);
+
+        $usuario_lotec = $this->retornaUserLotec($idusu);
+
+        $vendedores = $this->retornaBasesAll($idusu);
+
+//        dd($vendedores);
+
+        $menus = $this->retornaMenu($idusu);
+
+        $categorias = $this->retornaCategorias($menus);
+
+        $title = 'Criar Usuário Web';
         $data = User::all();
 
-        return view("dashboard.acesso.web.index",compact('data'));
+        return view("dashboard.acesso.web.index",compact('data',
+            'usuarioWeb', 'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'categorias', 'title', 'menus'));
     }
 
     public function create($id)
