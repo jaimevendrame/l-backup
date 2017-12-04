@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+@extends('dashboard.templates.app')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="{{ asset('materialize/css/materialize.min.css') }}"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="{{ asset('admin/css/admin.css') }}"  media="screen,projection"/>
-
-</head>
-<body>
-<h1>Usuários Web</h1>
-
-<div class="container">
-    <table>
+@section('content')
+    <div class="section">
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <table id="userdesktop">
         <thead>
         <tr>
             <th>ID</th>
@@ -47,10 +33,91 @@
             @endforelse
         @endif
         </tbody>
-    </table>
-</div>
+                        </table>
+                    </div>
 
-<script type="text/javascript" src="{{ asset('materialize/js/jquery-2.1.1.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('materialize/js/materialize.min.js') }}"></script>
-</body>
-</html>
+                </div>
+            </div>
+            <div class="row">
+
+
+            </div>
+        </div>
+
+    </div>
+@endsection
+@push('scripts')
+
+<script>
+    $(document).ready(function() {
+
+        var table = $('#userdesktop').DataTable( {
+
+            dom: 'Brtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    text: 'Copiar',
+                },
+                'pdf',
+                'excel',
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                }
+            ],
+
+
+            scrollY: 480,
+            scrollX:        true,
+            scrollCollapse: true,
+            paging:        false,
+            Bfilter:        false,
+            "aaSorting": [[0, "asc"]],
+
+
+            columnDefs: [
+                {
+                    className: 'mdl-data-table__cell--non-numeric'
+                }
+
+
+            ],
+
+            language: {
+                "decimal":        ",",
+                "thousands":      ".",
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            }
+
+        } );
+
+        // #myInput is a <input type="text"> element
+        $('#myInput').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
+
+
+    });
+</script>
+@endpush
