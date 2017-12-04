@@ -36,7 +36,7 @@
             @forelse($data as $u)
                 <tr>
                     <td>{{$u->id}}</td>
-                    <td>{{$u->name}}</td>
+                    <td>{{$u->username}}</td>
                     <td>{{$u->email}}</td>
                     <td>******</td>
                     <td>{{$u->idusu}}</td>
