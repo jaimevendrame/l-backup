@@ -65,5 +65,10 @@ class LoginController extends Controller
         return redirect(env('URL_ADMIN_LOGIN'));
     }
 
+    public function username()
+    {
+        return 'username';
+    }
+
 }
 

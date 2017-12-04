@@ -15,30 +15,30 @@
                         <form class="col s12" role="form" method="POST" action="{{ env('URL_ADMIN_LOGIN') }}">
                             {{ csrf_field() }}
                             <div class="row">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix">perm_identity</i>
-                                        <input id="email" type="email" name="email" class="validate {{ $errors->has('email') ? ' has-error' : '' }}">
-                                        <label for="email">Email</label>
-                                        @if ($errors->has('email'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                </div>
                                 {{--<div class="row">--}}
                                     {{--<div class="input-field col s12">--}}
                                         {{--<i class="material-icons prefix">perm_identity</i>--}}
-                                        {{--<input id="name" type="text" name="name" class="validate {{ $errors->has('name') ? ' has-error' : '' }}">--}}
-                                        {{--<label for="name">Username</label>--}}
-                                        {{--@if ($errors->has('name'))--}}
+                                        {{--<input id="email" type="email" name="email" class="validate {{ $errors->has('email') ? ' has-error' : '' }}">--}}
+                                        {{--<label for="email">Email</label>--}}
+                                        {{--@if ($errors->has('email'))--}}
                                             {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('name') }}</strong>--}}
+                                        {{--<strong>{{ $errors->first('email') }}</strong>--}}
                                     {{--</span>--}}
                                         {{--@endif--}}
                                     {{--</div>--}}
                                 {{--</div>--}}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">perm_identity</i>
+                                        <input id="username" type="text" name="username" class="validate {{ $errors->has('username') ? ' has-error' : '' }}">
+                                        <label for="username">Username</label>
+                                        @if ($errors->has('username'))
+                                            <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">lock</i>
