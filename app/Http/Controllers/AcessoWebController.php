@@ -67,6 +67,10 @@ class AcessoWebController extends StandardController
 
 //        dd($vendedores);
 
+        $usuarioWeb = $this->user
+            ->where('idusu', '=', $idusu)
+            ->first();
+
         $menus = $this->retornaMenu($idusu);
 
         $categorias = $this->retornaCategorias($menus);
@@ -91,6 +95,10 @@ class AcessoWebController extends StandardController
 //        if ($inadmin->inadim != "SIM"){
 //            return view('errors.403');
 //        }
+
+        $usuarioWeb = $this->user
+            ->where('idusu', '=', $idusu)
+            ->first();
 
         $user_base = $this->retornaBase($idusu);
 
