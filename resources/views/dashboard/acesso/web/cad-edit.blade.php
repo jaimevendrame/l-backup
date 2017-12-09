@@ -15,7 +15,6 @@
                         </div>
                     @endif
 
-                    {{$usuarioWeb}}
                     @if($usuarioWeb != Null)
                         <form id="form-cad-edit" method="post" action="/admin/acesso/web/update/{{$usuarioWeb->id}}" enctype="multipart/form-data" autocomplete="off">
                             <input type="hidden" value="{{$usuarioWeb}}" name="id">

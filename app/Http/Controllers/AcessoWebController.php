@@ -142,7 +142,7 @@ class AcessoWebController extends StandardController
 
         $data = Usuario::where('idusu',$id)->first();
 
-        $usuarioWeb = User::where('idusu', $id)->first();
+        $usuarioWeb = User::where('idusu', $idusu)->first();
 
 //        dd($usuarioWeb);
 
