@@ -142,7 +142,7 @@ class AcessoWebController extends StandardController
 
         $data = Usuario::where('idusu',$id)->first();
 
-        $usuarioWeb = User::where('idusu', $idusu)->first();
+        $usuarioWeb = User::where('idusu', $id)->first();
 
 //        dd($usuarioWeb);
 
@@ -158,7 +158,7 @@ class AcessoWebController extends StandardController
 
         $dadosForm = $this->request->all();
 
-        dd($dadosForm);
+//        dd($dadosForm);
         $idusu = $this->request->get('idusu');
         $id = $this->request->get('id');
 

@@ -35,7 +35,7 @@ class User extends Authenticatable
     }
 
     public $rulesEdit = [
-        'email' => 'required|email',
+        'email' => 'email',
     ];
 
 //    public function getPasswordAttribute($password){
