@@ -249,7 +249,8 @@
 
 
                     @endphp
-/{{\Illuminate\Support\Facades\Session::get('ideven')}}/
+/{{\Illuminate\Support\Facades\Session::put('teste', $m)}}/
+/{{\Illuminate\Support\Facades\Session::get('teste')}}/
                    @php
                         foreach($categorias as $key => $value){
                         echo '<li>';
