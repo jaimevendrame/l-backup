@@ -327,7 +327,7 @@
 
         <body>
         <div>
-            /{{\Illuminate\Support\Facades\Session::put('ideven', $m)}}/
+            {{--/{{\Illuminate\Support\Facades\Session::put('ideven', $m)}}/--}}
             /{{\Illuminate\Support\Facades\Session::get('ideven')}}/
             @yield('content')
         </div>
