@@ -245,6 +245,8 @@
                     if (session()->has('ideven')){
                     $m = session()->get('ideven');
                     }
+
+                    echo $m;
                     @endphp
 
                    @php
