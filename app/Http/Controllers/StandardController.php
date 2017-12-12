@@ -95,6 +95,7 @@ class StandardController extends BaseController
             $this->request->session()->put('ideven', $valor);
         }
 
+        $this->request->session()->keep('ideven');
 
 
         return view("{$this->nameView}",compact('idusu',
