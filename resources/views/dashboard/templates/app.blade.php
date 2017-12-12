@@ -247,10 +247,9 @@
                     }
 
 
-echo $_SESSION['frase'];
 
                     @endphp
-
+/{{\Illuminate\Support\Facades\Session::get('ideven')}}/
                    @php
                         foreach($categorias as $key => $value){
                         echo '<li>';
