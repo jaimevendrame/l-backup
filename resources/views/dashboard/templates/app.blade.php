@@ -1,26 +1,3 @@
-@php $m = 0;
-                    foreach ($vendedores as $item){
-                            if ($item->inpadrao == 'SIM'){
-                                $m = $item->ideven;
-
-                            }
-                        }
-                    if (session()->has('ideven')){
-                    $m = session()->get('ideven');
-                    }
-
-
-                 session_start(); # Deve ser a primeira linha do arquivo
-
-                    $frase = $m;
-
-                    $_SESSION['frase'] = $frase;
-
-
-                    echo $m;
-                    echo $_SESSION['frase'];
-
-@endphp
 <!DOCTYPE html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/html">
 <head>
