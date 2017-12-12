@@ -93,16 +93,8 @@ class StandardController extends BaseController
 
         } else {
             $this->request->session()->put('ideven', $valor);
-            $cookie = cookie('name', 'value', $valor);
         }
 
-
-
-
-
-
-//        // Recuperar
-//        $cart = session('cart');
 
 
         return view("{$this->nameView}",compact('idusu',

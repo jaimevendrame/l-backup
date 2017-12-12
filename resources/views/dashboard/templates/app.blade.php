@@ -246,7 +246,17 @@
                     $m = session()->get('ideven');
                     }
 
+
+                 session_start(); # Deve ser a primeira linha do arquivo
+
+                    $frase = $m;
+
+                    $_SESSION['frase'] = $frase;
+
+
                     echo $m;
+                    echo $_SESSION['frase'];
+
                     @endphp
 
                    @php
