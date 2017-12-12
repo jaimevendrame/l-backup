@@ -92,10 +92,11 @@ class StandardController extends BaseController
             $valorsession = $this->request->session()->get('ideven');
 
         } else {
-            $this->request->session()->put('ideven', $valor);
+//            $this->request->session()->put('ideven', $valor);
+            $this->request->flash('ideven', $valor);
         }
 
-        $this->request->session()->keep('ideven');
+//        $this->request->session()->keep('ideven');
 
 
         return view("{$this->nameView}",compact('idusu',
