@@ -88,9 +88,12 @@ class StandardController extends BaseController
         $valor = $select_ideven ;
 
         if ($valor == Null){
-            session()->get('ideven');
+
+            $valorsession = $this->request->session()->get('ideven');
+
         } else {
-            session()->put('ideven', $valor);
+            $this->request->session()->put('ideven', $valor);
+            $cookie = cookie('name', 'value', $valor);
         }
 
 
