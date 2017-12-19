@@ -79,8 +79,11 @@ class AcessoWebController extends StandardController
 
         $data = Usuario::all();
 
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
+
         return view("dashboard.acesso.desktop.index",compact('data',
-            'usuarioWeb', 'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'categorias', 'title', 'menus'));
+            'usuarioWeb', 'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'categorias', 'title', 'menus', 'ideven_default'));
     }
 
     public function indexWeb()
@@ -117,8 +120,13 @@ class AcessoWebController extends StandardController
         $title = 'Criar Usuário Web';
         $data = User::all();
 
+
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
+
+
         return view("dashboard.acesso.web.index",compact('data',
-            'usuarioWeb', 'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'categorias', 'title', 'menus'));
+            'usuarioWeb', 'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'categorias', 'title', 'menus', 'ideven_default'));
     }
 
     public function create($id)
@@ -146,8 +154,12 @@ class AcessoWebController extends StandardController
 
 //        dd($usuarioWeb);
 
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
+
+
         return view("dashboard.acesso.web.cad-edit",compact('data', 'usuarioWeb', 'user_base',
-            'user_bases', 'usuario_lotec', 'vendedores', 'categorias', 'title', 'menus'));
+            'user_bases', 'usuario_lotec', 'vendedores', 'categorias', 'title', 'menus', 'ideven_default'));
     }
 
     public function createGo()
@@ -260,10 +272,11 @@ class AcessoWebController extends StandardController
             $data = $this->retornaSenhaDia($ideven);
         }
 
-
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default'));
     }
 
 

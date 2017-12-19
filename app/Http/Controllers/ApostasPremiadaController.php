@@ -106,11 +106,13 @@ class ApostasPremiadaController extends StandardController
 
 
 
-
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'ideven', 'ideven_default'));
     }
 
     public function indexGo()
@@ -183,9 +185,12 @@ class ApostasPremiadaController extends StandardController
 
         $p_situacao =  $this->request->get('group1');
 
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'despesas','in_ativos', 'p_situacao'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+                    'baseAll','ideven2', 'despesas','in_ativos', 'p_situacao', 'ideven_default'));
     }
 
     public function retornaApostas($ideven){
@@ -362,8 +367,12 @@ class ApostasPremiadaController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
+
         return view("dashboard.view_aposta",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'ideven', 'ideven_default'));
     }
 
     public function viewPuleGo($ideven){
@@ -390,9 +399,12 @@ class ApostasPremiadaController extends StandardController
 
         $data = $this->retornaPuleArray($ideven);
 
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
         return view("dashboard.view_aposta",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'ideven', 'ideven_default'));
     }
 
     public function cancelPule($ideven){
@@ -448,10 +460,12 @@ class ApostasPremiadaController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
         return view("dashboard.view_aposta",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'ideven', 'ideven_default'));
     }
 
     public function cancelPuleGo($ideven){
@@ -507,9 +521,12 @@ class ApostasPremiadaController extends StandardController
 
         $data = $this->retornaPuleArray($ideven);
 
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
         return view("dashboard.view_aposta",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'ideven', 'ideven_default'));
     }
 
 

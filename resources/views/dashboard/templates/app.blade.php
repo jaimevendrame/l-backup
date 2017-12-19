@@ -259,7 +259,7 @@
                                         <ul>';
                                             foreach ($menus as $menu){
                                                if ($menu->catact == $value){
-                                            echo '<li><a class="waves-effect white-text waves-light tooltipped"  href="'.$menu->route.'/'.$m.'" id="'.$menu->idref.'"
+                                            echo '<li><a class="waves-effect white-text waves-light tooltipped"  href="'.$menu->route.'/'.$ideven_default.'" id="'.$menu->idref.'"
                                             data-position="right" data-delay="50" data-tooltip="'.$menu->capact.'"
                                             >'.$menu->capact.'</a></li>';
                                             }}
@@ -327,8 +327,7 @@
 
         <body>
         <div>
-            {{--/{{\Illuminate\Support\Facades\Session::put('ideven', $m)}}/--}}
-            /{{\Illuminate\Support\Facades\Session::get('ideven')}}/
+            {{--//{{$ideven_default}}//--}}
             @yield('content')
         </div>
         </body>

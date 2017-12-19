@@ -27,6 +27,7 @@ class StandardController extends BaseController
     protected $request;
     protected $totalPorPagina = 15;
 
+
     public function __construct(
 
         Usuario $usuario,
@@ -87,24 +88,35 @@ class StandardController extends BaseController
         $select_ideven = $this->request->get('select_ideven');
         $valor = $select_ideven ;
 
-        if ($valor == Null){
 
-//            $valorsession = $this->request->session()->get('ideven');
+        if ($valor != Null) {
 
-            $this->request->session()->forget('ideven');
-
+            $ideven_default = $this->storeWebControlData($valor);
 
         } else {
-            $this->request->session()->forget('ideven');
-            $this->request->session()->put('ideven', $valor);
-//            $this->request->flash('ideven', $valor);
+
+            $dados = $this->returnWebControlData($idusu);
+
+            if ($dados != Null){
+
+                $ideven_default = $dados->valor;
+
+            } else {
+                $ideven = $this->returnBaseIdvenDefault($idusu);
+
+                $ideven_default = $ideven->ideven;
+            }
+
         }
 
-//        $this->request->session()->keep('ideven');
+
+
+
+
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'validaMesalidade'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'validaMesalidade', 'ideven_default'));
     }
 
 
@@ -556,19 +568,55 @@ class StandardController extends BaseController
         return $data;
     }
 
-    public function accessSessionData(Request $request){
-        if($request->session()->has('my_name'))
-            echo $request->session()->get('my_name');
-        else
-            echo 'No data in the session';
+
+
+    public function storeWebControlData($valor){
+
+        $idusu = Auth::user()->idusu;
+
+        $valor =  $valor;
+
+        $last_valor = DB::table('webcontrol')
+            ->where('idusu', '=', $idusu)
+            ->first();
+
+        $last_valor_var = ($last_valor != Null) ? $last_valor->valor : "";
+
+
+        $dados =  [
+            "idusu"     => $idusu,
+            "valor"   => $valor,
+            "last_valor"    => $last_valor_var,
+        ];
+
+
+        if ($last_valor == Null){
+            $resultado = DB::table('WEBCONTROL')->insert($dados);
+
+        } else {
+
+            $resultado = DB::update(DB::RAW('update webcontrol set last_valor = '  .$last_valor_var. ',
+                valor = '.$valor.'  where id ='. $last_valor->id));
+
+        }
+
+        $data = $this->returnWebControlData($idusu);
+
+        return $data->valor;
+
+
     }
-    public function storeSessionData(Request $request){
-        $request->session()->put('my_name','Virat Gandhi');
-        echo "Data has been added to session";
-    }
-    public function deleteSessionData(Request $request){
-        $request->session()->forget('my_name');
-        echo "Data has been removed from session.";
+
+
+    public function returnWebControlData($idusu){
+
+        $data = DB::table('webcontrol')
+            ->select('valor')
+            ->where('idusu', $idusu)
+            ->first();
+
+        return $data;
+
     }
 
 }

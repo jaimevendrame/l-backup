@@ -101,12 +101,13 @@ class ResumoCaixaController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-
-
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'ideven', 'ideven_default'));
     }
 
     public function indexGo()
@@ -170,9 +171,12 @@ class ResumoCaixaController extends StandardController
                 $in_ativos = 'NAO';
         }
 
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll','ideven2', 'var_despesas','in_ativos'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+                    'baseAll','ideven2', 'var_despesas','in_ativos', 'ideven_default'));
     }
 
     public function retornaResumoCaixa($ideven){

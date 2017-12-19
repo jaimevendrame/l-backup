@@ -82,11 +82,13 @@ class MovimentosCaixaController extends StandardController
 
         $p = $this->retornaBasepeloIdeven($ideven);
 
-
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven', 'data_movcax','p'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'reven', 'cobrador', 'p_ideven', 'data_movcax','p', 'ideven_default'));
     }
 
     public function indexGo($ideven)
@@ -130,7 +132,8 @@ class MovimentosCaixaController extends StandardController
 
 //        dd($sel_revendedor);
 
-
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
 
 
@@ -138,7 +141,8 @@ class MovimentosCaixaController extends StandardController
 
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'reven', 'cobrador', 'p_ideven','sel_revendedor', 'sel_cobrador','data_movcax', 'p'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'reven', 'cobrador', 'p_ideven','sel_revendedor', 'sel_cobrador','data_movcax', 'p', 'ideven_default'));
     }
 
     public function retornaMovimentosCaixa($ideven){

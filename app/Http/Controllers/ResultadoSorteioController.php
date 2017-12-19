@@ -75,10 +75,12 @@ class ResultadoSorteioController extends StandardController
 
         $col = 0;
 
-
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
         return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'sorteios', 'sorteioite', 'linhas', 'valor', 'col'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
+            'baseAll', 'ideven', 'sorteios', 'sorteioite', 'linhas', 'valor', 'col', 'ideven_default'));
     }
 
     public function indexGo($ideven)
@@ -152,12 +154,14 @@ class ResultadoSorteioController extends StandardController
         $datainicial = $this->request->get('datIni');
 
 
-
+        $ideven_default = $this->returnWebControlData($idusu);
+        $ideven_default = $ideven_default->valor;
 
 
 
                 return view("{$this->nameView}",compact('idusu',
-            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'valor','title', 'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'linhas','col', 'datainicial'));
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'valor','title',
+                    'baseAll','ideven', 'despesas','in_ativos', 'p_situacao', 'linhas','col', 'datainicial', 'ideven_default'));
     }
 
 
