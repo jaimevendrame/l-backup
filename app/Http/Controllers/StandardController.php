@@ -101,7 +101,7 @@ class StandardController extends BaseController
 
                 if ($dados != Null) {
 
-                    $ideven_default = $dados->valor;
+                    $ideven_default = $dados;
 
                 } else {
                     $ideven = $this->returnBaseIdvenDefault($idusu);
