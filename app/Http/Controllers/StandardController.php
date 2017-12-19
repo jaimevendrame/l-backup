@@ -128,7 +128,7 @@ class StandardController extends BaseController
 
 
 
-    public function index2()
+    public function index3()
     {
 
 
