@@ -91,6 +91,7 @@ class StandardController extends BaseController
             $valor = $select_ideven;
 
 
+
             if ($valor != Null) {
 
                 $ideven_default = $this->storeWebControlData($valor);
@@ -125,6 +126,79 @@ class StandardController extends BaseController
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'validaMesalidade', 'ideven_default'));
     }
 
+
+
+    public function index2()
+    {
+
+
+        $idusu = Auth::user()->idusu;
+
+        $user_base = $this->retornaBase($idusu);
+
+        $user_bases = $this->retornaBases($idusu);
+
+        $usuario_lotec = $this->retornaUserLotec($idusu);
+
+//        $vendedores = $this->retornaUsuarioVen($idusu, $user_base->pivot_idbase);
+
+        $vendedores = $this->retornaBasesAll($idusu);
+
+        $menus = $this->retornaMenu($idusu);
+
+        $categorias = $this->retornaCategorias($menus);
+
+//        $data = $this->model;
+
+        $title = $this->title;
+
+        $admin = Usuario::where('idusu', '=', $idusu)->first();
+
+        if ($admin->inadim != 'SIM'){
+            $validaMesalidade = $this->validarMensalidade($idusu);
+        }
+
+
+        if (Auth::user()->idusu != 1000) {
+
+            $select_ideven = $this->request->get('select_ideven');
+            $valor = $select_ideven;
+
+
+
+            if ($valor != Null) {
+
+                $ideven_default = $this->storeWebControlData($valor);
+
+//                dd($ideven_default);
+
+
+            } else {
+
+                $dados = $this->returnWebControlData($idusu);
+
+                if ($dados != Null) {
+
+                    $ideven_default = $dados;
+
+                } else {
+                    $ideven_default = $this->returnBaseIdvenDefault($idusu);
+
+
+                }
+
+            }
+
+
+        } else {
+            $ideven_default = 0;
+        }
+
+
+
+        return view("{$this->nameView}",compact('idusu',
+            'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'validaMesalidade', 'ideven_default'));
+    }
 
 
     public function delete($id)
@@ -599,14 +673,14 @@ class StandardController extends BaseController
         if ($last_valor == Null){
             $resultado = DB::table('WEBCONTROL')->insert($dados);
 
-            dd($resultado);
+//            dd($resultado);
 
         } else {
 
             $resultado = DB::update(DB::RAW('update webcontrol set last_valor = '  .$last_valor_var. ',
                 valor = '.$valor.'  where id ='. $last_valor->id));
 
-            dd($resultado);
+//            dd($resultado);
 
         }
 
@@ -633,7 +707,7 @@ class StandardController extends BaseController
             $valor = 0;
         }
 
-        dd($valor.'teste');
+//        dd($valor.'teste');
 
 
         return $valor;
