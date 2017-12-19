@@ -606,7 +606,8 @@ class StandardController extends BaseController
 
         $data = $this->returnWebControlData($idusu);
 
-        return $data->valor;
+
+        return $data;
 
 
     }
