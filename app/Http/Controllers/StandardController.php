@@ -95,6 +95,9 @@ class StandardController extends BaseController
 
                 $ideven_default = $this->storeWebControlData($valor);
 
+//                dd($ideven_default);
+
+
             } else {
 
                 $dados = $this->returnWebControlData($idusu);
@@ -104,7 +107,7 @@ class StandardController extends BaseController
                     $ideven_default = $dados;
 
                 } else {
-                    $ideven = $this->returnBaseIdvenDefault($idusu);
+                    $ideven_default = $this->returnBaseIdvenDefault($idusu);
 
 
                 }
@@ -115,7 +118,6 @@ class StandardController extends BaseController
         } else {
             $ideven_default = 0;
         }
-
 
 
 
