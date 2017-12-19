@@ -19,7 +19,7 @@
                         <form id="form-cad-edit" method="post" action="/admin/acesso/web/update/{{$usuarioWeb->id}}" enctype="multipart/form-data" autocomplete="off">
                             <input type="hidden" value="{{$usuarioWeb}}" name="id">
                             @else
-                                <form id="form-cad-edit" method="post" action="/admin/acesso/web/create/" enctype="multipart/form-data" autocomplete="off">
+                                <form id="form-cad-edit" method="post" action="/admin/acesso/web/create/data/{{$usuarioWeb->id}}" enctype="multipart/form-data" autocomplete="off">
 
                                     @endif
                                     {{ csrf_field() }}

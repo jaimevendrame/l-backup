@@ -80,7 +80,6 @@ class AcessoWebController extends StandardController
         $data = Usuario::all();
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
         return view("dashboard.acesso.desktop.index",compact('data',
             'usuarioWeb', 'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'categorias', 'title', 'menus', 'ideven_default'));
@@ -122,7 +121,6 @@ class AcessoWebController extends StandardController
 
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
 
         return view("dashboard.acesso.web.index",compact('data',
@@ -155,7 +153,6 @@ class AcessoWebController extends StandardController
 //        dd($usuarioWeb);
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
 
         return view("dashboard.acesso.web.cad-edit",compact('data', 'usuarioWeb', 'user_base',
@@ -230,7 +227,7 @@ class AcessoWebController extends StandardController
             return redirect("/admin/acesso/desktop/");
 
         else
-            return redirect("/admin/acesso/web/create/$id")
+            return redirect("/admin/acesso/web/create/$idusu")
                 ->withErrors(['errors'=> 'Falha ao Editar'])
                 ->withInput();
 

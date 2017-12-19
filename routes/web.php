@@ -145,7 +145,7 @@ Route::group([
         Route::get('/acesso/desktop/', 'AcessoWebController@indexDesktop')->name('index.desktop');
         Route::get('/acesso/web/', 'AcessoWebController@indexWeb')->name('index.web');
         Route::get('/acesso/web/create/{id}', 'AcessoWebController@create')->name('create.get');
-        Route::post('/acesso/web/create/', 'AcessoWebController@createGo')->name('create.post');
+        Route::post('/acesso/web/create/data/{id}', 'AcessoWebController@createGo')->name('create.post');
         Route::post('/acesso/web/update/{id}', 'AcessoWebController@update')->name('update.post');
 
 
