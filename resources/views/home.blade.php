@@ -22,7 +22,7 @@
                             <form id="form-cad-edit" method="post" action="/admin/home/data" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="input-field col s12">
-                                    <label class="active">Vendedor:{{$ideven_default}}</label>
+                                    <label class="active">Vendedor:</label>
                                     <br>
                                     <select class="browser-default blue-grey darken-1" onchange="test(this)" name="select_ideven">
                                         @if ($vendedores->count())
