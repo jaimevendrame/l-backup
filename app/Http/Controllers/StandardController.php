@@ -604,6 +604,8 @@ class StandardController extends BaseController
             $resultado = DB::update(DB::RAW('update webcontrol set last_valor = '  .$last_valor_var. ',
                 valor = '.$valor.'  where id ='. $last_valor->id));
 
+            dd($resultado);
+
         }
 
         $data = $this->returnWebControlData($idusu);
