@@ -27,7 +27,7 @@
                                     <select class="browser-default blue-grey darken-1" onchange="test(this)" name="select_ideven">
                                         @if ($vendedores->count())
                                             @foreach($vendedores as $vendedor)
-                                                <option value="{{ $vendedor->ideven  }}" {{ $vendedor->inpadrao == 'SIM'  ? 'selected' : '' }}>
+                                                <option value="{{ $vendedor->ideven  }}" {{ $vendedor->ideven == $ideven_default  ? 'selected' : '' }}>
                                                     Base: {{ $vendedor->idbase}} Vendedor: {{ $vendedor->idven  }} - {{ $vendedor->nomven }} Cidade: {{ $vendedor->cidbas }}
 
                                                 </option>
