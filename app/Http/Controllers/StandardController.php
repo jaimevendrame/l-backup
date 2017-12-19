@@ -85,32 +85,36 @@ class StandardController extends BaseController
         }
 
 
-        $select_ideven = $this->request->get('select_ideven');
-        $valor = $select_ideven ;
+        if (Auth::user()->idusu != 1000) {
+
+            $select_ideven = $this->request->get('select_ideven');
+            $valor = $select_ideven;
 
 
-        if ($valor != Null) {
+            if ($valor != Null) {
 
-            $ideven_default = $this->storeWebControlData($valor);
-
-        } else {
-
-            $dados = $this->returnWebControlData($idusu);
-
-            if ($dados != Null){
-
-                $ideven_default = $dados->valor;
+                $ideven_default = $this->storeWebControlData($valor);
 
             } else {
-                $ideven = $this->returnBaseIdvenDefault($idusu);
 
-                $ideven_default = $ideven->ideven;
+                $dados = $this->returnWebControlData($idusu);
+
+                if ($dados != Null) {
+
+                    $ideven_default = $dados->valor;
+
+                } else {
+                    $ideven = $this->returnBaseIdvenDefault($idusu);
+
+
+                }
+
             }
 
+
+        } else {
+            $ideven_default = 0;
         }
-
-
-
 
 
 
@@ -615,13 +619,9 @@ class StandardController extends BaseController
             ->where('idusu', $idusu)
             ->first();
 
-        if ($data != Null){
-            $valor = $data;
-        } else {
-            $valor = 0;
-        }
 
-        return $valor;
+
+        return $data;
 
     }
 
