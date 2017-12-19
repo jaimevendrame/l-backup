@@ -599,6 +599,8 @@ class StandardController extends BaseController
         if ($last_valor == Null){
             $resultado = DB::table('WEBCONTROL')->insert($dados);
 
+            dd($resultado);
+
         } else {
 
             $resultado = DB::update(DB::RAW('update webcontrol set last_valor = '  .$last_valor_var. ',
@@ -630,6 +632,9 @@ class StandardController extends BaseController
         } else {
             $valor = 0;
         }
+
+        dd($valor);
+
 
         return $valor;
 
