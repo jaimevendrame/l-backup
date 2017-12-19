@@ -61,7 +61,7 @@ Route::group([
 
 
         Route::get('/home', 'Home2Controller@index')->name('home');
-        Route::post('/home', 'Home2Controller@index3');
+        Route::post('/home/data', 'Home2Controller@index3');
 
         Route::get('/delete/{idAluno}', 'HomeController@delete')->name('delete');
 //        Route::get('/show/{idAluno}', 'AlunoController@show')->name('show');

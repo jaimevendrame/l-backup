@@ -19,7 +19,7 @@
                                 <input placeholder="Usuário" id="first_name" type="text" class="validate"  readonly value="{{ $usuario_lotec->idusu .' - '. $usuario_lotec->nomusu}}">
                                 <label for="first_name">Usuário:</label>
                             </div>
-                            <form id="form-cad-edit" method="post" action="/admin/home/" enctype="multipart/form-data">
+                            <form id="form-cad-edit" method="post" action="/admin/home/data" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="input-field col s12">
                                     <label class="active">Vendedor:{{$ideven_default}}</label>
