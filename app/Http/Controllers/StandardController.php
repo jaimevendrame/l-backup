@@ -619,9 +619,14 @@ class StandardController extends BaseController
             ->where('idusu', $idusu)
             ->first();
 
+//        dd($data);
+        if ($data != Null){
+            $valor = $data->valor;
+        } else {
+            $valor = 0;
+        }
 
-
-        return $data;
+        return $valor;
 
     }
 

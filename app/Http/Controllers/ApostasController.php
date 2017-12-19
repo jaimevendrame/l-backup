@@ -105,7 +105,6 @@ class ApostasController extends StandardController
 
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
 
 
@@ -182,7 +181,6 @@ class ApostasController extends StandardController
         }
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
                 return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
@@ -345,7 +343,6 @@ class ApostasController extends StandardController
         $baseAll = $this->retornaBasesAll($idusu);
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
         return view("dashboard.view_aposta",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
@@ -406,7 +403,6 @@ class ApostasController extends StandardController
         $data = $this->retornaPuleArray($ideven);
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
         return view("dashboard.view_aposta",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
@@ -467,7 +463,8 @@ class ApostasController extends StandardController
         $baseAll = $this->retornaBasesAll($idusu);
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
+
+
 
         return view("dashboard.view_aposta",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
@@ -528,7 +525,6 @@ class ApostasController extends StandardController
         $data = $this->retornaPuleArray($ideven);
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
 
         return view("dashboard.view_aposta",compact('idusu',

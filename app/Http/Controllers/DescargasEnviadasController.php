@@ -140,7 +140,6 @@ class DescargasEnviadasController extends StandardController
         }
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2', 'idlot','idsit',
@@ -246,7 +245,6 @@ class DescargasEnviadasController extends StandardController
         }
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2', 'idlot','idsit',

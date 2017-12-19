@@ -102,8 +102,6 @@ class ResumoCaixaController extends StandardController
         $baseAll = $this->retornaBasesAll($idusu);
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
-
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
@@ -172,7 +170,6 @@ class ResumoCaixaController extends StandardController
         }
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
                 return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title',
