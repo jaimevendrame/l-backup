@@ -633,7 +633,7 @@ class StandardController extends BaseController
             $valor = 0;
         }
 
-        dd($valor);
+        dd($valor.'teste');
 
 
         return $valor;
