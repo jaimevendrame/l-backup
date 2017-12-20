@@ -42,6 +42,7 @@ class DescargasEnviadasController extends StandardController
 
     public function index2($ideven)
     {
+        $ideven2 = $ideven;
 
         if (Auth::user()->idusu == 1000){
 
@@ -78,6 +79,7 @@ class DescargasEnviadasController extends StandardController
 
         $user_base = $this->retornaBase($idusu);
 
+
         $user_bases = $this->retornaBases($idusu);
 
         $usuario_lotec = $this->retornaUserLotec($idusu);
@@ -85,7 +87,6 @@ class DescargasEnviadasController extends StandardController
 
 
         $vendedores = $this->retornaBasesUser($idusu);
-
 
         $menus = $this->retornaMenu($idusu);
 
@@ -95,7 +96,7 @@ class DescargasEnviadasController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-        $descarga = $this->returnVendDesg($ideven);
+        $descarga = $this->returnVendDesg($ideven2);
 
         $semana = $this->returnLoteriaDia();
 
@@ -335,7 +336,9 @@ class DescargasEnviadasController extends StandardController
 
         $p = $this->retornaBasepeloIdeven($ideven);
 
-        $data = DB::select("SELECT VEN_DESC.IDBASEDESC, VEN_DESC.IDVENDESC, VENDEDOR.NOMVEN   
+
+        if ($p != Null){
+            $data = DB::select("SELECT VEN_DESC.IDBASEDESC, VEN_DESC.IDVENDESC, VENDEDOR.NOMVEN   
                             FROM VEN_DESC
                             INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = VEN_DESC.IDBASEDESC AND
                             VENDEDOR.IDVEN = VEN_DESC.IDVENDESC
@@ -343,6 +346,11 @@ class DescargasEnviadasController extends StandardController
                               VEN_DESC.SITLIG = 'ATIVO' AND
                               VEN_DESC.IDBASE = '$p->idbase' AND
                               VEN_DESC.IDVEN = '$p->idven' ");
+        } else {
+            $data = '';
+        }
+
+
 
         return $data;
     }

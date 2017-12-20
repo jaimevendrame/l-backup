@@ -68,12 +68,13 @@
                                 <div class="input-field col s12 m2">
                                     <select name="sel_vendedord">
                                         <option value="" >Nenhum</option>
-                                        @forelse($descarga as $d)
-                                            <option value="{{$d->idbasedesc}}{{$d->idvendesc}}"@if( !empty($idvendd)) {{ $d->idbasedesc.$d->idvendesc == $idvendd  ? 'selected' : '' }} @endif>{{$d->nomven}}</option>
-                                        @empty
-                                            <option value="" disabled selected>Nenhum vendedor</option>
-                                        @endforelse
-
+                                        @if(!empty($descarga))
+                                            @forelse($descarga as $d)
+                                                <option value="{{$d->idbasedesc}}{{$d->idvendesc}}"@if( !empty($idvendd)) {{ $d->idbasedesc.$d->idvendesc == $idvendd  ? 'selected' : '' }} @endif>{{$d->nomven}}</option>
+                                            @empty
+                                                <option value="" disabled selected>Nenhum vendedor</option>
+                                            @endforelse
+                                        @endif
                                     </select>
                                     <label>Vendedor</label>
                                 </div>
