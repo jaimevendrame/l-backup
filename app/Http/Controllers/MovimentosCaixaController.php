@@ -80,10 +80,14 @@ class MovimentosCaixaController extends StandardController
 
         $p_ideven = $ideven;
 
+        $teste = $this->returnIdevenQuery($ideven);
+
+
         $p = $this->retornaBasepeloIdeven($ideven);
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
+
+
 
 
         return view("{$this->nameView}",compact('idusu',
@@ -133,7 +137,6 @@ class MovimentosCaixaController extends StandardController
 //        dd($sel_revendedor);
 
         $ideven_default = $this->returnWebControlData($idusu);
-        $ideven_default = $ideven_default->valor;
 
 
 
@@ -430,7 +433,10 @@ class MovimentosCaixaController extends StandardController
 
         $p = $this->retornaBasepeloIdeven($ideven);
 
-        $data = DB::select (" 
+
+        if ($p != Null){
+
+            $data = DB::select (" 
         SELECT REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, REVENDEDOR.NOMREVEN,
                (SELECT RESUMO_CAIXA.VLRDEVATU
                     FROM RESUMO_CAIXA
@@ -451,6 +457,19 @@ class MovimentosCaixaController extends StandardController
             REVENDEDOR.SITREVEN = 'ATIVO'
             ORDER BY REVENDEDOR.NOMREVEN
         ");
+
+
+        } else {
+
+            $data = '';
+        }
+
+
+
+
+
+
+
 
         return $data;
     }

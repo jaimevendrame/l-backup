@@ -376,10 +376,13 @@ class StandardController extends BaseController
 
         $idbase = $this->retornaBasepeloIdeven($id);
 
-//        dd($id);
+        $idbase = ($idbase != Null) ? $idbase->idbase : 0;
+
+
+//        dd($idbase);
 
         $data = $this->revendedor
-            ->where('idbase','=',$idbase->idbase)
+            ->where('idbase','=',$idbase)
             ->orderby('nomreven')
             ->get();
 
@@ -399,15 +402,23 @@ class StandardController extends BaseController
 
         $id = $this->retornaBasepeloIdeven($id);
 
-        $data = $this->cobrador
-            ->select('idbase', 'idven', 'idcobra', 'nomcobra')
-            ->where([
-                ['sitcobra', '=', 'ATIVO'],
-                ['idbase', '=', $id->idbase],
-                ['idven', '=', $id->idven]
-            ])
-            ->orderby('nomcobra')
-        ->get();
+//        dd($id);
+
+        if ($id != Null){
+            $data = $this->cobrador
+                ->select('idbase', 'idven', 'idcobra', 'nomcobra')
+                ->where([
+                    ['sitcobra', '=', 'ATIVO'],
+                    ['idbase', '=', $id->idbase],
+                    ['idven', '=', $id->idven]
+                ])
+                ->orderby('nomcobra')
+                ->get();
+        } else {
+            $data = '';
+        }
+
+
 
         return $data;
     }
@@ -711,6 +722,48 @@ class StandardController extends BaseController
 
 
         return $valor;
+
+    }
+
+    public function returnIdevenQuery($ideven){
+        $idusu = Auth::user()->idusu;
+        $admin = Usuario::where('idusu', '=', $idusu)->first();
+
+
+        if ($admin->inadim == 'SIM'){
+
+            $data = $this->vendedor
+                ->select('ideven')
+                ->get();
+
+            $palavra = "";
+
+
+            $c = 0;
+            foreach ($data as $key){
+
+//                echo  $key['ideven'].'\n';
+//                echo $c.'\n';
+                $palavra = $palavra.$key['ideven'];
+                if ($c < count($data)-1){
+                    $palavra = $palavra.",";
+                }
+                $c++;
+
+
+            }
+            $ideven = $palavra;
+
+
+
+
+
+        } else{
+            $ideven = $ideven;
+        }
+
+//        dd($ideven.'d');
+        return $ideven;
 
     }
 

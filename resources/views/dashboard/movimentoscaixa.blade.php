@@ -28,11 +28,13 @@
                                 <div class="input-field col s12 m3">
                                     <select name="sel_revendedor">
                                         <option value="" >Nenhum</option>
-                                        @forelse($reven as $r)
-                                            <option value="{{$r->idreven}}" @if( isset($sel_revendedor)) {{ $r->idreven == $sel_revendedor  ? 'selected' : '' }} @endif>{{$r->nomreven}}</option>
-                                        @empty
-                                            <option value="" disabled selected>Nenhuma Revendedor</option>
-                                        @endforelse
+                                        @if(!empty($data))
+                                            @forelse($reven as $r)
+                                                <option value="{{$r->idreven}}" @if( isset($sel_revendedor)) {{ $r->idreven == $sel_revendedor  ? 'selected' : '' }} @endif>{{$r->nomreven}}</option>
+                                            @empty
+                                                <option value="" disabled selected>Nenhuma Revendedor</option>
+                                            @endforelse
+                                        @endif
 
                                     </select>
                                     <label>Revendedor</label>
@@ -40,12 +42,13 @@
                                 <div class="input-field col s12 m2">
                                     <select name="sel_cobrador">
                                         <option value="" >Nenhum</option>
-{{--                                        <option value="1" @if(isset($despesas)){{ $despesas == 'SIM'  ? 'selected' : '' }} @endif>Com Despesas</option>--}}
-                                        @forelse($cobrador as $cob)
-                                            <option value="{{$cob->idcobra}}"  @if(isset($sel_cobrador)) {{ $cob->idcobra == $sel_cobrador  ? 'selected' : '' }} @endif>{{$cob->nomcobra}}</option>
-                                        @empty
-                                            <option value="" disabled selected>Nenhuma Cobrador</option>
-                                        @endforelse
+                                        @if(!empty($cobrador))
+                                            @forelse($cobrador as $cob)
+                                                <option value="{{$cob->idcobra}}"  @if(isset($sel_cobrador)) {{ $cob->idcobra == $sel_cobrador  ? 'selected' : '' }} @endif>{{$cob->nomcobra}}</option>
+                                            @empty
+                                                <option value="" disabled selected>Nenhuma Cobrador</option>
+                                            @endforelse
+                                        @endif
                                     </select>
                                     <label>Cobradores</label>
                                 </div>
@@ -244,11 +247,13 @@
                     <div class="input-field col s12 m12 l2">
                         <select name="movcaixa_sel_revendedor" id="movcaixa_sel_revendedor">
                             <option value="0" selected>Nenhum</option>
-                            @forelse($data_movcax as $r)
-                                <option value="{{$r->idreven}}" data-saldo="{{number_format($r->vlrdevatu, 2, ',', '.') }}" >{{$r->nomreven}}</option>
-                            @empty
-                                <option value="" disabled selected>Nenhuma Revendedor</option>
-                            @endforelse
+                            @if(!empty($data_movcax))
+                                @forelse($data_movcax as $r)
+                                    <option value="{{$r->idreven}}" data-saldo="{{number_format($r->vlrdevatu, 2, ',', '.') }}" >{{$r->nomreven}}</option>
+                                @empty
+                                    <option value="" disabled selected>Nenhuma Revendedor</option>
+                                @endforelse
+                            @endif
 
                         </select>
                         <label>Revendedor</label>
@@ -260,11 +265,13 @@
                     <div class="input-field col s12 m12 l2">
                         <select name="movcaixa_sel_cobrador" id="movcaixa_sel_cobrador">
                             <option value="" >Nenhum</option>
-                            @forelse($cobrador as $cob)
-                                <option value="{{$cob->idcobra}}"  @if(isset($sel_cobrador)) {{ $cob->idcobra == $sel_cobrador  ? 'selected' : '' }} @endif>{{$cob->nomcobra}}</option>
-                            @empty
-                                <option value="" disabled selected>Nenhuma Cobrador</option>
-                            @endforelse
+                            @if(!empty($cobrador))
+                                @forelse($cobrador as $cob)
+                                    <option value="{{$cob->idcobra}}"  @if(isset($sel_cobrador)) {{ $cob->idcobra == $sel_cobrador  ? 'selected' : '' }} @endif>{{$cob->nomcobra}}</option>
+                                @empty
+                                    <option value="" disabled selected>Nenhuma Cobrador</option>
+                                @endforelse
+                            @endif
                         </select>
                         <label>Cobradores</label>
                     </div>
@@ -524,8 +531,8 @@
             var saldo = $("#saldoatu").val().replace(/\./g, "").replace(",", ".");
             var vlrmov = $("#vlrmov").val().replace(/\./g, "").replace(",", ".");
             var cobrador = $("#movcaixa_sel_cobrador :selected").text();
-            var idbase = "<?php echo $p->idbase; ?>";
-            var idven = "<?php echo $p->idven; ?>";
+            var idbase = "<?php if (!empty($p)) echo $p->idbase; ?>";
+            var idven = "<?php if (!empty($p)) echo $p->idven; ?>";
             var idusu = "<?php echo $idusu; ?>";
             var idcobra = $("#movcaixa_sel_cobrador :selected").val();
 
