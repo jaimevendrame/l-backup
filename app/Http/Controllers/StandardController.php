@@ -74,6 +74,7 @@ class StandardController extends BaseController
 
         $categorias = $this->retornaCategorias($menus);
 
+
 //        $data = $this->model;
 
         $title = $this->title;
@@ -96,7 +97,7 @@ class StandardController extends BaseController
 
                 $ideven_default = $this->storeWebControlData($valor);
 
-//                dd($ideven_default);
+//                dd($ideven_default.'x');
 
 
             } else {
@@ -106,10 +107,14 @@ class StandardController extends BaseController
                 if ($dados != Null) {
 
                     $ideven_default = $dados;
+//                    dd($ideven_default.'c');
 
                 } else {
                     $ideven_default = $this->returnBaseIdvenDefault($idusu);
 
+                    $ideven_default = $ideven_default->ideven;
+
+//                    dd($ideven_default);
 
                 }
 
@@ -120,7 +125,7 @@ class StandardController extends BaseController
             $ideven_default = 0;
         }
 
-
+//dd($ideven_default);x
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'validaMesalidade', 'ideven_default'));
