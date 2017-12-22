@@ -137,7 +137,7 @@ Route::group([
         //Descarga Envidas
         Route::get('/descargasenviadas/{idven}', 'DescargasEnviadasController@index2')->name('descargaenviadas');
         Route::post('/descargasenviadas/{idven}', 'DescargasEnviadasController@indexGo')->name('descargaenviadas');
-        Route::get('/descargasenviadas/view/{idven}/{idapo}', 'DescargasEnviadasController@returnInfoDescEnv')->name('descargaenviadas');
+        Route::get('/descargasenviadas/view/{idven}/{idreven}/{idter}/{idapo}/{numpule}/{seqpalp}', 'DescargasEnviadasController@returnInfoDescEnv')->name('descargaenviadas');
 
 
         //Cadastro de usuário web

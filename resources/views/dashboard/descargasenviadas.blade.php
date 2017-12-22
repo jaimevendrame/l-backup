@@ -137,7 +137,7 @@
                                 @forelse($data as $d)
 
                                     <tr>
-                                        <td><a class="waves-effect waves-light btn blue" onclick='edit("/descargasenviadas/view/{{$ideven}}/{{$d->idapo}}")'><i class="material-icons">info</i></a>
+                                        <td><a class="waves-effect waves-light btn blue" onclick='edit("/admin/descargasenviadas/view/{{$ideven}}/{{$d->idreven}}/{{$d->idter}}/{{$d->idapo}}/{{$d->numpule}}/{{$d->seqpalp}}/")'><i class="material-icons">info</i></a>
                                         <td>{{ $d->infodesc }}</td>
                                         <td>{{ $d->numpule }}</td>
                                         <td>{{ Carbon\Carbon::parse($d->datapo)->format('d/m/Y') }}</td>
@@ -285,8 +285,19 @@
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>Modal Header</h4>
+            <h4>Informações de Descarga Enviada</h4>
             <p>A bunch of text</p>
+            <div class="row">
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Vendedor Origem" id="nomvem_o" type="text" class="validate">
+                    <label for="nomvem_o">Vendedor Origem</label>
+                </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Vendedor Destino" id="nomven" type="text" class="validate">
+                    <label for="nomven">Vendedor Destino</label>
+                </div>
+            </div>
+
             <input type="text" id="teste">
         </div>
         <div class="modal-footer">
@@ -376,7 +387,9 @@
     function edit(urlEdit){
 
         jQuery.getJSON(urlEdit, function(data){
-            $('#teste').val(data.nomvem_o);
+            $('#nomvem_o').val(data[0].nomvem_o);
+            $('#nomven').val(data[0].nomven);
+
 
         });
 

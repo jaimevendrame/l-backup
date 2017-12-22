@@ -739,7 +739,7 @@ class DescargasEnviadasController extends StandardController
     }
 
 
-    public function returnInfoDescEnv($ideven, $idapo){
+    public function returnInfoDescEnv($ideven, $idreven, $idter, $idapo, $numpule, $seqpalp){
 
         $datIni = date ("Y/m/d");
         $datFim = date ("Y/m/d");
@@ -805,7 +805,11 @@ class DescargasEnviadasController extends StandardController
                                   AND APOSTA_DESCARGA.VLRPALP > 0
                                   AND APOSTA_PALPITES.DATENV between '$datIni' AND '$datFim'
                                   AND VEN_O.IDEVEN IN ($ideven) 
+                                  AND APOSTA_DESCARGA.IDREVEN = '$idreven'
+                                  AND APOSTA_DESCARGA.IDTER = '$idter'
                                   AND APOSTA_DESCARGA.IDAPO = '$idapo'
+                                  AND APOSTA_DESCARGA.NUMPULE = '$numpule'
+                                  AND APOSTA_DESCARGA.SEQPALP = '$seqpalp'
                                                         
         ");
 

@@ -244,18 +244,31 @@
             <h4>Movimentar Caixa de Revendedor</h4>
             <form id="myform">
                 <div class="row">
+                    {{--<div class="input-field col s12 m12 l2">--}}
+                        {{--<select name="movcaixa_sel_revendedor" id="movcaixa_sel_revendedor">--}}
+                            {{--<option value="0" selected>Nenhum</option>--}}
+                            {{--@if(!empty($data_movcax))--}}
+                                {{--@forelse($data_movcax as $r)--}}
+                                    {{--<option value="{{$r->idreven}}" data-saldo="{{number_format($r->vlrdevatu, 2, ',', '.') }}" >{{$r->nomreven}}</option>--}}
+                                {{--@empty--}}
+                                    {{--<option value="" disabled selected>Nenhuma Revendedor</option>--}}
+                                {{--@endforelse--}}
+                            {{--@endif--}}
+
+                        {{--</select>--}}
+                        {{--<label>Revendedor</label>--}}
+                    {{--</div>--}}
                     <div class="input-field col s12 m12 l2">
-                        <select name="movcaixa_sel_revendedor" id="movcaixa_sel_revendedor">
-                            <option value="0" selected>Nenhum</option>
+                        <input type="text" id="default" list="combobox" placeholder="Nenhum">
+                        <datalist id="combobox">
                             @if(!empty($data_movcax))
                                 @forelse($data_movcax as $r)
-                                    <option value="{{$r->idreven}}" data-saldo="{{number_format($r->vlrdevatu, 2, ',', '.') }}" >{{$r->nomreven}}</option>
+                                    <option data-value="{{$r->idreven}}" value="{{$r->nomreven}}" data-saldo="{{number_format($r->vlrdevatu, 2, ',', '.') }}" ></option>
                                 @empty
                                     <option value="" disabled selected>Nenhuma Revendedor</option>
                                 @endforelse
                             @endif
-
-                        </select>
+                        </datalist>
                         <label>Revendedor</label>
                     </div>
                     <div class="input-field col s12 m12 l2">
@@ -411,6 +424,30 @@
             });
 
 
+            $('#default').on('input', function() {
+                var userText = $(this).val();
+
+                $("#combobox").find("option").each(function() {
+                    if ($(this).val() == userText) {
+//                        alert("Make Ajax call here.");
+                        var revendedor = $("#default").val();
+                        var idreven = document.querySelector("#combobox option[value='"+revendedor+"']").dataset.saldo;
+                        $('#saldoatu').val(idreven);
+                        var valor = $("#saldoatu").val().replace(/\./g, "").replace(",", ".");
+
+                        if (parseFloat(valor) < 0){
+                            $('#saldoatu').css('color', '#FF0000')}
+                        else if (parseFloat(valor) > 0){
+                            $('#saldoatu').css('color', 'green')
+                        } else {
+                            $('#saldoatu').css('color', 'black')
+                        }
+
+                    }
+                })
+            });
+
+
 
             var table = $('#movcaixa').DataTable(
                 {
@@ -513,7 +550,7 @@
 
         function addMov(el) {
 
-            if ($("#movcaixa_sel_revendedor :selected").val() == 0){
+            if ($("#default").val() == 0){
                 Materialize.toast('Selecione um Revendedor!', 3000)
                 return false;
             }
@@ -526,8 +563,10 @@
             var newRow = $("<tr>");
             var cols = "";
 
-            var idreven = $("#movcaixa_sel_revendedor :selected").val();
-            var revendedor = $("#movcaixa_sel_revendedor :selected").text();
+//            var idreven = $("#movcaixa_sel_revendedor :selected").val();
+            var revendedor = $("#default").val();
+//            var revendedor = $("#movcaixa_sel_revendedor :selected").text();
+            var idreven = document.querySelector("#combobox option[value='"+revendedor+"']").dataset.value;
             var saldo = $("#saldoatu").val().replace(/\./g, "").replace(",", ".");
             var vlrmov = $("#vlrmov").val().replace(/\./g, "").replace(",", ".");
             var cobrador = $("#movcaixa_sel_cobrador :selected").text();
