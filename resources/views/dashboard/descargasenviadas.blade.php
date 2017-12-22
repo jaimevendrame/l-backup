@@ -296,6 +296,38 @@
                     <input placeholder="Vendedor Destino" id="nomven" type="text" class="validate">
                     <label for="nomven">Vendedor Destino</label>
                 </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Pule" id="numpulec" type="text" class="validate">
+                    <label for="numpulec">Pule</label>
+                </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Data Sorteio" id="datapo" type="text" class="validate">
+                    <label for="datapo">Data Sorteio</label>
+                </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Loteria" id="deslot" type="text" class="validate">
+                    <label for="deslot">Loteria</label>
+                </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Encerramento" id="horlim" type="text" class="validate">
+                    <label for="horlim">Encerramento</label>
+                </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Sorteio" id="horsor" type="text" class="validate">
+                    <label for="horsor">Sorteio</label>
+                </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Modalidade Aposta" id="destipoapo" type="text" class="validate">
+                    <label for="destipoapo">Modalide Aposta</label>
+                </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Colocação" id="descol" type="text" class="validate">
+                    <label for="descol">Colocação</label>
+                </div>
+                <div class="input-field col s8 m2 l2">
+                    <input placeholder="Palpite" id="vaDesPalp" type="text" class="validate">
+                    <label for="vaDesPalp">Palpite</label>
+                </div>
             </div>
 
             <input type="text" id="teste">
@@ -387,8 +419,21 @@
     function edit(urlEdit){
 
         jQuery.getJSON(urlEdit, function(data){
+
+            if ( typeof data[0].palp1 !== "undefined" && data[0].palp1) {
+                palpi1 = data[0].palp1
+            }
+
             $('#nomvem_o').val(data[0].nomvem_o);
             $('#nomven').val(data[0].nomven);
+            $('#numpulec').val(data[0].numpule);
+            $('#datapo').val(data[0].datapo);
+            $('#deslot').val(data[0].deslot);
+            $('#horlim').val(data[0].horlim);
+            $('#horsor').val(data[0].horsor);
+            $('#destipoapo').val(data[0].destipoapo);
+            $('#descol').val(data[0].descol);
+            $('#vaDesPalp').val(palpi1);
 
 
         });
