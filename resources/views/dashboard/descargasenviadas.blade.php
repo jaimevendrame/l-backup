@@ -112,6 +112,7 @@
 
                         </form>
 
+
                         @if(!empty($data))
 
                             <table class="mdl-data-table " id="example"  cellspacing="0" width="100%">
@@ -137,7 +138,7 @@
                                 @forelse($data as $d)
 
                                     <tr>
-                                        <td><a class="waves-effect waves-light btn blue" onclick='edit("/admin/descargasenviadas/view/{{$ideven}}/{{$d->idreven}}/{{$d->idter}}/{{$d->idapo}}/{{$d->numpule}}/{{$d->seqpalp}}/")'><i class="material-icons">info</i></a>
+                                        <td><a class="waves-effect waves-light btn blue" onclick='edit("/admin/descargasenviadas/view/{{$d->ideven}}/{{$d->idreven}}/{{$d->idter}}/{{$d->idapo}}/{{$d->numpule}}/{{$d->seqpalp}}/")'><i class="material-icons">info</i></a>
                                         <td>{{ $d->infodesc }}</td>
                                         <td>{{ $d->numpule }}</td>
                                         <td>{{ Carbon\Carbon::parse($d->datapo)->format('d/m/Y') }}</td>
@@ -283,54 +284,93 @@
 
 
     <!-- Modal Structure -->
-    <div id="modal1" class="modal">
+    <div id="modaldescarga" class="modal modal3">
         <div class="modal-content">
             <h4>Informações de Descarga Enviada</h4>
-            <p>A bunch of text</p>
             <div class="row">
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Vendedor Origem" id="nomvem_o" type="text" class="validate">
-                    <label for="nomvem_o">Vendedor Origem</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Vendedor Destino" id="nomven" type="text" class="validate">
-                    <label for="nomven">Vendedor Destino</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Pule" id="numpulec" type="text" class="validate">
-                    <label for="numpulec">Pule</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Data Sorteio" id="datapo" type="text" class="validate">
-                    <label for="datapo">Data Sorteio</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Loteria" id="deslot" type="text" class="validate">
-                    <label for="deslot">Loteria</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Encerramento" id="horlim" type="text" class="validate">
-                    <label for="horlim">Encerramento</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Sorteio" id="horsor" type="text" class="validate">
-                    <label for="horsor">Sorteio</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Modalidade Aposta" id="destipoapo" type="text" class="validate">
-                    <label for="destipoapo">Modalide Aposta</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Colocação" id="descol" type="text" class="validate">
-                    <label for="descol">Colocação</label>
-                </div>
-                <div class="input-field col s8 m2 l2">
-                    <input placeholder="Palpite" id="vaDesPalp" type="text" class="validate">
-                    <label for="vaDesPalp">Palpite</label>
+                <form action="" id="myForm">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <input placeholder="Vendedor Origem" id="nomvem_o" type="text" class="validate">
+                            <label for="nomvem_o">Vendedor Origem</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input placeholder="Vendedor Destino" id="nomven" type="text" class="validate">
+                            <label for="nomven">Vendedor Destino</label>
+                        </div>
+
+                        <div class="input-field col s8 m4 l4">
+                            <input placeholder="Pule" id="numpulec" type="text" class="validate">
+                            <label for="numpulec">Pule</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Data Sorteio" id="datapo" type="text" class="validate">
+                            <label for="datapo">Data Sorteio</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Loteria" id="deslot" type="text" class="validate">
+                            <label for="deslot">Loteria</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Horário Encerramento" id="horlim" type="text" class="validate">
+                            <label for="horlim">Horário Encerramento</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Horário Sorteio" id="horsor" type="text" class="validate">
+                            <label for="horsor">Horário Sorteio</label>
+                        </div>
+
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Modalidade Aposta" id="destipoapo" type="text" class="validate">
+                            <label for="destipoapo">Modalide Aposta</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Colocação" id="descol" type="text" class="validate">
+                            <label for="descol">Colocação</label>
+                        </div>
+                        <div class="input-field col s12 m8 l8">
+                            <input placeholder="Palpite" id="vaDesPalp" type="text" class="validate">
+                            <label for="vaDesPalp">Palpite</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Valor Descarga" id="vlrpalp" type="text" class="validate">
+                            <label for="vlrpalp">Valor Descarga</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Prêmio Seco" id="vlrpresec" type="text" class="validate">
+                            <label for="vlrpresec">Prêmio Seco</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Prêmio Molhado" id="vlrpremol" type="text" class="validate">
+                            <label for="vlrpremol">Prêmio Molhado</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Prêmio Seco + Molhado" id="vlrpresmj" type="text" class="validate">
+                            <label for="vlrpresmj">Prêmio Seco + Molhado</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Situação" id="sitdes" type="text" class="validate">
+                            <label for="sitdes">Situação</label>
+                        </div>
+                        <div class="input-field col s8 m2 l2">
+                            <input placeholder="Info" id="infodesc" type="text" class="validate">
+                            <label for="infodesc">Info</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s3"><a class="active"href="#test1">Informações sobre a aposta</a></li>
+                            <li class="tab col s3"><a href="#test2">Descarga Recebida</a></li>
+                        </ul>
+                    </div>
+                    <div id="test1" class="col s12">Test 1</div>
+                    <div id="test2" class="col s12">Test 2</div>
                 </div>
             </div>
-
-            <input type="text" id="teste">
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
@@ -340,10 +380,13 @@
 
 
 @push('scripts')
+
 <script>
     $(document).ready(function() {
         $('.modal').modal();
 
+
+        $('ul.tabs').tabs();
 
         var table = $('#example').DataTable( {
 
@@ -417,30 +460,138 @@
 
     //Editar
     function edit(urlEdit){
-
+        document.getElementById("myForm").reset();
         jQuery.getJSON(urlEdit, function(data){
 
             if ( typeof data[0].palp1 !== "undefined" && data[0].palp1) {
-                palpi1 = data[0].palp1
+                palpite = data[0].palp1
             }
+            if ( typeof data[0].palp2 !== "undefined" && data[0].palp2) {
+                palpite = palpite + ' - ' + data[0].palp2
+            }
+            if ( typeof data[0].palp3 !== "undefined" && data[0].palp3) {
+                palpite = palpite + ' - ' + data[0].palp3
+            }
+            if ( typeof data[0].palp4 !== "undefined" && data[0].palp4) {
+                palpite = palpite + ' - ' + data[0].palp4
+            }
+            if ( typeof data[0].palp5 !== "undefined" && data[0].palp5) {
+                palpite = palpite + ' - ' + data[0].palp5
+            }
+            if ( typeof data[0].palp6 !== "undefined" && data[0].palp6) {
+                palpite = palpite + ' - ' + data[0].palp6
+            }
+            if ( typeof data[0].palp7 !== "undefined" && data[0].palp7) {
+                palpite = palpite + ' - ' + data[0].palp7
+            }
+            if ( typeof data[0].palp8 !== "undefined" && data[0].palp8) {
+                palpite = palpite + ' - ' + data[0].palp8
+            }
+            if ( typeof data[0].palp9 !== "undefined" && data[0].palp9) {
+                palpite = palpite + ' - ' + data[0].palp9
+            }
+            if ( typeof data[0].palp10 !== "undefined" && data[0].palp10) {
+                palpite = palpite + ' - ' + data[0].palp10
+            }
+            if ( typeof data[0].palp11 !== "undefined" && data[0].palp11) {
+                palpite = palpite + ' - ' + data[0].palp11
+            }
+            if ( typeof data[0].palp12 !== "undefined" && data[0].palp12) {
+                palpite = palpite + ' - ' + data[0].palp12
+            }
+            if ( typeof data[0].palp13 !== "undefined" && data[0].palp13) {
+                palpite = palpite + ' - ' + data[0].palp13
+            }
+            if ( typeof data[0].palp14 !== "undefined" && data[0].palp14) {
+                palpite = palpite + ' - ' + data[0].palp14
+            }
+            if ( typeof data[0].palp15 !== "undefined" && data[0].palp15) {
+                palpite = palpite + ' - ' + data[0].palp15
+            }
+            if ( typeof data[0].palp16 !== "undefined" && data[0].palp16) {
+                palpite = palpite + ' - ' + data[0].palp16
+            }
+            if ( typeof data[0].palp17 !== "undefined" && data[0].palp17) {
+                palpite = palpite + ' - ' + data[0].palp17
+            }
+            if ( typeof data[0].palp18 !== "undefined" && data[0].palp18) {
+                palpite = palpite + ' - ' + data[0].palp18
+            }
+            if ( typeof data[0].palp19 !== "undefined" && data[0].palp19) {
+                palpite = palpite + ' - ' + data[0].palp19
+            }
+            if ( typeof data[0].palp20 !== "undefined" && data[0].palp20) {
+                palpite = palpite + ' - ' + data[0].palp20
+            }
+            if ( typeof data[0].palp21 !== "undefined" && data[0].palp21) {
+                palpite = palpite + ' - ' + data[0].palp21
+            }
+            if ( typeof data[0].palp22 !== "undefined" && data[0].palp22) {
+                palpite = palpite + ' - ' + data[0].palp22
+            }
+            if ( typeof data[0].palp23 !== "undefined" && data[0].palp23) {
+                palpite = palpite + ' - ' + data[0].palp23
+            }
+            if ( typeof data[0].palp24 !== "undefined" && data[0].palp24) {
+                palpite = palpite + ' - ' + data[0].palp24
+            }
+            if ( typeof data[0].palp25 !== "undefined" && data[0].palp25) {
+                palpite = palpite + ' - ' + data[0].palp25
+            }
+
+
+
 
             $('#nomvem_o').val(data[0].nomvem_o);
             $('#nomven').val(data[0].nomven);
             $('#numpulec').val(data[0].numpule);
-            $('#datapo').val(data[0].datapo);
+            $('#datapo').val(DateChance(data[0].datapo));
             $('#deslot').val(data[0].deslot);
-            $('#horlim').val(data[0].horlim);
-            $('#horsor').val(data[0].horsor);
+            $('#horlim').val(time_format(new Date(data[0].horlim)));
+            $('#horsor').val(time_format(new Date(data[0].horsor)));
             $('#destipoapo').val(data[0].destipoapo);
             $('#descol').val(data[0].descol);
-            $('#vaDesPalp').val(palpi1);
+            $('#vaDesPalp').val(palpite);
+            $('#vlrpalp').val((parseFloat(data[0].vlrpalpo)).formatMoney(2, ',', '.'));
+            $('#vlrpresec').val((parseFloat(data[0].vlrpresec)).formatMoney(2, ',', '.'));
+            $('#vlrpremol').val((parseFloat(data[0].vlrpremol)).formatMoney(2, ',', '.'));
+            $('#vlrpresmj').val((parseFloat(data[0].vlrpresmj)).formatMoney(2, ',', '.'));
+            $('#sitdes').val(data[0].sitdes);
+            $('#infodesc').val(data[0].infodesc);
 
 
         });
 
-        $('#modal1').modal('open');
+        $('#modaldescarga').modal('open');
         return false;
     }
+
+
+    function DateChance(data) {
+        var getDate = data.slice(0, 10).split('-'); //create an array
+        var _date =getDate[2] +'/'+ getDate[1] +'/'+ getDate[0];
+        return _date;
+
+    }
+
+    function time_format(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seg = date.getSeconds();
+
+//        hours = hours % 12;
+//        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+//        var strTime = hours + ':' + minutes + ':' + seg;
+        var strTime = hours + ':' + minutes;
+//        return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + strTime;
+        return strTime;
+    }
+
+    Number.prototype.formatMoney = function(c, d, t){
+        var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
 </script>
 @endpush
 

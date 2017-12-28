@@ -628,6 +628,8 @@ class StandardController extends BaseController
         $p = $this->returnBaseIdvenDefault($idusu);
          $d = date ("Y-m-d");
 
+
+
         $data = DB::table('cobranca')
                     ->select('datven','datpro' )
                     ->where([
