@@ -285,6 +285,10 @@
 
     <!-- Modal Structure -->
     <div id="modaldescarga" class="modal modal3">
+
+        <div class="right-align ">
+            <a href="#!" class=" btn modal-action modal-close waves-effect waves-light red "><i class=" Tiny material-icons">close</i></a>
+        </div>
         <div class="modal-content">
             <h4>Informações de Descarga Enviada</h4>
             <div class="row">
@@ -363,18 +367,31 @@
                 <div class="row">
                     <div class="col s12">
                         <ul class="tabs">
-                            <li class="tab col s3"><a class="active"href="#test1">Informações sobre a aposta</a></li>
-                            <li class="tab col s3"><a href="#test2">Descarga Recebida</a></li>
+                            <li class="tab col s4"><a class="active"href="#test1">Informações sobre a aposta</a></li>
+                            <li class="tab col s4"><a href="#test2">Descarga Recebida</a></li>
                         </ul>
                     </div>
-                    <div id="test1" class="col s12">Test 1</div>
+                    <div id="test1" class="col s12">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>SEQCOL</th>
+                                <th>INSECMOL</th>
+                                <th>VLRPALP</th>
+                                <th>VLRPALPF</th>
+                                <th>VLRPALPD</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody_infoaposta">
+                            </tbody>
+                        </table>
+
+                    </div>
                     <div id="test2" class="col s12">Test 2</div>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
+
     </div>
 @endsection
 
@@ -461,6 +478,8 @@
     //Editar
     function edit(urlEdit){
         document.getElementById("myForm").reset();
+        $('#tbody_infoaposta').empty(); //Limpando a tabela
+
         jQuery.getJSON(urlEdit, function(data){
 
             if ( typeof data[0].palp1 !== "undefined" && data[0].palp1) {
@@ -559,13 +578,35 @@
             $('#sitdes').val(data[0].sitdes);
             $('#infodesc').val(data[0].infodesc);
 
+            infoAposta(data[0].numpule, data[0].seqpalp);
 
         });
 
         $('#modaldescarga').modal('open');
+
+
         return false;
     }
 
+    function infoAposta(numpule, seqpalp){
+        var url = '/admin/descargasenviadas/infoaposta/'+numpule+'/'+seqpalp;
+        jQuery.getJSON(url, function(data){
+            for (var i = 0; i <data.length; i++){
+
+                var newRow = $("<tr>");
+                var cols = "";
+
+                cols += '<td>'+data[i].seqcol+'</td>';
+                cols += '<td>'+data[i].insecmol+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpalp).formatMoney(2, ',', '.')+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpalpf).formatMoney(2, ',', '.')+'</td>';
+                cols += '<td>'+parseFloat(data[i].vlrpalpd).formatMoney(2, ',', '.')+'</td>';
+
+                newRow.append(cols);
+                $("#tbody_infoaposta").append(newRow);
+            }
+        });
+        }
 
     function DateChance(data) {
         var getDate = data.slice(0, 10).split('-'); //create an array

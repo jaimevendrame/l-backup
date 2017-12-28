@@ -816,4 +816,20 @@ class DescargasEnviadasController extends StandardController
 
         return $data;
     }
+
+    public function returnInfoAposta($numpule, $seqpalp){
+        $data = DB::select(" 
+                SELECT IDBASE,IDVEN,IDREVEN,IDTER,IDAPO,NUMPULE,SEQPALP,SEQCOL,IDCOL,INSECMOL,VLRPALP,
+                VLRPALPF,VLRPALPD,DATAPO,IDLOT,IDHOR,IDTIPOAPO,PALP1,PALP2,PALP3,PALP4,PALP5,SITAPO
+                FROM APOSTA_PALPITESCOL
+                WHERE
+                APOSTA_PALPITESCOL.NUMPULE = '$numpule' 
+                AND APOSTA_PALPITESCOL.SEQPALP = '$seqpalp'
+                ORDER BY APOSTA_PALPITESCOL.SEQCOL
+
+        ");
+
+//        dd($data);
+        return $data;
+    }
 }
