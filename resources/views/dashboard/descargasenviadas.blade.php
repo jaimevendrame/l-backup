@@ -295,99 +295,161 @@
                 <form action="" id="myForm">
                     <div class="row">
                         <div class="input-field col s12 m6 l6">
-                            <input placeholder="Vendedor Origem" id="nomvem_o" type="text" class="validate">
+                            <input placeholder="Vendedor Origem" id="nomvem_o" type="text" readonly class="validate">
                             <label for="nomvem_o">Vendedor Origem</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <input placeholder="Vendedor Destino" id="nomven" type="text" class="validate">
+                            <input placeholder="Vendedor Destino" id="nomven" type="text" readonly class="validate">
                             <label for="nomven">Vendedor Destino</label>
                         </div>
 
                         <div class="input-field col s8 m4 l4">
-                            <input placeholder="Pule" id="numpulec" type="text" class="validate">
+                            <input placeholder="Pule" id="numpulec" type="text" readonly class="validate">
                             <label for="numpulec">Pule</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Data Sorteio" id="datapo" type="text" class="validate">
+                            <input placeholder="Data Sorteio" id="datapo" type="text" readonly class="validate">
                             <label for="datapo">Data Sorteio</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Loteria" id="deslot" type="text" class="validate">
+                            <input placeholder="Loteria" id="deslot" type="text" readonly class="validate">
                             <label for="deslot">Loteria</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Horário Encerramento" id="horlim" type="text" class="validate">
+                            <input placeholder="Horário Encerramento" id="horlim" type="text" readonly class="validate">
                             <label for="horlim">Horário Encerramento</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Horário Sorteio" id="horsor" type="text" class="validate">
+                            <input placeholder="Horário Sorteio" id="horsor" type="text" readonly class="validate">
                             <label for="horsor">Horário Sorteio</label>
                         </div>
 
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Modalidade Aposta" id="destipoapo" type="text" class="validate">
+                            <input placeholder="Modalidade Aposta" id="destipoapo" type="text" readonly class="validate">
                             <label for="destipoapo">Modalide Aposta</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Colocação" id="descol" type="text" class="validate">
+                            <input placeholder="Colocação" id="descol" type="text" readonly class="validate">
                             <label for="descol">Colocação</label>
                         </div>
                         <div class="input-field col s12 m8 l8">
-                            <input placeholder="Palpite" id="vaDesPalp" type="text" class="validate">
+                            <input placeholder="Palpite" id="vaDesPalp" type="text" readonly class="validate">
                             <label for="vaDesPalp">Palpite</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Valor Descarga" id="vlrpalp" type="text" class="validate">
+                            <input placeholder="Valor Descarga" id="vlrpalp" type="text" readonly class="validate">
                             <label for="vlrpalp">Valor Descarga</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Prêmio Seco" id="vlrpresec" type="text" class="validate">
+                            <input placeholder="Prêmio Seco" id="vlrpresec" type="text" readonly class="validate">
                             <label for="vlrpresec">Prêmio Seco</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Prêmio Molhado" id="vlrpremol" type="text" class="validate">
+                            <input placeholder="Prêmio Molhado" id="vlrpremol" type="text" readonly class="validate">
                             <label for="vlrpremol">Prêmio Molhado</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Prêmio Seco + Molhado" id="vlrpresmj" type="text" class="validate">
+                            <input placeholder="Prêmio Seco + Molhado" id="vlrpresmj" type="text" readonly class="validate">
                             <label for="vlrpresmj">Prêmio Seco + Molhado</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Situação" id="sitdes" type="text" class="validate">
+                            <input placeholder="Situação" id="sitdes" type="text" readonly class="validate">
                             <label for="sitdes">Situação</label>
                         </div>
                         <div class="input-field col s8 m2 l2">
-                            <input placeholder="Info" id="infodesc" type="text" class="validate">
+                            <input placeholder="Info" id="infodesc" type="text" readonly class="validate">
                             <label for="infodesc">Info</label>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="row">
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <li class="tab col s4"><a class="active"href="#test1">Informações sobre a aposta</a></li>
-                            <li class="tab col s4"><a href="#test2">Descarga Recebida</a></li>
-                        </ul>
-                    </div>
-                    <div id="test1" class="col s12">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>SEQCOL</th>
-                                <th>INSECMOL</th>
-                                <th>VLRPALP</th>
-                                <th>VLRPALPF</th>
-                                <th>VLRPALPD</th>
-                            </tr>
-                            </thead>
-                            <tbody id="tbody_infoaposta">
-                            </tbody>
-                        </table>
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s6"><a class="active" href="#test1">Informações sobre a aposta</a></li>
+                        <li class="tab col s6"><a href="#test2">Descarga Recebida</a></li>
+                    </ul>
+                </div>
+                <div id="test1" class="col s12">
 
+                    <div class="row">
+                        <div class="col s6">
+                            <table class="display mdl-data-table" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Valor</th>
+                                    <th>Bancou</th>
+                                    <th>Descarregou</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_infoaposta">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col s6">
+                            <form action=""id="formTabs">
+                                <div class="input-field col s8 m4 l4">
+                                    <input placeholder="Valor Aposta" id="ap_vlrpalp" type="text" readonly class="validate">
+                                    <label for="ap_vlrpalp">Valor Aposta</label>
+                                </div>
+                                <div class="input-field col s8 m4 l4">
+                                    <input placeholder="Valor Cotação" id="ap_vlrcotacao" type="text" readonly class="validate">
+                                    <label for="ap_vlrcotacao">Valor Cotação</label>
+                                </div>
+                                <div class="input-field col s8 m4 l4">
+                                    <input placeholder="Valor Prêmio" id="vnAP_VlrPreMotDesc" type="text" readonly class="validate">
+                                    <label for="vnAP_VlrPreMotDesc">Valor Prêmio</label>
+                                </div>
+                                <div class="input-field col s8 m4 l4">
+                                    <input placeholder="Limite" id="vlrlimdesc" type="text" readonly class="validate">
+                                    <label for="vlrlimdesc">Limite</label>
+                                </div>
+                                <div class="input-field col s8 m4 l4">
+                                    <input placeholder="Limite Excedido" id="vnVlrLimExedido" type="text" readonly class="validate">
+                                    <label for="vnVlrLimExedido">Limite Excedido</label>
+                                </div>
+                                <div class="input-field col s8 m4 l4">
+                                    <input placeholder="Valor Bancou" id="ap_vlrpalpf" type="text" readonly class="validate">
+                                    <label for="ap_vlrpalpf">Valor Bancou</label>
+                                </div>
+                                <div class="input-field col s8 m4 l4">
+                                    <input placeholder="Valor Descarregou" id="ap_vlrpalpd" type="text" readonly class="validate">
+                                    <label for="ap_vlrpalpd">Valor Descarregou</label>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div id="test2" class="col s12">Test 2</div>
+                </div>
+                <div id="test2" class="col s12">
+                    <div id="test2" class="col s12">
+                        <div class="row">
+                            <div class="col s6">
+                                <form action=""id="formTabsDesc">
+                                    <div class="row">
+                                        <div class="input-field col s8 m6 l6">
+                                            <input placeholder="Vendedor Origem" id="1_nomven" type="text" readonly class="validate">
+                                            <label for="1_nomven">Vendedor Origem</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-field col s8 m4 l4">
+                                        <input placeholder="Valor" id="1_vlrpalp" type="text" readonly class="validate">
+                                        <label for="1_vlrpalp">Valor</label>
+                                    </div>
+                                    <div class="input-field col s8 m4 l4">
+                                        <input placeholder="Valor Bancou" id="1_vlrpalpf" type="text" readonly class="validate">
+                                        <label for="1_vlrpalpf">Valor Bancou</label>
+                                    </div>
+                                    <div class="input-field col s8 m4 l4">
+                                        <input placeholder="Valor Descarregou" id="1_vlrpalpd" type="text" readonly class="validate">
+                                        <label for="1_vlrpalpd">Valor Descarregou</label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -478,6 +540,8 @@
     //Editar
     function edit(urlEdit){
         document.getElementById("myForm").reset();
+        document.getElementById("formTabs").reset();
+//        document.getElementById("formTabsDesc").reset();
         $('#tbody_infoaposta').empty(); //Limpando a tabela
 
         jQuery.getJSON(urlEdit, function(data){
@@ -580,6 +644,44 @@
 
             infoAposta(data[0].numpule, data[0].seqpalp);
 
+
+            var vnAP_VlrPreMotDesc = 0;
+            var ap_vlrpresec = parseFloat(data[0].ap_vlrpresec);
+            var ap_vlrpremol = parseFloat(data[0].ap_vlrpremol);
+            var ap_vlrpresmj = parseFloat(data[0].ap_vlrpresmj);
+
+            if ( ( ap_vlrpresec > ap_vlrpremol ) && ( ap_vlrpresec > ap_vlrpresmj ) ){
+                vnAP_VlrPreMotDesc = ap_vlrpresec;
+            } else if ( ( ap_vlrpremol > ap_vlrpresec ) && ( ap_vlrpremol > ap_vlrpresmj )) {
+                vnAP_VlrPreMotDesc = ap_vlrpremol;
+            } else if ( ( ap_vlrpresmj > ap_vlrpresec ) && ( ap_vlrpresmj > ap_vlrpremol )){
+                vnAP_VlrPreMotDesc = ap_vlrpresmj;
+            } else {
+                vnAP_VlrPreMotDesc = 0;
+            }
+
+            var vnVlrLimExedido = vnAP_VlrPreMotDesc - parseFloat(data[0].vlrlimdesc);
+
+            if ( vnVlrLimExedido < 0 ){
+                vnVlrLimExedido = parseFloat(data[0].ap_vlrpalp) * parseFloat(data[0].ap_vlrcotacao) ;
+            }
+
+
+            $('#ap_vlrpalp').val((parseFloat(data[0].ap_vlrpalp)).formatMoney(2, ',', '.'));
+            $('#ap_vlrcotacao').val((parseFloat(data[0].ap_vlrcotacao)).formatMoney(2, ',', '.'));
+            $('#vlrlimdesc').val((parseFloat(data[0].vlrlimdesc)).formatMoney(2, ',', '.'));
+            $('#ap_vlrpalpf').val((parseFloat(data[0].ap_vlrpalpf)).formatMoney(2, ',', '.'));
+            $('#ap_vlrpalpd').val((parseFloat(data[0].ap_vlrpalpd)).formatMoney(2, ',', '.'));
+
+            $('#vnAP_VlrPreMotDesc').val((vnAP_VlrPreMotDesc).formatMoney(2, ',', '.'));
+            $('#vnVlrLimExedido').val((vnVlrLimExedido).formatMoney(2, ',', '.'));
+
+
+
+
+
+            infoApostaDescarregada(data[0].numpule, data[0].seqpalp, data[0].seqdes);
+
         });
 
         $('#modaldescarga').modal('open');
@@ -607,6 +709,20 @@
             }
         });
         }
+
+
+    function infoApostaDescarregada(numpule, seqpalp, seqdes){
+        var url = '/admin/descargasenviadas/infoapostadescarregadas/'+numpule+'/'+seqpalp+'/'+seqdes;
+        jQuery.getJSON(url, function(data){
+
+
+
+            $('#1_nomven').val(data[0].nomven);
+            $('#1_vlrpalp').val((parseFloat(data[0].vlrpalp)).formatMoney(2, ',', '.'));
+            $('#1_vlrpalpf').val((parseFloat(data[0].vlrpalpf)).formatMoney(2, ',', '.'));
+            $('#1_vlrpalpd').val((parseFloat(data[0].vlrpalpd)).formatMoney(2, ',', '.'));
+        });
+    }
 
     function DateChance(data) {
         var getDate = data.slice(0, 10).split('-'); //create an array
