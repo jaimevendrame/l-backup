@@ -25,6 +25,7 @@
                                     <label class="active">Vendedor:</label>
                                     <br>
                                     <select class="browser-default blue-grey darken-1" onchange="test(this)" name="select_ideven">
+                                        <option value="" disabled="disabled">Selecione uma base</option>
                                         @if ($vendedores->count())
                                             @foreach($vendedores as $vendedor)
                                                 <option value="{{ $vendedor->ideven  }}" {{ $vendedor->ideven == $ideven_default  ? 'selected' : '' }}>
