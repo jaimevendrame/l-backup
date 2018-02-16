@@ -44,6 +44,11 @@ Route::get('/expired', function () {
     return view('errors.expired');
 });
 
+
+Route::get('/suporte', function () {
+    return view('layouts.suporte');
+});
+
 //Route::get('/data', 'TestController@index');
 //Route :: get ( ' /teste ' , function() {
 //    phpinfo();
