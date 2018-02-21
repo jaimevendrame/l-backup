@@ -152,8 +152,10 @@ class MovimentosCaixaController extends StandardController
 
         $str_idbase = '';
         $str_idven = '';
+        $idusu = Auth::user()->idusu;
+        $admin = Usuario::where('idusu', '=', $idusu)->first();
 
-        if (Auth::user()->idusu <> 1000){
+        if ($admin->inadim != 'SIM'){
             $p = $this->retornaBasepeloIdeven($ideven);
 
             //retornar o idven

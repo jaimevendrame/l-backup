@@ -65,8 +65,10 @@ class SenhaDiaController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
+        $admin = Usuario::where('idusu', '=', $idusu)->first();
 
-        if (Auth::user()->idusu == 1000){
+
+        if ($admin->inadim == 'SIM'){
 
 
            $data= '';

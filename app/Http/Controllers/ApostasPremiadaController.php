@@ -195,8 +195,10 @@ class ApostasPremiadaController extends StandardController
 
         $p_query = '';
 
+        $idusu = Auth::user()->idusu;
+        $admin = Usuario::where('idusu', '=', $idusu)->first();
 
-        if (Auth::user()->idusu != 1000){
+        if ($admin->inadim != 'SIM'){
             $p = $this->retornaBasepeloIdeven($ideven);
             $p_query = "AND APOSTA_PALPITES.IDBASE = '$p->idbase'
                 AND APOSTA_PALPITES.IDVEN = '$p->idven'";

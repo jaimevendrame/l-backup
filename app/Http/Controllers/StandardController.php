@@ -86,7 +86,7 @@ class StandardController extends BaseController
         }
 
 
-        if (Auth::user()->idusu != 1000) {
+        if ($admin->inadim != 'SIM') {
 
             $select_ideven = $this->request->get('select_ideven');
             $valor = $select_ideven;
