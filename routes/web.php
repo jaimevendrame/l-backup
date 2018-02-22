@@ -61,7 +61,7 @@ Route::group([
 
     Auth::routes();
 
-    Route::group(['middleware' => ['can:access-admin']], function (){
+    Route::group(['middleware' => ['can:access-admin', 'check.gmail']], function (){
 
 
 
