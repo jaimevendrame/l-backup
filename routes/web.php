@@ -156,6 +156,10 @@ Route::group([
         Route::post('/acesso/web/update/{id}', 'AcessoWebController@update')->name('update.post');
 
 
+        //REVENDEDOR
+        Route::get('/revendedor/create/{idven}', 'RevendedorController@index2')->name('revendedor');
+        Route::get('/revendedor/limite/{idven}', 'RevendedorController@limite')->name('limite-credito');
+
     });
 
 

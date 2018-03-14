@@ -774,4 +774,17 @@ class StandardController extends BaseController
 
     }
 
+    public function retornaAdmin(){
+
+        $valor = Usuario::where('idusu', '=', Auth::user()->idusu)->first();
+
+
+
+        $data = $valor->inadim;
+
+        return $data;
+
+    }
+
+
 }

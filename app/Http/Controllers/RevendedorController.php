@@ -14,12 +14,12 @@ use lotecweb\Models\Usuario;
 use lotecweb\Models\Usuario_ven;
 use lotecweb\Models\Vendedor;
 
-class DescargasEnviadasController extends StandardController
+class RevendedorController extends StandardController
 {
     protected $model;
-    protected $nameView = 'dashboard.descargasenviadas';
+    protected $nameView = 'dashboard.revendedor';
     protected $data;
-    protected $title = 'Descargas Enviadas';
+    protected $title = 'Revendedores';
     protected $redirectCad = '/admin/contatos/cadastrar';
     protected $redirectEdit = '/admin/contatos/editar';
     protected $route = '/admin/contatos';
@@ -44,35 +44,7 @@ class DescargasEnviadasController extends StandardController
     {
         $ideven2 = $ideven;
 
-        if (Auth::user()->idusu == 1000){
 
-            $data = $this->vendedor
-                ->select('ideven')
-                ->get();
-
-            $palavra = "";
-
-
-            $c = 0;
-            foreach ($data as $key){
-
-//                echo  $key['ideven'].'\n';
-//                echo $c.'\n';
-                $palavra = $palavra.$key['ideven'];
-                if ($c < count($data)-1){
-                    $palavra = $palavra.",";
-                }
-                $c++;
-
-
-            }
-            $ideven = $palavra;
-
-
-
-        } else{
-            $ideven = $ideven;
-        }
 
 
         $idusu = Auth::user()->idusu;
@@ -96,53 +68,14 @@ class DescargasEnviadasController extends StandardController
 
         $baseAll = $this->retornaBasesAll($idusu);
 
-        $descarga = $this->returnVendDesg($ideven2);
 
-        $semana = $this->returnLoteriaDia();
 
-        $loterias = $this->returnLoterias();
-
-//        $data = $this->returnDescargasEnviadas($ideven);
+        //RETORNA SQL REVENDEDOR -> INDEX
         $data = $this->returnIndex($ideven);
 
 
-        //referente aos IDEVEN
-        $valor = $this->request->get('sel_vendedor');
-
-        if (isset($valor)){
-            $ideven2 = $valor;
-        } else{
-            $ideven2  = '';
-            $ideven = $ideven;
-        }
-
-        //pegar loteria paramter
-        $idlot = $this->request->get('sel_loterias');
-
-        //pegar situação
-        $idsit = $this->request->get('sel_situacao');
-
-        //pegar vededor destino
-        $idvendd = $this->request->get('sel_vendedord');
-
-        //pegar palpites
-        $palpite = $this->request->get('numpule');
-
-        //pesquisar por horário loterias
-        $idehor = $this->request->get('sel_lotodia');
-
-        if ($idehor != Null){
-
-            $idehor = $idehor;
-        } else{
-
-            $idehor  = '';
-
-        }
 
         $ideven_default = $this->returnWebControlData($idusu);
-
-
 
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2', 'idlot','idsit',
@@ -335,6 +268,7 @@ class DescargasEnviadasController extends StandardController
 
 
     public function returnVendDesg($ideven){
+
 
         $p = $this->retornaBasepeloIdeven($ideven);
 
@@ -669,72 +603,43 @@ class DescargasEnviadasController extends StandardController
 
     public function returnIndex($ideven){
 
-        $datIni = date ("Y/m/d");
-        $datFim = date ("Y/m/d");
 
-        $data = DB::select(" 
-                    SELECT APOSTA_DESCARGA.IDBASE, APOSTA_DESCARGA.IDVEN, APOSTA_DESCARGA.IDREVEN,'$datIni' AS DATAINI, '$datFim' AS DATAFIM,
-                    APOSTA_DESCARGA.IDTER, APOSTA_DESCARGA.IDAPO, APOSTA_DESCARGA.NUMPULE, 
-                    APOSTA_DESCARGA.SEQPALP, APOSTA_DESCARGA.SEQDES, APOSTA_DESCARGA.IDBASED, 
-                    APOSTA_DESCARGA.IDVEND, APOSTA_DESCARGA.IDBASEO, APOSTA_DESCARGA.IDVENO, 
-                    APOSTA_DESCARGA.VLRPALPO, APOSTA_DESCARGA.VLRPALP, APOSTA_DESCARGA.VLRPALPF, 
-                    APOSTA_DESCARGA.VLRPALPD, APOSTA_DESCARGA.VLRPRESEC, APOSTA_DESCARGA.VLRPREMOL, 
-                    APOSTA_DESCARGA.VLRPRESMJ, APOSTA_DESCARGA.VLRPRE, APOSTA_DESCARGA.VLRPREPAG, 
-                    APOSTA_DESCARGA.SITDES, APOSTA_DESCARGA.COLMOTDES, APOSTA_DESCARGA.COLPRE, 
-                    APOSTA_DESCARGA.PERDESC, APOSTA_DESCARGA.DATAPO, APOSTA_DESCARGA.HORAPO, 
-                    APOSTA_DESCARGA.IDTIPOAPO,APOSTA_DESCARGA.IDCOL, APOSTA_DESCARGA.DATENV, 
-                    APOSTA_DESCARGA.HORENV, APOSTA_DESCARGA.GRUPDES, APOSTA_DESCARGA.INCOMB, 
-                    APOSTA_DESCARGA.VLRCOTACAO, APOSTA_DESCARGA.IDMENU, APOSTA_DESCARGA.INFODESC, 
-                    APOSTA_DESCARGA.TIPODESC, APOSTA_DESCARGA.VLRPALPSECO, APOSTA_DESCARGA.VLRPALPMOLHADO, 
-                    APOSTA_DESCARGA.INVISU, APOSTA_DESCARGA.IDCOLDESC, VEN_O.IDEVEN,
-                    VENDEDOR.NOMVEN, 
-                    HOR_APOSTA.HORLIM, HOR_APOSTA.HORSOR, HOR_APOSTA.DESHOR, 
-                    LOTERIAS.DESLOT, LOTERIAS.ABRLOT, 
-                    TIPO_APOSTA.DESTIPOAPO, 
-                    COLOCACOES.DESCOL, 
-                    VEN_O.NOMVEN AS NOMVEM_O, 
-                    APOSTA_PALPITES.VLRPALP, APOSTA_PALPITES.PALP1, APOSTA_PALPITES.PALP2, APOSTA_PALPITES.PALP3,  
-                              APOSTA_PALPITES.PALP4, APOSTA_PALPITES.PALP5, APOSTA_PALPITES.PALP6, 
-                              APOSTA_PALPITES.PALP7, APOSTA_PALPITES.PALP8, APOSTA_PALPITES.PALP9, 
-                              APOSTA_PALPITES.PALP10, APOSTA_PALPITES.PALP11, APOSTA_PALPITES.PALP12, 
-                              APOSTA_PALPITES.PALP13, APOSTA_PALPITES.PALP14, APOSTA_PALPITES.PALP15, 
-                              APOSTA_PALPITES.PALP16, APOSTA_PALPITES.PALP17, APOSTA_PALPITES.PALP18, 
-                              APOSTA_PALPITES.PALP19, APOSTA_PALPITES.PALP20, APOSTA_PALPITES.PALP21, 
-                              APOSTA_PALPITES.PALP22, APOSTA_PALPITES.PALP23, APOSTA_PALPITES.PALP24, 
-                              APOSTA_PALPITES.PALP25, 
-                              APOSTA_PALPITES.VLRPALP AS AP_VLRPALP, APOSTA_PALPITES.VLRPRESEC AS AP_VLRPRESEC, 
-                              APOSTA_PALPITES.VLRPREMOL AS AP_VLRPREMOL, APOSTA_PALPITES.VLRPRESMJ AS AP_VLRPRESMJ, 
-                              APOSTA_PALPITES.VLRPALPF AS AP_VLRPALPF, APOSTA_PALPITES.VLRPALPD AS AP_VLRPALPD, APOSTA_PALPITES.IDLOT, APOSTA_PALPITES.IDHOR, 
-                              APOSTA_PALPITES.VLRCOTACAO AS AP_VLRCOTACAO, 
-                              VEN_TIPO_APO.VLRLIMDESC 
-                              FROM APOSTA_DESCARGA 
-                              INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = APOSTA_DESCARGA.IDBASED AND 
-                                                     VENDEDOR.IDVEN  = APOSTA_DESCARGA.IDVEND 
-                              INNER JOIN VENDEDOR VEN_O ON VEN_O.IDBASE = APOSTA_DESCARGA.IDBASEO AND 
-                                                           VEN_O.IDVEN  = APOSTA_DESCARGA.IDVENO   
-                              INNER JOIN APOSTA_PALPITES ON APOSTA_PALPITES.IDBASE  = APOSTA_DESCARGA.IDBASE AND 
-                                                            APOSTA_PALPITES.IDVEN   = APOSTA_DESCARGA.IDVEN AND 
-                                                            APOSTA_PALPITES.IDREVEN = APOSTA_DESCARGA.IDREVEN AND 
-                                                            APOSTA_PALPITES.IDTER   = APOSTA_DESCARGA.IDTER AND 
-                                                            APOSTA_PALPITES.IDAPO   = APOSTA_DESCARGA.IDAPO AND 
-                                                            APOSTA_PALPITES.NUMPULE = APOSTA_DESCARGA.NUMPULE AND 
-                                                            APOSTA_PALPITES.SEQPALP = APOSTA_DESCARGA.SEQPALP 
-                              INNER JOIN HOR_APOSTA ON HOR_APOSTA.IDLOT = APOSTA_PALPITES.IDLOT AND 
-                                                         HOR_APOSTA.IDHOR = APOSTA_PALPITES.IDHOR 
-                              INNER JOIN LOTERIAS ON LOTERIAS.IDLOT = APOSTA_PALPITES.IDLOT 
-                              INNER JOIN TIPO_APOSTA ON TIPO_APOSTA.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO 
-                              INNER JOIN COLOCACOES ON COLOCACOES.IDCOL = APOSTA_PALPITES.IDCOL 
-                              INNER JOIN VEN_TIPO_APO ON VEN_TIPO_APO.IDBASE = VEN_O.IDBASE AND 
-                                                          VEN_TIPO_APO.IDVEN = VEN_O.IDVEN AND 
-                                                          VEN_TIPO_APO.IDTIPOAPO = APOSTA_PALPITES.IDTIPOAPO 
-                              WHERE 
-                                  APOSTA_DESCARGA.IDBASE <> 999999 
-                                  AND APOSTA_DESCARGA.SITDES <> 'CAN' 
-                                  AND APOSTA_DESCARGA.VLRPALP > 0
-                                  AND APOSTA_PALPITES.DATENV between '$datIni' AND '$datFim'
-                                  AND VEN_O.IDEVEN IN ($ideven) 
-                                                        
+
+        $valor = $this->retornaAdmin();
+
+//        dd($valor);
+
+        if ($valor != 'SIM'){
+            $p = $this->retornaBasepeloIdeven($ideven);
+
+            $data = DB::select(" 
+                   SELECT REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, REVENDEDOR.NOMREVEN,
+                    REVENDEDOR.CIDREVEN, REVENDEDOR.SIGUFS, REVENDEDOR.SITREVEN, REVENDEDOR.IDEREVEN,
+                    VENDEDOR.NOMVEN
+                    FROM REVENDEDOR
+                    INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = REVENDEDOR.IDBASE AND
+                    VENDEDOR.IDVEN = REVENDEDOR.IDVEN
+                    INNER JOIN BASE ON BASE.IDBASE = REVENDEDOR.IDBASE
+                    WHERE
+                    REVENDEDOR.IDREVEN <> 99999999
+                    AND REVENDEDOR.IDBASE = '$p->idbase'
+                    AND REVENDEDOR.IDVEN = '$p->idven'
         ");
+        } else {
+            $data = DB::select(" 
+                   SELECT REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, REVENDEDOR.NOMREVEN,
+                    REVENDEDOR.CIDREVEN, REVENDEDOR.SIGUFS, REVENDEDOR.SITREVEN, REVENDEDOR.IDEREVEN,
+                    VENDEDOR.NOMVEN
+                    FROM REVENDEDOR
+                    INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = REVENDEDOR.IDBASE AND
+                    VENDEDOR.IDVEN = REVENDEDOR.IDVEN
+                    INNER JOIN BASE ON BASE.IDBASE = REVENDEDOR.IDBASE
+                    WHERE
+                    REVENDEDOR.IDREVEN <> 99999999
+        ");
+
+        }
+
 
 
         return $data;
