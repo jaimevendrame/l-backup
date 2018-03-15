@@ -77,6 +77,8 @@ class RevendedorController extends StandardController
 
         $ideven_default = $this->returnWebControlData($idusu);
 
+
+
         return view("{$this->nameView}",compact('idusu',
             'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2', 'idlot','idsit',
             'idehor','palpite','idvendd','descarga', 'semana', 'loterias', 'ideven_default'));
@@ -188,7 +190,42 @@ class RevendedorController extends StandardController
     }
 
 
+public function createRevendedor($ideven){
+    $ideven2 = $ideven;
 
+
+
+
+    $idusu = Auth::user()->idusu;
+
+    $user_base = $this->retornaBase($idusu);
+
+
+    $user_bases = $this->retornaBases($idusu);
+
+    $usuario_lotec = $this->retornaUserLotec($idusu);
+
+
+
+    $vendedores = $this->retornaBasesUser($idusu);
+
+    $menus = $this->retornaMenu($idusu);
+
+    $categorias = $this->retornaCategorias($menus);
+
+    $title = $this->title;
+
+    $baseAll = $this->retornaBasesAll($idusu);
+
+    $ideven_default = $this->returnWebControlData($idusu);
+
+    $this->nameView = 'dashboard.revendedor-create';
+
+
+    return view("{$this->nameView}",compact('idusu',
+        'user_base', 'user_bases', 'usuario_lotec', 'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven2', 'idlot','idsit',
+        'idehor','palpite','idvendd','descarga', 'semana', 'loterias', 'ideven_default'));
+}
     /**
      * @return mixed
      */

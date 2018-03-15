@@ -7,7 +7,7 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     weekdaysShort: [ 'dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab' ],
     today: 'hoje',
     clear: 'limpar',
-    close: 'selecionar',
+    close: 'ok',
     // format: 'dddd, d !de mmmm !de yyyy',
     format: 'dd/mm/yyyy',
     formatSubmit: 'yyyy/mm/dd'
