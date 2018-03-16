@@ -83,8 +83,10 @@ public function createRevendedor($ideven){
 
     $bases = $this->retornaBases($idusu);
 
+    $cobrador = $this->retornaCobrador($ideven);
+
     return view("{$this->nameView}",compact('idusu',
-         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases'));
+         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador'));
 }
     /**
      * @return mixed
@@ -160,6 +162,36 @@ public function createRevendedor($ideven){
 
 
         return $data;
+    }
+
+    public function retornaCobrador($ideven){
+
+        $valor = $this->retornaAdmin();
+
+        if ($valor != 'SIM') {
+            $p = $this->retornaBasepeloIdeven($ideven);
+
+            $data = DB::select(" 
+                   SELECT COBRADOR.IDBASE, COBRADOR.IDVEN, COBRADOR.IDCOBRA, COBRADOR.NOMCOBRA
+                  FROM COBRADOR
+                   WHERE
+                     COBRADOR.IDBASE = '$p->idbase'AND
+                     COBRADOR.IDVEN = '$p->idven' AND
+                     COBRADOR.SITCOBRA = 'ATIVO'
+                     
+                     ORDER BY COBRADOR.NOMCOBRA
+        ");
+        } else {
+            $data = DB::select(" 
+                   SELECT COBRADOR.IDBASE, COBRADOR.IDVEN, COBRADOR.IDCOBRA, COBRADOR.NOMCOBRA
+                  FROM COBRADOR
+                   WHERE
+                     COBRADOR.SITCOBRA = 'ATIVO'
+                     ORDER BY COBRADOR.NOMCOBRA
+            ");
+        }
+
+         return $data;
     }
 
 }
