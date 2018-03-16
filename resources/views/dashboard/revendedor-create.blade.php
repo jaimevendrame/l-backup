@@ -17,10 +17,12 @@
                                 <div class="row">
                                     <div class="input-field col m2">
                                         <select>
-                                            <option value="" disabled selected>Choose your option</option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
+                                            <option value="" disabled selected>Selecione</option>
+                                            @forelse($bases as $b)
+                                            <option value="1">{{ $b->nombas }}</option>
+                                            @empty
+                                                <option value="" disabled selected>Nenhuma base</option>
+                                            @endforelse
                                         </select>
                                         <label>Base</label>
                                     </div>
@@ -43,10 +45,12 @@
 
                                     <div class="input-field col m2">
                                         <select>
-                                            <option value="" disabled selected>Choose your option</option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
+                                            <option value="" disabled selected>Selecione</option>
+                                            @forelse($vendedores as $v)
+                                                <option value="1">{{ $v->nomven }}</option>
+                                            @empty
+                                                <option value="" disabled selected>Nenhum vendedor</option>
+                                            @endforelse
                                         </select>
                                         <label>Vendedor</label>
                                     </div>
