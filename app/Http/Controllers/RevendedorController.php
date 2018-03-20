@@ -194,4 +194,27 @@ public function createRevendedor($ideven){
          return $data;
     }
 
+    public function retornaBase($idbase){
+        $data = DB::select(" 
+                   SELECT IDBASE,NOMPRO,NOMBAS,CIDBAS,SIGUFS
+                   FROM BASE
+                    WHERE SITBAS = 'ATIVO'
+                    AND IDBASE = '$idbase'
+            ");
+        return $data;
+
+    }
+
+    public function retornaVend($idbase, $idven){
+        $data = DB::select(" 
+                   SELECT IDBASE,IDVEN,NOMVEN,APEVEN,CIDVEN,SIGUFS,PORTA_COM,IN_IMPAPO,IN_CANAPO,IN_IMPDIRETA
+                    FROM VENDEDOR
+                    WHERE SITVEN = 'ATIVO' AND
+                    IDBASE = '$idbase'
+                    AND VENDEDOR.IDVEN = '$idven'
+            ");
+        return $data;
+
+    }
+
 }

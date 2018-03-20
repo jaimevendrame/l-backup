@@ -16,10 +16,10 @@
                             <form action="" class="col m12">
                                 <div class="row">
                                     <div class="input-field col m2">
-                                        <select>
+                                        <select class="base">
                                             <option value="" disabled selected>Selecione</option>
                                             @forelse($bases as $b)
-                                            <option value="1">{{ $b->nombas }}</option>
+                                            <option value="{{ $b->idbase }}">{{ $b->nombas }}</option>
                                             @empty
                                                 <option value="" disabled selected>Nenhuma base</option>
                                             @endforelse
@@ -27,27 +27,27 @@
                                         <label>Base</label>
                                     </div>
                                     <div class="input-field col m2">
-                                        <input id="idbase" type="text" class="validate">
-                                        <label for="idbase">Id Base</label>
+                                        <input id="idbase" type="text" class="validate" readonly>
+                                        <label id="lidbase" for="idbase">Id Base</label>
                                     </div>
                                     <div class="input-field col m4">
-                                        <input id="nompro" type="text" class="validate">
-                                        <label for="nompro">Nome</label>
+                                        <input id="nompro" type="text" class="validate" readonly>
+                                        <label id="lnompro" for="nompro">Nome</label>
                                     </div>
                                     <div class="input-field col m2">
-                                        <input id="cidbas" type="text" class="validate">
-                                        <label for="cidbas">Cidade</label>
+                                        <input id="cidbas" type="text" class="validate" readonly="">
+                                        <label id="lcidbas" for="cidbas">Cidade</label>
                                     </div>
                                     <div class="input-field col m2">
-                                        <input id="uf" type="text" class="validate">
-                                        <label for="uf">UF</label>
+                                        <input id="uf" type="text" class="validate" readonly>
+                                        <label id="luf" for="uf">UF</label>
                                     </div>
 
                                     <div class="input-field col m2">
-                                        <select>
+                                        <select class="vendedor">
                                             <option value="" disabled selected>Selecione</option>
                                             @forelse($vendedores as $v)
-                                                <option value="1">{{ $v->nomven }}</option>
+                                                <option value="{{ $v->idven }}">{{ $v->nomven }}</option>
                                             @empty
                                                 <option value="" disabled selected>Nenhum vendedor</option>
                                             @endforelse
@@ -55,21 +55,22 @@
                                         <label>Vendedor</label>
                                     </div>
                                     <div class="input-field col m2">
-                                        <input id="idbase" type="text" class="validate">
-                                        <label for="idbase">Id Vendedor</label>
+                                        <input id="idven" type="text" class="validate">
+                                        <label id="lidven" for="idven">Id Vendedor</label>
                                     </div>
                                     <div class="input-field col m4">
-                                        <input id="nompro" type="text" class="validate">
-                                        <label for="nompro">Vendedor</label>
+                                        <input id="nomven" type="text" class="validate">
+                                        <label id="lnomven" for="nomven">Vendedor</label>
                                     </div>
                                     <div class="input-field col m2">
-                                        <input id="cidbas" type="text" class="validate">
-                                        <label for="cidbas">Cidade</label>
+                                        <input id="cidven" type="text" class="validate">
+                                        <label id="lcidven" for="cidven">Cidade</label>
                                     </div>
                                     <div class="input-field col m2">
-                                        <input id="uf" type="text" class="validate">
-                                        <label for="uf">UF</label>
+                                        <input id="ufven" type="text" class="validate">
+                                        <label id="lufven" for="ufven">UF</label>
                                     </div>
+                                    {{----}}
                                     <div class="input-field col m6">
                                         <input id="idreven" type="text" class="validate">
                                         <label for="idreven">Id Revendedor</label>
@@ -331,5 +332,72 @@
 
 
 </script>
+        <script>
+            $( ".base" ).change(function() {
+                urlBase = '/admin/revendedor/base/'+ this.value;
+                base(urlBase);
+            });
+
+            $( ".vendedor" ).change(function() {
+
+
+                var base = 0;
+
+                base = $('#idbase').val();
+
+
+                if (base == 0) {
+                    alert('Selecione uma base antes');
+                    return false;
+                }
+
+
+
+                urlVend = '/admin/revendedor/vendedor/'+ base +'/'+ this.value;
+
+//                alert( urlVend);
+
+//                return false;
+
+                vendedor(urlVend);
+
+            });
+            function base(url) {
+                jQuery.getJSON(url, function (data) {
+//                    alert( data[0].nompro );
+                    $('#idbase').val(data[0].idbase);
+                    $('#lidbase').addClass("active");
+
+                    $('#nompro').val(data[0].nompro);
+                    $('#lnompro').addClass("active");
+
+                    $('#cidbas').val(data[0].cidbas);
+                    $('#lcidbas').addClass("active");
+
+                    $('#uf').val(data[0].sigufs);
+                    $('#luf').addClass("active");
+
+                });
+            }
+
+            function vendedor(url) {
+                jQuery.getJSON(url, function (data) {
+//                    alert( data[0].nompro );
+                    $('#idven').val(data[0].idven);
+                    $('#lidven').addClass("active");
+
+                    $('#nomven').val(data[0].nomven);
+                    $('#lnomven').addClass("active");
+
+                    $('#cidven').val(data[0].cidven);
+                    $('#lcidven').addClass("active");
+
+                    $('#ufven').val(data[0].sigufs);
+                    $('#lufven').addClass("active");
+
+                });
+            }
+
+        </script>
 @endpush
 
