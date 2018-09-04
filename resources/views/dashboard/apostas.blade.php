@@ -468,10 +468,10 @@
         $('#numpule').mask('####################'), {reverse: true};
 
         var table = $('#apostas').DataTable( {
-            fixedColumns: {
-                leftColumns: 2
-
-            },
+//            fixedColumns: {
+//                leftColumns: 2
+//
+//            },
 
 
             dom: 'Brtip',

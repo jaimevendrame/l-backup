@@ -149,7 +149,12 @@
                             @forelse($data as $resumo)
 
                                 <tr>
-                                    <td>{{ $resumo->nomreven }}</td>
+{{--                                    <td>{{ $resumo->nomreven }}</td>--}}
+                                    <td>@php if (strlen($resumo->nomreven) <=15) {
+                                    echo $resumo->nomreven;
+                                    } else {
+                                    echo substr($resumo->nomreven, 0, 15) . '...';
+                                    }@endphp</td>
                                     <td
                                             @if ($resumo->vlrdevant < 0)class='white-text' bgcolor='#e53935'
                                             @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
@@ -302,9 +307,9 @@
 
 
         var table = $('#example').DataTable( {
-            fixedColumns: {
-                leftColumns: 1
-            },
+//            fixedColumns: {
+//                leftColumns: 1
+//            },
 
 
             dom: 'Brtip',

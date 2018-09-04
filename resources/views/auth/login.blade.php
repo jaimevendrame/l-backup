@@ -30,11 +30,11 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">perm_identity</i>
-                                        <input id="username" type="text" name="username" class="validate {{ $errors->has('username') ? ' has-error' : '' }}">
-                                        <label for="username">Username</label>
+                                        <input placeholder="Nome de Usuário" id="username" type="text" name="username" class="validate {{ $errors->has('username') ? ' has-error' : '' }}">
+                                        {{--<label class="active" for="username">Username</label>--}}
                                         @if ($errors->has('username'))
                                             <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
+                                        <strong>{{ $errors->first('username') }}xx</strong>
                                     </span>
                                         @endif
                                     </div>
@@ -42,8 +42,8 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">lock</i>
-                                        <input id="password" type="password" name="password" class="validate {{ $errors->has('password') ? ' has-error' : '' }}">
-                                        <label for="password">Senha</label>
+                                        <input placeholder="Senha" id="password" type="password" name="password" class="validate {{ $errors->has('password') ? ' has-error' : '' }}">
+                                        {{--<label for="password">Senha</label>--}}
                                         @if ($errors->has('password'))
                                             <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>

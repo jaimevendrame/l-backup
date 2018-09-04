@@ -288,7 +288,7 @@
             scrollY: 480,
             scrollX:        true,
             scrollCollapse: true,
-            paging:         false,
+            paging:         true,
             Bfilter:        true,
             "aaSorting": [[1, "asc"],[6, "desc"]],
 

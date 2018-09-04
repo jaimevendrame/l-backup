@@ -91,7 +91,12 @@
                             @forelse($data as $movi)
 
                                 <tr>
-                                    <td>{{ $movi->nomreven }}</td>
+{{--                                    <td>{{ $movi->nomreven }}</td>--}}
+                                    <td>@php if (strlen($movi->nomreven) <=15) {
+                                    echo $movi->nomreven;
+                                    } else {
+                                    echo substr($movi->nomreven, 0, 15) . '...';
+                                    }@endphp</td>
                                     <td>{{ $movi->seqordem }}</td>
                                     <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
                                         @elseif($movi->tipomov == 'DESPESA') class='white-text' bgcolor='#ff9800'
@@ -451,10 +456,10 @@
 
             var table = $('#movcaixa').DataTable(
                 {
-                    fixedColumns: {
-                        leftColumns: 1
-
-                    },
+//                    fixedColumns: {
+//                        leftColumns: 1
+//
+//                    },
 
                     dom: 'Brtip',
                     buttons: [

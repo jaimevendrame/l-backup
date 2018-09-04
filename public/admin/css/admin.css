@@ -157,3 +157,9 @@ table.linhasAlternadas tr:nth-child(even) /* CSS3 */ {
     font-size: small;
     text-align: justify;
 }
+
+.rtc{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
