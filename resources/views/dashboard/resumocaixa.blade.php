@@ -130,7 +130,6 @@
                             <tr bgcolor="#fffde7">
 
                                 <th class="black-text">Revendedor</th>
-                                <th class="black-text">@php echo number_format($saldoanterior, 2, ',', '.'); @endphp </br><b>Saldo Anterior</b></th>
                                 <th class="black-text">@php echo number_format($venda, 2, ',', '.'); @endphp</br><b>Vendido</b></th>
                                 <th class="black-text">@php echo number_format($comissao, 2, ',', '.'); @endphp</br><b>Comissão</b></th>
                                 <th class="black-text">@php echo number_format($liquido, 2, ',', '.'); @endphp</br><b>Liquido</b></th>
@@ -141,6 +140,8 @@
                                 <th class="black-text">@php echo number_format($recb, 2, ',', '.'); @endphp</br><b>Recebimento</b></th>
                                 <th class="black-text">@php echo number_format($saldoatual, 2, ',', '.'); @endphp</br><b>Saldo Atual</b></th>
                                 <th class="black-text">Última Venda</th>
+                                <th class="black-text">@php echo number_format($saldoanterior, 2, ',', '.'); @endphp </br><b>Saldo Anterior</b></th>
+
                             </tr>
 
                             </thead>
@@ -155,15 +156,16 @@
                                     } else {
                                     echo substr($resumo->nomreven, 0, 15) . '...';
                                     }@endphp</td>
+
+                                    <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
+                                    <td>@if($resumo->vlrpremio > 0)<a href="#{{$resumo->vlrdevant}}" class="btn">@endif{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</a></td>
                                     <td
                                             @if ($resumo->vlrdevant < 0)class='white-text' bgcolor='#e53935'
                                             @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
                                     @else @endif >
                                         <b>{{ number_format($resumo->vlrdevant, 2, ',', '.') }}</b></td>
-                                    <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
-                                    <td>@if($resumo->vlrpremio > 0)<a href="#{{$resumo->vlrdevant}}" class="btn">@endif{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</a></td>
                                 @if($resumo->vlrpremio > 0)
                                     <!-- Modal Structure -->
                                         <div id="{{$resumo->vlrdevant}}" class="modal modal2">
