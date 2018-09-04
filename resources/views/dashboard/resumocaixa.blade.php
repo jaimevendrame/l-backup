@@ -156,16 +156,10 @@
                                     } else {
                                     echo substr($resumo->nomreven, 0, 15) . '...';
                                     }@endphp</td>
-
                                     <td>{{ number_format($resumo->vlrven, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrcom, 2, ',', '.') }}</td>
                                     <td>{{ number_format($resumo->vlrliqbru, 2, ',', '.') }}</td>
                                     <td>@if($resumo->vlrpremio > 0)<a href="#{{$resumo->vlrdevant}}" class="btn">@endif{{ number_format($resumo->vlrpremio, 2, ',', '.') }}</a></td>
-                                    <td
-                                            @if ($resumo->vlrdevant < 0)class='white-text' bgcolor='#e53935'
-                                            @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
-                                    @else @endif >
-                                        <b>{{ number_format($resumo->vlrdevant, 2, ',', '.') }}</b></td>
                                 @if($resumo->vlrpremio > 0)
                                     <!-- Modal Structure -->
                                         <div id="{{$resumo->vlrdevant}}" class="modal modal2">
@@ -203,7 +197,11 @@
                                     <td> {{ Carbon\Carbon::parse($resumo->dataultven)->format('d/m/Y') }}</td>
                                     {{--                                    <td> {{$resumo->dataultve n}}</td>--}}
 
-
+                                    <td
+                                            @if ($resumo->vlrdevant < 0)class='white-text' bgcolor='#e53935'
+                                            @elseif ($resumo->vlrdevant > 0) class='white-text' bgcolor='#4caf50'
+                                    @else @endif >
+                                        <b>{{ number_format($resumo->vlrdevant, 2, ',', '.') }}</b></td>
                                 </tr>
                             @empty
                                 <tr>
