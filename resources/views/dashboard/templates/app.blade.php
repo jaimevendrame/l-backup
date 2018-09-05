@@ -253,8 +253,8 @@
                                         <ul>';
                                             foreach ($menus as $menu){
                                                if ($menu->catact == $value){
-                                            echo '<li><a class="waves-effect white-text waves-light tooltipped"  href="'.$menu->route.'/'.$ideven_default.'" id="'.$menu->idref.'"
-                                            data-position="right" data-delay="50" data-tooltip="'.$menu->capact.'"
+                                            echo '<li><a class="waves-effect white-text waves-light"  href="'.$menu->route.'/'.$ideven_default.'" id="'.$menu->idref.'"
+                                            data-position="right" data-delay="50"
                                             >'.$menu->capact.'</a></li>';
                                             }}
 

@@ -75,8 +75,8 @@
                             <tr>
                                 <th>Revendedor</th>
                                 <th>seqordem</th>
-                                <th>Tipo Mov.</th>
                                 <th>Valor Movimento</th>
+                                <th>Tipo Mov.</th>
                                 <th>Saldo Anterior</th>
                                 <th>Saldo Após Mov.</th>
                                 <th>Data Mov.</th>
@@ -101,9 +101,13 @@
                                     <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
                                         @elseif($movi->tipomov == 'DESPESA') class='white-text' bgcolor='#ff9800'
                                         @else class='white-text' bgcolor='#e53935'@endif>
+                                        <b>{{ number_format($movi->vlrmov, 2, ',', '.') }}</b>
+                                    </td>
+                                    <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
+                                        @elseif($movi->tipomov == 'DESPESA') class='white-text' bgcolor='#ff9800'
+                                        @else class='white-text' bgcolor='#e53935'@endif>
                                         <b>{{ $movi->tipomov }}</b>
                                     </td>
-                                    <td>{{ number_format($movi->vlrmov, 2, ',', '.') }}</td>
                                     <td><b>{{ number_format($movi->saldoant, 2, ',', '.') }}</b></td>
                                     <td>{{ number_format($movi->saldoatu, 2, ',', '.') }}</td>
                                     <td> {{ Carbon\Carbon::parse($movi->datmov)->format('d/m/Y') }}</td>
