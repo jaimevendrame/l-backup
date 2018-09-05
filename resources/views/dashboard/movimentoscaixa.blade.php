@@ -75,7 +75,6 @@
                             <tr>
                                 <th>Revendedor</th>
                                 <th>seqordem</th>
-                                {{--<th>Valor Movimento</th>--}}
                                 <th>Valor</th>
                                 <th>Tipo Mov.</th>
                                 <th>Saldo Anterior</th>
@@ -180,7 +179,7 @@
                         <div class="row">
 
                             <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 green hoverable">
+                                <div class="col s12 z-depth-2 green hoverable">
                                     <div class="row left-align">
                                         <h5 class="white-text">
                                             Total Recebimento:
@@ -193,7 +192,7 @@
 
                             </div>
                             <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 red darken-1 hoverable">
+                                <div class="col s12 z-depth-2 red darken-1 hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
                                             Total Pagamento:
@@ -206,7 +205,7 @@
 
                             </div>
                             <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 orange hoverable">
+                                <div class="col s12 z-depth-2 orange hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
                                             Despesas:
@@ -219,7 +218,7 @@
 
                             </div>
                             <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 teal hoverable">
+                                <div class="col s12 z-depth-2 teal hoverable">
                                     <div class="row white-text left-align">
                                         <h5>
                                             Saldo Caixa:
