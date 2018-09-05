@@ -75,7 +75,8 @@
                             <tr>
                                 <th>Revendedor</th>
                                 <th>seqordem</th>
-                                <th>Valor Movimento</th>
+                                {{--<th>Valor Movimento</th>--}}
+                                <th>Valor</th>
                                 <th>Tipo Mov.</th>
                                 <th>Saldo Anterior</th>
                                 <th>Saldo Após Mov.</th>
@@ -100,12 +101,12 @@
                                     <td>{{ $movi->seqordem }}</td>
                                     <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
                                         @elseif($movi->tipomov == 'DESPESA') class='white-text' bgcolor='#ff9800'
-                                        @else class='white-text' bgcolor='#e53935'@endif>
+                                        @else class='white-text' bgcolor='#e53935'@endif style="text-align: left;">
                                         <b>{{ number_format($movi->vlrmov, 2, ',', '.') }}</b>
                                     </td>
                                     <td @if ($movi->tipomov == 'RECEBIMENTO') class='white-text' bgcolor='#4caf50'
                                         @elseif($movi->tipomov == 'DESPESA') class='white-text' bgcolor='#ff9800'
-                                        @else class='white-text' bgcolor='#e53935'@endif>
+                                        @else class='white-text' bgcolor='#e53935'@endif style="text-align: left;">
                                         <b>{{ $movi->tipomov }}</b>
                                     </td>
                                     <td><b>{{ number_format($movi->saldoant, 2, ',', '.') }}</b></td>
