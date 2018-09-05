@@ -232,7 +232,7 @@
                         <div class="row"></div>
                         <div class="row">
                             <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                <div class="col s12 z-depth-2 blue-grey lighten-5 hoverable">
                                     <div class="row left-align">
                                         <h5 class=" blue-grey-text">
                                             Revendedor:
@@ -244,7 +244,7 @@
                                 </div>
                             </div>
                             <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                <div class="col s12 z-depth-2 blue-grey lighten-5 hoverable">
                                     <div class="row left-align">
                                         <h5 class="blue-grey-text">
                                             Sem vendas:
@@ -256,7 +256,7 @@
                                 </div>
                             </div>
                             <div class="col s12 m12 l3">
-                                <div class="col s10 z-depth-2 blue-grey lighten-5 hoverable">
+                                <div class="col s12 z-depth-2 blue-grey lighten-5 hoverable">
                                     <div class="row left-align">
                                         <h5 class="blue-grey-text">
                                             Com vendas:
@@ -274,7 +274,7 @@
                                 else
                                 $cor = 'verde';
                                 @endphp
-                                <div class="col s10 z-depth-2 @php echo $cor @endphp  hoverable">
+                                <div class="col s12 z-depth-2 @php echo $cor @endphp  hoverable">
                                     <div class="row left-align">
                                         <h5 class="blue-grey-text white-text">
                                             Caixa:

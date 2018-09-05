@@ -163,3 +163,8 @@ table.linhasAlternadas tr:nth-child(even) /* CSS3 */ {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+  /*RESETS*/
+
+.mdl-data-table td, .mdl-data-table th {
+    text-align: left !important;
+}
