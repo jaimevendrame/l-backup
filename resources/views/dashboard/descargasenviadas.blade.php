@@ -139,7 +139,7 @@
 
                                     <tr>
                                         <td>{{ number_format($d->vlrpalpo, 2, ',', '.') }}</td>
-                                        <td>{{ $d->deshor }}</td>
+                                        <td>{{ $d->destipoapo }}</td>
                                         <td>  @if( isset($d->palp1) ){{$d->palp1}}@endif
 
                                             @if( isset($d->palp2) ){{'- '.$d->palp2}}@endif
@@ -192,7 +192,7 @@
 
                                             @if( isset($d->palp25) ){{'- '.$d->palp25}}@endif
                                         </td>
-                                        <td>{{ $d->destipoapo }}</td>
+                                        <td>{{ $d->deshor }}</td>
                                         <td>{{ Carbon\Carbon::parse($d->datapo)->format('d/m/Y') }}</td>
                                         <td>{{ $d->numpule }}</td>
                                         <td><a class="waves-effect waves-light btn blue" onclick='edit("/admin/descargasenviadas/view/{{$d->ideven}}/{{$d->idreven}}/{{$d->idter}}/{{$d->idapo}}/{{$d->numpule}}/{{$d->seqpalp}}/")'><i class="material-icons">info</i></a>
