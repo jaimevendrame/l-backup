@@ -118,17 +118,17 @@
                             <table class="mdl-data-table " id="example"  cellspacing="0" width="100%">
 
                                 <thead><tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th>Pule</th>
-                                    <th>Data Sorteio</th>
-                                    <th>Loteria</th>
+                                    <th>Vlr. Descarga</th>
                                     <th>Modalidade</th>
                                     <th>Palpite</th>
-                                    <th>Vlr. Descarga</th>
+                                    <th>Loteria</th>
+                                    <th>Data Sorteio</th>
+                                    <th>Pule</th>
+                                    <th></th>
+                                    <th></th>
                                     <th>Colocação Descarga</th>
-                                    <th>Colocação Palpite</th>
                                     <th>Situação</th>
+                                    <th>Colocação Palpite</th>
                                     <th>Horário Limite</th>
                                     <th>Vendedor Destino</th>
                                     <th>Data Envio Aposta</th>
@@ -138,12 +138,8 @@
                                 @forelse($data as $d)
 
                                     <tr>
-                                        <td><a class="waves-effect waves-light btn blue" onclick='edit("/admin/descargasenviadas/view/{{$d->ideven}}/{{$d->idreven}}/{{$d->idter}}/{{$d->idapo}}/{{$d->numpule}}/{{$d->seqpalp}}/")'><i class="material-icons">info</i></a>
-                                        <td>{{ $d->infodesc }}</td>
-                                        <td>{{ $d->numpule }}</td>
-                                        <td>{{ Carbon\Carbon::parse($d->datapo)->format('d/m/Y') }}</td>
+                                        <td>{{ number_format($d->vlrpalpo, 2, ',', '.') }}</td>
                                         <td>{{ $d->deshor }}</td>
-                                        <td>{{ $d->destipoapo }}</td>
                                         <td>  @if( isset($d->palp1) ){{$d->palp1}}@endif
 
                                             @if( isset($d->palp2) ){{'- '.$d->palp2}}@endif
@@ -196,9 +192,13 @@
 
                                             @if( isset($d->palp25) ){{'- '.$d->palp25}}@endif
                                         </td>
-                                        <td>{{ number_format($d->vlrpalpo, 2, ',', '.') }}</td>
+                                        <td>{{ $d->destipoapo }}</td>
+                                        <td>{{ Carbon\Carbon::parse($d->datapo)->format('d/m/Y') }}</td>
+                                        <td>{{ $d->numpule }}</td>
+                                        <td><a class="waves-effect waves-light btn blue" onclick='edit("/admin/descargasenviadas/view/{{$d->ideven}}/{{$d->idreven}}/{{$d->idter}}/{{$d->idapo}}/{{$d->numpule}}/{{$d->seqpalp}}/")'><i class="material-icons">info</i></a>
+
+                                        <td>{{ $d->infodesc }}</td>
                                         <td>{{ $d->tipodesc }}</td>
-                                        <td>{{ $d->descol }}</td>
                                         @if($d->sitdes = 'PRO')
                                             <td>LIBERADO</td>
                                         @elseif($d->sitdes = 'EL')
@@ -212,6 +212,8 @@
                                         @elseif($d->sitdes = 'PRE')
                                             <td class="orange">PREMIADO</td>
                                         @endif
+                                        <td>{{ $d->descol }}</td>
+
                                         <td>{{Carbon\Carbon::parse($d->horlim)->format('H:i:s')}}</td>
                                         <td>{{ $d->nomven }}</td>
                                         <td> {{ Carbon\Carbon::parse($d->datenv)->format('d/m/Y') }} - {{Carbon\Carbon::parse($d->horenv)->format('H:i:s')}} </td>
@@ -226,17 +228,17 @@
 
                                 <tfoot>
                                 <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th>Pule</th>
-                                    <th>Data Sorteio</th>
-                                    <th>Loteria</th>
+                                    <th>Vlr. Descarga</th>
                                     <th>Modalidade</th>
                                     <th>Palpite</th>
-                                    <th>Vlr. Descarga</th>
+                                    <th>Loteria</th>
+                                    <th>Data Sorteio</th>
+                                    <th>Pule</th>
+                                    <th></th>
+                                    <th></th>
                                     <th>Colocação Descarga</th>
-                                    <th>Colocação Palpite</th>
                                     <th>Situação</th>
+                                    <th>Colocação Palpite</th>
                                     <th>Horário Limite</th>
                                     <th>Vendedor Destino</th>
                                     <th>Data Envio Aposta</th>
@@ -490,7 +492,7 @@
             scrollCollapse: true,
             paging:         false,
             Bfilter:        false,
-            "aaSorting": [[3, "desc"],[6, "desc"]],
+            "aaSorting": [[2, "desc"],[4, "desc"]],
 
 
 //            columnDefs: [
