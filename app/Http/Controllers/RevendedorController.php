@@ -85,8 +85,29 @@ public function createRevendedor($ideven){
 
     $cobrador = $this->retornaCobrador($ideven);
 
+    $ideven = $ideven;
+
+
+    $baseAll = $this->retornaBasesAll($idusu);
+
+
+    $valores = $baseAll;
+
+
+
+    foreach ($valores as $val){
+
+        if ($val->ideven == $ideven_default) {
+            $baseNome  = $val->nombas;
+            $idbase = $val->idbase;
+            $vendedorNome = $val->nomven;
+            $idvendedor = $val->idven;
+        }
+    }
+
+
     return view("{$this->nameView}",compact('idusu',
-         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador'));
+         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor'));
 }
     /**
      * @return mixed

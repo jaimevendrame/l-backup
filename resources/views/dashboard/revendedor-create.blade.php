@@ -23,19 +23,27 @@
                                     </div>
                                     <div id="cadastro" class="col s12">
                                         <div class="row">
+                                            {{--<div class="input-field col s8 m8 l8">--}}
+                                                {{--<select class="base">--}}
+                                                    {{--<option value="" disabled selected>Selecione</option>--}}
+                                                    {{--@forelse($baseAll as $b)--}}
+                                                        {{--@if( isset($ideven) && !empty($ideven))--}}
+                                                        {{--<option value="{{ $b->idbase }}" {{ $b->ideven == $ideven  ? 'selected' : '' }}>{{ $b->nombas }} </option>--}}
+                                                        {{--@else--}}
+                                                        {{--<option value="{{ $b->idbase }}">{{ $b->nombas }}</option>--}}
+                                                        {{--@endif--}}
+
+                                                    {{--@empty--}}
+                                                        {{--<option value="" disabled selected>Nenhuma base</option>--}}
+                                                    {{--@endforelse--}}
+                                                {{--</select>--}}
+                                                {{--<label>Base</label>--}}
+                                            {{--</div>--}}
                                             <div class="input-field col s8 m8 l8">
-                                                <select class="base">
-                                                    <option value="" disabled selected>Selecione</option>
-                                                    @forelse($bases as $b)
-                                                        <option value="{{ $b->idbase }}">{{ $b->nombas }}</option>
-                                                    @empty
-                                                        <option value="" disabled selected>Nenhuma base</option>
-                                                    @endforelse
-                                                </select>
-                                                <label>Base</label>
-                                            </div>
-                                            <div class="input-field col s4 m4 l4">
-                                                <input id="idbase" type="text" class="validate" readonly>
+                                                <input id="nomebase" type="text" class="validate" readonly value="{{$baseNome}}">
+                                                <label id="lnomebase" for="nomebase">Id Base</label>
+                                            </div> <div class="input-field col s4 m4 l4">
+                                                <input id="idbase" type="text" class="validate" readonly value="{{$idbase}}">
                                                 <label id="lidbase" for="idbase">Id Base</label>
                                             </div>
                                             {{--<div class="input-field col m4">--}}
@@ -52,19 +60,23 @@
                                             {{--</div>--}}
                                         </div>
                                         <div class="row">
+                                            {{--<div class="input-field col s8 m8 l8">--}}
+                                                {{--<select class="vendedor">--}}
+                                                    {{--<option value="" disabled selected>Selecione</option>--}}
+                                                    {{--@forelse($vendedores as $v)--}}
+                                                        {{--<option value="{{ $v->idven }}">{{ $v->nomven }}</option>--}}
+                                                    {{--@empty--}}
+                                                        {{--<option value="" disabled selected>Nenhum vendedor</option>--}}
+                                                    {{--@endforelse--}}
+                                                {{--</select>--}}
+                                                {{--<label>Vendedor</label>--}}
+                                            {{--</div>--}}
                                             <div class="input-field col s8 m8 l8">
-                                                <select class="vendedor">
-                                                    <option value="" disabled selected>Selecione</option>
-                                                    @forelse($vendedores as $v)
-                                                        <option value="{{ $v->idven }}">{{ $v->nomven }}</option>
-                                                    @empty
-                                                        <option value="" disabled selected>Nenhum vendedor</option>
-                                                    @endforelse
-                                                </select>
-                                                <label>Vendedor</label>
+                                                <input id="nomven" type="text" class="validate" readonly value="{{$vendedorNome}}">
+                                                <label id="lnomven" for="nomven">Id Vendedor</label>
                                             </div>
                                             <div class="input-field col s4 m4 l4">
-                                                <input id="idven" type="text" class="validate">
+                                                <input id="idven" type="text" class="validate" readonly value="{{$idvendedor}}">
                                                 <label id="lidven" for="idven">Id Vendedor</label>
                                             </div>
                                             {{--<div class="input-field col m4">--}}
