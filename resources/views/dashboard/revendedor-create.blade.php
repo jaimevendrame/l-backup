@@ -150,7 +150,7 @@
                                             </div>
                                             <div class="input-field col s12 m6 l4">
                                                 <input id="vlrcom" type="text" class="validate">
-                                                <label for="vlrcom">Comissão Padrão</label>
+                                                <label for="vlrcom">Comissão Padrão %</label>
                                             </div>
                                             <div class="input-field col s12 m6 l4">
                                                 <input id="vlrmaxpalp" type="text" class="validate">
@@ -345,9 +345,20 @@
 
 
 @push('scripts')
+        <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
 
 <script>
+
     $(document).ready(function() {
+
+        $('#limcred').mask('000.000.000.000.000,00', {reverse: true});
+        $('#vlrcom').mask('000.000.000.000.000,00', {reverse: true});
+        $('#vlrmaxpalp').mask('000.000.000.000.000,00', {reverse: true});
+        $('#vlrblopre').mask('000.000.000.000.000,00', {reverse: true});
+        $('#limlibpre').mask('000.000.000.000.000,00', {reverse: true});
+
+
+
         $('.modal').modal();
 
 
