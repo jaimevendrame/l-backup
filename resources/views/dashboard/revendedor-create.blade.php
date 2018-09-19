@@ -41,7 +41,7 @@
                                             {{--</div>--}}
                                             <div class="input-field col s8 m8 l8">
                                                 <input id="nomebase" type="text" class="validate" readonly value="{{$baseNome}}">
-                                                <label id="lnomebase" for="nomebase">Id Base</label>
+                                                <label id="lnomebase" for="nomebase">Base</label>
                                             </div> <div class="input-field col s4 m4 l4">
                                                 <input id="idbase" type="text" class="validate" readonly value="{{$idbase}}">
                                                 <label id="lidbase" for="idbase">Id Base</label>
@@ -73,7 +73,7 @@
                                             {{--</div>--}}
                                             <div class="input-field col s8 m8 l8">
                                                 <input id="nomven" type="text" class="validate" readonly value="{{$vendedorNome}}">
-                                                <label id="lnomven" for="nomven">Id Vendedor</label>
+                                                <label id="lnomven" for="nomven">Vendedor</label>
                                             </div>
                                             <div class="input-field col s4 m4 l4">
                                                 <input id="idven" type="text" class="validate" readonly value="{{$idvendedor}}">
