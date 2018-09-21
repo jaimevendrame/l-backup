@@ -16,7 +16,7 @@
                             <form method="post" action="/admin/revendedor/create/{{$ideven}}/add" class="col m12">
                                 {{csrf_field()}}
                                 <div class="row">
-                                    <div class="col s12 m12 l12">
+                                    <div class="col s12 m12 l8">
                                         <ul class="tabs">
                                             <li class="tab col s6 m6 l6"><a class="active" href="#cadastro">Cadastro</a></li>
                                             <li class="tab col s6 m6 l6"><a href="#opcionais">Opcionais</a></li>
@@ -43,9 +43,9 @@
                                             <div class="input-field col s8 m8 l8">
                                                 <input id="nomebase" type="text" class="validate" readonly value="{{$baseNome}}">
                                                 <label id="lnomebase" for="nomebase">Base</label>
-                                            </div> <div class="input-field col s4 m4 l4">
-                                                <input id="idbase" type="text" name="idbase" class="validate" readonly value="{{$idbase}}">
-                                                <label id="lidbase" for="idbase">Id Base</label>
+                                            {{--</div> <div class="input-field col s4 m4 l4">--}}
+                                                <input id="idbase" type="hidden" name="idbase" class="validate" readonly value="{{$idbase}}">
+                                                {{--<label id="lidbase" for="idbase">Id Base</label>--}}
                                             </div>
                                             {{--<div class="input-field col m4">--}}
                                             {{--<input id="nompro" type="text" class="validate" readonly>--}}
@@ -76,10 +76,10 @@
                                                 <input id="nomven" type="text" class="validate" readonly value="{{$vendedorNome}}">
                                                 <label id="lnomven" for="nomven">Vendedor</label>
                                             </div>
-                                            <div class="input-field col s4 m4 l4">
-                                                <input id="idven" type="text" name="idven" class="validate" readonly value="{{$idvendedor}}">
-                                                <label id="lidven" for="idven">Id Vendedor</label>
-                                            </div>
+                                            {{--<div class="input-field col s4 m4 l4">--}}
+                                                <input id="idven" type="hidden" name="idven" class="validate" readonly value="{{$idvendedor}}">
+                                                {{--<label id="lidven" for="idven">Id Vendedor</label>--}}
+                                            {{--</div>--}}
                                             {{--<div class="input-field col m4">--}}
                                             {{--<input id="nomven" type="text" class="validate">--}}
                                             {{--<label id="lnomven" for="nomven">Vendedor</label>--}}
@@ -100,18 +100,18 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="input-field col s12 m12 l12">
+                                            <div class="input-field col s12 m12 l8">
                                                 <input id="nomreven" type="text" class="validate" name="nomreven">
                                                 <label for="nomreven">Nome</label>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="input-field col s12 m8 l8">
+                                            <div class="input-field col s12 m8 l6">
                                                 <input id="cidreven" type="text" class="validate" name="cidreven">
                                                 <label for="cidreven">Cidade</label>
                                             </div>
 
-                                            <div class="input-field col s12 m4 l4">
+                                            <div class="input-field col s12 m4 l2">
                                                 <select name="sigufs">
                                                     <option value="" disabled selected>Selecione</option>
                                                     <option value="AC">Acre</option>
@@ -146,19 +146,19 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="input-field col s12 m6 l4">
+                                            <div class="input-field col s12 m6 l2">
                                                 <input id="limcred" type="text" class="validate" name="limcred">
                                                 <label for="limcred">Limite de Crédito</label>
                                             </div>
-                                            <div class="input-field col s12 m6 l4">
+                                            <div class="input-field col s12 m6 l2">
                                                 <input id="vlrcom" type="text" class="validate" name="vlrcom">
                                                 <label for="vlrcom">Comissão Padrão %</label>
                                             </div>
-                                            <div class="input-field col s12 m6 l4">
+                                            <div class="input-field col s12 m6 l2">
                                                 <input id="vlrmaxpalp" type="text" class="validate" name="vlrmaxpalp">
                                                 <label for="vlrmaxpalp">Vlr. Máximo p/ Palpite</label>
                                             </div>
-                                            <div class="input-field col s12 m6 l4">
+                                            <div class="input-field col s12 m6 l2">
                                                 <input id="vlrblopre" type="text" class="validate" name="vlrblopre">
                                                 <label for="vlrblopre">Bloquear prêmio maior que</label>
                                             </div>
