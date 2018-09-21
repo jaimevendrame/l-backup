@@ -22,6 +22,7 @@
                                             <li class="tab col s6 m6 l6"><a href="#opcionais">Opcionais</a></li>
                                         </ul>
                                     </div>
+                                    <div class="row"></div>
                                     <div id="cadastro" class="col s12">
                                         <div class="row">
                                             {{--<div class="input-field col s8 m8 l8">--}}

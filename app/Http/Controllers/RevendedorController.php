@@ -345,6 +345,10 @@ public function createRevendedor($ideven){
 
         $data = $data[0]->idreven;
 
+        $data = $data + 1;
+
+//        dd($data);
+
         return $data;
     }
 
