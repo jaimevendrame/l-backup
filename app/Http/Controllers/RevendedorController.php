@@ -238,4 +238,95 @@ public function createRevendedor($ideven){
 
     }
 
+    public function createRevendedorGo(){
+        $dataForm = $this->request->all();
+
+
+        $idbase = $this->request->input('idbase');
+        $idven = $this->request->input('idven');
+        $idereven = $this->request->input('idereven');
+        $nomreven = $this->request->input('nomreven');
+        $cidreven = $this->request->input('cidreven');
+        $sigufs = $this->request->input('sigufs');
+        $limcred = $this->request->input('limcred');
+        $vlrcom = $this->request->input('vlrcom');
+        $vlrmaxpalp = $this->request->input('vlrmaxpalp');
+        $vlrblopre = $this->request->input('vlrblopre');
+        $limlibpre = $this->request->input('limlibpre');
+        $sitreven = $this->request->input('sitreven');
+        $idreven = $this->request->input('idreven');
+        $endreven = $this->request->input('endreven');
+        $baireven = $this->request->input('baireven');
+        $celreven = $this->request->input('celreven');
+        $obsreven = $this->request->input('obsreven');
+        $insolaut = $this->request->input('insolaut');
+        $idcobra = $this->request->input('idcobra');
+        $porta_com = $this->request->input('porta_com');
+        $datcad = $this->request->input('datcad');
+        $in_impapo = $this->request->input('in_impapo');
+        $idusucad = $this->request->input('idusucad');
+        $in_canapo = $this->request->input('in_canapo');
+        $datalt = $this->request->input('datalt');
+        $in_impdireta = $this->request->input('in_impdireta');
+        $idusualt = $this->request->input('idusualt');
+        $loctrab = $this->request->input('loctrab');
+
+
+        $dataCadastro = new DateTime();
+        $newDateInicial = $dataCadastro->createFromFormat('d/m/Y', $datcad);
+        $datcad = $newDateInicial->format('Y/m/d');
+
+        $dataAlteracao = new DateTime();
+        $newDateInicial = $dataAlteracao->createFromFormat('d/m/Y', $datalt);
+        $datalt = $newDateInicial->format('Y/m/d');
+
+
+        $dados_array = [
+
+            "idbase"        => $idbase,
+            "idven"         => $idven,
+            "idereven"      => $idereven,
+            "nomreven"      => $nomreven,
+            "cidreven"      => $cidreven,
+            "sigufs"        => $sigufs,
+            "limcred"       => floatval(str_replace(',','.', $limcred)),
+            "vlrcom"        => floatval(str_replace(',','.', $vlrcom)),
+            "vlrmaxpalp"    => floatval(str_replace(',','.', $vlrmaxpalp)),
+            "vlrblopre"     => floatval(str_replace(',','.', $vlrblopre)),
+            "limlibpre"     => floatval(str_replace(',','.', $limlibpre)),
+            "sitreven"      => $sitreven,
+            "idreven"       => $idreven,
+            "endreven"      => $endreven,
+            "baireven"      => $baireven,
+            "celreven"      => $celreven,
+            "obsreven"      => $obsreven,
+            "insolaut"      => $insolaut,
+            "idcobra"       => $idcobra,
+            "porta_com"     => $porta_com,
+            "datcad"        => $datcad,
+            "in_impapo"      => $in_impapo,
+            "idusucad"      => $idusucad,
+            "in_canapo"     => $in_canapo,
+            "datalt"        => $datalt,
+            "in_impdireta"  => $in_impdireta,
+            "idusualt"      => $idusualt,
+            "loctrab"       => $loctrab,
+
+        ];
+
+        $insert = DB::table('REVENDEDOR')->insert($dados_array);
+
+        if ($insert){
+
+            return 1;
+
+        } else {
+
+            return 2;
+        }
+
+    }
+
+    
+    
 }

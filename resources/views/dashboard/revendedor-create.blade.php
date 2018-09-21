@@ -13,7 +13,8 @@
                     <div class="card-content">
                         <h4>Cadastro de Revendedor</h4>
                         <div class="row">
-                            <form action="" class="col m12">
+                            <form method="post" action="/admin/revendedor/create/{{$ideven}}/add" class="col m12">
+                                {{csrf_field()}}
                                 <div class="row">
                                     <div class="col s12 m12 l12">
                                         <ul class="tabs">
@@ -43,7 +44,7 @@
                                                 <input id="nomebase" type="text" class="validate" readonly value="{{$baseNome}}">
                                                 <label id="lnomebase" for="nomebase">Base</label>
                                             </div> <div class="input-field col s4 m4 l4">
-                                                <input id="idbase" type="text" class="validate" readonly value="{{$idbase}}">
+                                                <input id="idbase" type="text" name="idbase" class="validate" readonly value="{{$idbase}}">
                                                 <label id="lidbase" for="idbase">Id Base</label>
                                             </div>
                                             {{--<div class="input-field col m4">--}}
@@ -76,7 +77,7 @@
                                                 <label id="lnomven" for="nomven">Vendedor</label>
                                             </div>
                                             <div class="input-field col s4 m4 l4">
-                                                <input id="idven" type="text" class="validate" readonly value="{{$idvendedor}}">
+                                                <input id="idven" type="text" name="idven" class="validate" readonly value="{{$idvendedor}}">
                                                 <label id="lidven" for="idven">Id Vendedor</label>
                                             </div>
                                             {{--<div class="input-field col m4">--}}
@@ -94,23 +95,24 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l8">
-                                                <input id="idereven" type="text" class="validate">
+                                                <input id="idereven" type="text" class="validate" name="idereven">
                                                 <label for="idereven">Identificação única</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l12">
-                                                <input id="nomreven" type="text" class="validate">
+                                                <input id="nomreven" type="text" class="validate" name="nomreven">
                                                 <label for="nomreven">Nome</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m8 l8">
-                                                <input id="cidreven" type="text" class="validate">
+                                                <input id="cidreven" type="text" class="validate" name="cidreven">
                                                 <label for="cidreven">Cidade</label>
                                             </div>
+
                                             <div class="input-field col s12 m4 l4">
-                                                <select>
+                                                <select name="sigufs">
                                                     <option value="" disabled selected>Selecione</option>
                                                     <option value="AC">Acre</option>
                                                     <option value="AL">Alagoas</option>
@@ -145,30 +147,30 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="limcred" type="text" class="validate">
+                                                <input id="limcred" type="text" class="validate" name="limcred">
                                                 <label for="limcred">Limite de Crédito</label>
                                             </div>
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="vlrcom" type="text" class="validate">
+                                                <input id="vlrcom" type="text" class="validate" name="vlrcom">
                                                 <label for="vlrcom">Comissão Padrão %</label>
                                             </div>
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="vlrmaxpalp" type="text" class="validate">
+                                                <input id="vlrmaxpalp" type="text" class="validate" name="vlrmaxpalp">
                                                 <label for="vlrmaxpalp">Vlr. Máximo p/ Palpite</label>
                                             </div>
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="vlrblopre" type="text" class="validate">
+                                                <input id="vlrblopre" type="text" class="validate" name="vlrblopre">
                                                 <label for="vlrblopre">Bloquear prêmio maior que</label>
                                             </div>
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="limlibpre" type="text" class="validate">
+                                                <input id="limlibpre" type="text" class="validate" name="limlibpre">
                                                 <label for="limlibpre">Limite de dias para prêmio</label>
                                             </div>
                                             <div class="input-field col s12 m6 l4">
-                                                <select>
+                                                <select name="sitreven">
                                                     <option value="" disabled selected></option>
-                                                    <option value="1">ATIVO</option>
-                                                    <option value="2">INATIVO</option>
+                                                    <option value="ATIVO">ATIVO</option>
+                                                    <option value="INATIVO">INATIVO</option>
                                                 </select>
                                                 <label>Situação</label>
                                             </div>
@@ -183,39 +185,39 @@
                                                 <div class="col s12 m8 l8">
                                                     <div class="row">
                                                         <div class="input-field col s12 m12 l10">
-                                                            <input id="idreven" type="text" class="validate">
+                                                            <input id="idreven" type="text" class="validate" name="idreven">
                                                             <label for="idreven">Id Revendedor</label>
                                                         </div>
                                                     </div>
                                                    <div class="row">
                                                        <div class="input-field col s12 m12 l10">
-                                                           <input id="endreven" type="text" class="validate">
+                                                           <input id="endreven" type="text" class="validate" name="endreven">
                                                            <label for="endreven">Endereço</label>
                                                        </div>
                                                    </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m12 l10">
-                                                            <input id="baireven" type="text" class="validate">
+                                                            <input id="baireven" type="text" class="validate" name="baireven">
                                                             <label for="baireven">Bairro</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m12 l10">
-                                                            <input id="celreven" type="text" class="validate">
+                                                            <input id="celreven" type="text" class="validate" name="celreven">
                                                             <label for="celreven">Celular</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m12 l10">
-                                                            <input id="obsreven" type="text" class="validate">
+                                                            <input id="obsreven" type="text" class="validate" name="obsreven">
                                                             <label for="obsreven">Observação</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m12 l8">
-                                                            <select>
-                                                                <option value="1">SIM</option>
-                                                                <option value="2" selected>NÃO</option>
+                                                            <select name="insolaut">
+                                                                <option value="SIM">SIM</option>
+                                                                <option value="NAO" selected>NÃO</option>
                                                             </select>
                                                             <label>Solicita Autênciacação p/ Liberar Prêmio</label>
                                                         </div>
@@ -228,11 +230,11 @@
                                                 <div class="row">
                                                     <div class="row">
                                                         <div class="input-field col s12 m12 l6">
-                                                            <select>
+                                                            <select name="idcobra">
                                                                 <option value="" disabled selected>Selecione</option>
 
                                                                 @forelse($cobrador as $c)
-                                                                    <option value="1">{{ $c->nomcobra }}</option>
+                                                                    <option value="{{ $c->idcobra }}">{{ $c->nomcobra }}</option>
                                                                 @empty
                                                                     <option value="" disabled selected>Nenhum vendedor</option>
                                                                 @endforelse
@@ -242,56 +244,56 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m6 l6">
-                                                            <input id="portacom" type="text" class="validate">
+                                                            <input id="portacom" type="text" class="validate" name="porta_com" value="2016">
                                                             <label for="portacom">Porta Comunicação</label>
                                                         </div>
                                                         <div class="input-field col s12 m6 l6">
-                                                            <input id="datcad" name="datcad" type="date" class="datepicker">
+                                                            <input id="datcad" type="date" class="datepicker" name="datcad">
                                                             <label for="datcad">Data Cadastro</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m6 l6">
-                                                            <select>
-                                                                <option value="1">SIM</option>
-                                                                <option value="2" selected>NÃO</option>
+                                                            <select name="in_impapo">
+                                                                <option value="SIM">SIM</option>
+                                                                <option value="NAO" selected>NÃO</option>
                                                             </select>
                                                             <label>Permissão Reimprimir Aposta</label>
                                                         </div>
                                                         <div class="input-field col s12 m6 l6">
-                                                            <input id="usercad" type="text" class="validate">
+                                                            <input id="usercad" type="text" class="validate" name="idusucad">
                                                             <label for="usercad">Usuário Cadastrado</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m6 l6">
-                                                            <select>
-                                                                <option value="1">SIM</option>
-                                                                <option value="2" selected>NÃO</option>
+                                                            <select name="in_canapo">
+                                                                <option value="SIM">SIM</option>
+                                                                <option value="NAO" selected>NÃO</option>
                                                             </select>
                                                             <label>Permissão Terminal Cancelar Aposta</label>
                                                         </div>
                                                         <div class="input-field col s12 m6 l6">
-                                                            <input id="datalt" type="text" class="validate">
+                                                            <input id="datalt" type="date" class="datepicker" name="datalt">
                                                             <label for="datalt">Data última Alteração</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m6 l6">
-                                                            <select>
-                                                                <option value="1">SIM</option>
-                                                                <option value="2" selected>NÃO</option>
+                                                            <select name="in_impdireta">
+                                                                <option value="SIM">SIM</option>
+                                                                <option value="NAO" selected>NÃO</option>
                                                             </select>
                                                             <label>Impressão direta do Bilhete</label>
                                                         </div>
                                                         <div class="input-field col s12 m6 l6">
-                                                            <input id="useralt" type="text" class="validate">
+                                                            <input id="useralt" type="text" class="validate" name="idusualt">
                                                             <label for="useralt">Usuário Alteração</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col s12 m12 l6">
-                                                            <select>
+                                                            <select name="loctrab">
                                                                 <option value="" disabled selected>Selecione</option>
                                                                 <option value="AMBULANTE">AMBULANTE</option>
                                                                 <option value="BAR">BAR</option>
@@ -356,6 +358,7 @@
         $('#vlrmaxpalp').mask('000.000.000.000.000,00', {reverse: true});
         $('#vlrblopre').mask('000.000.000.000.000,00', {reverse: true});
         $('#limlibpre').mask('000.000.000.000.000,00', {reverse: true});
+        $('#celreven').mask('(00)00000-0000');
 
 
 

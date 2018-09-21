@@ -159,6 +159,7 @@ Route::group([
         //REVENDEDOR
         Route::get('/revendedor/create/{idven}', 'RevendedorController@index2')->name('revendedor');
         Route::get('/revendedor/create/{idven}/add', 'RevendedorController@createRevendedor')->name('revendedor-create');
+        Route::post('/revendedor/create/{idven}/add', 'RevendedorController@createRevendedorGo')->name('revendedor.create');
         Route::get('/revendedor/limite/{idven}', 'RevendedorController@limite')->name('limite-credito');
         Route::get('/revendedor/base/{idbase}', 'RevendedorController@retornaBase')->name('retorna-base');
         Route::get('/revendedor/vendedor/{idbase}/{idven}', 'RevendedorController@retornaVend')->name('retorna-vend');
