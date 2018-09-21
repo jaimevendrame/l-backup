@@ -16,7 +16,7 @@
                             <form method="post" action="/admin/revendedor/create/{{$ideven}}/add" class="col m12">
                                 {{csrf_field()}}
                                 <div class="row">
-                                    <div class="col s12 m12 l8">
+                                    <div class="col s12 m12 l6">
                                         <ul class="tabs">
                                             <li class="tab col s6 m6 l6"><a class="active" href="#cadastro">Cadastro</a></li>
                                             <li class="tab col s6 m6 l6"><a href="#opcionais">Opcionais</a></li>
@@ -40,7 +40,7 @@
                                                 {{--</select>--}}
                                                 {{--<label>Base</label>--}}
                                             {{--</div>--}}
-                                            <div class="input-field col s8 m8 l8">
+                                            <div class="input-field col s8 m8 l6">
                                                 <input id="nomebase" type="text" class="validate" readonly value="{{$baseNome}}">
                                                 <label id="lnomebase" for="nomebase">Base</label>
                                             {{--</div> <div class="input-field col s4 m4 l4">--}}
@@ -72,7 +72,7 @@
                                                 {{--</select>--}}
                                                 {{--<label>Vendedor</label>--}}
                                             {{--</div>--}}
-                                            <div class="input-field col s8 m8 l8">
+                                            <div class="input-field col s8 m8 l6">
                                                 <input id="nomven" type="text" class="validate" readonly value="{{$vendedorNome}}">
                                                 <label id="lnomven" for="nomven">Vendedor</label>
                                             </div>
@@ -94,19 +94,19 @@
                                             {{--</div>--}}
                                         </div>
                                         <div class="row">
-                                            <div class="input-field col s12 m12 l8">
+                                            <div class="input-field col s12 m12 l4">
                                                 <input id="idereven" type="text" class="validate" name="idereven">
                                                 <label for="idereven">Identificação única</label>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="input-field col s12 m12 l8">
+                                            <div class="input-field col s12 m12 l6">
                                                 <input id="nomreven" type="text" class="validate" name="nomreven">
                                                 <label for="nomreven">Nome</label>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="input-field col s12 m8 l6">
+                                            <div class="input-field col s12 m8 l4">
                                                 <input id="cidreven" type="text" class="validate" name="cidreven">
                                                 <label for="cidreven">Cidade</label>
                                             </div>
@@ -146,26 +146,36 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="input-field col s12 m6 l2">
+                                            <div class="input-field col s12 m6 l4">
                                                 <input id="limcred" type="text" class="validate" name="limcred">
                                                 <label for="limcred">Limite de Crédito</label>
                                             </div>
-                                            <div class="input-field col s12 m6 l2">
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l4">
                                                 <input id="vlrcom" type="text" class="validate" name="vlrcom">
                                                 <label for="vlrcom">Comissão Padrão %</label>
                                             </div>
-                                            <div class="input-field col s12 m6 l2">
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l4">
                                                 <input id="vlrmaxpalp" type="text" class="validate" name="vlrmaxpalp">
                                                 <label for="vlrmaxpalp">Vlr. Máximo p/ Palpite</label>
                                             </div>
-                                            <div class="input-field col s12 m6 l2">
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l4">
                                                 <input id="vlrblopre" type="text" class="validate" name="vlrblopre">
                                                 <label for="vlrblopre">Bloquear prêmio maior que</label>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <input id="limlibpre" type="text" class="validate" name="limlibpre">
                                                 <label for="limlibpre">Limite de dias para prêmio</label>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <select name="sitreven">
                                                     <option value="" disabled selected></option>
@@ -181,156 +191,137 @@
                                     </div>
                                     <div id="opcionais" class="col s12">
                                         <div class="row">
-                                            <div class="row">
-                                                <div class="col s12 m8 l8">
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m12 l10">
-                                                            <input id="idreven" type="text" class="validate" name="idreven">
-                                                            <label for="idreven">Id Revendedor</label>
-                                                        </div>
-                                                    </div>
-                                                   <div class="row">
-                                                       <div class="input-field col s12 m12 l10">
-                                                           <input id="endreven" type="text" class="validate" name="endreven">
-                                                           <label for="endreven">Endereço</label>
-                                                       </div>
-                                                   </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m12 l10">
-                                                            <input id="baireven" type="text" class="validate" name="baireven">
-                                                            <label for="baireven">Bairro</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m12 l10">
-                                                            <input id="celreven" type="text" class="validate" name="celreven">
-                                                            <label for="celreven">Celular</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m12 l10">
-                                                            <input id="obsreven" type="text" class="validate" name="obsreven">
-                                                            <label for="obsreven">Observação</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m12 l8">
-                                                            <select name="insolaut">
-                                                                <option value="SIM">SIM</option>
-                                                                <option value="NAO" selected>NÃO</option>
-                                                            </select>
-                                                            <label>Solicita Autênciacação p/ Liberar Prêmio</label>
-                                                        </div>
-                                                    </div>
+                                            <div class="input-field col s12 m12 l6">
+                                                <input id="idreven" type="text" class="validate" name="idreven" value="{{$idreven}}">
+                                                <label for="idreven">Id Revendedor</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l6">
+                                                <input id="endreven" type="text" class="validate" name="endreven">
+                                                <label for="endreven">Endereço</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l6">
+                                                <input id="baireven" type="text" class="validate" name="baireven">
+                                                <label for="baireven">Bairro</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l6">
+                                                <input id="celreven" type="text" class="validate" name="celreven">
+                                                <label for="celreven">Celular</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l6">
+                                                <input id="obsreven" type="text" class="validate" name="obsreven">
+                                                <label for="obsreven">Observação</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l6">
+                                                <select name="insolaut">
+                                                    <option value="SIM">SIM</option>
+                                                    <option value="NAO" selected>NÃO</option>
+                                                </select>
+                                                <label>Solicita Autênciacação p/ Liberar Prêmio</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l6">
+                                                <select name="idcobra">
+                                                    <option value="" disabled selected>Selecione</option>
 
-                                                </div>
-                                                <div class="col s12 m4 l4">
-                                                    Loterias
-                                                </div>
-                                                <div class="row">
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m12 l6">
-                                                            <select name="idcobra">
-                                                                <option value="" disabled selected>Selecione</option>
+                                                    @forelse($cobrador as $c)
+                                                        <option value="{{ $c->idcobra }}">{{ $c->nomcobra }}</option>
+                                                    @empty
+                                                        <option value="" disabled selected>Nenhum vendedor</option>
+                                                    @endforelse
+                                                </select>
+                                                <label>Cobrador</label>
+                                            </div>
+                                        </div>
 
-                                                                @forelse($cobrador as $c)
-                                                                    <option value="{{ $c->idcobra }}">{{ $c->nomcobra }}</option>
-                                                                @empty
-                                                                    <option value="" disabled selected>Nenhum vendedor</option>
-                                                                @endforelse
-                                                            </select>
-                                                            <label>Cobrador</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m6 l6">
-                                                            <input id="portacom" type="text" class="validate" name="porta_com" value="2016">
-                                                            <label for="portacom">Porta Comunicação</label>
-                                                        </div>
-                                                        <div class="input-field col s12 m6 l6">
-                                                            <input id="datcad" type="date" class="datepicker" name="datcad">
-                                                            <label for="datcad">Data Cadastro</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m6 l6">
-                                                            <select name="in_impapo">
-                                                                <option value="SIM">SIM</option>
-                                                                <option value="NAO" selected>NÃO</option>
-                                                            </select>
-                                                            <label>Permissão Reimprimir Aposta</label>
-                                                        </div>
-                                                        <div class="input-field col s12 m6 l6">
-                                                            <input id="usercad" type="text" class="validate" name="idusucad">
-                                                            <label for="usercad">Usuário Cadastrado</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m6 l6">
-                                                            <select name="in_canapo">
-                                                                <option value="SIM">SIM</option>
-                                                                <option value="NAO" selected>NÃO</option>
-                                                            </select>
-                                                            <label>Permissão Terminal Cancelar Aposta</label>
-                                                        </div>
-                                                        <div class="input-field col s12 m6 l6">
-                                                            <input id="datalt" type="date" class="datepicker" name="datalt">
-                                                            <label for="datalt">Data última Alteração</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m6 l6">
-                                                            <select name="in_impdireta">
-                                                                <option value="SIM">SIM</option>
-                                                                <option value="NAO" selected>NÃO</option>
-                                                            </select>
-                                                            <label>Impressão direta do Bilhete</label>
-                                                        </div>
-                                                        <div class="input-field col s12 m6 l6">
-                                                            <input id="useralt" type="text" class="validate" name="idusualt">
-                                                            <label for="useralt">Usuário Alteração</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s12 m12 l6">
-                                                            <select name="loctrab">
-                                                                <option value="" disabled selected>Selecione</option>
-                                                                <option value="AMBULANTE">AMBULANTE</option>
-                                                                <option value="BAR">BAR</option>
-                                                                <option value="CHALE">CHALE</option>
-                                                                <option value="PONTO FIXO">PONTO FIXO</option>
-                                                            </select>
-                                                            <label>Local de Trabalho</label>
-                                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <input id="portacom" type="text" class="validate" name="porta_com" value="2016">
+                                                <label for="portacom">Porta Comunicação</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <input id="datcad" type="date" class="datepicker" name="datcad">
+                                                <label for="datcad">Data Cadastro</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <select name="in_impapo">
+                                                    <option value="SIM">SIM</option>
+                                                    <option value="NAO" selected>NÃO</option>
+                                                </select>
+                                                <label>Permissão Reimprimir Aposta</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <input id="usercad" type="text" class="validate" name="idusucad">
+                                                <label for="usercad">Usuário Cadastrado</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <select name="in_canapo">
+                                                    <option value="SIM">SIM</option>
+                                                    <option value="NAO" selected>NÃO</option>
+                                                </select>
+                                                <label>Permissão Terminal Cancelar Aposta</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <input id="datalt" type="date" class="datepicker" name="datalt">
+                                                <label for="datalt">Data última Alteração</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <select name="in_impdireta">
+                                                    <option value="SIM">SIM</option>
+                                                    <option value="NAO" selected>NÃO</option>
+                                                </select>
+                                                <label>Impressão direta do Bilhete</label>
+                                            </div>
+                                        </div>
 
-                                                    </div>
-
-                                                </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <input id="useralt" type="text" class="validate" name="idusualt">
+                                                <label for="useralt">Usuário Alteração</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l6">
+                                                <select name="loctrab">
+                                                    <option value="" disabled selected>Selecione</option>
+                                                    <option value="AMBULANTE">AMBULANTE</option>
+                                                    <option value="BAR">BAR</option>
+                                                    <option value="CHALE">CHALE</option>
+                                                    <option value="PONTO FIXO">PONTO FIXO</option>
+                                                </select>
+                                                <label>Local de Trabalho</label>
                                             </div>
 
+                                        </div>
 
-
-
-                                            {{--<div class="input-field col s4 m4 l2">--}}
-                                                {{--<input id="apereven" type="text" class="validate">--}}
-                                                {{--<label for="apereven">Nome Fantásia</label>--}}
-                                            {{--</div>--}}
-
-
-
-                                            {{--<div class="input-field col s4 m4 l2">--}}
-                                                {{--<input id="telreven" type="text" class="validate">--}}
-                                                {{--<label for="telreven">Telefone</label>--}}
-                                            {{--</div>--}}
-
-
-
-                                        </div>{{-- end row--}}
+                                                {{--<div class="col s12 m4 l2">--}}
+                                                    {{--Loterias--}}
+                                                {{--</div>--}}
 
                                     </div>
                                 </div>
-
-
 
                                 <div class="row">
                                     <button class="btn waves-effect waves-light" type="submit" >Confirmar

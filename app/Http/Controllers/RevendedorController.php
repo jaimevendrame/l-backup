@@ -95,6 +95,7 @@ public function createRevendedor($ideven){
 
 
 
+
     foreach ($valores as $val){
 
         if ($val->ideven == $ideven_default) {
@@ -105,9 +106,11 @@ public function createRevendedor($ideven){
         }
     }
 
+    $idreven = $this->returnRevendedor($idbase, $idvendedor);
+
 
     return view("{$this->nameView}",compact('idusu',
-         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor'));
+         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor', 'idreven'));
 }
     /**
      * @return mixed
@@ -238,7 +241,8 @@ public function createRevendedor($ideven){
 
     }
 
-    public function createRevendedorGo(){
+    public function createRevendedorGo()
+    {
         $dataForm = $this->request->all();
 
 
@@ -283,40 +287,40 @@ public function createRevendedor($ideven){
 
         $dados_array = [
 
-            "idbase"        => $idbase,
-            "idven"         => $idven,
-            "idereven"      => $idereven,
-            "nomreven"      => $nomreven,
-            "cidreven"      => $cidreven,
-            "sigufs"        => $sigufs,
-            "limcred"       => floatval(str_replace(',','.', $limcred)),
-            "vlrcom"        => floatval(str_replace(',','.', $vlrcom)),
-            "vlrmaxpalp"    => floatval(str_replace(',','.', $vlrmaxpalp)),
-            "vlrblopre"     => floatval(str_replace(',','.', $vlrblopre)),
-            "limlibpre"     => floatval(str_replace(',','.', $limlibpre)),
-            "sitreven"      => $sitreven,
-            "idreven"       => $idreven,
-            "endreven"      => $endreven,
-            "baireven"      => $baireven,
-            "celreven"      => $celreven,
-            "obsreven"      => $obsreven,
-            "insolaut"      => $insolaut,
-            "idcobra"       => $idcobra,
-            "porta_com"     => $porta_com,
-            "datcad"        => $datcad,
-            "in_impapo"      => $in_impapo,
-            "idusucad"      => $idusucad,
-            "in_canapo"     => $in_canapo,
-            "datalt"        => $datalt,
-            "in_impdireta"  => $in_impdireta,
-            "idusualt"      => $idusualt,
-            "loctrab"       => $loctrab,
+            "idbase" => $idbase,
+            "idven" => $idven,
+            "idereven" => $idereven,
+            "nomreven" => $nomreven,
+            "cidreven" => $cidreven,
+            "sigufs" => $sigufs,
+            "limcred" => floatval(str_replace(',', '.', $limcred)),
+            "vlrcom" => floatval(str_replace(',', '.', $vlrcom)),
+            "vlrmaxpalp" => floatval(str_replace(',', '.', $vlrmaxpalp)),
+            "vlrblopre" => floatval(str_replace(',', '.', $vlrblopre)),
+            "limlibpre" => floatval(str_replace(',', '.', $limlibpre)),
+            "sitreven" => $sitreven,
+            "idreven" => $idreven,
+            "endreven" => $endreven,
+            "baireven" => $baireven,
+            "celreven" => $celreven,
+            "obsreven" => $obsreven,
+            "insolaut" => $insolaut,
+            "idcobra" => $idcobra,
+            "porta_com" => $porta_com,
+            "datcad" => $datcad,
+            "in_impapo" => $in_impapo,
+            "idusucad" => $idusucad,
+            "in_canapo" => $in_canapo,
+            "datalt" => $datalt,
+            "in_impdireta" => $in_impdireta,
+            "idusualt" => $idusualt,
+            "loctrab" => $loctrab,
 
         ];
 
         $insert = DB::table('REVENDEDOR')->insert($dados_array);
 
-        if ($insert){
+        if ($insert) {
 
             return 1;
 
@@ -325,8 +329,25 @@ public function createRevendedor($ideven){
             return 2;
         }
 
+
     }
 
-    
+    public function  returnRevendedor($idbase, $idven){
+
+        $data = DB::select (" 
+        SELECT MAX(REVENDEDOR.IDREVEN) AS IDREVEN
+                  FROM REVENDEDOR
+                  WHERE
+                  REVENDEDOR.IDBASE = '$idbase' AND
+                  REVENDEDOR.IDVEN = '$idven' 
+
+        ");
+
+        $data = $data[0]->idreven;
+
+        return $data;
+    }
+
+
     
 }
