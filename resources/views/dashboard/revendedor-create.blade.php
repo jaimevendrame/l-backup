@@ -12,6 +12,20 @@
                 <div class="card">
                     <div class="card-content">
                         <h4>Cadastro de Revendedor</h4>
+                        @if (count($errors) > 0)
+                            <div class="row hide-msg">
+                                <div class="col s12 m12">
+                                    <div class="card-panel yellow">
+                                        {{--<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>--}}
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <div class="row">
                             <form method="post" action="/admin/revendedor/create/{{$ideven}}/add" class="col m12">
                                 {{csrf_field()}}
@@ -96,7 +110,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l4">
-                                                <input id="idereven" type="text" class="validate" name="idereven">
+                                                <input id="idereven" type="text" class="validate" name="idereven" readonly>
                                                 <label for="idereven">Identificação única</label>
                                             </div>
                                         </div>
@@ -179,8 +193,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <select name="sitreven">
-                                                    <option value="" disabled selected></option>
-                                                    <option value="ATIVO">ATIVO</option>
+                                                    <option value="ATIVO" selected>ATIVO</option>
                                                     <option value="INATIVO">INATIVO</option>
                                                 </select>
                                                 <label>Situação</label>
@@ -193,7 +206,7 @@
                                     <div id="opcionais" class="col s12">
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
-                                                <input id="idreven" type="text" class="validate" name="idreven" value="{{$idreven}}">
+                                                <input id="idreven" type="text" class="validate" name="idreven" readonly>
                                                 <label for="idreven">Id Revendedor</label>
                                             </div>
                                         </div>
@@ -268,7 +281,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
-                                                <input id="usercad" type="text" class="validate" name="idusucad">
+                                                <input id="usercad" type="text" class="validate" name="idusucad" value="{{Auth()->user()->idusu}}" readonly>
                                                 <label for="usercad">Usuário Cadastrado</label>
                                             </div>
                                         </div>
@@ -490,6 +503,12 @@
                 });
             }
 
+        </script>
+
+        <script>
+            $(function () {
+                setTimeout("$('.hide-msg').fadeOut();", 5000)
+            })
         </script>
 @endpush
 

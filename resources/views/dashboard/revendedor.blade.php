@@ -10,6 +10,17 @@
         <div class="row">
             <div class="col s12">
                 <div class="card">
+                    @if( Session::has('success'))
+                        <div class="row hide-msg">
+                            <div class="col s12 m12">
+                                <div class="card-panel green hide-msg">
+                                    <ul>
+                                        <h4><i class="icon fa fa-warning"></i> {{Session::get('success')}}</h4>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="card-content">
                         <a href="/admin/revendedor/create/{{$ideven}}/add" class="btn">NOVO</a>
                     @if(!empty($data))
@@ -358,6 +369,11 @@
 
 
 
+</script>
+<script>
+    $(function () {
+        setTimeout("$('.hide-msg').fadeOut();", 5000)
+    })
 </script>
 @endpush
 

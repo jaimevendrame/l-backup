@@ -106,11 +106,10 @@ public function createRevendedor($ideven){
         }
     }
 
-    $idreven = $this->returnRevendedor($idbase, $idvendedor);
 
 
     return view("{$this->nameView}",compact('idusu',
-         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor', 'idreven'));
+         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor'));
 }
     /**
      * @return mixed
@@ -244,7 +243,76 @@ public function createRevendedor($ideven){
     public function createRevendedorGo()
     {
         $dataForm = $this->request->all();
+        /** @var $rules */
+        $rules = [
+            'idbase'    => 'required',
+            'idven'     => 'required',
+            'nomreven'  => 'required|min:3|max:255',
+            'cidreven'  => 'required|min:3|max:255',
+            'sigufs'    => 'required',
+            'limcred'   => 'required|numeric',
+            'vlrcom'    => 'required|numeric',
+            'vlrmaxpalp'=> 'required|numeric',
+            'vlrblopre' => 'required|numeric',
+            'limlibpre' => 'required|numeric',
+            'limlibpre' => 'required|numeric',
+            'sitreven'  => 'required',
+            'endreven'  => 'required|min:3|max:255',
+            'baireven'  => 'required|min:3|max:255',
+            'celreven'  => 'required|min:14|max:14',
+            'insolaut'  => 'required',
+            'idcobra'   => 'required',
+            'porta_com' => 'required|min:3|max:255',
+            'datcad'    => 'required',
+            'in_impapo' => 'required',
+            'idusucad'  => 'required',
+            'in_canapo' => 'required',
+            'datalt'    => 'required',
+            'loctrab'   => 'required|min:3|max:255',
+        ];
 
+        $required = 'é uma campo obrigatório';
+        $min = 'deve ter no mínimo 3 caracteres';
+        $max = 'deve ter no máximo 255 caracteres';
+        $numeric = 'é um campo númerico';
+
+        /** @var $mensagens */
+        $mensagens = [
+            'nomreven.required'     => "NOME {$required}",
+            'nomreven.min'          => "NOME {$min}",
+            'nomreven.max'          => "NOme {$max}",
+            'cidreven.required'     => "CIDADE {$required}",
+            'cidreven.min'          => "CIDADE {$min}",
+            'cidreven.max'          => "CIDADE {$max}",
+            'sigufs.required'       => "UF {$required}",
+            'limcred.required'      => "LIMITE DE CRÉDITO {$required}",
+            'limcred.NUMERIC'       => "LIMITE DE CRÉDITO {$numeric}",
+            'vlrcom.required'       => "COMISSÃO PADRÃO {$required}",
+            'vlrcom.numeric'        => "COMISSÃO PADRÃO {$numeric}",
+            'vlrmaxpalp.required'   => "VLR. MÁXIMO P/ PALPITE {$required}",
+            'vlrmaxpalp.numeric'    => "VLR. MÁXIMO P/ PALPITE {$numeric}",
+            'vlrblopre.required'    => "BLOQUEAR PRÊMIO MAIOR QUE {$required}",
+            'vlrblopre.numeric'     => "BLOQUEAR PRÊMIO MAIOR QUE {$numeric}",
+            'limlibpre.required'    => "LIMITE DE DIAS PARA PRÊMIO {$required}",
+            'limlibpre.numeric'     => "LIMITE DE DIAS PARA PRÊMIO {$numeric}",
+            'endreven.required'     => "ENDEREÇO {$required}",
+            'endreven.min'          => "ENDEREÇO {$min}",
+            'endreven.max'          => "ENDEREÇO {$max}",
+            'baireven.required'     => "BAIRRO {$required}",
+            'baireven.min'          => "BAIRRO {$min}",
+            'baireven.max'          => "BAIRRO {$max}",
+            'celreven.required'     => "CELULAR {$required}",
+            'idcobra.required'      => "COBRADOR {$required}",
+            'porta_com.required'    => "PORTA COMUNICAÇÃO {$required}",
+            'datcad.required'       => "DATA DE CADASTRO {$required}",
+            'datalt.required'       => "DATA DE ALTERAÇÃO {$required}",
+            'loctrab.required'       => "LOCAL DO TRABALHO {$required}",
+
+
+        ];
+
+        /** validação do request */
+        $this->validate($this->request, $rules, $mensagens);
 
         $idbase = $this->request->input('idbase');
         $idven = $this->request->input('idven');
@@ -284,6 +352,9 @@ public function createRevendedor($ideven){
         $newDateInicial = $dataAlteracao->createFromFormat('d/m/Y', $datalt);
         $datalt = $newDateInicial->format('Y/m/d');
 
+        $idreven = $this->returnRevendedor($idbase, $idven);
+        $idereven = $this->returnIdReven();
+        $idusualt = 1000;
 
         $dados_array = [
 
@@ -320,14 +391,17 @@ public function createRevendedor($ideven){
 
         $insert = DB::table('REVENDEDOR')->insert($dados_array);
 
-        if ($insert) {
 
-            return 1;
 
-        } else {
-
-            return 2;
-        }
+        if($insert)
+            return redirect()
+                ->route("{$this->route}.index")
+                ->with(['success'=>'Cadastro realizado com sucesso!']);
+        else
+            return redirect()
+                ->route("revendedor-create")
+                ->withErrors(['errors' => 'Falha ao cadastrar'])
+                ->withInput();
 
 
     }
@@ -344,6 +418,21 @@ public function createRevendedor($ideven){
         ");
 
         $data = $data[0]->idreven;
+
+        $data = $data + 1;
+
+//        dd($data);
+
+        return $data;
+    }
+
+    public function returnIdReven(){
+        $data = DB::select (" 
+        SELECT MAX(REVENDEDOR.IDEREVEN) AS IDEREVEN
+                  FROM REVENDEDOR 
+
+        ");
+        $data = $data[0]->idereven;
 
         $data = $data + 1;
 
