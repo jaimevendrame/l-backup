@@ -1,10 +1,6 @@
 @extends('dashboard.templates.app')
 
 @section('content')
-    {{--@forelse($ideven2 as $p)--}}
-        {{--{{$p}}--}}
-        {{--@empty--}}
-        {{--@endforelse--}}
 
     <div class="section">
         <div class="row">

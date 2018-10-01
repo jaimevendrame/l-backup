@@ -11,7 +11,7 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <h4>Cadastro de Revendedor</h4>
+                        <h4>Cadastro de Revendedor-</h4>
                         @if (count($errors) > 0)
                             <div class="row hide-msg">
                                 <div class="col s12 m12">
@@ -39,74 +39,19 @@
                                     <div class="row"></div>
                                     <div id="cadastro" class="col s12">
                                         <div class="row">
-                                            {{--<div class="input-field col s8 m8 l8">--}}
-                                                {{--<select class="base">--}}
-                                                    {{--<option value="" disabled selected>Selecione</option>--}}
-                                                    {{--@forelse($baseAll as $b)--}}
-                                                        {{--@if( isset($ideven) && !empty($ideven))--}}
-                                                        {{--<option value="{{ $b->idbase }}" {{ $b->ideven == $ideven  ? 'selected' : '' }}>{{ $b->nombas }} </option>--}}
-                                                        {{--@else--}}
-                                                        {{--<option value="{{ $b->idbase }}">{{ $b->nombas }}</option>--}}
-                                                        {{--@endif--}}
 
-                                                    {{--@empty--}}
-                                                        {{--<option value="" disabled selected>Nenhuma base</option>--}}
-                                                    {{--@endforelse--}}
-                                                {{--</select>--}}
-                                                {{--<label>Base</label>--}}
-                                            {{--</div>--}}
                                             <div class="input-field col s8 m8 l6">
                                                 <input id="nomebase" type="text" class="validate" readonly value="{{$baseNome}}">
                                                 <label id="lnomebase" for="nomebase">Base</label>
-                                            {{--</div> <div class="input-field col s4 m4 l4">--}}
                                                 <input id="idbase" type="hidden" name="idbase" class="validate" readonly value="{{$idbase}}">
-                                                {{--<label id="lidbase" for="idbase">Id Base</label>--}}
                                             </div>
-                                            {{--<div class="input-field col m4">--}}
-                                            {{--<input id="nompro" type="text" class="validate" readonly>--}}
-                                            {{--<label id="lnompro" for="nompro">Nome</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="input-field col m2">--}}
-                                            {{--<input id="cidbas" type="text" class="validate" readonly="">--}}
-                                            {{--<label id="lcidbas" for="cidbas">Cidade</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="input-field col m2">--}}
-                                            {{--<input id="uf" type="text" class="validate" readonly>--}}
-                                            {{--<label id="luf" for="uf">UF</label>--}}
-                                            {{--</div>--}}
                                         </div>
                                         <div class="row">
-                                            {{--<div class="input-field col s8 m8 l8">--}}
-                                                {{--<select class="vendedor">--}}
-                                                    {{--<option value="" disabled selected>Selecione</option>--}}
-                                                    {{--@forelse($vendedores as $v)--}}
-                                                        {{--<option value="{{ $v->idven }}">{{ $v->nomven }}</option>--}}
-                                                    {{--@empty--}}
-                                                        {{--<option value="" disabled selected>Nenhum vendedor</option>--}}
-                                                    {{--@endforelse--}}
-                                                {{--</select>--}}
-                                                {{--<label>Vendedor</label>--}}
-                                            {{--</div>--}}
                                             <div class="input-field col s8 m8 l6">
                                                 <input id="nomven" type="text" class="validate" readonly value="{{$vendedorNome}}">
                                                 <label id="lnomven" for="nomven">Vendedor</label>
                                             </div>
-                                            {{--<div class="input-field col s4 m4 l4">--}}
                                                 <input id="idven" type="hidden" name="idven" class="validate" readonly value="{{$idvendedor}}">
-                                                {{--<label id="lidven" for="idven">Id Vendedor</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="input-field col m4">--}}
-                                            {{--<input id="nomven" type="text" class="validate">--}}
-                                            {{--<label id="lnomven" for="nomven">Vendedor</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="input-field col m2">--}}
-                                            {{--<input id="cidven" type="text" class="validate">--}}
-                                            {{--<label id="lcidven" for="cidven">Cidade</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="input-field col m2">--}}
-                                            {{--<input id="ufven" type="text" class="validate">--}}
-                                            {{--<label id="lufven" for="ufven">UF</label>--}}
-                                            {{--</div>--}}
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l4">

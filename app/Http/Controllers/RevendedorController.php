@@ -421,8 +421,6 @@ public function createRevendedor($ideven){
 
         $data = $data + 1;
 
-//        dd($data);
-
         return $data;
     }
 
@@ -435,8 +433,6 @@ public function createRevendedor($ideven){
         $data = $data[0]->idereven;
 
         $data = $data + 1;
-
-//        dd($data);
 
         return $data;
     }
