@@ -11,20 +11,30 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <h4>Cadastro de Revendedor-</h4>
-                        @if (count($errors) > 0)
-                            <div class="row hide-msg">
-                                <div class="col s12 m12">
-                                    <div class="card-panel yellow">
+                        <h4>Cadastro de Revendedor</h4>
+                        {{--@if (count($errors) > 0)--}}
+                            {{--<div class="row hide-msg">--}}
+                                {{--<div class="col s12 m12">--}}
+                                    {{--<div class="card-panel yellow">--}}
                                         {{--<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>--}}
+                                        {{--<ul>--}}
+                                            {{--@foreach ($errors->all() as $error)--}}
+                                                {{--<li>{{ $error }}</li>--}}
+                                            {{--@endforeach--}}
+                                        {{--</ul>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
+
+                        @if (count($errors) > 0)
+
                                         <ul>
                                             @foreach ($errors->all() as $error)
                                                 <li>{{ $error }}</li>
                                             @endforeach
                                         </ul>
-                                    </div>
-                                </div>
-                            </div>
+
                         @endif
                         <div class="row">
                             <form method="post" action="/admin/revendedor/create/{{$ideven}}/add" class="col m12">
