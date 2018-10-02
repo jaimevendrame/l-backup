@@ -12,30 +12,6 @@
                 <div class="card">
                     <div class="card-content">
                         <h4>Cadastro de Revendedor</h4>
-                        {{--@if (count($errors) > 0)--}}
-                            {{--<div class="row hide-msg">--}}
-                                {{--<div class="col s12 m12">--}}
-                                    {{--<div class="card-panel yellow">--}}
-                                        {{--<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>--}}
-                                        {{--<ul>--}}
-                                            {{--@foreach ($errors->all() as $error)--}}
-                                                {{--<li>{{ $error }}</li>--}}
-                                            {{--@endforeach--}}
-                                        {{--</ul>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--@endif--}}
-
-                        @if (count($errors) > 0)
-
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-
-                        @endif
                         <div class="row">
                             <form method="post" action="/admin/revendedor/create/{{$ideven}}/add" class="col m12">
                                 {{csrf_field()}}
@@ -53,6 +29,11 @@
                                             <div class="input-field col s8 m8 l6">
                                                 <input id="nomebase" type="text" class="validate" readonly value="{{$baseNome}}">
                                                 <label id="lnomebase" for="nomebase">Base</label>
+                                                @if ($errors->has('nomebase'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('nomebase') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input id="idbase" type="hidden" name="idbase" class="validate" readonly value="{{$idbase}}">
                                             </div>
                                         </div>
@@ -60,6 +41,11 @@
                                             <div class="input-field col s8 m8 l6">
                                                 <input id="nomven" type="text" class="validate" readonly value="{{$vendedorNome}}">
                                                 <label id="lnomven" for="nomven">Vendedor</label>
+                                                @if ($errors->has('nomven'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('nomven') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                                 <input id="idven" type="hidden" name="idven" class="validate" readonly value="{{$idvendedor}}">
                                         </div>
@@ -67,82 +53,127 @@
                                             <div class="input-field col s12 m12 l4">
                                                 <input id="idereven" type="text" class="validate" name="idereven" readonly>
                                                 <label for="idereven">Identificação única</label>
+                                                @if ($errors->has('idereven'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('idereven') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
-                                                <input id="nomreven" type="text" class="validate" name="nomreven">
+                                                <input id="nomreven" type="text" class="validate" name="nomreven" value="{{old('nomreven')}}">
                                                 <label for="nomreven">Nome</label>
+                                                @if ($errors->has('nomreven'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('nomreven') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m8 l4">
-                                                <input id="cidreven" type="text" class="validate" name="cidreven">
+                                                <input id="cidreven" type="text" class="validate" name="cidreven" value="{{old('cidreven')}}">
                                                 <label for="cidreven">Cidade</label>
+                                                @if ($errors->has('cidreven'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('cidreven') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
 
                                             <div class="input-field col s12 m4 l2">
                                                 <select name="sigufs">
                                                     <option value="" disabled selected>Selecione</option>
-                                                    <option value="AC">Acre</option>
-                                                    <option value="AL">Alagoas</option>
-                                                    <option value="AP">Amapá</option>
-                                                    <option value="AM">Amazonas</option>
-                                                    <option value="BA">Bahia</option>
-                                                    <option value="CE">Ceará</option>
-                                                    <option value="DF">Distrito Federal</option>
-                                                    <option value="ES">Espírito Santo</option>
-                                                    <option value="GO">Goiás</option>
-                                                    <option value="MA">Maranhão</option>
-                                                    <option value="MT">Mato Grosso</option>
-                                                    <option value="MS">Mato Grosso do Sul</option>
-                                                    <option value="MG">Minas Gerais</option>
-                                                    <option value="PA">Pará</option>
-                                                    <option value="PB">Paraíba</option>
-                                                    <option value="PR">Paraná</option>
-                                                    <option value="PE">Pernambuco</option>
-                                                    <option value="PI">Piauí</option>
-                                                    <option value="RJ">Rio de Janeiro</option>
-                                                    <option value="RN">Rio Grande do Norte</option>
-                                                    <option value="RS">Rio Grande do Sul</option>
-                                                    <option value="RO">Rondônia</option>
-                                                    <option value="RR">Roraima</option>
-                                                    <option value="SC">Santa Catarina</option>
-                                                    <option value="SP">São Paulo</option>
-                                                    <option value="SE">Sergipe</option>
-                                                    <option value="TO">Tocantins</option>
+                                                    <option value="AC" {{ 'AC' == old('sigufs')  ? 'selected' : '' }}>Acre</option>
+                                                    <option value="AL" {{ 'AL' == old('sigufs')  ? 'selected' : '' }}>Alagoas</option>
+                                                    <option value="AP" {{ 'AP' == old('sigufs')  ? 'selected' : '' }}>Amapá</option>
+                                                    <option value="AM" {{ 'AM' == old('sigufs')  ? 'selected' : '' }}>Amazonas</option>
+                                                    <option value="BA" {{ 'BA' == old('sigufs')  ? 'selected' : '' }}>Bahia</option>
+                                                    <option value="CE" {{ 'CE' == old('sigufs')  ? 'selected' : '' }}>Ceará</option>
+                                                    <option value="DF" {{ 'DF' == old('sigufs')  ? 'selected' : '' }}>Distrito Federal</option>
+                                                    <option value="ES" {{ 'ES' == old('sigufs')  ? 'selected' : '' }}>Espírito Santo</option>
+                                                    <option value="GO" {{ 'GO' == old('sigufs')  ? 'selected' : '' }}>Goiás</option>
+                                                    <option value="MA" {{ 'MA' == old('sigufs')  ? 'selected' : '' }}>Maranhão</option>
+                                                    <option value="MT" {{ 'MT' == old('sigufs')  ? 'selected' : '' }}>Mato Grosso</option>
+                                                    <option value="MS" {{ 'MS' == old('sigufs')  ? 'selected' : '' }}>Mato Grosso do Sul</option>
+                                                    <option value="MG" {{ 'MG' == old('sigufs')  ? 'selected' : '' }}>Minas Gerais</option>
+                                                    <option value="PA" {{ 'PA' == old('sigufs')  ? 'selected' : '' }}>Pará</option>
+                                                    <option value="PB" {{ 'PB' == old('sigufs')  ? 'selected' : '' }}>Paraíba</option>
+                                                    <option value="PR" {{ 'PR' == old('sigufs')  ? 'selected' : '' }}>Paraná</option>
+                                                    <option value="PE" {{ 'PE' == old('sigufs')  ? 'selected' : '' }}>Pernambuco</option>
+                                                    <option value="PI" {{ 'PI' == old('sigufs')  ? 'selected' : '' }}>Piauí</option>
+                                                    <option value="RJ" {{ 'RJ' == old('sigufs')  ? 'selected' : '' }}>Rio de Janeiro</option>
+                                                    <option value="RN" {{ 'RN' == old('sigufs')  ? 'selected' : '' }}>Rio Grande do Norte</option>
+                                                    <option value="RS" {{ 'RS' == old('sigufs')  ? 'selected' : '' }}>Rio Grande do Sul</option>
+                                                    <option value="RO" {{ 'RO' == old('sigufs')  ? 'selected' : '' }}>Rondônia</option>
+                                                    <option value="RR" {{ 'RR' == old('sigufs')  ? 'selected' : '' }}>Roraima</option>
+                                                    <option value="SC" {{ 'SC' == old('sigufs')  ? 'selected' : '' }}>Santa Catarina</option>
+                                                    <option value="SP" {{ 'SP' == old('sigufs')  ? 'selected' : '' }}>São Paulo</option>
+                                                    <option value="SE" {{ 'SE' == old('sigufs')  ? 'selected' : '' }}>Sergipe</option>
+                                                    <option value="TO" {{ 'TO' == old('sigufs')  ? 'selected' : '' }}>Tocantins</option>
                                                 </select>
                                                 <label>UF</label>
+                                                @if ($errors->has('sigufs'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('sigufs') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="limcred" type="text" class="validate" name="limcred">
+                                                <input id="limcred" type="text" class="validate" name="limcred" value="{{old('limcred')}}">
                                                 <label for="limcred">Limite de Crédito</label>
+                                                @if ($errors->has('limcred'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('limcred') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="vlrcom" type="text" class="validate" name="vlrcom">
+                                                <input id="vlrcom" type="text" class="validate" name="vlrcom" value="{{old('vlrcom')}}">
                                                 <label for="vlrcom">Comissão Padrão %</label>
+                                                @if ($errors->has('vlrcom'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('vlrcom') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="vlrmaxpalp" type="text" class="validate" name="vlrmaxpalp">
+                                                <input id="vlrmaxpalp" type="text" class="validate" name="vlrmaxpalp" value="{{old('vlrmaxpalp')}}">
                                                 <label for="vlrmaxpalp">Vlr. Máximo p/ Palpite</label>
+                                                @if ($errors->has('vlrmaxpalp'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('vlrmaxpalp') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="vlrblopre" type="text" class="validate" name="vlrblopre">
+                                                <input id="vlrblopre" type="text" class="validate" name="vlrblopre" value="{{old('vlrblopre')}}">
                                                 <label for="vlrblopre">Bloquear prêmio maior que</label>
+                                                @if ($errors->has('vlrblopre'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('vlrblopre') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="limlibpre" type="text" class="validate" name="limlibpre">
+                                                <input id="limlibpre" type="text" class="validate" name="limlibpre" value="{{old('limlibpre')}}">
                                                 <label for="limlibpre">Limite de dias para prêmio</label>
+                                                @if ($errors->has('limlibpre'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('limlibpre') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
@@ -152,6 +183,11 @@
                                                     <option value="INATIVO">INATIVO</option>
                                                 </select>
                                                 <label>Situação</label>
+                                                @if ($errors->has('sitreven'))
+                                                    <span class="alert-validation">
+                                                        <strong>{{ $errors->first('sitreven') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -161,31 +197,31 @@
                                     <div id="opcionais" class="col s12">
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
-                                                <input id="idreven" type="text" class="validate" name="idreven" readonly>
+                                                <input id="idreven" type="text" class="validate" name="idreven" readonly value="{{old('idreven')}}">
                                                 <label for="idreven">Id Revendedor</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
-                                                <input id="endreven" type="text" class="validate" name="endreven">
+                                                <input id="endreven" type="text" class="validate" name="endreven" value="{{old('endreven')}}">
                                                 <label for="endreven">Endereço</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
-                                                <input id="baireven" type="text" class="validate" name="baireven">
+                                                <input id="baireven" type="text" class="validate" name="baireven" value="{{old('baireven')}}">
                                                 <label for="baireven">Bairro</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
-                                                <input id="celreven" type="text" class="validate" name="celreven">
+                                                <input id="celreven" type="text" class="validate" name="celreven" value="{{old('celreven')}}">
                                                 <label for="celreven">Celular</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
-                                                <input id="obsreven" type="text" class="validate" name="obsreven">
+                                                <input id="obsreven" type="text" class="validate" name="obsreven" value="{{old('obsreven')}}">
                                                 <label for="obsreven">Observação</label>
                                             </div>
                                         </div>

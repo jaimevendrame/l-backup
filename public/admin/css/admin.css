@@ -166,5 +166,16 @@ table.linhasAlternadas tr:nth-child(even) /* CSS3 */ {
   /*RESETS*/
 
 .mdl-data-table td, .mdl-data-table th {
-    text-align: left !important;
+    text-align: left !important
+}
+
+span.alert-validation  {
+    font-size: smaller;
+    color: red;
+    margin-top: 0;
+
+}
+
+input {
+    margin: 0 !important;
 }
