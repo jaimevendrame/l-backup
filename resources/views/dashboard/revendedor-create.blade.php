@@ -28,7 +28,7 @@
 
                                             <div class="input-field col s8 m8 l6">
                                                 <input id="nomebase" type="text" class="validate" readonly value="{{$dados->baseNome or $baseNome}}">
-                                                <label id="lnomebase" for="nomebase">Base</label>
+                                                <label id="lnomebase" class="active" for="nomebase">Base</label>
                                                 @if ($errors->has('nomebase'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('nomebase') }}</strong>
@@ -40,7 +40,7 @@
                                         <div class="row">
                                             <div class="input-field col s8 m8 l6">
                                                 <input id="nomven" type="text" class="validate" readonly value="{{$dados->vendedorNome or $vendedorNome}}">
-                                                <label id="lnomven" for="nomven">Vendedor</label>
+                                                <label id="lnomven" class="active" for="nomven">Vendedor</label>
                                                 @if ($errors->has('nomven'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('nomven') }}</strong>
@@ -52,7 +52,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m12 l4">
                                                 <input id="idereven" type="text" class="validate" name="idereven" readonly>
-                                                <label for="idereven">Identificação única</label>
+                                                <label class="active" for="idereven">Identificação única</label>
                                                 @if ($errors->has('idereven'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('idereven') }}</strong>
@@ -63,7 +63,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
                                                 <input id="nomreven" type="text" class="validate" name="nomreven" value="{{$dados->nomreven or old('nomreven')}}">
-                                                <label for="nomreven">Nome</label>
+                                                <label class="active" for="nomreven">Nome</label>
                                                 @if ($errors->has('nomreven'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('nomreven') }}</strong>
@@ -74,7 +74,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m8 l4">
                                                 <input id="cidreven" type="text" class="validate" name="cidreven" value="{{$dados->cidreven or old('cidreven')}}">
-                                                <label for="cidreven">Cidade</label>
+                                                <label class="active"for="cidreven">Cidade</label>
                                                 @if ($errors->has('cidreven'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('cidreven') }}</strong>
@@ -124,7 +124,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <input id="limcred" type="text" class="validate" name="limcred" value="{{isset($dados) ? number_format($dados->limcred, 2, ',', '.') : old('limcred')}}">
-                                                <label for="limcred">Limite de Crédito</label>
+                                                <label class="active" for="limcred">Limite de Crédito</label>
                                                 @if ($errors->has('limcred'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('limcred') }}</strong>
@@ -135,7 +135,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <input id="vlrcom" type="text" class="validate" name="vlrcom" value="{{isset($dados) ? number_format($dados->vlrcom, 2, ',', '.') : old('vlrcom')}}">
-                                                <label for="vlrcom">Comissão Padrão %</label>
+                                                <label class="active" for="vlrcom">Comissão Padrão %</label>
                                                 @if ($errors->has('vlrcom'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('vlrcom') }}</strong>
@@ -146,7 +146,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <input id="vlrmaxpalp" type="text" class="validate" name="vlrmaxpalp" value="{{isset($dados) ? number_format($dados->vlrmaxpalp, 2, ',', '.') : old('vlrmaxpalp')}}">
-                                                <label for="vlrmaxpalp">Vlr. Máximo p/ Palpite</label>
+                                                <label class="active" for="vlrmaxpalp">Vlr. Máximo p/ Palpite</label>
                                                 @if ($errors->has('vlrmaxpalp'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('vlrmaxpalp') }}</strong>
@@ -157,7 +157,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <input id="vlrblopre" type="text" class="validate" name="vlrblopre" value="{{isset($dados) ? number_format($dados->vlrblopre, 2, ',', '.') : old('vlrblopre')}}">
-                                                <label for="vlrblopre">Bloquear prêmio maior que</label>
+                                                <label class="active" for="vlrblopre">Bloquear prêmio maior que</label>
                                                 @if ($errors->has('vlrblopre'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('vlrblopre') }}</strong>
@@ -168,7 +168,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <input id="limlibpre" type="text" class="validate" name="limlibpre" value="{{isset($dados) ? number_format($dados->limlibpre, 2, ',', '.') : old('limlibpre')}}">
-                                                <label for="limlibpre">Limite de dias para prêmio</label>
+                                                <label class="active" for="limlibpre">Limite de dias para prêmio</label>
                                                 @if ($errors->has('limlibpre'))
                                                     <span class="alert-validation">
                                                         <strong>{{ $errors->first('limlibpre') }}</strong>
@@ -198,31 +198,31 @@
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
                                                 <input id="idreven" type="text" class="validate" name="idreven" readonly value="{{$dados->idreven or old('idreven')}}">
-                                                <label for="idreven">Id Revendedor</label>
+                                                <label class="active" for="idreven">Id Revendedor</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
                                                 <input id="endreven" type="text" class="validate" name="endreven" value="{{$dados->endreven or old('endreven')}}">
-                                                <label for="endreven">Endereço</label>
+                                                <label class="active" for="endreven">Endereço</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
                                                 <input id="baireven" type="text" class="validate" name="baireven" value="{{$dados->baireven or old('baireven')}}">
-                                                <label for="baireven">Bairro</label>
+                                                <label class="active" for="baireven">Bairro</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
                                                 <input id="celreven" type="text" class="validate" name="celreven" value="{{$dados->celreven or old('celreven')}}">
-                                                <label for="celreven">Celular</label>
+                                                <label class="active" for="celreven">Celular</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
                                                 <input id="obsreven" type="text" class="validate" name="obsreven" value="{{$dados->obsreven or old('obsreven')}}">
-                                                <label for="obsreven">Observação</label>
+                                                <label class="active" for="obsreven">Observação</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -256,15 +256,14 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
                                                 <input id="portacom" type="text" class="validate" name="porta_com" value="2016">
-                                                <label for="portacom">Porta Comunicação</label>
+                                                <label class="active" for="portacom">Porta Comunicação</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
-                                                <input id="datcad" type="text" class="datepicker" name="datcad" value="{{$dados->datcad or old('datcad')}}">
+                                                <input id="datcad" type="date" class="datepicker" name="datcad" value="{{$dados->datcad or old('datcad')}}">
 
-                                                <input type="hidden" value="{{$dados->datcad or old('datcad')}}">
-                                                <label for="datcad">Data Cadastro</label>
+                                                <label class="active" for="datcad">Data Cadastro</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -279,7 +278,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
                                                 <input id="usercad" type="text" class="validate" name="idusucad" value="{{$dados->idusu or Auth()->user()->idusu}}" readonly>
-                                                <label for="usercad">Usuário Cadastrado</label>
+                                                <label class="active" for="usercad">Usuário Cadastrado</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -294,7 +293,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
                                                 <input id="datalt" type="date" class="datepicker" name="datalt" value="{{$dados->datalt or old('datalt')}}">
-                                                <label for="datalt">Data última Alteração</label>
+                                                <label class="active" for="datalt">Data última Alteração</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -310,7 +309,7 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
                                                 <input id="useralt" type="text" class="validate" name="idusualt" value="{{$dados->idusualt or old('idusualt')}}">
-                                                <label for="useralt">Usuário Alteração</label>
+                                                <label class="active" for="useralt">Usuário Alteração</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -350,23 +349,6 @@
 
 @push('scripts')
         <script type="text/javascript" src="{{url('js/jquery.mask.js')}}"></script>
-
-        @isset($dados)
-
-        <script>
-            $(document).ready(function() {
-
-                var datacad = "<?php if (!empty($dados)) echo $dados->datcad; ?>";
-
-                // Using a string along with the parsing format (defaults to `format` option).
-                picker.set('select', datacad, { format: 'yyyy-mm-dd' })
-
-            })
-
-
-        </script>
-
-
 
 
 <script>
