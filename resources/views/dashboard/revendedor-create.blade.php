@@ -429,6 +429,8 @@
 
 </script>
         <script>
+
+            
             $( ".base" ).change(function() {
                 urlBase = '/admin/revendedor/base/'+ this.value;
                 base(urlBase);

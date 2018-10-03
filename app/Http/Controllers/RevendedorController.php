@@ -250,12 +250,12 @@ public function createRevendedor($ideven){
             'nomreven'  => 'required|min:3|max:255',
             'cidreven'  => 'required|min:3|max:255',
             'sigufs'    => 'required',
-            'limcred'   => 'required|numeric',
-            'vlrcom'    => 'required|numeric',
-            'vlrmaxpalp'=> 'required|numeric',
-            'vlrblopre' => 'required|numeric',
-            'limlibpre' => 'required|numeric',
-            'limlibpre' => 'required|numeric',
+            'limcred'   => 'required',
+            'vlrcom'    => 'required',
+            'vlrmaxpalp'=> 'required',
+            'vlrblopre' => 'required',
+            'limlibpre' => 'required',
+            'limlibpre' => 'required',
             'sitreven'  => 'required',
 //            'endreven'  => 'required|min:3|max:255',
 //            'baireven'  => 'required|min:3|max:255',
@@ -344,13 +344,21 @@ public function createRevendedor($ideven){
         $loctrab = $this->request->input('loctrab');
 
 
-        $dataCadastro = new DateTime();
-        $newDateInicial = $dataCadastro->createFromFormat('d/m/Y', $datcad);
-        $datcad = $newDateInicial->format('Y/m/d');
+//        dd($datcad);
 
-        $dataAlteracao = new DateTime();
-        $newDateInicial = $dataAlteracao->createFromFormat('d/m/Y', $datalt);
-        $datalt = $newDateInicial->format('Y/m/d');
+        if ($datcad != ''){
+            $dataCadastro = new DateTime();
+            $newDateInicial = $dataCadastro->createFromFormat('d/m/Y', $datcad);
+            $datcad = $newDateInicial->format('Y/m/d');
+        }
+
+
+        if ($datalt != ''){
+            $dataAlteracao = new DateTime();
+            $newDateInicial = $dataAlteracao->createFromFormat('d/m/Y', $datalt);
+            $datalt = $newDateInicial->format('Y/m/d');
+        }
+
 
         $idreven = $this->returnRevendedor($idbase, $idven);
         $idereven = $this->returnIdReven();
@@ -361,8 +369,8 @@ public function createRevendedor($ideven){
             "idbase" => $idbase,
             "idven" => $idven,
             "idereven" => $idereven,
-            "nomreven" => $nomreven,
-            "cidreven" => $cidreven,
+            "nomreven" => strtoupper($nomreven),
+            "cidreven" => strtoupper($cidreven),
             "sigufs" => $sigufs,
             "limcred" => floatval(str_replace(',', '.', $limcred)),
             "vlrcom" => floatval(str_replace(',', '.', $vlrcom)),
@@ -371,10 +379,10 @@ public function createRevendedor($ideven){
             "limlibpre" => floatval(str_replace(',', '.', $limlibpre)),
             "sitreven" => $sitreven,
             "idreven" => $idreven,
-            "endreven" => $endreven,
-            "baireven" => $baireven,
+            "endreven" => strtoupper($endreven),
+            "baireven" => strtoupper($baireven),
             "celreven" => $celreven,
-            "obsreven" => $obsreven,
+            "obsreven" => strtoupper($obsreven),
             "insolaut" => $insolaut,
             "idcobra" => $idcobra,
             "porta_com" => $porta_com,
@@ -388,6 +396,8 @@ public function createRevendedor($ideven){
             "loctrab" => $loctrab,
 
         ];
+
+//        dd($dados_array);
 
         $insert = DB::table('REVENDEDOR')->insert($dados_array);
 
