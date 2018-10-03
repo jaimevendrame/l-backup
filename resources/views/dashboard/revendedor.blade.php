@@ -33,7 +33,7 @@
                                 <tbody>
                                 @forelse($data as $d)
                                     <tr>
-                                        <td>{{ $d->idereven}}</td>
+                                        <td><a href="/admin/revendedor/update/{{$ideven}}/{{$d->idereven}}">{{ $d->idereven}}</a></td>
                                         <td>{{ $d->nomreven }}</td>
                                         <td>{{ $d->cidreven }}</td>
                                         <td>{{ $d->sigufs }}</td>

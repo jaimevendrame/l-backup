@@ -447,6 +447,54 @@ public function createRevendedor($ideven){
         return $data;
     }
 
+    public function edit($ideven, $id){
 
+        $idusu = Auth::user()->idusu;
+
+        $vendedores = $this->retornaBasesUser($idusu);
+
+        $menus = $this->retornaMenu($idusu);
+
+        $categorias = $this->retornaCategorias($menus);
+
+        $title = $this->title;
+
+        $ideven_default = $this->returnWebControlData($idusu);
+
+        $this->nameView = 'dashboard.revendedor-create';
+
+        $bases = $this->retornaBases($idusu);
+
+        $cobrador = $this->retornaCobrador($ideven);
+
+        $ideven = $ideven;
+
+
+        $baseAll = $this->retornaBasesAll($idusu);
+
+        $valores = $baseAll;
+
+        $this->nameView = 'dashboard.revendedor-create';
+
+
+
+        foreach ($valores as $val){
+
+            if ($val->ideven == $ideven_default) {
+                $baseNome  = $val->nombas;
+                $idbase = $val->idbase;
+                $vendedorNome = $val->nomven;
+                $idvendedor = $val->idven;
+            }
+        }
+
+
+        $dados = DB::table('REVENDEDOR')->where('idereven', $id)->first();
+
+
+        return view("{$this->nameView}",compact('idusu',
+            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor','dados'));
+
+    }
     
 }

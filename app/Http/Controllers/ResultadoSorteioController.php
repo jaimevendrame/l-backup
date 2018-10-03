@@ -401,6 +401,11 @@ class ResultadoSorteioController extends StandardController
        return $data;
     }
 
+    public function edit($id){
+
+        return view ();
+    }
+
 }
 
 
