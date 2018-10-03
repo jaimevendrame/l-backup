@@ -240,9 +240,11 @@ public function createRevendedor($ideven){
 
     }
 
-    public function createRevendedorGo()
+    public function createRevendedorGo($ideven)
     {
         $dataForm = $this->request->all();
+
+
         /** @var $rules */
         $rules = [
             'idbase'    => 'required',
@@ -344,13 +346,13 @@ public function createRevendedor($ideven){
         $loctrab = $this->request->input('loctrab');
 
 
-//        dd($datcad);
 
         if ($datcad != ''){
             $dataCadastro = new DateTime();
             $newDateInicial = $dataCadastro->createFromFormat('d/m/Y', $datcad);
             $datcad = $newDateInicial->format('Y/m/d');
         }
+
 
 
         if ($datalt != ''){
@@ -404,8 +406,7 @@ public function createRevendedor($ideven){
 
 
         if($insert)
-            return redirect()
-                ->route("{$this->route}.index")
+            return redirect("/admin/revendedor/create/{$ideven}")
                 ->with(['success'=>'Cadastro realizado com sucesso!']);
         else
             return redirect()
@@ -490,6 +491,10 @@ public function createRevendedor($ideven){
 
 
         $dados = DB::table('REVENDEDOR')->where('idereven', $id)->first();
+
+        $dados->datcad = date('d/m/Y', strtotime( $dados->datcad));
+        $dados->datalt = date('d/m/Y', strtotime( $dados->datalt));
+
 
 
         return view("{$this->nameView}",compact('idusu',

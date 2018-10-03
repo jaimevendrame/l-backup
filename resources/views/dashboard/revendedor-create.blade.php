@@ -261,7 +261,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
-                                                <input id="datcad" type="date" class="datepicker" name="datcad" value="{{$dados->datcad or old('datcad')}}">
+                                                <input id="datcad" type="text" class="datepicker" name="datcad" value="{{ $dados->datcad  or old('datcad')}}">
 
                                                 <label class="active" for="datcad">Data Cadastro</label>
                                             </div>
@@ -292,7 +292,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
-                                                <input id="datalt" type="date" class="datepicker" name="datalt" value="{{$dados->datalt or old('datalt')}}">
+                                                <input id="datalt" type="text" class="datepicker" name="datalt" value="{{$dados->datalt or old('datalt')}}">
                                                 <label class="active" for="datalt">Data última Alteração</label>
                                             </div>
                                         </div>
