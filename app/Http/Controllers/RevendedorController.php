@@ -26,6 +26,37 @@ class RevendedorController extends StandardController
     public $data_inicial;
     public $data_fim;
 
+    public $estadosBrasileiros = array(
+        'AC'=>'Acre',
+        'AL'=>'Alagoas',
+        'AP'=>'Amapá',
+        'AM'=>'Amazonas',
+        'BA'=>'Bahia',
+        'CE'=>'Ceará',
+        'DF'=>'Distrito Federal',
+        'ES'=>'Espírito Santo',
+        'GO'=>'Goiás',
+        'MA'=>'Maranhão',
+        'MT'=>'Mato Grosso',
+        'MS'=>'Mato Grosso do Sul',
+        'MG'=>'Minas Gerais',
+        'PA'=>'Pará',
+        'PB'=>'Paraíba',
+        'PR'=>'Paraná',
+        'PE'=>'Pernambuco',
+        'PI'=>'Piauí',
+        'RJ'=>'Rio de Janeiro',
+        'RN'=>'Rio Grande do Norte',
+        'RS'=>'Rio Grande do Sul',
+        'RO'=>'Rondônia',
+        'RR'=>'Roraima',
+        'SC'=>'Santa Catarina',
+        'SP'=>'São Paulo',
+        'SE'=>'Sergipe',
+        'TO'=>'Tocantins'
+    );
+
+
     public function __construct(
         Usuario $usuario,
         Usuario_ven $usuario_ven,
@@ -94,6 +125,10 @@ public function createRevendedor($ideven){
     $valores = $baseAll;
 
 
+    $collection = collect([
+        ['sigla' => 'AC', 'nome' => 'ACRE'],
+        ['sigla' => 'AL', 'nome' => 'ALAGOAS']
+    ]);
 
 
     foreach ($valores as $val){
@@ -106,10 +141,12 @@ public function createRevendedor($ideven){
         }
     }
 
+    $ufs = $this->estadosBrasileiros;
+
 
 
     return view("{$this->nameView}",compact('idusu',
-         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor'));
+         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor', 'ufs'));
 }
     /**
      * @return mixed
@@ -259,18 +296,7 @@ public function createRevendedor($ideven){
             'limlibpre' => 'required',
             'limlibpre' => 'required',
             'sitreven'  => 'required',
-//            'endreven'  => 'required|min:3|max:255',
-//            'baireven'  => 'required|min:3|max:255',
-//            'celreven'  => 'required|min:14|max:14',
-//            'insolaut'  => 'required',
-//            'idcobra'   => 'required',
-//            'porta_com' => 'required|min:3|max:255',
-//            'datcad'    => 'required',
-//            'in_impapo' => 'required',
-//            'idusucad'  => 'required',
-//            'in_canapo' => 'required',
-//            'datalt'    => 'required',
-//            'loctrab'   => 'required|min:3|max:255',
+
         ];
 
         $required = 'é uma campo obrigatório';
@@ -495,11 +521,184 @@ public function createRevendedor($ideven){
         $dados->datcad = date('d/m/Y', strtotime( $dados->datcad));
         $dados->datalt = date('d/m/Y', strtotime( $dados->datalt));
 
+        $ufs = $this->estadosBrasileiros;
 
 
         return view("{$this->nameView}",compact('idusu',
-            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor','dados'));
+            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor','dados', 'ufs'));
 
     }
-    
+    public function update($ideven, $idereven)
+    {
+        $dataForm = $this->request->all();
+
+
+//        dd($dataForm);
+
+
+        /** @var $rules */
+        $rules = [
+            'idbase'    => 'required',
+            'idven'     => 'required',
+            'nomreven'  => 'required|min:3|max:255',
+            'cidreven'  => 'required|min:3|max:255',
+            'sigufs'    => 'required',
+            'limcred'   => 'required',
+            'vlrcom'    => 'required',
+            'vlrmaxpalp'=> 'required',
+            'vlrblopre' => 'required',
+            'limlibpre' => 'required',
+            'limlibpre' => 'required',
+            'sitreven'  => 'required',
+
+        ];
+
+        $required = 'é uma campo obrigatório';
+        $min = 'deve ter no mínimo 3 caracteres';
+        $max = 'deve ter no máximo 255 caracteres';
+        $numeric = 'é um campo númerico';
+
+        /** @var $mensagens */
+        $mensagens = [
+            'nomreven.required'     => "NOME {$required}",
+            'nomreven.min'          => "NOME {$min}",
+            'nomreven.max'          => "NOme {$max}",
+            'cidreven.required'     => "CIDADE {$required}",
+            'cidreven.min'          => "CIDADE {$min}",
+            'cidreven.max'          => "CIDADE {$max}",
+            'sigufs.required'       => "UF {$required}",
+            'limcred.required'      => "LIMITE DE CRÉDITO {$required}",
+            'limcred.NUMERIC'       => "LIMITE DE CRÉDITO {$numeric}",
+            'vlrcom.required'       => "COMISSÃO PADRÃO {$required}",
+            'vlrcom.numeric'        => "COMISSÃO PADRÃO {$numeric}",
+            'vlrmaxpalp.required'   => "VLR. MÁXIMO P/ PALPITE {$required}",
+            'vlrmaxpalp.numeric'    => "VLR. MÁXIMO P/ PALPITE {$numeric}",
+            'vlrblopre.required'    => "BLOQUEAR PRÊMIO MAIOR QUE {$required}",
+            'vlrblopre.numeric'     => "BLOQUEAR PRÊMIO MAIOR QUE {$numeric}",
+            'limlibpre.required'    => "LIMITE DE DIAS PARA PRÊMIO {$required}",
+            'limlibpre.numeric'     => "LIMITE DE DIAS PARA PRÊMIO {$numeric}",
+            'endreven.required'     => "ENDEREÇO {$required}",
+            'endreven.min'          => "ENDEREÇO {$min}",
+            'endreven.max'          => "ENDEREÇO {$max}",
+            'baireven.required'     => "BAIRRO {$required}",
+            'baireven.min'          => "BAIRRO {$min}",
+            'baireven.max'          => "BAIRRO {$max}",
+            'celreven.required'     => "CELULAR {$required}",
+            'idcobra.required'      => "COBRADOR {$required}",
+            'porta_com.required'    => "PORTA COMUNICAÇÃO {$required}",
+            'datcad.required'       => "DATA DE CADASTRO {$required}",
+            'datalt.required'       => "DATA DE ALTERAÇÃO {$required}",
+            'loctrab.required'       => "LOCAL DO TRABALHO {$required}",
+
+
+        ];
+
+        /** validação do request */
+        $this->validate($this->request, $rules, $mensagens);
+
+        $idbase = $this->request->input('idbase');
+        $idven = $this->request->input('idven');
+        $idereven = $this->request->input('idereven');
+        $nomreven = $this->request->input('nomreven');
+        $cidreven = $this->request->input('cidreven');
+        $sigufs = $this->request->input('sigufs');
+        $limcred = $this->request->input('limcred');
+        $vlrcom = $this->request->input('vlrcom');
+        $vlrmaxpalp = $this->request->input('vlrmaxpalp');
+        $vlrblopre = $this->request->input('vlrblopre');
+        $limlibpre = $this->request->input('limlibpre');
+        $sitreven = $this->request->input('sitreven');
+        $idreven = $this->request->input('idreven');
+        $endreven = $this->request->input('endreven');
+        $baireven = $this->request->input('baireven');
+        $celreven = $this->request->input('celreven');
+        $obsreven = $this->request->input('obsreven');
+        $insolaut = $this->request->input('insolaut');
+        $idcobra = $this->request->input('idcobra');
+        $porta_com = $this->request->input('porta_com');
+        $datcad = $this->request->input('datcad');
+        $in_impapo = $this->request->input('in_impapo');
+        $idusucad = $this->request->input('idusucad');
+        $in_canapo = $this->request->input('in_canapo');
+        $datalt = $this->request->input('datalt');
+        $in_impdireta = $this->request->input('in_impdireta');
+        $idusualt = $this->request->input('idusualt');
+        $loctrab = $this->request->input('loctrab');
+
+
+
+        if ($datcad != ''){
+            $dataCadastro = new DateTime();
+            $newDateInicial = $dataCadastro->createFromFormat('d/m/Y', $datcad);
+            $datcad = $newDateInicial->format('Y/m/d');
+        }
+
+
+
+        if ($datalt != ''){
+            $dataAlteracao = new DateTime();
+            $newDateInicial = $dataAlteracao->createFromFormat('d/m/Y', $datalt);
+            $datalt = $newDateInicial->format('Y/m/d');
+        }
+
+
+//        $idreven = $this->returnRevendedor($idbase, $idven);
+//        $idereven = $this->returnIdReven();
+//        $idusualt = 1000;
+
+        $dados_array = [
+
+            "idbase" => $idbase,
+            "idven" => $idven,
+            "idereven" => $idereven,
+            "nomreven" => mb_strtoupper($nomreven,'UTF-8'),
+            "cidreven" => mb_strtoupper($cidreven, 'UTF-8'),
+            "sigufs" => $sigufs,
+            "limcred" => floatval(str_replace(',', '.', $limcred)),
+            "vlrcom" => floatval(str_replace(',', '.', $vlrcom)),
+            "vlrmaxpalp" => floatval(str_replace(',', '.', $vlrmaxpalp)),
+            "vlrblopre" => floatval(str_replace(',', '.', $vlrblopre)),
+            "limlibpre" => floatval(str_replace(',', '.', $limlibpre)),
+            "sitreven" => $sitreven,
+            "idreven" => $idreven,
+            "endreven" => strtoupper($endreven),
+            "baireven" => strtoupper($baireven),
+            "celreven" => $celreven,
+            "obsreven" => strtoupper($obsreven),
+            "insolaut" => $insolaut,
+            "idcobra" => $idcobra,
+            "porta_com" => $porta_com,
+            "datcad" => $datcad,
+            "in_impapo" => $in_impapo,
+            "idusucad" => $idusucad,
+            "in_canapo" => $in_canapo,
+            "datalt" => $datalt,
+            "in_impdireta" => $in_impdireta,
+            "idusualt" => $idusualt,
+            "loctrab" => $loctrab,
+
+        ];
+
+//        dd($dados_array);
+
+
+
+        $update = DB::table('REVENDEDOR')->where('idereven', $idereven)->update($dados_array);
+
+
+//        dd($update);
+
+
+
+        if($update)
+            return redirect("/admin/revendedor/create/{$ideven}")
+                ->with(['success'=>'Cadastro atualizado com sucesso!']);
+        else
+            return redirect("/admin/revendedor/update/{$ideven}/{$idereven}")
+                ->withErrors(['errors' => 'Falha ao atualizar'])
+                ->withInput();
+
+
+    }
+
 }

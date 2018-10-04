@@ -13,8 +13,14 @@
                     <div class="card-content">
                         <h4>Cadastro de Revendedor</h4>
                         <div class="row">
-                            <form method="post" action="/admin/revendedor/create/{{$ideven}}/add" class="col m12">
-                                {{csrf_field()}}
+                            @if(isset($dados))
+                                <form method="post" action="/admin/revendedor/update/{{$ideven}}/{{$dados->idereven}}" class="col m12">
+                                    {{csrf_field()}}
+                                @else
+                                <form method="post" action="/admin/revendedor/create/{{$ideven}}/add" class="col m12">
+                                    {{csrf_field()}}
+                                @endif
+
                                 <div class="row">
                                     <div class="col s12 m12 l6">
                                         <ul class="tabs">
@@ -51,7 +57,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l4">
-                                                <input id="idereven" type="text" class="validate" name="idereven" readonly>
+                                                <input id="idereven" type="text" class="validate" name="idereven" readonly value="{{$dados->idereven or $idereven}}">
                                                 <label class="active" for="idereven">Identificação única</label>
                                                 @if ($errors->has('idereven'))
                                                     <span class="alert-validation">
@@ -85,33 +91,16 @@
                                             <div class="input-field col s12 m4 l2">
                                                 <select name="sigufs">
                                                     <option value="" disabled selected>Selecione</option>
-                                                    <option value="AC" {{ 'AC' == old('sigufs')  ? 'selected' : '' }}>Acre</option>
-                                                    <option value="AL" {{ 'AL' == old('sigufs')  ? 'selected' : '' }}>Alagoas</option>
-                                                    <option value="AP" {{ 'AP' == old('sigufs')  ? 'selected' : '' }}>Amapá</option>
-                                                    <option value="AM" {{ 'AM' == old('sigufs')  ? 'selected' : '' }}>Amazonas</option>
-                                                    <option value="BA" {{ 'BA' == old('sigufs')  ? 'selected' : '' }}>Bahia</option>
-                                                    <option value="CE" {{ 'CE' == old('sigufs')  ? 'selected' : '' }}>Ceará</option>
-                                                    <option value="DF" {{ 'DF' == old('sigufs')  ? 'selected' : '' }}>Distrito Federal</option>
-                                                    <option value="ES" {{ 'ES' == old('sigufs')  ? 'selected' : '' }}>Espírito Santo</option>
-                                                    <option value="GO" {{ 'GO' == old('sigufs')  ? 'selected' : '' }}>Goiás</option>
-                                                    <option value="MA" {{ 'MA' == old('sigufs')  ? 'selected' : '' }}>Maranhão</option>
-                                                    <option value="MT" {{ 'MT' == old('sigufs')  ? 'selected' : '' }}>Mato Grosso</option>
-                                                    <option value="MS" {{ 'MS' == old('sigufs')  ? 'selected' : '' }}>Mato Grosso do Sul</option>
-                                                    <option value="MG" {{ 'MG' == old('sigufs')  ? 'selected' : '' }}>Minas Gerais</option>
-                                                    <option value="PA" {{ 'PA' == old('sigufs')  ? 'selected' : '' }}>Pará</option>
-                                                    <option value="PB" {{ 'PB' == old('sigufs')  ? 'selected' : '' }}>Paraíba</option>
-                                                    <option value="PR" {{ 'PR' == old('sigufs')  ? 'selected' : '' }}>Paraná</option>
-                                                    <option value="PE" {{ 'PE' == old('sigufs')  ? 'selected' : '' }}>Pernambuco</option>
-                                                    <option value="PI" {{ 'PI' == old('sigufs')  ? 'selected' : '' }}>Piauí</option>
-                                                    <option value="RJ" {{ 'RJ' == old('sigufs')  ? 'selected' : '' }}>Rio de Janeiro</option>
-                                                    <option value="RN" {{ 'RN' == old('sigufs')  ? 'selected' : '' }}>Rio Grande do Norte</option>
-                                                    <option value="RS" {{ 'RS' == old('sigufs')  ? 'selected' : '' }}>Rio Grande do Sul</option>
-                                                    <option value="RO" {{ 'RO' == old('sigufs')  ? 'selected' : '' }}>Rondônia</option>
-                                                    <option value="RR" {{ 'RR' == old('sigufs')  ? 'selected' : '' }}>Roraima</option>
-                                                    <option value="SC" {{ 'SC' == old('sigufs')  ? 'selected' : '' }}>Santa Catarina</option>
-                                                    <option value="SP" {{ 'SP' == old('sigufs')  ? 'selected' : '' }}>São Paulo</option>
-                                                    <option value="SE" {{ 'SE' == old('sigufs')  ? 'selected' : '' }}>Sergipe</option>
-                                                    <option value="TO" {{ 'TO' == old('sigufs')  ? 'selected' : '' }}>Tocantins</option>
+
+                                                    @foreach($ufs as $key => $value)
+                                                        <option value="{{ $key }}"
+                                                                @if(($key == old('sigufs')) )
+                                                                selected
+                                                                @elseif(isset($dados) && $dados->sigufs == $key)
+                                                                    selected
+                                                                @endif
+                                                        >{{ $key }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <label>UF</label>
                                                 @if ($errors->has('sigufs'))
@@ -308,7 +297,7 @@
 
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
-                                                <input id="useralt" type="text" class="validate" name="idusualt" value="{{$dados->idusualt or old('idusualt')}}">
+                                                <input id="useralt" type="text" class="validate" name="idusualt" value="{{$dados->idusualt or old('idusualt')}}" readonly>
                                                 <label class="active" for="useralt">Usuário Alteração</label>
                                             </div>
                                         </div>
