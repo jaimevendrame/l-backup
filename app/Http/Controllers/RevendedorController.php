@@ -57,6 +57,14 @@ class RevendedorController extends StandardController
     );
 
 
+
+    public $localtrabalho = array(
+        'AMBULANTE'=>'AMBULANTE',
+        'BAR'=>'BAR',
+        'CHALE'=>'CHALE',
+        'PONTO FIXO'=>'PONTO FIXO',
+    );
+
     public function __construct(
         Usuario $usuario,
         Usuario_ven $usuario_ven,
@@ -143,10 +151,12 @@ public function createRevendedor($ideven){
 
     $ufs = $this->estadosBrasileiros;
 
+    $lc = $this->localtrabalho;
+
 
 
     return view("{$this->nameView}",compact('idusu',
-         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor', 'ufs'));
+         'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor', 'ufs', 'lc'));
 }
     /**
      * @return mixed
@@ -522,10 +532,11 @@ public function createRevendedor($ideven){
         $dados->datalt = date('d/m/Y', strtotime( $dados->datalt));
 
         $ufs = $this->estadosBrasileiros;
+        $lc = $this->localtrabalho;
 
 
         return view("{$this->nameView}",compact('idusu',
-            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor','dados', 'ufs'));
+            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor','dados', 'ufs', 'lc'));
 
     }
     public function update($ideven, $idereven)
@@ -679,15 +690,7 @@ public function createRevendedor($ideven){
 
         ];
 
-//        dd($dados_array);
-
-
-
         $update = DB::table('REVENDEDOR')->where('idereven', $idereven)->update($dados_array);
-
-
-//        dd($update);
-
 
 
         if($update)

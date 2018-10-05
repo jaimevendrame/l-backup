@@ -305,10 +305,15 @@
                                             <div class="input-field col s12 m12 l6">
                                                 <select name="loctrab">
                                                     <option value="" disabled selected>Selecione</option>
-                                                    <option value="AMBULANTE">AMBULANTE</option>
-                                                    <option value="BAR">BAR</option>
-                                                    <option value="CHALE">CHALE</option>
-                                                    <option value="PONTO FIXO">PONTO FIXO</option>
+                                                    @foreach($lc as $key => $value)
+                                                        <option value="{{ $key }}"
+                                                                @if(($key == old('loctrab')) )
+                                                                selected
+                                                                @elseif(isset($dados) && $dados->loctrab == $key)
+                                                                selected
+                                                                @endif
+                                                        >{{ $key }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <label>Local de Trabalho</label>
                                             </div>
