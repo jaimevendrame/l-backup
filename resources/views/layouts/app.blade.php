@@ -70,7 +70,7 @@
                 @endif
 
             </div></li>
-        <li><a href="#!"><i class="material-icons">cloud</i>Dashboard</a></li>
+        <li><a href="#!"><i class="material-icons">cloud</i>Menu</a></li>
         <li><a class="dropdown-button waves-effect" href="#!" data-activates="mais-usados">Mais usados</a></li>
         <li><div class="divider"></div></li>
         <li><a class="dropdown-button waves-effect" href="#!" data-activates="revendedor">Revendedor</a></li>
