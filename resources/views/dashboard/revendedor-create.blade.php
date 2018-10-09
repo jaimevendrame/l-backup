@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m12 l4">
-                                                <input id="idereven" type="text" class="validate" name="idereven" readonly value="{{$dados->idereven or $idereven}}">
+                                                <input id="idereven" type="text" class="validate" name="idereven" readonly value="{{$dados->idereven or old('idereven')}}">
                                                 <label class="active" for="idereven">Identificação única</label>
                                                 @if ($errors->has('idereven'))
                                                     <span class="alert-validation">
