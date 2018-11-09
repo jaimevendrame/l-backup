@@ -250,7 +250,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
-                                                <input id="datcad" type="text" class="datepicker" name="datcad" value="{{ $dados->datcad  or old('datcad')}}">
+                                                <input id="datcad" type="text" class="datepicker" name="datcad" value="{{ $dados->datcad  or \Carbon\Carbon::now()->format('d/m/Y')}}">
 
                                                 <label class="active" for="datcad">Data Cadastro</label>
                                             </div>
@@ -281,7 +281,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
-                                                <input id="datalt" type="text" class="datepicker" name="datalt" value="{{$dados->datalt or old('datalt')}}">
+                                                <input id="datalt" type="text" class="" name="datalt" value="{{$dados->datalt or old('datalt')}}" readonly>
                                                 <label class="active" for="datalt">Data última Alteração</label>
                                             </div>
                                         </div>
@@ -353,7 +353,7 @@
         $('#vlrcom').mask('000.000.000.000.000,00', {reverse: true});
         $('#vlrmaxpalp').mask('000.000.000.000.000,00', {reverse: true});
         $('#vlrblopre').mask('000.000.000.000.000,00', {reverse: true});
-        $('#limlibpre').mask('000.000.000.000.000,00', {reverse: true});
+//        $('#limlibpre').mask('000.000.000.000.000,00', {reverse: true});
         $('#celreven').mask('(00)00000-0000');
 
 

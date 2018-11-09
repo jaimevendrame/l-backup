@@ -204,10 +204,11 @@ public function createRevendedor($ideven){
             $data = DB::select(" 
                    SELECT REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, REVENDEDOR.NOMREVEN,
                     REVENDEDOR.CIDREVEN, REVENDEDOR.SIGUFS, REVENDEDOR.SITREVEN, REVENDEDOR.IDEREVEN,
-                    VENDEDOR.NOMVEN
+                    VENDEDOR.NOMVEN, REVENDEDOR.IDCOBRA, COBRADOR.NOMCOBRA
                     FROM REVENDEDOR
                     INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = REVENDEDOR.IDBASE AND
                     VENDEDOR.IDVEN = REVENDEDOR.IDVEN
+                    INNER JOIN COBRADOR ON COBRADOR.IDBASE = REVENDEDOR.IDBASE
                     INNER JOIN BASE ON BASE.IDBASE = REVENDEDOR.IDBASE
                     WHERE
                     REVENDEDOR.IDREVEN <> 99999999
@@ -218,10 +219,11 @@ public function createRevendedor($ideven){
             $data = DB::select(" 
                    SELECT REVENDEDOR.IDBASE, REVENDEDOR.IDVEN, REVENDEDOR.IDREVEN, REVENDEDOR.NOMREVEN,
                     REVENDEDOR.CIDREVEN, REVENDEDOR.SIGUFS, REVENDEDOR.SITREVEN, REVENDEDOR.IDEREVEN,
-                    VENDEDOR.NOMVEN
+                    VENDEDOR.NOMVEN, REVENDEDOR.IDCOBRA, COBRADOR.NOMCOBRA
                     FROM REVENDEDOR
                     INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = REVENDEDOR.IDBASE AND
                     VENDEDOR.IDVEN = REVENDEDOR.IDVEN
+                    INNER JOIN COBRADOR ON COBRADOR.IDBASE = REVENDEDOR.IDBASE
                     INNER JOIN BASE ON BASE.IDBASE = REVENDEDOR.IDBASE
                     WHERE
                     REVENDEDOR.IDREVEN <> 99999999
@@ -435,11 +437,12 @@ public function createRevendedor($ideven){
 
         ];
 
-//        dd($dados_array);
+        dd($dados_array);
 
         $insert = DB::table('REVENDEDOR')->insert($dados_array);
 
 
+//        dd($insert);
 
         if($insert)
             return redirect("/admin/revendedor/create/{$ideven}")
@@ -545,7 +548,6 @@ public function createRevendedor($ideven){
 
 
 //        dd($dataForm);
-
 
         /** @var $rules */
         $rules = [

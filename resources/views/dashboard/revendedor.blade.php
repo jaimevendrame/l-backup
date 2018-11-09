@@ -27,17 +27,19 @@
                                     <th>CIDADE</th>
                                     <th>UF</th>
                                     <th>SITUAÇÃO</th>
+                                    <th>COBRAD OR</th>
                                     <th>VENDEDOR</th>
                                     <th>NOME VENDEDOR</th>
                                 </tr></thead>
                                 <tbody>
                                 @forelse($data as $d)
                                     <tr>
-                                        <td><a href="/admin/revendedor/update/{{$ideven}}/{{$d->idereven}}">{{ $d->idereven}}</a></td>
+                                        <td><a class="btn red" href="/admin/revendedor/update/{{$ideven}}/{{$d->idereven}}">{{ $d->idereven}}</a></td>
                                         <td>{{ $d->nomreven }}</td>
                                         <td>{{ $d->cidreven }}</td>
                                         <td>{{ $d->sigufs }}</td>
                                         <td>{{ $d->sitreven }}</td>
+                                        <td>{{ $d->nomcobra }}</td>
                                         <td>{{ $d->idven }}</td>
                                         <td>{{ $d->nomven }}</td>
                                     </tr>
@@ -53,6 +55,7 @@
                                     <th>CIDADE</th>
                                     <th>UF</th>
                                     <th>SITUAÇÃO</th>
+                                    <th>COBRADOR</th>
                                     <th>VENDEDOR</th>
                                     <th>NOME VENDEDOR</th>
                                 </tr>
@@ -328,6 +331,7 @@
 
 
             language: {
+                "searchPlaceholder": "Digite aqui para pesquisar",
                 "decimal":        ",",
                 "thousands":      ".",
                 "sEmptyTable": "Nenhum registro encontrado",

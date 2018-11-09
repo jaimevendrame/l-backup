@@ -17,7 +17,7 @@ class Home2Controller extends StandardController
     protected $model;
     protected $nameView = 'home';
     protected $data;
-    protected $title = 'Dashboard';
+    protected $title = 'Painel de Controle';
     protected $redirectCad = '/admin/contatos/cadastrar';
     protected $redirectEdit = '/admin/contatos/editar';
     protected $route = '/admin/contatos';
