@@ -42,28 +42,28 @@
             var $lnkcaixa = document.getElementById("lnk");
             $lnkcaixa.href = $lnk.href.replace(/(.*)/, '/admin/movimentoscaixa/') + el.value;
 
-           var $lnkapostas = document.getElementById("lnk-aposta");
-            $lnkapostas.href = $lnk.href.replace(/(.*)/, '/admin/apostas/') + el.value;
-
-           var $lnkapostasview = document.getElementById("lnk-aposta-view");
-            $lnkapostasview.href = $lnk.href.replace(/(.*)/, '/admin/apostas/view/') + el.value;
-
-            var $lnkapostascancel = document.getElementById("lnk-aposta-cancel");
-            $lnkapostascancel.href = $lnk.href.replace(/(.*)/, '/admin/apostas/cancel/') + el.value;
-
-            var $lnkapostaspremio = document.getElementById("lnk-aposta-premio");
-            $lnkapostaspremio.href = $lnk.href.replace(/(.*)/, '/admin/apostaspremiadas/') + el.value;
-
-            var $lnkresultsadosorteio = document.getElementById("lnk-resul-sorteio");
-            $lnkresultsadosorteio.href = $lnk.href.replace(/(.*)/, '/admin/resultadosorteio/') + el.value;
-
-            var $lnksenhadodia = document.getElementById("lnk-senha");
-            $lnksenhadodia.href = $lnk.href.replace(/(.*)/, '/admin/senhadodia/') + el.value;
-
-            var $lnkdescenv = document.getElementById("lnk-descenv");
-            $lnkdescenv.href = $lnk.href.replace(/(.*)/, '/admin/descargasenviadas/') + el.value;
-
-            //session
+//           var $lnkapostas = document.getElementById("lnk-aposta");
+//            $lnkapostas.href = $lnk.href.replace(/(.*)/, '/admin/apostas/') + el.value;
+//
+//           var $lnkapostasview = document.getElementById("lnk-aposta-view");
+//            $lnkapostasview.href = $lnk.href.replace(/(.*)/, '/admin/apostas/view/') + el.value;
+//
+//            var $lnkapostascancel = document.getElementById("lnk-aposta-cancel");
+//            $lnkapostascancel.href = $lnk.href.replace(/(.*)/, '/admin/apostas/cancel/') + el.value;
+//
+//            var $lnkapostaspremio = document.getElementById("lnk-aposta-premio");
+//            $lnkapostaspremio.href = $lnk.href.replace(/(.*)/, '/admin/apostaspremiadas/') + el.value;
+//
+//            var $lnkresultsadosorteio = document.getElementById("lnk-resul-sorteio");
+//            $lnkresultsadosorteio.href = $lnk.href.replace(/(.*)/, '/admin/resultadosorteio/') + el.value;
+//
+//            var $lnksenhadodia = document.getElementById("lnk-senha");
+//            $lnksenhadodia.href = $lnk.href.replace(/(.*)/, '/admin/senhadodia/') + el.value;
+//
+//            var $lnkdescenv = document.getElementById("lnk-descenv");
+//            $lnkdescenv.href = $lnk.href.replace(/(.*)/, '/admin/descargasenviadas/') + el.value;
+//
+//            //session
 
 
 
@@ -245,26 +245,45 @@
                     @endphp
 
                    @php
-                        foreach($categorias as $key => $value){
-                        echo '<li>';
-                                echo '<div class="collapsible-header active white-text"><i class="material-icons">view_quilt</i>'.$value.'</div>';
-                                echo '<div class="collapsible-body blue-grey darken-4">
-                                    <span>
-                                        <ul>';
-                                            foreach ($menus as $menu){
-                                               if ($menu->catact == $value){
-                                            echo '<li><a class="waves-effect white-text waves-light"  href="'.$menu->route.'/'.$ideven_default.'" id="'.$menu->idref.'"
-                                            data-position="right" data-delay="50"
-                                            >'.$menu->capact.'</a></li>';
-                                            }}
+                       echo '<li>';
+                                    echo '<div class="collapsible-header active white-text"><i class="material-icons">view_quilt</i>MAIS USADOS</div>';
+                                    echo '<div class="collapsible-body blue-grey darken-4">
+                                        <span>
+                                            <ul>';
+                                                foreach ($menus as $menu){
+                                                   if ($menu->idref != ""){
+                                                echo '<li><a class="waves-effect white-text waves-light"  href="'.$menu->route.'/'.$ideven_default.'" id="'.$menu->idref.'"
+                                                data-position="right" data-delay="50"
+                                                >'.$menu->capact.'</a></li>';
+                                                }}
 
-                                        echo '
-                                        </ul>
-                                    </span>
-                                </div>';
+                                            echo '
+                                            </ul>
+                                        </span>
+                                    </div>';
 
-                        echo '</li>';
-                        }
+                            echo '</li>';
+
+                            foreach($categorias as $key => $value){
+                            echo '<li>';
+                                    echo '<div class="collapsible-header active white-text"><i class="material-icons">view_quilt</i>'.$value.'</div>';
+                                    echo '<div class="collapsible-body blue-grey darken-4">
+                                        <span>
+                                            <ul>';
+                                                foreach ($menus as $menu){
+                                                   if ($menu->catact == $value){
+                                                echo '<li><a class="waves-effect white-text waves-light"  href="'.$menu->route.'/'.$ideven_default.'" id="'.$menu->idref.'"
+                                                data-position="right" data-delay="50"
+                                                >'.$menu->capact.'</a></li>';
+                                                }}
+
+                                            echo '
+                                            </ul>
+                                        </span>
+                                    </div>';
+
+                            echo '</li>';
+                            }
                     @endphp
 
                 </ul>

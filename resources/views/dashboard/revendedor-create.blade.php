@@ -156,7 +156,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
-                                                <input id="limlibpre" type="text" class="validate" name="limlibpre" value="{{isset($dados) ? number_format($dados->limlibpre, 2, ',', '.') : old('limlibpre')}}">
+                                                <input id="limlibpre" type="text" class="validate" name="limlibpre" value="{{isset($dados) ? $dados->limlibpre : old('limlibpre')}}">
                                                 <label class="active" for="limlibpre">Limite de dias para prêmio</label>
                                                 @if ($errors->has('limlibpre'))
                                                     <span class="alert-validation">

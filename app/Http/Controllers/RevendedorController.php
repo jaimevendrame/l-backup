@@ -208,7 +208,9 @@ public function createRevendedor($ideven){
                     FROM REVENDEDOR
                     INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = REVENDEDOR.IDBASE AND
                     VENDEDOR.IDVEN = REVENDEDOR.IDVEN
-                    INNER JOIN COBRADOR ON COBRADOR.IDBASE = REVENDEDOR.IDBASE
+                    LEFT JOIN COBRADOR ON COBRADOR.IDBASE = REVENDEDOR.IDBASE AND 
+                    COBRADOR.IDVEN = REVENDEDOR.IDVEN AND 
+                    COBRADOR.IDCOBRA = REVENDEDOR.IDCOBRA
                     INNER JOIN BASE ON BASE.IDBASE = REVENDEDOR.IDBASE
                     WHERE
                     REVENDEDOR.IDREVEN <> 99999999
@@ -223,7 +225,9 @@ public function createRevendedor($ideven){
                     FROM REVENDEDOR
                     INNER JOIN VENDEDOR ON VENDEDOR.IDBASE = REVENDEDOR.IDBASE AND
                     VENDEDOR.IDVEN = REVENDEDOR.IDVEN
-                    INNER JOIN COBRADOR ON COBRADOR.IDBASE = REVENDEDOR.IDBASE
+                    LEFT JOIN COBRADOR ON COBRADOR.IDBASE = REVENDEDOR.IDBASE AND 
+                    COBRADOR.IDVEN = REVENDEDOR.IDVEN AND 
+                    COBRADOR.IDCOBRA = REVENDEDOR.IDCOBRA
                     INNER JOIN BASE ON BASE.IDBASE = REVENDEDOR.IDBASE
                     WHERE
                     REVENDEDOR.IDREVEN <> 99999999
@@ -400,6 +404,7 @@ public function createRevendedor($ideven){
         }
 
 
+
         $idreven = $this->returnRevendedor($idbase, $idven);
         $idereven = $this->returnIdReven();
         $idusualt = 1000;
@@ -409,8 +414,8 @@ public function createRevendedor($ideven){
             "idbase" => $idbase,
             "idven" => $idven,
             "idereven" => $idereven,
-            "nomreven" => strtoupper($nomreven),
-            "cidreven" => strtoupper($cidreven),
+            "nomreven" => mb_strtoupper($nomreven,'UTF-8'),
+            "cidreven" => mb_strtoupper($cidreven, 'UTF-8'),
             "sigufs" => $sigufs,
             "limcred" => floatval(str_replace(',', '.', $limcred)),
             "vlrcom" => floatval(str_replace(',', '.', $vlrcom)),
@@ -437,7 +442,7 @@ public function createRevendedor($ideven){
 
         ];
 
-        dd($dados_array);
+//        dd($dados_array);
 
         $insert = DB::table('REVENDEDOR')->insert($dados_array);
 
@@ -534,6 +539,8 @@ public function createRevendedor($ideven){
         $dados->datcad = date('d/m/Y', strtotime( $dados->datcad));
         $dados->datalt = date('d/m/Y', strtotime( $dados->datalt));
 
+
+//        dd($dados);
         $ufs = $this->estadosBrasileiros;
         $lc = $this->localtrabalho;
 
