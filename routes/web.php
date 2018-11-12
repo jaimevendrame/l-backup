@@ -149,7 +149,7 @@ Route::group([
 
         //Cadastro de usuário web
 
-        Route::get('/acesso/desktop/', 'AcessoWebController@indexDesktop')->name('index.desktop');
+        Route::get('/acesso/desktop/{id}', 'AcessoWebController@indexDesktop')->name('index.desktop');
         Route::get('/acesso/web/', 'AcessoWebController@indexWeb')->name('index.web');
         Route::get('/acesso/web/create/{id}', 'AcessoWebController@create')->name('create.get');
         Route::post('/acesso/web/create/data/{id}', 'AcessoWebController@createGo')->name('create.post');
