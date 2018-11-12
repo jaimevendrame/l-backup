@@ -193,8 +193,8 @@
                 </nav>
                 <li>
                     <div class="userView">
-                        <div class="background">
-                            <img src="{{ asset('admin/images/office.jpg') }}">
+                        <div class="background blue-grey lighten-3">
+                            {{--<img src="{{ asset('admin/images/office.jpg') }}">--}}
                         </div>
                         <!-- Authentication Links -->
                         @if (Auth::guest())

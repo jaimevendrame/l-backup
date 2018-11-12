@@ -7,8 +7,8 @@
             <div class="card z-depth-5">
                 <div class="card-content">
                     <div class="row center-align">
-                        <i class="large material-icons red-text lighten-2">cloud</i>
-                        <p><h5 class="red-text">LOTECWEB</h5></p>
+                        <i class="large material-icons blue-text darken-2">cloud</i>
+                        <p><h5 class="blue-text">LOTECWEB</h5></p>
                     </div>
                     {{--<span class="card-title center-align">LOTECWeb</span>--}}
                     <div class="row">
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 center">
-                                        <button class="btn waves-effect waves-light col s12 z-depth-4 red lighten-2" type="submit" name="action">
+                                        <button class="btn waves-effect waves-light col s12 z-depth-4 blue darken-2" type="submit" name="action">
                                             Entrar
                                         </button>
                                     </div>
