@@ -226,7 +226,7 @@ class AcessoWebController extends StandardController
 
         if ($update)
 
-            return redirect("/admin/acesso/desktop/");
+            return redirect("/admin/acesso/desktop/{$idusu}");
 
         else
             return redirect("/admin/acesso/web/create/$idusu")
