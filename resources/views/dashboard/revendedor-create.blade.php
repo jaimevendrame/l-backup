@@ -320,6 +320,9 @@
 
                                         </div>
 
+                                        @if(isset($loterias))
+
+
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
                                                 <table class="mdl-data-table " id="example2"  cellspacing="0" width="100%">
@@ -341,6 +344,7 @@
                                                 </table>
                                             </div>
                                         </div>
+                                    @endif
 
                                                 {{--<div class="col s12 m4 l2">--}}
                                                     {{--Loterias--}}
