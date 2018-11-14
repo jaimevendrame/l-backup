@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                      {{$usuarioWeb}}
+                      {{--{{$usuarioWeb}}--}}
 
                     @if($usuarioWeb != Null)
                         <form id="form-cad-edit" method="post" action="/admin/acesso/web/update/{{$usuarioWeb->id}}" enctype="multipart/form-data" autocomplete="off">
@@ -47,7 +47,7 @@
                                             <label for="login">USERNAME</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="password" type="password" readonly class="validate" value="{{$data->senusu }}" name="password">
+                                            <input id="password" type="text" readonly class="validate" value="{{$data->senusu }}" name="password">
                                             <label for="password">Senha</label>
                                         </div>
 
