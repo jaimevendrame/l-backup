@@ -317,7 +317,8 @@ class StandardController extends BaseController
                 ['USUARIO_MENU_ACTION.INLIB', '=', 'SIM'],
                 ['MENU_ACTION.INWEB', '=', 'SIM'],
             ])
-            ->orderBy('MENU_ACTION.CATACT', 'asc')
+            ->orderBy('MENU_ACTION.ORDEM_CAT', 'asc')
+            ->orderBy('MENU_ACTION.ORDEM_MENU', 'asc')
             ->get();
 
 
