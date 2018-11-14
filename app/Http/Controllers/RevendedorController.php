@@ -97,9 +97,11 @@ class RevendedorController extends StandardController
 
         $ideven_default = $this->returnWebControlData($idusu);
 
+        $loterias = $this->returnLotVen($ideven);
+
 
         return view("{$this->nameView}",compact('idusu',
-            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven_default'));
+            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven','ideven_default', 'loterias'));
     }
 
 
@@ -544,9 +546,12 @@ public function createRevendedor($ideven){
         $ufs = $this->estadosBrasileiros;
         $lc = $this->localtrabalho;
 
+        $loterias = $this->returnLotVen($ideven);
+
 
         return view("{$this->nameView}",compact('idusu',
-            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome', 'idbase', 'vendedorNome', 'idvendedor','dados', 'ufs', 'lc'));
+            'vendedores', 'menus', 'categorias', 'data','title', 'baseAll', 'ideven', 'ideven_default', 'bases', 'cobrador','baseNome',
+            'idbase', 'vendedorNome', 'idvendedor','dados', 'ufs', 'lc', 'loterias'));
 
     }
     public function update($ideven, $idereven)
@@ -711,6 +716,24 @@ public function createRevendedor($ideven){
                 ->withInput();
 
 
+    }
+
+    public function returnLotVen($ideven){
+
+        $p = $this->retornaBasepeloIdeven($ideven);
+
+        $data = DB::select(" 
+                SELECT VEN_LOTERIA.*,
+                       LOTERIAS.DESLOT, LOTERIAS.ABRLOT
+                FROM VEN_LOTERIA
+                INNER JOIN LOTERIAS ON LOTERIAS.IDLOT = VEN_LOTERIA.IDLOT
+                WHERE
+                      VEN_LOTERIA.IDBASE = '$p->idbase' AND
+                      VEN_LOTERIA.IDVEN = '$p->idven'
+                ORDER BY LOTERIAS.DESLOT               
+        ");
+
+        return $data;
     }
 
 }

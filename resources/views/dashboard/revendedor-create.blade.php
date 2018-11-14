@@ -320,6 +320,28 @@
 
                                         </div>
 
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l6">
+                                                <table class="mdl-data-table " id="example2"  cellspacing="0" width="100%">
+                                                    <thead><tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr></thead>
+                                                    <tbody>
+                                                    @forelse($loterias as $lv)
+                                                        <tr>
+                                                            <td>{{ $lv->deslot }}</td>
+                                                            <td>{{ $lv->sitlig }}</td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <p>nenhum registro encontrado!</p>
+                                                        </tr>
+                                                    @endforelse
+                                                </table>
+                                            </div>
+                                        </div>
+
                                                 {{--<div class="col s12 m4 l2">--}}
                                                     {{--Loterias--}}
                                                 {{--</div>--}}
