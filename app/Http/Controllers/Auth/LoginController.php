@@ -44,7 +44,11 @@ class LoginController extends Controller
     {
         $data = $request->only($this->username(),'password');
         $data['role'] = User::ROLE_ADMIN;
-//dd($data);
+
+
+        //modificaçao: forçar username em lowercase.
+        $data['username']= strtolower($data['username']);
+
         return $data;
     }
 
