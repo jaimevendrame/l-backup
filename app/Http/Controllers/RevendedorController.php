@@ -97,7 +97,9 @@ class RevendedorController extends StandardController
 
         $ideven_default = $this->returnWebControlData($idusu);
 
-        $loterias = $this->returnLotVen($ideven);
+//        $loterias = $this->returnLotVen($ideven);
+
+//        dd($data);
 
 
         return view("{$this->nameView}",compact('idusu',
@@ -451,6 +453,49 @@ public function createRevendedor($ideven){
 
 //        dd($insert);
 
+
+        //INSERIR LOTERIAS REVENDEDOR
+
+
+        if ($insert){
+            $p = $this->retornaBasepeloIdeven($ideven);
+
+            $dados = [];
+
+            $ven_loterias = DB::select(" 
+                SELECT VEN_LOTERIA.IDBASE, VEN_LOTERIA.IDVEN, VEN_LOTERIA.IDLOT, VEN_LOTERIA.SITLIG, '$idreven' as IDREVEN
+                FROM VEN_LOTERIA
+                INNER JOIN LOTERIAS ON LOTERIAS.IDLOT = VEN_LOTERIA.IDLOT
+                WHERE
+                      VEN_LOTERIA.IDBASE = '$p->idbase' AND
+                      VEN_LOTERIA.IDVEN = '$p->idven'
+                ORDER BY LOTERIAS.DESLOT               
+        ");
+            foreach ($ven_loterias as $vl) {
+                $v = [
+                    "idbase" => $vl->idbase,
+                    "idven" => $vl->idven,
+                    "idreven" => $vl->idreven,
+                    "idlot" => $vl->idlot,
+                    "sitlig" => $vl->sitlig,
+                ];
+
+
+
+                array_push($dados, $v);
+
+    //            dd($v);
+
+                $insert = DB::table('REVEN_LOTERIA')->insert($v);
+
+            }
+
+        }
+
+
+
+
+
         if($insert)
             return redirect("/admin/revendedor/create/{$ideven}")
                 ->with(['success'=>'Cadastro realizado com sucesso!']);
@@ -546,7 +591,7 @@ public function createRevendedor($ideven){
         $ufs = $this->estadosBrasileiros;
         $lc = $this->localtrabalho;
 
-        $loterias = $this->returnLotVen($ideven);
+        $loterias = $this->returnLotVen($ideven, $dados->idreven);
 
 
         return view("{$this->nameView}",compact('idusu',
@@ -554,7 +599,7 @@ public function createRevendedor($ideven){
             'idbase', 'vendedorNome', 'idvendedor','dados', 'ufs', 'lc', 'loterias'));
 
     }
-    public function update($ideven, $idereven)
+    public function update($ideven)
     {
         $dataForm = $this->request->all();
 
@@ -706,8 +751,25 @@ public function createRevendedor($ideven){
 
         $update = DB::table('REVENDEDOR')->where('idereven', $idereven)->update($dados_array);
 
+//            if($update){
+//                if ($sitreven == 'INATIVO'){
+//                    $update_terminal = DB::table('TERMINAL')
+//                        ->where([
+//                            ['TERMINAL.IDBASE', $idbase],
+//                            ['TERMINAL.IDVEN', $idven],
+//                            ['TERMINAL.IDREVEN', $idreven]
+//                        ])->update([
+//                            ['SITTER' => 'INATIVO'],
+//                            ['DATALT' => "$datalt"],
+//                            ['IDUSUALT' => $idusucad]
+//                        ]);
+//                }
+//            }
+
+
 
         if($update)
+
             return redirect("/admin/revendedor/create/{$ideven}")
                 ->with(['success'=>'Cadastro atualizado com sucesso!']);
         else
@@ -718,20 +780,33 @@ public function createRevendedor($ideven){
 
     }
 
-    public function returnLotVen($ideven){
+    public function returnLotVen($ideven, $idreven){
 
         $p = $this->retornaBasepeloIdeven($ideven);
 
-        $data = DB::select(" 
-                SELECT VEN_LOTERIA.*,
-                       LOTERIAS.DESLOT, LOTERIAS.ABRLOT
-                FROM VEN_LOTERIA
-                INNER JOIN LOTERIAS ON LOTERIAS.IDLOT = VEN_LOTERIA.IDLOT
+        $dados = [];
+
+        $ven_loterias = DB::select(" 
+                SELECT REVEN_LOTERIA.IDBASE, REVEN_LOTERIA.IDVEN, REVEN_LOTERIA.IDLOT, REVEN_LOTERIA.SITLIG, '$idreven' as IDREVEN,
+                LOTERIAS.DESLOT, LOTERIAS.ABRLOT
+                FROM REVEN_LOTERIA
+                INNER JOIN LOTERIAS ON LOTERIAS.IDLOT = REVEN_LOTERIA.IDLOT
                 WHERE
-                      VEN_LOTERIA.IDBASE = '$p->idbase' AND
-                      VEN_LOTERIA.IDVEN = '$p->idven'
+                      REVEN_LOTERIA.IDBASE = '$p->idbase' AND
+                      REVEN_LOTERIA.IDVEN = '$p->idven' AND 
+                      REVEN_LOTERIA.IDREVEN = '$idreven'
                 ORDER BY LOTERIAS.DESLOT               
         ");
+
+
+
+
+
+
+        $data = $ven_loterias;
+//        dd($data);
+
+
 
         return $data;
     }

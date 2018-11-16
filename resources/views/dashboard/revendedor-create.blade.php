@@ -322,13 +322,11 @@
 
                                         @if(isset($loterias))
 
-
                                         <div class="row">
                                             <div class="input-field col s12 m12 l6">
                                                 <table class="mdl-data-table " id="example2"  cellspacing="0" width="100%">
                                                     <thead><tr>
-                                                        <th></th>
-                                                        <th></th>
+                                                            <th COLSPAN="2">LOTERIAS</th>
                                                     </tr></thead>
                                                     <tbody>
                                                     @forelse($loterias as $lv)
@@ -346,9 +344,6 @@
                                         </div>
                                     @endif
 
-                                                {{--<div class="col s12 m4 l2">--}}
-                                                    {{--Loterias--}}
-                                                {{--</div>--}}
 
                                     </div>
                                 </div>
