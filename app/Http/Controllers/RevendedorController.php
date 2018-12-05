@@ -774,7 +774,7 @@ public function createRevendedor($ideven){
                 }
 
 
-//                $valor = Terminal::all();
+                $valor = Terminal::where( ['TERMINAL.IDBASE' => $idbase, 'TERMINAL.IDVEN' => $idven, 'TERMINAL.IDREVEN'=> $idreven])->get();
 //
 //
 //                dd($valor);

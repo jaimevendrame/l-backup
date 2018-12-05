@@ -168,8 +168,15 @@
                                         <div class="row">
                                             <div class="input-field col s12 m6 l4">
                                                 <select name="sitreven">
-                                                    <option value="ATIVO" selected>ATIVO</option>
-                                                    <option value="INATIVO">INATIVO</option>
+                                                    @if(isset($dados))
+                                                    <option value="ATIVO" {{ $dados->sitreven == 'ATIVO'  ? 'selected' : '' }} >ATIVO</option>
+                                                    <option value="INATIVO" {{ $dados->sitreven == 'INATIVO'  ? 'selected' : '' }} >INATIVO</option>
+                                                    <option value="BLOQUEADO" {{ $dados->sitreven == 'BLOQUEADO'  ? 'selected' : '' }} >BLOQUEADO</option>
+                                                        @else
+                                                        <option value="ATIVO" selected >ATIVO</option>
+                                                        <option value="INATIVO" >INATIVO</option>
+                                                        <option value="BLOQUEADO"  >BLOQUEADO</option>
+                                                        @endif
                                                 </select>
                                                 <label>Situação</label>
                                                 @if ($errors->has('sitreven'))
