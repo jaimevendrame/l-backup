@@ -13,6 +13,7 @@ use lotecweb\Http\Requests;
 use lotecweb\Models\Usuario;
 use lotecweb\Models\Usuario_ven;
 use lotecweb\Models\Vendedor;
+use lotecweb\Models\Terminal;
 
 class RevendedorController extends StandardController
 {
@@ -710,8 +711,7 @@ public function createRevendedor($ideven){
             $newDateInicial = $dataAlteracao->createFromFormat('d/m/Y', $datalt);
             $datalt = $newDateInicial->format('Y/m/d');
         }
-
-
+//        dd($datalt);
 //        $idreven = $this->returnRevendedor($idbase, $idven);
 //        $idereven = $this->returnIdReven();
 //        $idusualt = 1000;
@@ -749,22 +749,37 @@ public function createRevendedor($ideven){
 
         ];
 
+        $inativo = 'INATIVO';
+        $p_format = "'yyyy/mm/dd'";
+        $data_h = "'$datalt'";
+
         $update = DB::table('REVENDEDOR')->where('idereven', $idereven)->update($dados_array);
 
-//            if($update){
+            if($update){
 //                if ($sitreven == 'INATIVO'){
-//                    $update_terminal = DB::table('TERMINAL')
-//                        ->where([
-//                            ['TERMINAL.IDBASE', $idbase],
-//                            ['TERMINAL.IDVEN', $idven],
-//                            ['TERMINAL.IDREVEN', $idreven]
-//                        ])->update([
-//                            ['SITTER' => 'INATIVO'],
-//                            ['DATALT' => "$datalt"],
-//                            ['IDUSUALT' => $idusucad]
-//                        ]);
+//                    $update_terminal = DB::update(DB::RAW('update TERMINAL set SITTER = '."INATIVO".',
+//                DATALT = TO_DATE('.$data_h.', '.$p_format.'), IDUSUALT = '.$idusucad.'
+//                where TERMINAL.IDBASE ='. $idbase .' and TERMINAL.IDVEN ='. $idven .' and TERMINAL.IDREVEN ='. $idreven)
+//                    );
 //                }
-//            }
+
+                if ($sitreven == 'INATIVO'){
+                    $update_terminal = Terminal::where(
+                        ['TERMINAL.IDBASE' => $idbase, 'TERMINAL.IDVEN' => $idven, 'TERMINAL.IDREVEN'=> $idreven])
+                        ->update([
+                            'SITTER' => 'INATIVO',
+                            'DATALT' => $datalt,
+                            'IDUSUALT' => $idusucad
+                            ]);
+                }
+
+
+//                $valor = Terminal::all();
+//
+//
+//                dd($valor);
+            }
+
 
 
 
