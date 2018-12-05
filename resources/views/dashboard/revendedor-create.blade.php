@@ -257,18 +257,18 @@
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s12 m6 l6">
-                                                <input id="datcad" type="text" class="datepicker" name="datcad" value="{{ $dados->datcad  or \Carbon\Carbon::now()->format('d/m/Y')}}">
-
-                                                <label class="active" for="datcad">Data Cadastro</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="input-field col s12 m6 l6">
                                                 <select name="in_impapo">
                                                     <option value="SIM">SIM</option>
                                                     <option value="NAO" selected>NÃO</option>
                                                 </select>
                                                 <label>Permissão Reimprimir Aposta</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <input id="datcad" type="text" class="datepicker" name="datcad" value="{{ $dados->datcad  or \Carbon\Carbon::now()->format('d/m/Y')}}">
+
+                                                <label class="active" for="datcad">Data Cadastro</label>
                                             </div>
                                         </div>
                                         <div class="row">
