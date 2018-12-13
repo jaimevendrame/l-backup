@@ -360,7 +360,7 @@
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
-                            </form>{{-- end form --}}
+                            </form>{{-- end form !--}}
                         </div>
                 </div>
             </div>
