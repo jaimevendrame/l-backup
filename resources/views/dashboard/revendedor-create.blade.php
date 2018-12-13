@@ -11,7 +11,7 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <h4>Cadastro de Revendedor</h4>
+                        <h4>Cadastro de Revendedor:</h4>
                         <div class="row">
                             @if(isset($dados))
                                 <form method="post" action="/admin/revendedor/update/{{$ideven}}/{{$dados->idereven}}" class="col m12">
