@@ -7,7 +7,7 @@
                 <div class="card">
 
                     <div class="card-content blue-grey darken-2">
-                        <span class="card-title center white-text"><b>Movimentar Caixa:</b></span>
+                        <span class="card-title center white-text"><b>Movimentar Caixa:*</b></span>
                         <div class="card-action">
                             @if(!empty($data))
                                 @forelse($data as $s)
