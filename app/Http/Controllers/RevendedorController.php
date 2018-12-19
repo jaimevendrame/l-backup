@@ -471,7 +471,7 @@ public function createRevendedor($ideven){
                       VEN_LOTERIA.IDBASE = '$p->idbase' AND
                       VEN_LOTERIA.IDVEN = '$p->idven'
                 ORDER BY LOTERIAS.DESLOT               
-        ");
+            ");
             foreach ($ven_loterias as $vl) {
                 $v = [
                     "idbase" => $vl->idbase,
@@ -481,15 +481,77 @@ public function createRevendedor($ideven){
                     "sitlig" => $vl->sitlig,
                 ];
 
-
-
                 array_push($dados, $v);
 
     //            dd($v);
-
                 $insert = DB::table('REVEN_LOTERIA')->insert($v);
 
+                //douglas
+                if ($insert){
+                   if ($vl->sitlig = 'ATIVO'){
+                       $ven_hor_apo = DB::select("
+                       SELECT VEN_HOR_APO.IDBASE,VEN_HOR_APO.IDVEN,VEN_HOR_APO.IDLOT,VEN_HOR_APO.IDHOR, '$idreven' as IDREVEN,
+                              VEN_HOR_APO.SITLIG, HOR_APOSTA.HORLIM
+                          FROM VEN_HOR_APO
+                           INNER JOIN HOR_APOSTA ON HOR_APOSTA.IDLOT = VEN_HOR_APO.IDLOT AND
+                                                    HOR_APOSTA.IDHOR = VEN_HOR_APO.IDHOR
+                          WHERE
+                            VEN_HOR_APO.IDBASE = '$p->idbase' AND
+                            VEN_HOR_APO.IDVEN = '$p->idven' AND
+                            VEN_HOR_APO.SITLIG = 'ATIVO' AND
+                            HOR_APOSTA.SITHOR = 'ATIVO' AND
+                            VEN_HOR_APO.IDLOT = '$vl->idlot'
+                            ORDER BY HOR_APOSTA.HORSOR
+                       ");
+                       foreach ($ven_hor_apo as $vha) {
+                          $h = [
+                            "idbase" => $vha->idbase,
+                            "idven" => $vha->idven,
+                            "idreven" => $vha->idreven,
+                            "idlot" => $vha->idlot,
+                            "idhor" => $vha->idhor,
+                            "sitlig" => $vha->sitlig,  
+                            "horlim" => $vha->horlim,
+                            "datcad" => $datcad, 
+                            "idusucad" => $idusucad,
+                            "datalt" => $datalt, 
+                            "idusualt" => $idusualt,
+                          ];
+                          //array_push($dados_hor, $h);
+                          $insert = DB::table('REVEN_HOR_APO')->insert($h);
+                       }
+                   }
+                }
             }
+           //agora as modalidades 
+           $ven_tipo_apo = DB::select("
+           SELECT VEN_TIPO_APO.IDBASE, VEN_TIPO_APO.IDVEN, VEN_TIPO_APO.IDTIPOAPO, VEN_TIPO_APO.SITLIG, '$idreven' as IDREVEN
+               FROM VEN_TIPO_APO
+            INNER JOIN TIPO_APOSTA ON TIPO_APOSTA.IDTIPOAPO = VEN_TIPO_APO.IDTIPOAPO
+              WHERE
+                TIPO_APOSTA.SITTIPOAPO = 'ATIVO' AND
+                VEN_TIPO_APO.SITLIG = 'ATIVO' AND
+                VEN_TIPO_APO.IDBASE = '$p->idbase' AND
+                VEN_TIPO_APO.IDVEN = '$p->idven'
+                ORDER BY VEN_TIPO_APO.IDTIPOAPO           
+           ");
+           foreach ($ven_tipo_apo as $vta) {
+            $tp = [
+              "idbase" => $vta->idbase,
+              "idven" => $vta->idven,
+              "idreven" => $vta->idreven,
+              "idtipoapo" => $vta->idtipoapo,
+              "sitlig" => $vta->sitlig,  
+              "datcad" => $datcad, 
+              "idusucad" => $idusucad,
+              "datalt" => $datalt, 
+              "idusualt" => $idusualt,
+              "vlrcom" => 1,
+              "vlrpagpre" => 1,
+            ];
+            
+            $insert = DB::table('REVEN_TIPO_APO')->insert($tp);
+         }
 
         }
 
