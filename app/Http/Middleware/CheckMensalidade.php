@@ -33,8 +33,8 @@ class CheckMensalidade
             $dataAtual = date ("Y-m-d");
 //            dd($d);
             if ($d != Null){
-                // Verifica validade da mensalidade
-                if ( $d->datpro <= $dataAtual )
+                // Verifica validade da mensalidade                
+                if ( $d->datpro <= $dataAtual)
                     return redirect('/expired');
             }
         }

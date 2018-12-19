@@ -6,7 +6,7 @@
     <div class="content">
         <div class="title">Acesso Bloqueado.</div>
         {{--<h1>error 403</h1>--}}
-        <a class="btn" href="../">tentar novamente</a>
+        <a class="btn" href="../">tentar novamente.</a>
         <div>
             <a href="{{ env('URL_ADMIN_LOGOUT') }}"
                onclick="event.preventDefault();

@@ -315,7 +315,7 @@
                                     <div class="card-content">
                                         <span class="card-title center"><b>Aviso</b></span>
                                         <p class="flow">Sua mensalidade venceu em: <b>{{Carbon\Carbon::parse($validaMesalidade->datven)->format('d/m/Y')}}</b>.</p>
-                                        <p class="flow">Evite o bloquei do acesso efetuando o pagamento até o dia: <b>{{Carbon\Carbon::parse($validaMesalidade->datpro)->modify('-1 day')->format('d/m/Y')}}</b>.</p>
+                                        <p class="flow">Evite o bloqueio do acesso efetuando o pagamento até o dia: <b>{{Carbon\Carbon::parse($validaMesalidade->datpro)->modify('-1 day')->format('d/m/Y')}}</b>.</p>
                                         <p class="flow">Para maiores informações falar com setor financeiro</p>
                                         <p class="flow">Data para bloquieio: <b>{{Carbon\Carbon::parse($validaMesalidade->datpro)->format('d/m/Y')}}</b></p>
                                         <p></p>
