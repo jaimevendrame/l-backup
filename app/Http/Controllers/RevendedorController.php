@@ -450,8 +450,6 @@ public function createRevendedor($ideven){
 //        dd($dados_array);
 
         $insert = DB::table('REVENDEDOR')->insert($dados_array);
-
-
 //        dd($insert);
 
 
@@ -551,13 +549,40 @@ public function createRevendedor($ideven){
             ];
             
             $insert = DB::table('REVEN_TIPO_APO')->insert($tp);
-         }
+          }
+
+          //menu de modalidades
+          $ven_menuapoter = DB::select("
+          SELECT VEN_MENUAPOTER.IDBASE, VEN_MENUAPOTER.IDVEN, VEN_MENUAPOTER.IDMENU, VEN_MENUAPOTER.VLRLIMPALPOFFF, 
+                 VEN_MENUAPOTER.IDTIPOAPOMAIOR, MENUAPO_TER.IDMENUCOMB, VEN_MENUAPOTER.SITLIG , '$idreven' as IDREVEN
+            FROM VEN_MENUAPOTER
+             INNER JOIN MENUAPO_TER ON MENUAPO_TER.IDMENU = VEN_MENUAPOTER.IDMENU
+            WHERE
+               MENUAPO_TER.SITMENU = 'ATIVO' AND
+               VEN_MENUAPOTER.SITLIG = 'ATIVO' AND
+               VEN_MENUAPOTER.IDBASE = '$p->idbase' AND
+               VEN_MENUAPOTER.IDVEN = '$p->idven'
+               ORDER BY MENUAPO_TER.ORDAPR
+          ");
+
+          foreach ($ven_menuapoter as $vma) {
+            $ma = [
+                "idbase" => $vma->idbase,
+                "idven" => $vma->idven,
+                "idreven" => $vma->idreven,
+                "idmenu" => $vma->idmenu,
+                "vlrmaxpalp" => 1,
+                "vlrlimpalpofff" => $vma->vlrlimpalpofff,
+                "idtipoapomaior" => $vma->idtipoapomaior,
+                "sitlig" => $vma->sitlig,
+                "datcad" => $datcad, 
+                "idusucad" => $idusucad,
+            ];
+
+            $insert = DB::table('REVEN_MENUAPOTER')->insert($ma);
 
         }
-
-
-
-
+      }
 
         if($insert)
             return redirect("/admin/revendedor/create/{$ideven}")
@@ -566,10 +591,9 @@ public function createRevendedor($ideven){
             return redirect()
                 ->route("revendedor-create")
                 ->withErrors(['errors' => 'Falha ao cadastrar'])
-                ->withInput();
-
-
+                ->withInput(); 
     }
+
 
     public function  returnRevendedor($idbase, $idven){
 
