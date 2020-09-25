@@ -212,7 +212,7 @@
                                 @endif
                             </div>
                         @else
-                        <p>Nenhum registro encontrado!</p>
+                        <p>Nenhum registro encontradocat!</p>
                         @endif
                     </div>
 

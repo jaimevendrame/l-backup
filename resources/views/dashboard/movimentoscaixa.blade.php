@@ -332,6 +332,7 @@
             </div>
 
 
+
         </div>
         <div class="modal-footer">
             {{--<a href="#!" class=" btn modal-action  waves-effect waves-green" onclick="enviarDados()">Salvar Movimento</a>--}}
